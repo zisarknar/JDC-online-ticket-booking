@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.solt.jdc.boot.domains.Station;
+import com.solt.jdc.boot.services.AddressService;
 import com.solt.jdc.boot.services.StationService;
 
 @Controller
@@ -21,11 +22,15 @@ import com.solt.jdc.boot.services.StationService;
 public class StationController {
 	@Autowired
 	private StationService stationService;
+	
+	@Autowired
+	private AddressService addressService;
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addStationGET(Model model) {
 		Station station = new Station();
 		model.addAttribute("station", station);
+		model.addAttribute("addresses",addressService.getAllAddress());
 		return "addStation";
 	}
 
@@ -50,6 +55,7 @@ public class StationController {
 	@RequestMapping(value = "/update/{stationId}", method = RequestMethod.GET)
 	public String updateStationGET(@PathVariable("stationId") int stationId, Model model) {
 		model.addAttribute("station", stationService.findById(stationId));
+		model.addAttribute("addresses",addressService.getAllAddress());
 		return "updateStationForm";
 	}
 
