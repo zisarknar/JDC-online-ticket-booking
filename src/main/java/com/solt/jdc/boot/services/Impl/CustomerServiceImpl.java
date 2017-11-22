@@ -18,13 +18,14 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerRepository = customerRepository;
     }
 
+
     @Override
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
     @Override
-    public int getCustomersCount() {
-        return (int) customerRepository.count();
+    public Customer getCustomer(int id) {
+        return customerRepository.getOne(id);
     }
 }
