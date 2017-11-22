@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="#" th:action="@{/bustype/add}" th:object="${busType}" method="post">
+		<label >Bus Type</label>
+		<input type="text" th:field="*{type}"/>
+		<input type="submit"/>
+	</form>
+</body>
+</html>
