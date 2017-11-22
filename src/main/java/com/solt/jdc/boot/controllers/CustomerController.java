@@ -30,4 +30,14 @@ public class CustomerController {
         return "admin/customer/index";
     }
 
+
+    @RequestMapping("/master")
+    public String getMaster(){
+        return "admin/master";
+    }
+
+    @RequestMapping("/login")
+    public String getLogin(){
+        return "admin/login";
+    }
 }
