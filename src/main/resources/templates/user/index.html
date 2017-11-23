@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>Account List</h3>
+	<a th:href="@{/user/add}">Add New User</a>
+	<table border="1" cellpedding="2" cellspacing="2">
+		<tr>
+			<th>Id</th>
+			<th>UserName</th>
+			<th>Password</th>
+			<th>FirstName</th>
+			<th>LastName</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Role</th>
+			<th>Status</th>
+			
+		</tr>
+		<tr th:each="user,iterState: ${users}">	
+			<td th:text="${user.id}"></td>
+			<td th:text="${user.userName}"></td>
+			<td th:text="${user.password}"></td>
+			<td th:text="${user.firstName}"></td>
+			<td th:text="${user.lastName}"></td>
+			<td th:text="${user.email}"></td>
+			<td th:text="${user.phone}"></td>
+			<td th:text="${user.role}"></td>
+			<td th:text="${user.status}"></td>
+			
+			
+			<td>
+				<a th:href="${'/user/edit/'+user.id}"> Edit </a> | 
+				<a th:href="${'/user/delete/'+user.id}" onclick="return confirm('Are you sure to delete ?')"> Delete</a>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
