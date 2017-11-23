@@ -18,7 +18,6 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerRepository = customerRepository;
     }
 
-
     @Override
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
@@ -27,5 +26,20 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getCustomer(int id) {
         return customerRepository.getOne(id);
+    }
+
+    @Override
+    public void saveCustomer(Customer customer) {
+        customerRepository.saveAndFlush(customer);
+    }
+
+    @Override
+    public void deleteCustomer(int id) {
+        customerRepository.delete(id);
+    }
+
+    @Override
+    public Customer updateCustomer(Customer customer) {
+        return customerRepository.saveAndFlush(customer);
     }
 }

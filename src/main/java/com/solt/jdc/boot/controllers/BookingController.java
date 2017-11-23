@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
 public class BookingController {
 
     private BookingService bookingService;
@@ -29,4 +28,6 @@ public class BookingController {
         model.addAttribute("booking", bookingService.getBooking(bookingId));
         return "admin/booking/index";
     }
+
+
 }
