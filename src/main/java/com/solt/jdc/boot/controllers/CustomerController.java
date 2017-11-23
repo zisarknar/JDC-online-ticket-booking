@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-
 public class CustomerController {
 
     private CustomerService customerService;
@@ -42,7 +41,7 @@ public class CustomerController {
     @RequestMapping(value = "/customers/add" ,method = RequestMethod.POST)
     public String processAddCustomer(@ModelAttribute ("newCustomer") Customer customer){
         customerService.saveCustomer(customer);
-        return "redirect:/admin/customer/index";
+        return "redirect:/customers";
     }
 
     @RequestMapping(value = "/customer/update/{id}", method = RequestMethod.GET)
@@ -59,11 +58,12 @@ public class CustomerController {
         currentCustomer.setFirstName(updatedCustomer.getFirstName());
         currentCustomer.setLastName(updatedCustomer.getLastName());
         currentCustomer.setEmail(updatedCustomer.getEmail());
+        currentCustomer.setPhone(updatedCustomer.getPhone());
         currentCustomer.setPassword(updatedCustomer.getPassword());
         currentCustomer.setNrcNumber(updatedCustomer.getNrcNumber());
         currentCustomer.setDeactivated(updatedCustomer.isDeactivated());
         customerService.updateCustomer(currentCustomer);
-        return "redirect:/admin/customer/index";
+        return "redirect:/customers";
     }
 
     @RequestMapping("/customer/delete/{id}")

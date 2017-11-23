@@ -56,34 +56,34 @@
             </div>
         </nav>
     </header>
+
+
+    <!--Sidebar-->
+    <aside class="main-sidebar" th:replace="fragments/sidebar :: sidebar"/>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header" layout:fragment="header">
+            <h1>
+                Dashboard
+                <small>Control panel</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </section>
+
+        <section class="content" layout:fragment="content">
+
+        </section>
+    </div>
+
+    <!--Footer-->
+    <footer class="main-footer" th:replace="fragments/footer :: footer"/>
+
 </div> <!--End of wrapper-->
-
-<!--Sidebar-->
-<aside class="main-sidebar" th:replace="fragments/sidebar :: sidebar"/>
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header" layout:fragment="header">
-        <h1>
-            Dashboard
-            <small>Control panel</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
-        </ol>
-    </section>
-
-    <section class="content" layout:fragment="content">
-
-    </section>
-</div>
-
-<!--Footer-->
-<footer class="main-footer" th:replace="fragments/footer :: footer"/>
-
-
 <!-- jQuery 3 -->
 <script th:src="@{/components/jquery/dist/jquery.min.js}"></script>
 <!-- Bootstrap 3.3.7 -->

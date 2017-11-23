@@ -45,14 +45,23 @@ public class TripController {
         return "redirect:/trips";
     }
 
-    @RequestMapping(value = "/trips/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/trip/update/{id}", method = RequestMethod.GET)
     public String updateTrip(@PathVariable("id") int tripId, Model model) {
         model.addAttribute("trip", tripService.getTrip(tripId));
         return "admin/trip/update";
     }
 
-    @RequestMapping(value = "/trips/update/{id}", method = RequestMethod.POST)
-    public String processUpdateTrip(@ModelAttribute("trip") Trip trip, @PathVariable("id") int tripId){
+    @RequestMapping(value = "/trip/update/{id}", method = RequestMethod.POST)
+    public String processUpdateTrip(@ModelAttribute("trip") Trip updatedTrip, @PathVariable("id") int tripId){
+        Trip currentTrip = tripService.getTrip(tripId);
+        currentTrip.setBooking(updatedTrip.getBooking());
+        currentTrip.setBusId(updatedTrip.getBusId());
+        currentTrip.setDepTime(updatedTrip.getDepTime());
+        currentTrip.setEstTime(updatedTrip.getEstTime());
+        currentTrip.setTripCode(updatedTrip.getTripCode());
+        currentTrip.setStatus(updatedTrip.isStatus());
+        currentTrip.setUnitPrice(updatedTrip.getUnitPrice());
+        tripService.updateTrip(currentTrip);
         return "redirect:/trips";
     }
 

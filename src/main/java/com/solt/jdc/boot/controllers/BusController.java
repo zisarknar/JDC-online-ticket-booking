@@ -26,10 +26,9 @@ public class BusController {
 	public String addBusGET(Model model) {
 		Bus bus = new Bus();
 		model.addAttribute("bustypes", busTypeService.getAllBusTypes());
-
 		model.addAttribute("bus", bus);
-
 		return "admin/bus/addBus";
+
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
