@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.solt.jdc</groupId>
-	<artifactId>jdc-online-ticket-booking</artifactId>
+	<artifactId>jdc-online-ticket-Booking</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>jdc-online-ticket-booking</name>
+	<name>jdc-online-ticket-Booking</name>
 	<description>FP for One Stop Java Class</description>
 
 	<parent>
@@ -54,6 +54,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+<<<<<<< HEAD
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
@@ -62,6 +63,21 @@
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
+=======
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>com.github.dandelion</groupId>
+            <artifactId>datatables-thymeleaf</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.dandelion</groupId>
+            <artifactId>dandelion-thymeleaf</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+>>>>>>> 468a812c1aba098c018af20964ded111781c4aaf
 	</dependencies>
 
 	<build>

@@ -19,6 +19,8 @@ target/
 nbproject/private/
 build/
 nbbuild/
-dist/
 nbdist/
 .nb-gradle/
+
+###database Connection##
+.application.properties

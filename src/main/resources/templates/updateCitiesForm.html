@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<form th:action="${'/cities/update/'+cities.id}" th:object="${cities}"
+		method="post">
+		Name:<input type="text" th:field="*{name}" /> <input type="submit" />
+	</form>
+</body>
+</html>
