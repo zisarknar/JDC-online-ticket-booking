@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RestController
+
 public class CustomerController {
 
     private CustomerService customerService;
