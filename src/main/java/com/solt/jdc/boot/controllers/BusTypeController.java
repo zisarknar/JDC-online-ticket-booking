@@ -23,7 +23,7 @@ public class BusTypeController {
 	public String addBusTypeGet(Model model) {
 		BusType busType = new BusType();
 		model.addAttribute("busType", busType);
-		return "addBusType";
+		return "admin/bustypes/addBusType";
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
@@ -35,7 +35,7 @@ public class BusTypeController {
 	@RequestMapping(value="/bustypes")
 	public String getAllBusTypes(Model model) {
 		model.addAttribute("bustypes",busTypeService.getAllBusTypes());
-		return "bustypes";
+		return "admin/bustypes/index";
 	}
 	
 	@RequestMapping(value="/delete/{busTypeId}")
@@ -48,7 +48,7 @@ public class BusTypeController {
 	@RequestMapping(value="/update/{busTypeId}",method=RequestMethod.GET)
 	public String updateBusGet(Model model,@PathVariable("busTypeId")int busTypeId) {
 		model.addAttribute("bustype", busTypeService.findById(busTypeId));
-		return "updateform";
+		return "admin/bustypes/updateform";
 	}
 	
 	@RequestMapping(value="/update/{busTypeId}",method=RequestMethod.POST)

@@ -22,7 +22,7 @@ public class CitiesController {
 	public String addCityGET(Model model) {
 		Cities cities = new Cities();
 		model.addAttribute("cities", cities);
-		return "addCities";
+		return "admin/cities/addCities";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -34,7 +34,7 @@ public class CitiesController {
 	@RequestMapping("/allcities")
 	public String getAllCities(Model model) {
 		model.addAttribute("allcities", citiesService.getAllCities());
-		return "allcities";
+		return "admin/cities/index";
 	}
 
 	@RequestMapping("/delete/{citiesId}")
@@ -46,7 +46,7 @@ public class CitiesController {
 	@RequestMapping(value = "/update/{citiesId}", method = RequestMethod.GET)
 	public String updateCitiesGET(Model model,@PathVariable("citiesId")int citiesId) {
 		model.addAttribute("cities",citiesService.findById(citiesId));
-		return "updateCitiesForm";
+		return "admin/cities/updateCitiesForm";
 	}
 	
 	@RequestMapping(value="/update/{citiesId}",method=RequestMethod.POST)

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="master">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Add New Address</title>
+</head>
+<body>
+
+	<section class="content-header" layout:fragment="header">
+		<h1>
+			Address <small>Management panel</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active">Dashboard</li>
+		</ol>
+	</section>
+	<section class="content" layout:fragment="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title pull-right">Add New Address</h3>
+						<a th:href="@{/address/addresses}" class="btn btn-primary"><i
+							class="fa fa-arrow-left"></i> Back</a>
+					</div>
+					<form role="form" th:action="@{/address/add}"
+						th:object="${address}" method="post">
+						<div class="box-body">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Address Name</label> <input
+									type="text" class="form-control" id="exampleInputEmail1"
+									placeholder="Enter Address" th:field="*{addressName}" />
+							</div>
+							<select class="form-control" th:field="*{cities}">
+								<option value="">Select City</option>
+								<option th:each="cities : ${allcities}" th:value="${cities.id}"
+									th:text="${cities.name}"></option>
+							</select>
+						</div>
+						<!-- /.box-body -->
+
+						<div class="box-footer">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

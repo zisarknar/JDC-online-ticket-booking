@@ -29,7 +29,7 @@ public class BusController {
 
 		model.addAttribute("bus", bus);
 
-		return "addBus";
+		return "admin/bus/addBus";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -42,7 +42,7 @@ public class BusController {
 	@RequestMapping(value="/buses")
 	public String getAllBuses(Model model) {
 		model.addAttribute("buses", busService.getAllBus());
-		return "buses";
+		return "admin/bus/index";
 	}
 	
 	@RequestMapping(value="/delete/{busId}")
@@ -55,7 +55,7 @@ public class BusController {
 	public String updateBusGET(Model model,@PathVariable("busId")int busId) {
 		model.addAttribute("bustypes", busTypeService.getAllBusTypes());
 		model.addAttribute("bus",busService.findById(busId));
-		return "updateBusForm";
+		return "admin/bus/updateBusForm";
 	}
 	
 	@RequestMapping(value="/update/{busId}",method=RequestMethod.POST)
