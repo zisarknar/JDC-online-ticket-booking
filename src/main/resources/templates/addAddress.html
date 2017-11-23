@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="#" th:action="@{/address/add}" th:object="${address}" method="post">
+		Address:<input type="text" th:field="*{addressName}"/><br/>
+		Cities:
+		<select th:field="*{cities}">
+			<option th:each="cities:${allcities}" th:value="${cities.id}" th:text="${cities.name}"/>
+		</select>
+		<br/>
+		<input type="submit"/>
+	</form>
+</body>
+</html>

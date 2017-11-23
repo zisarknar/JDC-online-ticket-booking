@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="#" th:action="@{/services/add}" th:object="${service}" method="post">
+		<input type="text" th:field="*{services}" />
+		<select th:field="*{bus}">
+			<option th:each="bus:${buses}" th:value="${bus.id}" th:text="${bus.busCode}"/>
+		</select>
+		<input type="submit"/>
+	</form>
+</body>
+</html>

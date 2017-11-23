@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Bus Number</th>
+				<th>Bus Company</th>
+				<th>Bus Code</th>
+				<th>Maximum Seats</th>
+				<th>Taken Seats</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="bus:${buses}">
+				<td th:text="${bus.busNumber}"></td>
+				<td th:text="${bus.busCompany}"></td>
+				<td th:text="${bus.busCode}">  </td>
+				<td th:text="${bus.maxSeats}"> </td>
+				<td th:text="${bus.takenSeats}"></td>
+				<td> <a href="#" th:href="${'/bus/delete/'+bus.id}">Delete</a></td>
+				<td> <a href="#" th:href="${'/bus/update/'+bus.id}">Update</a></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
