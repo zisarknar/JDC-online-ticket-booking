@@ -28,4 +28,19 @@ public class TripServiceImpl implements TripService {
     public Trip getTrip(int id) {
         return tripRepository.getOne(id);
     }
+
+    @Override
+    public void saveTrip(Trip trip) {
+        tripRepository.saveAndFlush(trip);
+    }
+
+    @Override
+    public void deleteTrip(int id) {
+        tripRepository.delete(id);
+    }
+
+    @Override
+    public Trip updateTrip(Trip trip) {
+        return tripRepository.saveAndFlush(trip);
+    }
 }
