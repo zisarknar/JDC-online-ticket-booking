@@ -31,7 +31,7 @@ public class StationController {
 		Station station = new Station();
 		model.addAttribute("station", station);
 		model.addAttribute("addresses",addressService.getAllAddress());
-		return "addStation";
+		return "admin/station/addStation";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -43,7 +43,7 @@ public class StationController {
 	@RequestMapping("/stations")
 	public String getAllStations(Model model) {
 		model.addAttribute("stations", stationService.getAllStations());
-		return "stations";
+		return "admin/station/index";
 	}
 
 	@RequestMapping("/delete/{stationId}")
@@ -56,7 +56,7 @@ public class StationController {
 	public String updateStationGET(@PathVariable("stationId") int stationId, Model model) {
 		model.addAttribute("station", stationService.findById(stationId));
 		model.addAttribute("addresses",addressService.getAllAddress());
-		return "updateStationForm";
+		return "admin/station/updateStationForm";
 	}
 
 	@RequestMapping(value = "/update/{stationId}", method = RequestMethod.POST)

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="master">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Add New Service</title>
+</head>
+<body>
+
+	<section class="content-header" layout:fragment="header">
+		<h1>
+			City <small>Management panel</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active">Dashboard</li>
+		</ol>
+	</section>
+	<section class="content" layout:fragment="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title pull-right">Add New Service</h3>
+						<a th:href="@{/services/services}" class="btn btn-primary"><i
+							class="fa fa-arrow-left"></i> Back</a>
+					</div>
+					<form role="form" th:action="@{/services/add}"
+						th:object="${service}" method="post">
+						<div class="box-body">
+							<div class="form-group">
+								<label for="exampleInputEmail1">City Name</label> <input
+									type="text" class="form-control" id="exampleInputEmail1"
+									placeholder="Enter Service" th:field="*{services}" />
+							</div>
+							
+						</div>
+						<!-- /.box-body -->
+
+						<div class="box-footer">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

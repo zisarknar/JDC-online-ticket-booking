@@ -26,7 +26,7 @@ public class AddressController {
 		Address address=new Address();
 		model.addAttribute("address", address);
 		model.addAttribute("allcities",citiesService.getAllCities());
-		return "addAddress";
+		return "admin/address/addAddress";
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
@@ -38,7 +38,7 @@ public class AddressController {
 	@RequestMapping("/addresses")
 	public String getAllAddresses(Model model) {
 		model.addAttribute("addresses", addressService.getAllAddress());
-		return "addresses";
+		return "admin/address/index";
 	}
 	
 	@RequestMapping("/delete/{addressId}")
@@ -51,7 +51,7 @@ public class AddressController {
 	public String updateAddressGET(Model model,@PathVariable("addressId")int addressId) {
 		model.addAttribute("address", addressService.findById(addressId));
 		model.addAttribute("allcities",citiesService.getAllCities());
-		return "updateAddressForm";
+		return "admin/address/updateAddressForm";
 	}
 	
 	@RequestMapping(value="/update/{addressId}",method=RequestMethod.POST)

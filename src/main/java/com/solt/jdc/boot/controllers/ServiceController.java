@@ -28,7 +28,7 @@ public class ServiceController {
 		Services service=new Services();
 		model.addAttribute("service", service);
 		model.addAttribute("buses",busService.getAllBus());
-		return "addService";
+		return "admin/services/addService";
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
@@ -40,7 +40,7 @@ public class ServiceController {
 	@RequestMapping(value="/services")
 	public String getAllServices(Model model) {
 		model.addAttribute("services", servicesService.getAllServices());
-		return "services";
+		return "admin/services/index";
 	}
 	
 	@RequestMapping(value="/delete/{serviceId}")
@@ -53,7 +53,7 @@ public class ServiceController {
 	public String updateServiceGET(Model model,@PathVariable("serviceId")int serviceId) {
 		model.addAttribute("service", servicesService.findById(serviceId));
 		model.addAttribute("buses",busService.getAllBus());
-		return "updateServiceForm";
+		return "admin/services/updateServiceForm";
 	}
 	
 	@RequestMapping(value="/update/{serviceId}",method=RequestMethod.POST)
