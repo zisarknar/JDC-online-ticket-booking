@@ -29,7 +29,7 @@ public class UserController {
 	public String findAllUser(Model model) {
 		
 		model.addAttribute("users",userService.findAll());
-		return "user/index";
+		return "user/userIndex";
 		
 	}
 	
@@ -37,7 +37,7 @@ public class UserController {
 	@RequestMapping(value="add",method=RequestMethod.GET)
 	public String add(ModelMap map) {
 		map.put("user",new User());
-		return "user/add";
+		return "user/userAdd";
 		
 	}
 	
@@ -50,7 +50,7 @@ public class UserController {
 	@RequestMapping(value="edit/{id}",method=RequestMethod.GET)
 	public String edit(@PathVariable("id") int id,Model model) {
 		model.addAttribute("user",userService.find(id));
-		return"user/edit";
+		return "user/userEdit";
 	}
 	
 	@RequestMapping(value="edit",method=RequestMethod.POST)
@@ -71,6 +71,8 @@ public class UserController {
 		if(currentUser.getPassword().isEmpty()) {
 			currentUser.setPassword(user.getPassword());
 		}
+		
+		userService.save(currentUser);
 		
 		return"redirect:../user";
 	}

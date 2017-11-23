@@ -47,7 +47,7 @@ public class User {
 	@Size(min=3,max=100)
 	private String phone;
 
-	@Transient
+	//@Transient
 	private boolean status;
 	
 	@Enumerated(EnumType.STRING)

@@ -45,7 +45,9 @@
 					<td>
 						<!-- <input type="text" th:field="*{role}"/> -->
 						<select id="role" class="form-control" th:field="*{role}">
-							<option value="" selected="selected">user</option>
+							<!-- <option value="" selected="selected"> -->
+							<!-- user -->
+							<!-- </option> -->
 							<option th:each="role:${T(com.solt.jdc.boot.domains.Role).values()}"
 									th:value="${role}"
 									th:text="${role.getRoleName()}"

@@ -38,7 +38,7 @@ public class Driver {
 	private String  email;
 	
 
-	@Transient
+	//@Transient
 	private boolean status;
 	
 	@Enumerated(EnumType.STRING)
