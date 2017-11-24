@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.solt.jdc.boot.domains.Driver;
 import com.solt.jdc.boot.repositories.DriverRepository;
+import com.solt.jdc.boot.services.DriverService;
 
 @Service
 @Transactional
@@ -36,6 +37,12 @@ public class DriverServiceImpl implements DriverService {
 	public void delete(Driver driver) {
 		driverRepository.delete(driver);
 
+	}
+
+	@Override
+	public void update(Driver driver) {
+		driverRepository.save(driver);
+		
 	}
 
 }
