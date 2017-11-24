@@ -31,6 +31,7 @@ public class CitiesController {
 		return "redirect:/cities/allcities";
 	}
 
+	
 	@RequestMapping("/allcities")
 	public String getAllCities(Model model) {
 		model.addAttribute("allcities", citiesService.getAllCities());

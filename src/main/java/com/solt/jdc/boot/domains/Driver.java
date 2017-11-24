@@ -39,17 +39,17 @@ public class Driver {
 	
 
 	//@Transient
-	private boolean status;
+	private boolean status=true;
 	
 	@Enumerated(EnumType.STRING)
-	private Role driverRole;
+	private DriverRole driverRole;
 	
 	
 	public Driver() {
 		
 	}
 
-	public Driver(String name, String code, String phone, String email, boolean status, Role driverRole) {
+	public Driver(String name, String code, String phone, String email, boolean status, DriverRole driverRole) {
 		this.name = name;
 		this.code = code;
 		this.phone = phone;
@@ -128,11 +128,11 @@ public class Driver {
 		this.status = status;
 	}
 
-	public Role getDriverRole() {
+	public DriverRole getDriverRole() {
 		return driverRole;
 	}
 
-	public void setDriverRole(Role driverRole) {
+	public void setDriverRole(DriverRole driverRole) {
 		this.driverRole = driverRole;
 	}
 	
