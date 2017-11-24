@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="master">
+<head>
+	<meta charset="UTF-8"></meta>
+	<title>Edit driver</title>
+</head>
+<body>
+
+<section class="content-header" layout:fragment="header">
+	<h1>
+		Driver <small>Management panel</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li class="active">Dashboard</li>
+	</ol>
+</section>
+<section class="content" layout:fragment="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title pull-right">Add New Customer</h3>
+					<a th:href="@{/driver}" class="btn btn-primary"><i
+							class="fa fa-arrow-left"></i> Back</a>
+				</div>
+				<form role="form" th:action="@{/driver/edit}" method="post"
+					  th:object="${driver}">
+
+					<div class="box-body">
+
+					
+					
+							<div class="form-group">
+
+								<label for="driverCode">driver Code</label> <input type="text"
+									class="form-control" id="driverCode"
+									placeholder="Enter driver Code" th:field="*{code}" />
+							</div>
+
+							<div class="form-group">
+								<label for="driverName">Name</label> <input
+									type="text" class="form-control" id="driverName"
+									placeholder="Enter Name" th:field="*{name}" />
+							</div>
+
+							
+							<div class="form-group">
+								<label for="driverEmail">Email address</label> <input type="email"
+									class="form-control" id="driverEmail" placeholder="Enter  your email"
+									th:field="*{email}" />
+							</div>
+
+							<div class="form-group">
+								<label for="phoneNumber">Phone</label> <input type="text"
+									class="form-control" id="phoneNumber" placeholder="Enter phone number"
+									th:field="*{phone}" />
+							</div>
+
+
+							<div class="form-group">
+								<label>Role</label> <select id="role" class="form-control"
+									th:field="*{driverRole}">
+									<option
+										th:each="driverRole:${T(com.solt.jdc.boot.domains.DriverRole).values()}"
+										th:value="${driverRole}" th:text="${driverRole.getRoleName()}"></option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="driverStatus">Status</label> <input type="radio"
+									id="driverStatus" value="true" th:checked="*{status}" />Yes <input
+									type="radio" id="driverStatus" value="false"
+									th:checked="*{status}==false" />No
+
+							</div>
+
+
+					
+					
+					
+					</div>
+					<!-- /.box-body -->
+
+					<div class="box-footer">
+						<button type="submit" class="btn btn-primary">Submit</button>
+
+							<input type="hidden" th:field="*{id}"/>
+
+
+					</div>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+</body>
+</html>
+
+

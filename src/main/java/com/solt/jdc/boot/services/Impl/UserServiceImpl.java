@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.solt.jdc.boot.domains.User;
 import com.solt.jdc.boot.repositories.UserRepository;
+import com.solt.jdc.boot.services.UserService;
 
 @Service
 @Transactional
@@ -34,6 +35,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(User user) {
 		userRepository.delete(user);
+		
+	}
+
+	@Override
+	public void update(User user) {
+		userRepository.save(user);
 		
 	}
 	

@@ -21,22 +21,23 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="user_name",nullable=false)
-	@NotBlank(message="User Name cannot be empty")
-	@NotNull
-	@Size(min=3,max=100)
+	//@Column(name="user_name",nullable=false)
+	
+	//@NotBlank(message="User Name cannot be empty")
+	//@NotNull
+	//@Size(min=3,max=100)
 	private String userName;
 
 	@NotNull
-	@Size(min=3,max=100)
+	//@Size(min=3,max=100)
 	private String password;
 
 	@NotNull
-	@Size(min=3,max=100)
+	//@Size(min=3,max=100)
 	private String firstName;
 
 	@NotNull
-	@Size(min=3,max=100)
+	//@Size(min=3,max=100)
 	private String lastName;
 
 	@NotNull
@@ -48,7 +49,7 @@ public class User {
 	private String phone;
 
 	//@Transient
-	private boolean status;
+	private boolean status=true;
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -159,8 +160,5 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	
-	
-	
-	
+		
 }
