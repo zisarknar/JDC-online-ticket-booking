@@ -28,28 +28,32 @@
                     <a th:href="@{/bookings/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
                 </div>
                 <div class="box-body">
-                    <table id="customer" class="table table-bordered table-hover" dt:table="true">
+                    <table id="booking" class="table table-bordered table-hover" dt:table="true">
                         <thead>
                         <tr>
                             <th>Id</th>
-                            
+                            <th>Book Date</th>
+                            <th>No of Seats</th>
+                            <th>Reg Code</th>
+                            <th>Customer</th>
+                            <th>Bus</th>
+                            <th>Total Amount</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="booking : ${bookings}">
-                            <td th:text="${customer.id}"></td>
-                            <td th:text="${customer.username}"></td>
-                            <td th:text="${customer.password}"></td>
-                            <td th:text="${customer.firstName}"></td>
-                            <td th:text="${customer.lastName}"></td>
-                            <td th:text="${customer.phone}"></td>
-                            <td th:text="${customer.email}"></td>
-                            <td th:text="${customer.nrcNumber}"></td>
+                            <td th:text="${booking.id}"></td>
+                            <th th:text="${booking.bookDate}"></th>
+                            <th th:text="${booking.noOfSeats}"></th>
+                            <th th:text="${booking.regCode}"></th>
+                            <th th:text="${booking.customer.username}"></th>
+                            <th th:text="${booking.trip.tripCode}"></th>
+                            <th th:text="${booking.totalAmount}"></th>
                             <td>
-                                <a th:href="@{/customer/delete/}+${customer.id}" class="btn btn-danger"><i
+                                <a th:href="@{/booking/delete/}+${booking.id}" class="btn btn-danger"><i
                                         class="fa fa-trash"></i> Delete</a>
-                                <a th:href="@{/customer/update/}+${customer.id}" class="btn btn-info"><i
+                                <a th:href="@{/booking/update/}+${booking.id}" class="btn btn-info"><i
                                         class="fa fa-gear"></i> Edit</a>
                             </td>
                         </tr>

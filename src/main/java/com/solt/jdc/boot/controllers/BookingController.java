@@ -19,16 +19,13 @@ import java.util.List;
 @Controller
 public class BookingController {
 
+    @Autowired
     private BookingService bookingService;
+    @Autowired
     private CustomerService customerService;
+    @Autowired
     private TripService tripService;
 
-    @Autowired
-    public void getBookingService(BookingService bookingService, CustomerService customerService, TripService tripService) {
-        this.bookingService = bookingService;
-        this.customerService = customerService;
-        this.tripService = tripService;
-    }
 
     @RequestMapping("/bookings")
     public String getAllBooking(Model model){
@@ -52,8 +49,8 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/bookings/add", method = RequestMethod.POST)
-    public String processAddBooking(@ModelAttribute ("newBooking") Booking booking){
-        bookingService.saveBooking(booking);
+    public String processAddBooking(@ModelAttribute ("newBooking") Booking newBooking){
+        bookingService.saveBooking(newBooking);
         return "redirect:/bookings";
     }
 
@@ -68,7 +65,13 @@ public class BookingController {
     @RequestMapping(value = "/booking/update/{id}", method = RequestMethod.POST)
     public String processUpdateBooking(@ModelAttribute ("updatedBooking") Booking updatedBooking, @PathVariable ("id") int bookingId){
         Booking currentBooking = bookingService.getBooking(bookingId);
-
+        currentBooking.setNoOfSeats(updatedBooking.getNoOfSeats());
+        currentBooking.setBookDate(updatedBooking.getBookDate());
+        currentBooking.setRegCode(updatedBooking.getRegCode());
+        currentBooking.setTotalAmount(updatedBooking.getTotalAmount());
+        currentBooking.setStatus(updatedBooking.isStatus());
+        currentBooking.setCustomer(updatedBooking.getCustomer());
+        currentBooking.setTrip(updatedBooking.getTrip());
         bookingService.updateBooking(updatedBooking);
         return "redirect:/bookings";
     }

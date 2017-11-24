@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="master">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Update Booking</title>
+</head>
+<body>
+
+<section class="content-header" layout:fragment="header">
+    <h1>
+        Booking
+        <small>Management panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+<section class="content" layout:fragment="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title pull-right">Update Booking</h3>
+                    <a th:href="@{/bookings}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                </div>
+                <form th:object="${updatedBooking}" th:action="@{/booking/update/}+${id}" method="POST">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="regcode">Reg Code</label>
+                            <input type="text" class="form-control" id="regcode" placeholder="Enter Reg Code"
+                                   th:field="*{regCode}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookdate">Book Date</label>
+                            <input type="text" class="form-control" id="bookdate" placeholder="Enter Date "
+                                   th:field="*{bookDate}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="noOfseats">Enter Seats</label>
+                            <input type="number" class="form-control" id="noOfseats" placeholder="Enter no of seats"
+                                   th:field="*{noOfSeats}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="tripId">Trip Id</label>
+                            <select id="tripId" class="form-control" th:field="*{trip}">
+                                <option value="">Select Trip Id</option>
+                                <option th:each="trip : ${allTrip}"
+                                        th:value="${trip.id}"
+                                        th:text="${trip.tripCode}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerId">Customer Id</label>
+                            <select id="customerId" class="form-control" th:field="*{customer}">
+                                <option value="">Select Customer Id</option>
+                                <option th:each="customer : ${allCustomer}"
+                                        th:value="${customer.id}"
+                                        th:text="${customer.username}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="noOfseats">Toal Amount</label>
+                            <input type="number" class="form-control" id="noOfseats" placeholder="Enter no of seats"
+                                   th:field="*{totalAmount}"/>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <input class="btn btn-primary" type="submit" value="Update"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

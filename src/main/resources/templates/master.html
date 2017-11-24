@@ -100,6 +100,15 @@
 <script th:src="@{/components/datatables.net/js/jquery.dataTables.min.js}"></script>
 <script th:src="@{/components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
 
+
+<script>
+    $(document).ready(function() {
+        // get current URL path and assign 'active' class
+        var pathname = window.location.pathname;
+        $('.sidebar-menu > li > a[href="'+pathname+'"]').parent().addClass('active');
+    })
+</script>
+
 <!--Custom Script-->
 <script layout:fragment="myScript">
 
