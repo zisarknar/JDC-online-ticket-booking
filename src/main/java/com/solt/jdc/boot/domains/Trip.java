@@ -116,9 +116,11 @@ public class Trip {
         if (Double.compare(trip.unitPrice, unitPrice) != 0) return false;
         if (busId != trip.busId) return false;
         if (stationId != trip.stationId) return false;
+        if (status != trip.status) return false;
         if (tripCode != null ? !tripCode.equals(trip.tripCode) : trip.tripCode != null) return false;
         if (depTime != null ? !depTime.equals(trip.depTime) : trip.depTime != null) return false;
-        return estTime != null ? estTime.equals(trip.estTime) : trip.estTime == null;
+        if (estTime != null ? !estTime.equals(trip.estTime) : trip.estTime != null) return false;
+        return booking != null ? booking.equals(trip.booking) : trip.booking == null;
     }
 
     @Override
@@ -133,6 +135,8 @@ public class Trip {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + busId;
         result = 31 * result + stationId;
+        result = 31 * result + (status ? 1 : 0);
+        result = 31 * result + (booking != null ? booking.hashCode() : 0);
         return result;
     }
 
