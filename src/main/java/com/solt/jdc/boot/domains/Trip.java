@@ -1,7 +1,10 @@
 package com.solt.jdc.boot.domains;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity (name = "trip")
 public class Trip {
@@ -28,6 +31,13 @@ public class Trip {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "trip")
     private Booking booking;
+    
+   
+    
+    private String source;
+    private String destination;
+    
+   
 
 
     public Trip() {
@@ -104,8 +114,27 @@ public class Trip {
     public void setBooking(Booking booking) {
         this.booking = booking;
     }
+    
+    
 
-    @Override
+  
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -152,4 +181,5 @@ public class Trip {
                 ", stationId=" + stationId +
                 '}';
     }
+    
 }

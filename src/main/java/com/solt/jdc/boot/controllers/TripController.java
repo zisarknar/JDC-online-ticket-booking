@@ -1,10 +1,17 @@
 package com.solt.jdc.boot.controllers;
 
 import com.solt.jdc.boot.domains.Trip;
+
 import com.solt.jdc.boot.services.BusService;
-import com.solt.jdc.boot.services.CustomerService;
 import com.solt.jdc.boot.services.StationService;
+
+import com.solt.jdc.boot.services.CitiesService;
+
 import com.solt.jdc.boot.services.TripService;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +25,12 @@ public class TripController {
 
     @Autowired
     private TripService tripService;
+
+    
+    @Autowired
+    private CitiesService citiesService;
+
+
     @Autowired
     private BusService busService;
     @Autowired
@@ -26,6 +39,8 @@ public class TripController {
     @RequestMapping("/trips")
     public String getAllTrip(Model model) {
         model.addAttribute("trips", tripService.getAllTrips());
+        List<String> testList=citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList());
+        testList.stream().forEach(System.out::println);
         return "admin/trip/index";
     }
 
@@ -39,8 +54,13 @@ public class TripController {
     public String addTrip(Model model) {
         Trip trip = new Trip();
         model.addAttribute("newTrip", trip);
+
         model.addAttribute("allBus", busService.getAllBus());
         model.addAttribute("allStation", stationService.getAllStations());
+
+        model.addAttribute("allcities", citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList()));
+        
+
         return "admin/trip/addNew";
     }
 
@@ -55,6 +75,7 @@ public class TripController {
         model.addAttribute("allBus", busService.getAllBus());
         model.addAttribute("allStation", stationService.getAllStations());
         model.addAttribute("trip", tripService.getTrip(tripId));
+        model.addAttribute("allcities", citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList()));
         return "admin/trip/update";
     }
 
