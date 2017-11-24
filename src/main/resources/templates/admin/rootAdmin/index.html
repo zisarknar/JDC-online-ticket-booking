@@ -2,14 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorator="master" xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 <head>
-    <meta charset=" UTF-8"></meta>
-    <title>Customer</title>
+    <meta charset="UTF-8"/>
+    <title>Root Admin</title>
 </head>
 <body>
 
+
 <section class="content-header" layout:fragment="header">
     <h1>
-        Address
+        Root Admin
         <small>Management panel</small>
     </h1>
     <ol class="breadcrumb">
@@ -17,32 +18,34 @@
         <li class="active">Dashboard</li>
     </ol>
 </section>
-
 <section class="content" layout:fragment="content">
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Address List</h3>
-                    <a th:href="@{/address/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add
-                        New</a>
+                    <h3 class="box-title">Root admin List</h3>
+                    <a th:href="@{/roots/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
                 </div>
                 <div class="box-body">
-                    <table id="customer" class="table table-bordered table-hover" dt:table="true">
+                    <table id="root" class="table table-bordered table-hover" dt:table="true">
                         <thead>
                         <tr>
-                            <th>Address Name</th>
+                            <th>Id</th>
+                            <th>Root name</th>
+                            <th>Root Password</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="address : ${addresses}">
-                            <td th:text="${address.addressName}"></td>
+                        <tr th:each="root : ${roots}">
+                            <td th:text="${root.id}"></td>
+                            <td th:text="${root.rootName}"></td>
+                            <td th:text="${root.rootPassword}"></td>
                             <td>
-                                <a th:href="@{/address/delete/}+${address.id}" class="btn btn-danger"><i
+                                <a th:href="@{/root/delete/}+${root.id}" class="btn btn-danger"><i
                                         class="fa fa-trash"></i> Delete</a>
-                                <a th:href="${'/address/update/'+address.id}" class="btn btn-info"><i
-                                        class="fa fa-trash"></i> Edit</a>
+                                <a th:href="@{/root/update/}+${root.id}" class="btn btn-info"><i
+                                        class="fa fa-gear"></i> Edit</a>
                             </td>
                         </tr>
                         </tbody>
@@ -56,7 +59,7 @@
 <script layout:fragment="myScript">
 
     $(function () {
-        $('#customer').DataTable({
+        $('#root').DataTable({
             'paging': true,
             'lengthChange': true,
             'searching': true,
@@ -66,6 +69,5 @@
         })
     })
 </script>
-
 </body>
 </html>

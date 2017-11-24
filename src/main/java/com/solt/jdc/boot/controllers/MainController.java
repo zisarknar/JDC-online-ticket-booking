@@ -21,4 +21,9 @@ public class MainController {
     public String getIndex() {
         return "admin/index";
     }
+
+
+    protected void test(String msg) {
+        System.out.println(msg);
+    }
 }
