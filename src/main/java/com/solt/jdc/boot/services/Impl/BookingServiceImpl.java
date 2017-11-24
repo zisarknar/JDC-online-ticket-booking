@@ -27,4 +27,21 @@ public class BookingServiceImpl implements BookingService {
     public Booking getBooking(int id) {
         return bookingRepository.getOne(id);
     }
+
+    @Override
+    public void saveBooking(Booking booking) {
+        bookingRepository.saveAndFlush(booking);
+    }
+
+    @Override
+    public void deleteBooking(int id) {
+        bookingRepository.delete(id);
+    }
+
+    @Override
+    public Booking updateBooking(Booking booking) {
+        return bookingRepository.saveAndFlush(booking);
+    }
+
+
 }
