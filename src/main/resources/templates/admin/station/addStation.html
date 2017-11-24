@@ -32,12 +32,20 @@
 							<div class="form-group">
 								<label for="exampleInputEmail1">Station Name</label> <input
 									type="text" class="form-control" id="exampleInputEmail1"
-									placeholder="Enter Station Name" th:field="*{name}" />
-								<label for="exampleInputEmail1">Station Phone Number</label> <input
+									placeholder="Enter Station Name" th:field="*{name}" /> <label
+									for="exampleInputEmail1">Station Phone Number</label> <input
 									type="text" class="form-control" id="exampleInputEmail1"
-									placeholder="Enter Station Phone Number" th:field="*{phoneNumber}" />
+									placeholder="Enter Station Phone Number"
+									th:field="*{phoneNumber}" />
+									
 							</div>
-							
+							<select class="form-control"
+									th:field="*{address}">
+									<option value="">Select Address</option>
+									<option th:each="address : ${addresses}"
+										th:value="${address.id}" th:text="${address.addressName}"></option>
+								</select>
+
 						</div>
 						<!-- /.box-body -->
 
