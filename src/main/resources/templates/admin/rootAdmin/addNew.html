@@ -23,10 +23,10 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title pull-right">Add New Service</h3>
-                    <a th:href="@{/roots}" class="btn btn-primary"><i
+                    <a th:href="@{/admin/roots}" class="btn btn-primary"><i
                             class="fa fa-arrow-left"></i> Back</a>
                 </div>
-                <form role="form" th:action="@{/roots/add}"
+                <form role="form" th:action="@{/admin/roots/add}"
                       th:object="${newRootAdmin}" method="post">
                     <div class="box-body">
                         <div class="form-group">

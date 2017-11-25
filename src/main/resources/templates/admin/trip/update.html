@@ -23,9 +23,9 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title pull-right">Add New Trip</h3>
-                    <a th:href="@{/trips}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                    <a th:href="@{/admin/trips}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
-                <form th:object="${trip}" th:action="@{/trips/update}+${trip.id}" method="POST">
+                <form th:object="${trip}" th:action="@{/admin/trips/update}+${trip.id}" method="POST">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="tripCode">Trip Code</label>

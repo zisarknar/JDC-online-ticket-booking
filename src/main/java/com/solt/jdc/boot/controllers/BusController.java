@@ -14,7 +14,7 @@ import com.solt.jdc.boot.services.BusService;
 import com.solt.jdc.boot.services.BusTypeService;
 
 @Controller
-@RequestMapping("/bus")
+@RequestMapping("/admin")
 public class BusController {
 	@Autowired
 	private BusService busService;
@@ -22,7 +22,7 @@ public class BusController {
 	@Autowired
 	private BusTypeService busTypeService;
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/buses/add", method = RequestMethod.GET)
 	public String addBusGET(Model model) {
 		Bus bus = new Bus();
 		model.addAttribute("bustypes", busTypeService.getAllBusTypes());
@@ -31,7 +31,7 @@ public class BusController {
 
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/buses/add", method = RequestMethod.POST)
 	public String addBusPOST(Model model, @ModelAttribute("bus") Bus newBus) {
 		
 		busService.createBus(newBus);
@@ -44,20 +44,20 @@ public class BusController {
 		return "admin/bus/index";
 	}
 	
-	@RequestMapping(value="/delete/{busId}")
+	@RequestMapping(value="/bus/delete/{busId}")
 	public String deleteBus(@PathVariable("busId")int busId,Model model) {
 		busService.deleteBus(busId);
-		return "redirect:/bus/buses";
+		return "redirect:/admin/buses";
 	}
 	
-	@RequestMapping(value="/update/{busId}",method=RequestMethod.GET)
+	@RequestMapping(value="/bus/update/{busId}",method=RequestMethod.GET)
 	public String updateBusGET(Model model,@PathVariable("busId")int busId) {
 		model.addAttribute("bustypes", busTypeService.getAllBusTypes());
 		model.addAttribute("bus",busService.findById(busId));
 		return "admin/bus/updateBusForm";
 	}
 	
-	@RequestMapping(value="/update/{busId}",method=RequestMethod.POST)
+	@RequestMapping(value="/bus/update/{busId}",method=RequestMethod.POST)
 	public String updateBusPOST(Model model,@ModelAttribute("bus")Bus newBus,@PathVariable("busId")int id) {
 		Bus currentBus=busService.findById(id);
 		currentBus.setBusCode(newBus.getBusCode());
@@ -67,6 +67,6 @@ public class BusController {
 		currentBus.setTakenSeats(newBus.getTakenSeats());
 		currentBus.setBusType(newBus.getBusType());
 		busService.updateBus(currentBus);
-		return "redirect:/bus/buses";
+		return "redirect:/admin/buses";
 	}
 }

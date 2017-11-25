@@ -1,29 +1,24 @@
 package com.solt.jdc.boot.controllers;
 
+import com.solt.jdc.boot.utils.IAuthenticationFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
 
+    @Autowired
+    private IAuthenticationFacade authenticationFacade;
 
-    @RequestMapping("/master")
-    public String getMaster(){
-        return "master";
-    }
-
-    @RequestMapping("/login")
-    public String getLogin(){
-        return "admin/login";
-    }
-
-    @RequestMapping("/")
-    public String getIndex() {
+    @RequestMapping("/admin/")
+    public String getMain(){
         return "admin/index";
     }
 
-
-    protected void test(String msg) {
-        System.out.println(msg);
+    @RequestMapping("/")
+    public String getFront(){
+        return "index";
     }
 }

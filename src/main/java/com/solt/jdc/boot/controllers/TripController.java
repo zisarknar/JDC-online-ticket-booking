@@ -21,16 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/admin")
 public class TripController {
 
     @Autowired
     private TripService tripService;
-
-    
     @Autowired
     private CitiesService citiesService;
-
-
     @Autowired
     private BusService busService;
     @Autowired
@@ -39,7 +36,7 @@ public class TripController {
     @RequestMapping("/trips")
     public String getAllTrip(Model model) {
         model.addAttribute("trips", tripService.getAllTrips());
-        List<String> testList=citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList());
+        List<String> testList = citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList());
         testList.stream().forEach(System.out::println);
         return "admin/trip/index";
     }
@@ -54,13 +51,9 @@ public class TripController {
     public String addTrip(Model model) {
         Trip trip = new Trip();
         model.addAttribute("newTrip", trip);
-
         model.addAttribute("allBus", busService.getAllBus());
         model.addAttribute("allStation", stationService.getAllStations());
-
-        model.addAttribute("allcities", citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList()));
-        
-
+        model.addAttribute("allcities", citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
         return "admin/trip/addNew";
     }
 
@@ -75,12 +68,12 @@ public class TripController {
         model.addAttribute("allBus", busService.getAllBus());
         model.addAttribute("allStation", stationService.getAllStations());
         model.addAttribute("trip", tripService.getTrip(tripId));
-        model.addAttribute("allcities", citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList()));
+        model.addAttribute("allcities", citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
         return "admin/trip/update";
     }
 
     @RequestMapping(value = "/trip/update/{id}", method = RequestMethod.POST)
-    public String processUpdateTrip(@ModelAttribute("trip") Trip updatedTrip, @PathVariable("id") int tripId){
+    public String processUpdateTrip(@ModelAttribute("trip") Trip updatedTrip, @PathVariable("id") int tripId) {
         Trip currentTrip = tripService.getTrip(tripId);
         currentTrip.setBooking(updatedTrip.getBooking());
         currentTrip.setBusId(updatedTrip.getBusId());
@@ -94,7 +87,7 @@ public class TripController {
     }
 
     @RequestMapping("/trip/delete/{id}")
-    public String deleteTrip(@PathVariable ("id") int tripId) {
+    public String deleteTrip(@PathVariable("id") int tripId) {
         tripService.deleteTrip(tripId);
         return "redirect:/trips";
     }

@@ -1,84 +1,87 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="master"
-	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="master"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 <head>
-<meta charset=" UTF-8"></meta>
-<title>Driver</title>
+    <meta charset=" UTF-8"></meta>
+    <title>Driver</title>
 </head>
 <body>
 
-	<section class="content-header" layout:fragment="header">
-		<h1>
-			Driver <small>Management panel</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Dashboard</li>
-		</ol>
-	</section>
+<section class="content-header" layout:fragment="header">
+    <h1>
+        Driver
+        <small>Management panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
 
-	<section class="content" layout:fragment="content">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="box">
-					<div class="box-header">
-						<h3 class="box-title">Driver List</h3>
-						<a th:href="@{/driver/add}" class="btn btn-primary pull-right"><i
-							class="fa fa-plus"></i>Add New Driver</a>
-					</div>
-					<div class="box-body">
-						<table id="driver" class="table table-bordered table-hover"
-							dt:table="true">
-							<thead>
-								<tr>
-									<th>Id</th>
-									<th>Code</th>
-									<th>Name</th>
-									<th>Email</th>
-									<th>Phone</th>
-									<th>Role</th>
-									<th>Status</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="driver,iterState: ${drivers}">
-									<td th:text="${driver.id}"></td>
-									<td th:text="${driver.code }"></td>
-									<td th:text="${driver.name}"></td>
-									<td th:text="${driver.email}"></td>
-									<td th:text="${driver.phone}"></td>
-									<td th:text="${driver.driverRole}"></td>
-									<td th:text="${driver.status}"></td>
+<section class="content" layout:fragment="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Driver List</h3>
+                    <a th:href="@{/admin/drivers/add}" class="btn btn-primary pull-right"><i
+                            class="fa fa-plus"></i>Add New Driver</a>
+                </div>
+                <div class="box-body">
+                    <table id="driver" class="table table-bordered table-hover"
+                           dt:table="true">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="driver,iterState: ${drivers}">
+                            <td th:text="${driver.id}"></td>
+                            <td th:text="${driver.code }"></td>
+                            <td th:text="${driver.name}"></td>
+                            <td th:text="${driver.email}"></td>
+                            <td th:text="${driver.phone}"></td>
+                            <td th:text="${driver.driverRole}"></td>
+                            <td th:text="${driver.status}"></td>
 
 
-									<td><a th:href="@{/driver/delete/}+${driver.id}"
-										class="btn btn-danger"><i class="fa fa-trash" onclick="return confirm('Are you sure to delete ?')"></i>Delete</a> 
-										<a th:href="@{/driver/edit/}+${driver.id}" class="btn btn-info" ><i class="fa fa-trash"></i>
-											Edit</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+                            <td><a th:href="@{/admin/driver/delete/}+${driver.id}"
+                                   class="btn btn-danger"><i class="fa fa-trash"
+                                                             onclick="return confirm('Are you sure to delete ?')"></i>Delete</a>
+                                <a th:href="@{/admin/driver/edit/}+${driver.id}" class="btn btn-info"><i
+                                        class="fa fa-trash"></i>
+                                    Edit</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-	<script layout:fragment="myScript">
-		$(function() {
-			$('#driver').DataTable({
-				'paging' : true,
-				'lengthChange' : true,
-				'searching' : true,
-				'ordering' : true,
-				'info' : true,
-				'autoWidth' : false
-			})
-		})
-	</script>
+<script layout:fragment="myScript">
+    $(function () {
+        $('#driver').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+    })
+</script>
 
 </body>
 </html>

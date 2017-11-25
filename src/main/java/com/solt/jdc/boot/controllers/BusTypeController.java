@@ -13,23 +13,23 @@ import com.solt.jdc.boot.domains.BusType;
 import com.solt.jdc.boot.services.BusTypeService;
 
 @Controller
-@RequestMapping(value = "/bustype")
+@RequestMapping("/admin")
 public class BusTypeController {
 	
 	@Autowired
 	private BusTypeService busTypeService;
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/bustypes/add", method = RequestMethod.GET)
 	public String addBusTypeGet(Model model) {
 		BusType busType = new BusType();
 		model.addAttribute("busType", busType);
 		return "admin/bustypes/addBusType";
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
+	@RequestMapping(value="/bustypes/add",method=RequestMethod.POST)
 	public String addBusTypePost(@ModelAttribute("busType")BusType busType) {
 		busTypeService.addBusType(busType);
-		return "redirect:/bustype/bustypes";
+		return "redirect:/admin/bustypes";
 	}
 	
 	@RequestMapping(value="/bustypes")
@@ -38,25 +38,25 @@ public class BusTypeController {
 		return "admin/bustypes/index";
 	}
 	
-	@RequestMapping(value="/delete/{busTypeId}")
+	@RequestMapping(value="/bustype/delete/{busTypeId}")
 	public String deleteBus(Model model,@PathVariable("busTypeId")int busTypeId) {
 		
 		busTypeService.deleteBusType(busTypeService.findById(busTypeId));
-		return "redirect:/bustype/bustypes";
+		return "redirect:/admin/bustypes";
 	}
 	
-	@RequestMapping(value="/update/{busTypeId}",method=RequestMethod.GET)
+	@RequestMapping(value="/bustype/update/{busTypeId}",method=RequestMethod.GET)
 	public String updateBusGet(Model model,@PathVariable("busTypeId")int busTypeId) {
 		model.addAttribute("bustype", busTypeService.findById(busTypeId));
 		return "admin/bustypes/updateform";
 	}
 	
-	@RequestMapping(value="/update/{busTypeId}",method=RequestMethod.POST)
+	@RequestMapping(value="/bustype/update/{busTypeId}",method=RequestMethod.POST)
 	public String updateBusPOST(@ModelAttribute("bustype")BusType newbusType,@PathVariable("busTypeId")int id) {
 		BusType currentBusType=busTypeService.findById(id);
 		currentBusType.setType(newbusType.getType());
 		busTypeService.updateBusType(currentBusType);
-		return "redirect:/bustype/bustypes";
+		return "redirect:/admin/bustypes";
 	}
 	
 

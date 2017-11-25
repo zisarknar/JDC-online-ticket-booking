@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/admin")
 public class RootAdminController {
 
     @Autowired
     private RootAdminService rootAdminService;
-
-
 
     @RequestMapping("/roots")
     public String getAllRootAdmin(Model model){
@@ -40,7 +39,7 @@ public class RootAdminController {
     @RequestMapping(value = "/roots/add", method = RequestMethod.POST)
     public String processAddRootAdmin(@ModelAttribute("newRootAdmin") RootAdmin rootAdmin, Model model){
         rootAdminService.saveRootAdmin(rootAdmin);
-        return "redirect:/roots";
+        return "redirect:/admin/roots";
     }
 
     @RequestMapping(value = "/root/update/{id}", method = RequestMethod.GET)
@@ -55,13 +54,13 @@ public class RootAdminController {
         currentRootAdmin.setRootName(updatedAdmin.getRootName());
         currentRootAdmin.setRootPassword(updatedAdmin.getRootPassword());
         rootAdminService.updateRootAdmin(currentRootAdmin);
-        return "redirect:/roots";
+        return "redirect:/admin/roots";
     }
 
     @RequestMapping("/root/delete/{id}")
     public String removeRootAdmin(@PathVariable ("id") int rootAdminId){
         rootAdminService.deleteRootAdmin(rootAdminId);
-        return "redirect:/roots";
+        return "redirect:/admin/roots";
     }
 
 

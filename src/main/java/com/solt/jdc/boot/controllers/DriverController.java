@@ -14,66 +14,57 @@ import com.solt.jdc.boot.services.DriverService;
 
 
 @Controller
-
-@RequestMapping("driver")
+@RequestMapping("admin")
 public class DriverController {
 
-	@Autowired
-	private DriverService driverService;
-	
-	
-	@RequestMapping(method=RequestMethod.GET)
+    @Autowired
+    private DriverService driverService;
 
-	public String findAlldriver(Model model) {
-		
-		model.addAttribute("drivers",driverService.findAll());
-		return "admin/driver/index";
-		
-	}
-	
-	@RequestMapping(value="/add",method=RequestMethod.GET)
-	public String add(ModelMap map) {
-		map.put("driver",new Driver());
-		return "admin/driver/driverAdd";
-		
-	}
-	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public String save(@ModelAttribute("driver") Driver driver) {
-		driverService.save(driver); 
-		return "redirect:/driver";
-	}
-	
-	@RequestMapping(value="/edit/{id}",method=RequestMethod.GET)
-	public String edit(@PathVariable("id") int id,Model model) {
-		
-		model.addAttribute("drivers",driverService.findAll());
-		model.addAttribute("driver",driverService.find(id));
-		return "admin/driver/driverEdit";
-	}
-	
-	@RequestMapping(value="/edit",method=RequestMethod.POST)
-	public String edit(@ModelAttribute("driver") Driver driver){
-		
-		Driver currentDriver=driverService.find(driver.getId());
-		
-		currentDriver.setName(driver.getName());
-		currentDriver.setPhone(driver.getPhone());
-		currentDriver.setEmail(driver.getEmail());
-		currentDriver.setDriverRole(driver.getDriverRole());
-		currentDriver.setCode(driver.getCode());
-		currentDriver.setStatus(driver.isStatus());
-		
-		driverService.update(currentDriver);
-		
-		return"redirect:/driver";
-	}
-	
-	
-	@RequestMapping(value="/delete/{id}")
-	public String delete(@PathVariable("id") int id) {
-		driverService.delete(driverService.find(id));
-		return "redirect:/driver";
-	}	
+
+    @RequestMapping(value = "/drivers", method = RequestMethod.GET)
+    public String findAlldriver(Model model) {
+        model.addAttribute("drivers", driverService.findAll());
+        return "admin/driver/index";
+    }
+
+    @RequestMapping(value = "/drivers/add", method = RequestMethod.GET)
+    public String add(ModelMap map) {
+        map.put("driver", new Driver());
+        return "admin/driver/driverAdd";
+
+    }
+
+    @RequestMapping(value = "/drivers/add", method = RequestMethod.POST)
+    public String save(@ModelAttribute("driver") Driver driver) {
+        driverService.save(driver);
+        return "redirect:/admin/driver";
+    }
+
+    @RequestMapping(value = "/driver/update/{id}", method = RequestMethod.GET)
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("drivers", driverService.findAll());
+        model.addAttribute("driver", driverService.find(id));
+        return "admin/driver/driverEdit";
+    }
+
+    @RequestMapping(value = "/driver/update/edit", method = RequestMethod.POST)
+    public String edit(@ModelAttribute("driver") Driver driver) {
+        Driver currentDriver = driverService.find(driver.getId());
+        currentDriver.setName(driver.getName());
+        currentDriver.setPhone(driver.getPhone());
+        currentDriver.setEmail(driver.getEmail());
+        currentDriver.setDriverRole(driver.getDriverRole());
+        currentDriver.setCode(driver.getCode());
+        currentDriver.setStatus(driver.isStatus());
+        driverService.update(currentDriver);
+        return "redirect:/admin/drivers";
+    }
+
+
+    @RequestMapping(value = "/driver/delete/{id}")
+    public String delete(@PathVariable("id") int id) {
+        driverService.delete(driverService.find(id));
+        return "redirect:/admin/drivers";
+    }
 }
 

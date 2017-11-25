@@ -24,7 +24,7 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Services List</h3>
-                    <a th:href="@{/services/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
+                    <a th:href="@{/admin/services/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
                 </div>
                 <div class="box-body">
                     <table id="customer" class="table table-bordered table-hover" dt:table="true">
@@ -38,9 +38,9 @@
                         <tr th:each="service : ${services}">
                             <td th:text="${service.services}"></td>
                                                         <td>
-                                <a th:href="@{/services/delete/}+${service.id}" class="btn btn-danger"><i
+                                <a th:href="@{/admin/servic/delete/}+${service.id}" class="btn btn-danger"><i
                                         class="fa fa-trash"></i> Delete</a>
-                                <a th:href="${'/services/update/'+service.id}" class="btn btn-info"><i
+                                <a th:href="${'/admin/servic/update/'+service.id}" class="btn btn-info"><i
                                         class="fa fa-trash"></i> Edit</a>
                             </td>
                         </tr>

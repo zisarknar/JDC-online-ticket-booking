@@ -13,7 +13,7 @@ import com.solt.jdc.boot.services.AddressService;
 import com.solt.jdc.boot.services.CitiesService;
 
 @Controller
-@RequestMapping("/address")
+@RequestMapping("/admin")
 public class AddressController {
 	@Autowired
 	private AddressService addressService;
@@ -21,7 +21,7 @@ public class AddressController {
 	@Autowired
 	private CitiesService citiesService;
 	
-	@RequestMapping(value="/add",method=RequestMethod.GET)
+	@RequestMapping(value="/addresses/add",method=RequestMethod.GET)
 	public String addAddressGET(Model model) {
 		Address address=new Address();
 		model.addAttribute("address", address);
@@ -29,10 +29,10 @@ public class AddressController {
 		return "admin/address/addAddress";
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
+	@RequestMapping(value="/addresses/add",method=RequestMethod.POST)
 	public String addAddressPOST(Model model,@ModelAttribute("address")Address address) {
 		addressService.addAddress(address);
-		return "redirect:/address/addresses";
+		return "redirect:/admin/addresses";
 	}
 	
 	@RequestMapping("/addresses")
@@ -41,25 +41,25 @@ public class AddressController {
 		return "admin/address/index";
 	}
 	
-	@RequestMapping("/delete/{addressId}")
+	@RequestMapping("/address/delete/{addressId}")
 	public String deleteAddress(@PathVariable("addressId")int addressId) {
 		addressService.deleteAddress(addressId);
-		return "redirect:/address/addresses";
+		return "redirect:/admin/addresses";
 	}
 	
-	@RequestMapping(value="/update/{addressId}",method=RequestMethod.GET)
+	@RequestMapping(value="/address/update/{addressId}",method=RequestMethod.GET)
 	public String updateAddressGET(Model model,@PathVariable("addressId")int addressId) {
 		model.addAttribute("address", addressService.findById(addressId));
 		model.addAttribute("allcities",citiesService.getAllCities());
 		return "admin/address/updateAddressForm";
 	}
 	
-	@RequestMapping(value="/update/{addressId}",method=RequestMethod.POST)
+	@RequestMapping(value="/address/update/{addressId}",method=RequestMethod.POST)
 	public String updateAddressPOST(Model model,@ModelAttribute("address")Address newAddress,@PathVariable("addressId")int addressId) {
 		Address currentAddress=addressService.findById(addressId);
 		currentAddress.setAddressName(newAddress.getAddressName());
 		currentAddress.setCities(newAddress.getCities());
 		addressService.updateAddress(currentAddress);
-		return "redirect:/address/addresses";
+		return "redirect:/admin/addresses";
 	}
 }
