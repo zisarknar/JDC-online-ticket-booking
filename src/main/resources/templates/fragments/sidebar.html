@@ -10,7 +10,7 @@
                 <img th:src="@{/dist/img/user7-128x128.jpg}" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+                <p th:text="${#httpServletRequest.remoteUser}"></p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -29,66 +29,71 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
             <li>
-                <a th:href="@{/}">
+                <a th:href="@{/admin/}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
             <li>
-                <a th:href="@{/customers}">
+                <a th:href="@{/admin/roots}">
+                    <i class="fa fa-users"></i> <span>Manage Root</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/customers}">
                     <i class="fa fa-users"></i> <span>Manage Customers</span>
                 </a>
             </li>
             <li>
-                <a th:href="@{/bookings}">
+                <a th:href="@{/admin/bookings}">
                     <i class="fa fa-book"></i> <span>Manage Booking</span>
                 </a>
             </li>
             <li>
-                <a th:href="@{/trips}">
+                <a th:href="@{/admin/trips}">
                     <i class="fa fa-road"></i> <span>Manage Trips</span>
                 </a>
             </li>
 
             <li>
-                <a th:href="@{/address/addresses}">
+                <a th:href="@{/admin/addresses}">
                     <i class="fa fa-home"></i> <span>Manage Address</span>
                 </a>
             </li>
             <li>
-                <a th:href="@{/bus/buses}">
+                <a th:href="@{/admin/buses}">
                     <i class="fa fa-bus"></i> <span>Manage Buses</span>
                 </a>
             </li>
             <li>
-                <a th:href="@{/bustype/bustypes}">
+                <a th:href="@{/admin/bustypes}">
                     <i class="fa fa-road"></i> <span>Manage Bus Types</span>
                 </a>
             </li>
             <li>
-                <a th:href="@{/cities/allcities}">
+                <a th:href="@{/admin/cities}">
                     <i class="fa fa-building"></i> <span>Manage Cities</span>
                 </a>
             </li>
             <li>
-                <a th:href="@{/services/services}">
+                <a th:href="@{/admin/services}">
                     <i class="fa fa-cutlery"></i> <span>Manage Services</span>
                 </a>
             </li>
             <li>
-                <a th:href="@{/station/stations}">
+                <a th:href="@{/admin/stations}">
                     <i class="fa fa-wrench"></i> <span>Manage Stations</span>
                 </a>
             </li>
 
 
             <li>
-                <a th:href="@{/user}">
+                <a th:href="@{/users}">
                     <i class="fa fa-road"></i> <span>Manage Users</span>
                 </a>
             </li>
 
             <li>
-                <a th:href="@{/driver}">
+                <a th:href="@{/admin/drivers}">
                     <i class="fa fa-road"></i> <span>Manage Drivers</span>
                 </a>
             </li>

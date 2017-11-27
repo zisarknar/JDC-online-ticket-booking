@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-public class BookingController {
+@RequestMapping("/admin")
+public class BookingController{
 
     @Autowired
     private BookingService bookingService;
@@ -51,7 +52,7 @@ public class BookingController {
     @RequestMapping(value = "/bookings/add", method = RequestMethod.POST)
     public String processAddBooking(@ModelAttribute ("newBooking") Booking newBooking){
         bookingService.saveBooking(newBooking);
-        return "redirect:/bookings";
+        return "redirect:/admin/bookings";
     }
 
     @RequestMapping(value = "/booking/update/{id}", method = RequestMethod.GET)
@@ -73,13 +74,13 @@ public class BookingController {
         currentBooking.setCustomer(updatedBooking.getCustomer());
         currentBooking.setTrip(updatedBooking.getTrip());
         bookingService.updateBooking(updatedBooking);
-        return "redirect:/bookings";
+        return "redirect:/admin/bookings";
     }
 
     @RequestMapping("/booking/delete/{id}")
     public String deleteBooking(@PathVariable("id") int bookingId){
         bookingService.deleteBooking(bookingId);
-        return "redirect:/bookings";
+        return "redirect:/admin/bookings";
     }
 
 

@@ -23,9 +23,9 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title pull-right">Update Booking</h3>
-                    <a th:href="@{/bookings}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                    <a th:href="@{/admin/bookings}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
-                <form th:object="${updatedBooking}" th:action="@{/booking/update/}+${id}" method="POST">
+                <form th:object="${updatedBooking}" th:action="@{/admin/booking/update/}+${id}" method="POST">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="regcode">Reg Code</label>

@@ -13,48 +13,48 @@ import com.solt.jdc.boot.domains.Cities;
 import com.solt.jdc.boot.services.CitiesService;
 
 @Controller
-@RequestMapping("/cities")
+@RequestMapping("/admin")
 public class CitiesController {
 	@Autowired
 	private CitiesService citiesService;
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/cities/add", method = RequestMethod.GET)
 	public String addCityGET(Model model) {
 		Cities cities = new Cities();
 		model.addAttribute("cities", cities);
 		return "admin/cities/addCities";
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/cities/add", method = RequestMethod.POST)
 	public String addCityPOST(@ModelAttribute("cities") Cities cities) {
 		citiesService.createCity(cities);
-		return "redirect:/cities/allcities";
+		return "redirect:/admin/allcities";
 	}
 
 	
-	@RequestMapping("/allcities")
+	@RequestMapping("/cities")
 	public String getAllCities(Model model) {
 		model.addAttribute("allcities", citiesService.getAllCities());
 		return "admin/cities/index";
 	}
 
-	@RequestMapping("/delete/{citiesId}")
+	@RequestMapping("/city/delete/{citiesId}")
 	public String deleteCities(@PathVariable("citiesId") int citiesId) {
 		citiesService.deleteCities(citiesId);
-		return "redirect:/cities/allcities";
+		return "redirect:/admin/cities";
 	}
 
-	@RequestMapping(value = "/update/{citiesId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/city/update/{citiesId}", method = RequestMethod.GET)
 	public String updateCitiesGET(Model model,@PathVariable("citiesId")int citiesId) {
 		model.addAttribute("cities",citiesService.findById(citiesId));
 		return "admin/cities/updateCitiesForm";
 	}
 	
-	@RequestMapping(value="/update/{citiesId}",method=RequestMethod.POST)
+	@RequestMapping(value="/city/update/{citiesId}",method=RequestMethod.POST)
 	public String updateCitiesPOST(@ModelAttribute("cities")Cities newCities,@PathVariable("citiesId")int citiesId) {
 		Cities currentCities=citiesService.findById(citiesId);
 		currentCities.setName(newCities.getName());
 		citiesService.updateCities(currentCities);
-		return "redirect:/cities/allcities";
+		return "redirect:/admin/cities";
 	}
 }

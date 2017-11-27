@@ -23,10 +23,10 @@
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<h3 class="box-title pull-right">Add New Customer</h3>
-					<a th:href="@{/user}" class="btn btn-primary"><i
+					<a th:href="@{/users}" class="btn btn-primary"><i
 							class="fa fa-arrow-left"></i> Back</a>
 				</div>
-				<form role="form" th:action="@{/user/edit}" method="post"
+				<form role="form" th:action="@{/admin/user/edit}" method="post"
 					  th:object="${user}">
 
 					<div class="box-body">
