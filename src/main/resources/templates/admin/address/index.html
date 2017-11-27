@@ -9,7 +9,7 @@
 
 <section class="content-header" layout:fragment="header">
     <h1>
-       	Address
+        Address
         <small>Management panel</small>
     </h1>
     <ol class="breadcrumb">
@@ -24,22 +24,24 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Address List</h3>
-                    <a th:href="@{/address/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
+                    <a th:href="@{/admin/addresses/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add
+                        New</a>
                 </div>
                 <div class="box-body">
                     <table id="customer" class="table table-bordered table-hover" dt:table="true">
                         <thead>
                         <tr>
                             <th>Address Name</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="address : ${addresses}">
                             <td th:text="${address.addressName}"></td>
-                                                        <td>
-                                <a th:href="@{/address/delete/}+${address.id}" class="btn btn-danger"><i
+                            <td>
+                                <a th:href="@{/admin/address/delete/}+${address.id}" class="btn btn-danger"><i
                                         class="fa fa-trash"></i> Delete</a>
-                                <a th:href="${'/address/update/'+address.id}" class="btn btn-info"><i
+                                <a th:href="@{/admin/address/update/}+${address.id}" class="btn btn-info"><i
                                         class="fa fa-trash"></i> Edit</a>
                             </td>
                         </tr>

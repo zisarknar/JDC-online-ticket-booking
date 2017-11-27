@@ -12,9 +12,9 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title pull-right">Add New Customer</h3>
-                    <a th:href="@{/customers}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                    <a th:href="@{/admin/customers}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
-                <form th:object="${updatedCustomer}" th:action="@{/customer/update/}+${id}" method="POST">
+                <form th:object="${updatedCustomer}" th:action="@{/admin/customer/update/}+${id}" method="POST">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="firstName">First Name</label>

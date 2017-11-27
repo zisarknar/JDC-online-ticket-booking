@@ -21,73 +21,57 @@ import com.solt.jdc.boot.services.UserService;
 
 
 @Controller
-
-@RequestMapping("user")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	
-	@RequestMapping(method=RequestMethod.GET)
 
+	@RequestMapping(method=RequestMethod.GET, value = "/users")
 	public String findAllUser(Model model) {
-		
 		model.addAttribute("users",userService.findAll());
 		return "admin/user/index";
-		
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.GET)
+	@RequestMapping(value="/users/add",method=RequestMethod.GET)
 	public String add(ModelMap map) {
 		map.put("user",new User());
 		return "admin/user/userAdd";
-		
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
+	@RequestMapping(value="/users/add",method=RequestMethod.POST)
 	public String save(@ModelAttribute("user") User user) {
 		userService.save(user); 
-		return "redirect:/user";
+		return "redirect:/users";
 	}
 	
-	@RequestMapping(value="/edit/{id}",method=RequestMethod.GET)
+	@RequestMapping(value="/user/update/{id}",method=RequestMethod.GET)
 	public String edit(@PathVariable("id") int id,Model model) {
-		
 		model.addAttribute("users",userService.findAll());
 		model.addAttribute("user",userService.find(id));
 		return "admin/user/userEdit";
 	}
 	
-	@RequestMapping(value="/edit",method=RequestMethod.POST)
+	@RequestMapping(value="/user/update",method=RequestMethod.POST)
 	public String edit(@ModelAttribute("user") User user){
-		
 		User currentUser=userService.find(user.getId());
-		
 		currentUser.setUserName(user.getUserName());
 		currentUser.setFirstName(user.getFirstName());
 		currentUser.setLastName(user.getLastName());
 		currentUser.setPhone(user.getPhone());
 		currentUser.setEmail(user.getEmail());
 		currentUser.setRole(user.getRole());
-		
-		
-			currentUser.setStatus(user.isStatus());
-		
-		
+		currentUser.setStatus(user.isStatus());
 		if(currentUser.getPassword().isEmpty()) {
 			currentUser.setPassword(user.getPassword());
 		}
-		
 		userService.update(currentUser);
-		
-		return"redirect:/user";
+		return"redirect:/users";
 	}
 	
 	
-	@RequestMapping(value="/delete/{id}")
+	@RequestMapping(value="/user/delete/{id}")
 	public String delete(@PathVariable("id") int id) {
 		userService.delete(userService.find(id));
-		return "redirect:/user";
+		return "redirect:/users";
 	}	
 }

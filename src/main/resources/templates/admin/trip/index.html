@@ -24,7 +24,7 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Trip List</h3>
-                    <a th:href="@{/trips/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
+                    <a th:href="@{/admin/trips/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
                 </div>
                 <div class="box-body">
                     <table id="trip" class="table table-bordered table-hover" dt:table="true">
@@ -52,9 +52,9 @@
                             <td th:text="${trip.tripCode}"></td>
                             <td th:text="${trip.unitPrice}"></td>
                             <td>
-                                <a th:href="@{/trip/delete/}+${trip.id}" class="btn btn-danger"><i
+                                <a th:href="@{/admin/trip/delete/}+${trip.id}" class="btn btn-danger"><i
                                         class="fa fa-trash"></i> Delete</a>
-                                <a th:href="@{/trip/update/}+${trip.id}" class="btn btn-info"><i
+                                <a th:href="@{/admin/trip/update/}+${trip.id}" class="btn btn-info"><i
                                         class="fa fa-gear"></i> Edit</a>
                             </td>
                         </tr>

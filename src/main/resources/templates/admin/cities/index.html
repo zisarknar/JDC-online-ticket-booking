@@ -24,22 +24,23 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Cities List</h3>
-                    <a th:href="@{/cities/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
+                    <a th:href="@{/admin/cities/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
                 </div>
                 <div class="box-body">
                     <table id="customer" class="table table-bordered table-hover" dt:table="true">
                         <thead>
                         <tr>
                             <th>City Name</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="cities : ${allcities}">
                             <td th:text="${cities.name}"></td>
                                                         <td>
-                                <a th:href="@{/cities/delete/}+${cities.id}" class="btn btn-danger"><i
+                                <a th:href="@{/admin/city/delete/}+${cities.id}" class="btn btn-danger"><i
                                         class="fa fa-trash"></i> Delete</a>
-                                <a th:href="${'/cities/update/'+cities.id}" class="btn btn-info"><i
+                                <a th:href="${'/admin/city/update/'+cities.id}" class="btn btn-info"><i
                                         class="fa fa-trash"></i> Edit</a>
                             </td>
                         </tr>
