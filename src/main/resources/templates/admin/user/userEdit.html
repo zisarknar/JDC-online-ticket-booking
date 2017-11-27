@@ -69,21 +69,30 @@
 						</div>
 
 						<div class="form-group">
-							<label>Role</label> <select id="role" class="form-control"
+							<label>Role</label> 
+							<select id="role" class="form-control"
 														th:field="*{role}">
 							<option
 									th:each="role:${T(com.solt.jdc.boot.domains.Role).values()}"
-									th:value="${role}" th:text="${role.getRoleName()}"></option>
+									th:value="${role}" 
+									th:text="${role.getRoleName()}"></option>
 						</select>
 						</div>
 
 						<div class="form-group">
-							<label for="userStatus">Status</label> <input type="radio"
-																		  id="userStatus" value="true" th:checked="*{status}" />Yes <input
-								type="radio" id="userStatus" value="false"
-								th:checked="*{status}==false" />No
+								<label for="userStatus">Status</label> 
+								<input type="radio"
+										id="userStatus" 
+										value="true" 
+										th:field="*{status}" />Yes 
+								
+								<input type="radio" 
+										id="userStatus" 
+										value="false"
+										th:field="*{status}" />No
 
-						</div>
+							</div>
+
 
 
 					</div>
