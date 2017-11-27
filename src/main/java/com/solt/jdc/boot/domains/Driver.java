@@ -41,23 +41,20 @@ public class Driver {
 	//@Transient
 	private boolean status=true;
 	
-	@Enumerated(EnumType.STRING)
+	/*@Enumerated(EnumType.STRING)
 	private DriverRole driverRole;
+	*/
+	
+	private String driverRole;
+	
+	
 	
 	
 	public Driver() {
 		
 	}
 
-	public Driver(String name, String code, String phone, String email, boolean status, DriverRole driverRole) {
-		this.name = name;
-		this.code = code;
-		this.phone = phone;
-		this.email = email;
-		this.status = status;
-		this.driverRole = driverRole;
-	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -128,13 +125,15 @@ public class Driver {
 		this.status = status;
 	}
 
-	public DriverRole getDriverRole() {
+	public String getDriverRole() {
 		return driverRole;
 	}
 
-	public void setDriverRole(DriverRole driverRole) {
+	public void setDriverRole(String driverRole) {
 		this.driverRole = driverRole;
 	}
+
+	
 	
 	
 }

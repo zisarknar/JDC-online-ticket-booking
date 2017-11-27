@@ -16,3 +16,4 @@ public enum Role {
 		return displayRole;
 	}	
 }
+

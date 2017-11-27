@@ -33,7 +33,8 @@
 
 							<div class="form-group">
 
-								<label for="userName1">User Name</label> <input type="text"
+								<label for="userName1">User Name</label> 
+								<input type="text"
 									class="form-control" id="userName1"
 									placeholder="Enter User Name" th:field="*{userName}" />
 							</div>
@@ -64,25 +65,35 @@
 
 							<div class="form-group">
 								<label for="phoneNumber">Phone</label> <input type="text"
-									class="form-control" id="phoneNumber" placeholder="Enter phone number"
-									th:field="*{phone}" />
+									class="form-control" id="phoneNumber"
+									placeholder="Enter phone number" th:field="*{phone}" />
 							</div>
+							
+							<div>
+								
 
 
-							<div class="form-group">
-								<label>Role</label> <select id="role" class="form-control"
-									th:field="*{role}">
+							 <label>Role</label> 
+								<select id="role" 
+										class="form-control"
+										th:field="*{role}">
 									<option
 										th:each="role:${T(com.solt.jdc.boot.domains.Role).values()}"
 										th:value="${role}" th:text="${role.getRoleName()}"></option>
-								</select>
+								</select> 
 							</div>
 
 							<div class="form-group">
-								<label for="userStatus">Status</label> <input type="radio"
-									id="userStatus" value="true" th:checked="*{status}" />Yes <input
-									type="radio" id="userStatus" value="false"
-									th:checked="*{status}==false" />No
+								<label for="userStatus">Status</label> 
+								<input type="radio"
+										id="userStatus" 
+										value="true" 
+										th:field="*{status}" />Yes 
+								
+								<input type="radio" 
+										id="userStatus" 
+										value="false"
+										th:field="*{status}" />No
 
 							</div>
 
