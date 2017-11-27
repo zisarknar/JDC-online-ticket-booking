@@ -4,6 +4,7 @@ import com.solt.jdc.boot.domains.RootAdmin;
 import com.solt.jdc.boot.repositories.RootAdminRepository;
 import com.solt.jdc.boot.services.RootAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public class RootAdminServiceImpl implements RootAdminService {
 
     @Autowired
     private RootAdminRepository rootAdminRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public List<RootAdmin> getAllRootAdmin() {
@@ -26,6 +30,8 @@ public class RootAdminServiceImpl implements RootAdminService {
 
     @Override
     public void saveRootAdmin(RootAdmin rootAdmin) {
+        rootAdmin.setRootPassword(bCryptPasswordEncoder.encode(rootAdmin.getRootPassword()));
+        rootAdmin.setRoot(true);
         rootAdminRepository.saveAndFlush(rootAdmin);
     }
 

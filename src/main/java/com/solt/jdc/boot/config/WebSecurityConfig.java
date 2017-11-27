@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,16 +15,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-                .antMatchers("/admin/**")
-                .authenticated().and().formLogin().permitAll().and().logout().permitAll();
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/admin/**").hasAnyRole("ROOT")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().defaultSuccessUrl("/admin/")
+                .and()
+                .logout().logoutSuccessUrl("/")
+                .permitAll();
     }
 
     @Autowired
@@ -34,5 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin").password("password").roles("ADMIN")
                 .and()
                 .withUser("sargon").password("sargon").roles("ROOT");
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder;
     }
 }

@@ -21,4 +21,5 @@ public class MainController {
     public String getFront(){
         return "index";
     }
+
 }
