@@ -21,23 +21,23 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	//@Column(name="user_name",nullable=false)
-	
-	//@NotBlank(message="User Name cannot be empty")
-	//@NotNull
-	//@Size(min=3,max=100)
+	@Column(name="user_name",nullable=false)
+	@NotBlank(message="User Name cannot be empty")
+	@NotNull
 	private String userName;
 
-	@NotNull
-	//@Size(min=3,max=100)
+	@Size(min=3,max=100)
+	@NotBlank(message="Please Enter password")
 	private String password;
 
 	@NotNull
-	//@Size(min=3,max=100)
+	@NotBlank(message="Please Enter First Name")
+	@Size(min=3,max=100)
 	private String firstName;
 
 	@NotNull
-	//@Size(min=3,max=100)
+	@NotBlank(message="Please Enter last name")
+	@Size(min=3,max=100)
 	private String lastName;
 
 	@NotNull
@@ -45,6 +45,7 @@ public class User {
 	private String email;
 
 	@NotNull
+	@NotBlank(message="Please enter phone")
 	@Size(min=3,max=100)
 	private String phone;
 

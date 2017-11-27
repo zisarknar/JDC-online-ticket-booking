@@ -1,9 +1,13 @@
 package com.solt.jdc.boot.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,18 +22,25 @@ public class BusTypeController {
 	
 	@Autowired
 	private BusTypeService busTypeService;
+	
+	@Autowired
+	private MainController mainController;
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addBusTypeGet(Model model) {
 		BusType busType = new BusType();
 		model.addAttribute("busType", busType);
-		return "admin/bustypes/addBusType";
+		return "admin/bus/index";
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public String addBusTypePost(@ModelAttribute("busType")BusType busType) {
+	public String addBusTypePost(@ModelAttribute("busType") @Valid BusType busType,BindingResult result) {
+		if(result.hasErrors()) {
+    		return "admin/bustypes/addBusType";
+    	}
+		mainController.disallowedFieldException(result);
 		busTypeService.addBusType(busType);
-		return "redirect:/bustype/bustypes";
+		return "redirect:/bus/index";
 	}
 	
 	@RequestMapping(value="/bustypes")
@@ -52,11 +63,22 @@ public class BusTypeController {
 	}
 	
 	@RequestMapping(value="/update/{busTypeId}",method=RequestMethod.POST)
-	public String updateBusPOST(@ModelAttribute("bustype")BusType newbusType,@PathVariable("busTypeId")int id) {
+	public String updateBusPOST(@ModelAttribute("bustype") @Valid BusType newbusType,@PathVariable("busTypeId")int id,BindingResult result) {
+		if(result.hasErrors()) {
+    		return "admin/bustypes/updateform";
+    	}
+		mainController.disallowedFieldException(result);
 		BusType currentBusType=busTypeService.findById(id);
 		currentBusType.setType(newbusType.getType());
+		
+		
 		busTypeService.updateBusType(currentBusType);
 		return "redirect:/bustype/bustypes";
+	}
+	
+	@InitBinder
+	public void initializeBinder(WebDataBinder binder) {
+		binder.setAllowedFields("type");
 	}
 	
 

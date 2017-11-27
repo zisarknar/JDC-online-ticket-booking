@@ -11,6 +11,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class Driver {
 
@@ -20,16 +22,19 @@ public class Driver {
 	private int id;
 	
 	@NotNull
+	@NotBlank(message="Please enter name")
 	@Size(min=3,max=100)
 	private  String name;
 	
 
 	@NotNull
+	@NotBlank(message="Please enter Driver Code")
 	@Size(min=3,max=100)
 	private  String code;
 	
 
 	@NotNull
+	@NotBlank(message="Please enter phone number")
 	@Size(min=3,max=100)
 	private String phone;
 

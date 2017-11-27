@@ -34,30 +34,35 @@
 								<input
 									type="text" class="form-control" id="exampleInputEmail1"
 									placeholder="Enter Bus Number" th:field="*{busNumber}" />
+									<label th:errors="*{busNumber}" class="text-danger"></label>
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Bus Code</label> 
 								<input
 									type="text" class="form-control" id="exampleInputEmail1"
 									placeholder="Enter Bus Code" th:field="*{busCode}" />
+									<label th:errors="*{busCode}" class="text-danger"></label>
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Bus Company</label> 
 								<input
 									type="text" class="form-control" id="exampleInputEmail1"
 									placeholder="Enter Bus Company" th:field="*{busCompany}" />
+									<label th:errors="*{busCompany}" class="text-danger"></label>
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Maximum Seats</label> 
 								<input
 									type="text" class="form-control" id="exampleInputEmail1"
 									placeholder="Enter Max Seats" th:field="*{maxSeats}" />
+									<label th:errors="*{maxSeats}" class="text-danger"></label>
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Taken Seats</label> 
 								<input
 									type="text" class="form-control" id="exampleInputEmail1"
 									placeholder="Enter Taken Seats" th:field="*{takenSeats}" />
+									<label th:errors="*{takenSeats}" class="text-danger"></label>
 							</div>
 							<select class="form-control" th:field="*{busType}">
 								<option value="">Select BusType</option>

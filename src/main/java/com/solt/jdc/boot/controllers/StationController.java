@@ -3,11 +3,14 @@ package com.solt.jdc.boot.controllers;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,9 @@ public class StationController {
 	
 	@Autowired
 	private AddressService addressService;
+	
+	@Autowired
+	private MainController mainController;
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addStationGET(Model model) {
@@ -35,7 +41,11 @@ public class StationController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addStationPOST(Model model, @ModelAttribute("station") Station station) {
+	public String addStationPOST(Model model, @ModelAttribute("station") @Valid Station station,BindingResult result) {
+		if(result.hasErrors()) {
+    		return "admin/station/addStation";
+    	}
+		mainController.disallowedFieldException(result);
 		stationService.addStation(station);
 		return "redirect:/station/stations";
 	}
@@ -61,12 +71,20 @@ public class StationController {
 
 	@RequestMapping(value = "/update/{stationId}", method = RequestMethod.POST)
 	public String updateStationPOST(@PathVariable("stationId") int stationId,
-			@ModelAttribute("station") Station newStation) {
+			@ModelAttribute("station") @Valid Station newStation,BindingResult result) {
+		if(result.hasErrors()) {
+    		return "admin/station/updateStationForm";
+    	}
 		Station currentStation = stationService.findById(stationId);
 		currentStation.setName(newStation.getName());
 		currentStation.setPhoneNumber(newStation.getPhoneNumber());
 		currentStation.setAddress(newStation.getAddress());
 		stationService.updateStation(currentStation);
 		return "redirect:/station/stations";
+	}
+	
+	@InitBinder
+	public void initializeBinder(WebDataBinder binder) {
+		binder.setAllowedFields("name","phoneNumber","address");
 	}
 }

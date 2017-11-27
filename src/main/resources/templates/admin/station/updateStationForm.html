@@ -32,11 +32,13 @@
 							<div class="form-group">
 								<label for="exampleInputEmail1">Station Name</label> <input
 									type="text" class="form-control" id="exampleInputEmail1"
-									placeholder="Enter Station Name" th:field="*{name}" /> <label
+									placeholder="Enter Station Name" th:field="*{name}" /> 
+									<label th:errors="*{name}" class="text-danger"></label><label
 									for="exampleInputEmail1">Station Phone Number</label> <input
 									type="text" class="form-control" id="exampleInputEmail1"
 									placeholder="Enter Station Phone Number"
 									th:field="*{phoneNumber}" />
+									<label th:errors="*{phoneNumber}" class="text-danger"></label>
 							</div>
 							<select class="form-control" th:field="*{address}">
 								<option value="">Select BusType</option>

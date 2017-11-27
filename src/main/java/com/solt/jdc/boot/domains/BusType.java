@@ -11,12 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "bus_type")
 public class BusType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotBlank(message="Please enter bus type")
 	private String type;
 	@OneToMany(mappedBy="busType")
 	private List<Bus> busList=new ArrayList<>();

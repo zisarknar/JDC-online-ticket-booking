@@ -6,12 +6,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class Station {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotBlank(message="Please enter name")
 	private String name;
+	
+	@NotBlank(message="Please enter phoneNumber")
 	private String phoneNumber;
 
 	@OneToOne

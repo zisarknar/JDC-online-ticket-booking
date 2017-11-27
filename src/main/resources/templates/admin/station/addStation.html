@@ -33,20 +33,23 @@
 								<label for="exampleInputEmail1">Station Name</label> <input
 									type="text" class="form-control" id="exampleInputEmail1"
 									placeholder="Enter Station Name" th:field="*{name}" /> <label
-									for="exampleInputEmail1">Station Phone Number</label> <input
+									th:errors="*{name}" class="text-danger"></label>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Station Phone Number</label> <input
 									type="text" class="form-control" id="exampleInputEmail1"
 									placeholder="Enter Station Phone Number"
-									th:field="*{phoneNumber}" />
-									
+									th:field="*{phoneNumber}" /> <label th:errors="*{phoneNumber}"
+									class="text-danger"></label>
 							</div>
-							<select class="form-control"
-									th:field="*{address}">
-									<option value="">Select Address</option>
-									<option th:each="address : ${addresses}"
-										th:value="${address.id}" th:text="${address.addressName}"></option>
-								</select>
-
 						</div>
+						<select class="form-control" th:field="*{address}">
+							<option value="">Select Address</option>
+							<option th:each="address : ${addresses}" th:value="${address.id}"
+								th:text="${address.addressName}"></option>
+						</select>
+
+
 						<!-- /.box-body -->
 
 						<div class="box-footer">

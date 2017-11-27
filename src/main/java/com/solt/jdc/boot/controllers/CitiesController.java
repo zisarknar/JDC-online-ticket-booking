@@ -1,9 +1,13 @@
 package com.solt.jdc.boot.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +21,9 @@ import com.solt.jdc.boot.services.CitiesService;
 public class CitiesController {
 	@Autowired
 	private CitiesService citiesService;
+	
+	@Autowired
+	private MainController mainController;
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addCityGET(Model model) {
@@ -26,8 +33,12 @@ public class CitiesController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addCityPOST(@ModelAttribute("cities") Cities cities) {
+	public String addCityPOST(@ModelAttribute("cities") @Valid Cities cities,BindingResult result) {
+		if(result.hasErrors()) {
+    		return "admin/cities/addCities";
+    	}
 		citiesService.createCity(cities);
+		mainController.disallowedFieldException(result);
 		return "redirect:/cities/allcities";
 	}
 
@@ -51,10 +62,19 @@ public class CitiesController {
 	}
 	
 	@RequestMapping(value="/update/{citiesId}",method=RequestMethod.POST)
-	public String updateCitiesPOST(@ModelAttribute("cities")Cities newCities,@PathVariable("citiesId")int citiesId) {
+	public String updateCitiesPOST(@ModelAttribute("cities") @Valid Cities newCities,@PathVariable("citiesId")int citiesId,BindingResult result) {
+		if(result.hasErrors()) {
+    		return "admin/cities/updateCitiesForm";
+    	}
 		Cities currentCities=citiesService.findById(citiesId);
 		currentCities.setName(newCities.getName());
+		mainController.disallowedFieldException(result);
 		citiesService.updateCities(currentCities);
 		return "redirect:/cities/allcities";
+	}
+	
+	@InitBinder
+	public void initializeBinder(WebDataBinder binder) {
+		binder.setAllowedFields("name");
 	}
 }

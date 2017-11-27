@@ -14,6 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 
 @Entity
 @Table(name = "bus")
@@ -21,10 +26,18 @@ public class Bus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotBlank(message="Bus Number cannot be blank")
 	private String busNumber;
+	
+	@Min(value=20,message="Maximum seats must be atleast 20 seats")
 	private int maxSeats;
+	
+	
 	private int takenSeats;
+	@NotBlank(message="Please enter name of the bus company")
 	private String busCompany;
+	@NotBlank(message="Please enter bus code")
 	private String busCode;
 
 	@ManyToOne

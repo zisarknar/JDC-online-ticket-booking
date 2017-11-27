@@ -3,23 +3,31 @@ package com.solt.jdc.boot.domains;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity(name = "customer")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotNull
+    @NotBlank(message="Please enter user name")
     private String username;
     @NotNull
+    @NotBlank(message="Please enter first name")
     private String firstName;
     @NotNull
+    @NotBlank(message="Please enter last name")
     private String lastName;
     @NotNull
+    @NotBlank(message="Please enter password")
     private String password;
     @NotNull
+    @NotBlank(message="Please enter phone number")
     private String phone;
+    
     private String email;
+    
     private String nrcNumber;
     private boolean isDeactivated;
 

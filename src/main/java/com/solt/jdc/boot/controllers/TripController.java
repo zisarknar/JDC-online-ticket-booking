@@ -12,9 +12,14 @@ import com.solt.jdc.boot.services.TripService;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +34,9 @@ public class TripController {
     
     @Autowired
     private CitiesService citiesService;
+    
+    @Autowired
+    private MainController mainController;
 
 
     @Autowired
@@ -39,8 +47,6 @@ public class TripController {
     @RequestMapping("/trips")
     public String getAllTrip(Model model) {
         model.addAttribute("trips", tripService.getAllTrips());
-        List<String> testList=citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList());
-        testList.stream().forEach(System.out::println);
         return "admin/trip/index";
     }
 
@@ -54,18 +60,18 @@ public class TripController {
     public String addTrip(Model model) {
         Trip trip = new Trip();
         model.addAttribute("newTrip", trip);
-
         model.addAttribute("allBus", busService.getAllBus());
         model.addAttribute("allStation", stationService.getAllStations());
-
         model.addAttribute("allcities", citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList()));
-        
-
         return "admin/trip/addNew";
     }
 
     @RequestMapping(value = "/trips/add", method = RequestMethod.POST)
-    public String processAddTrip(@ModelAttribute("newTrip") Trip newTrip) {
+    public String processAddTrip(@ModelAttribute("newTrip") @Valid Trip newTrip,BindingResult result) {
+    	if(result.hasErrors()) {
+    		return "admin/trip/addNew";
+    	}
+    	mainController.disallowedFieldException(result);
         tripService.saveTrip(newTrip);
         return "redirect:/trips";
     }
@@ -80,11 +86,15 @@ public class TripController {
     }
 
     @RequestMapping(value = "/trip/update/{id}", method = RequestMethod.POST)
-    public String processUpdateTrip(@ModelAttribute("trip") Trip updatedTrip, @PathVariable("id") int tripId){
+    public String processUpdateTrip(@ModelAttribute("trip") @Valid Trip updatedTrip, @PathVariable("id") int tripId,BindingResult result){
+    	if(result.hasErrors()) {
+    		return "admin/bus/update";
+    	}
         Trip currentTrip = tripService.getTrip(tripId);
         currentTrip.setBooking(updatedTrip.getBooking());
         currentTrip.setBusId(updatedTrip.getBusId());
         currentTrip.setDepTime(updatedTrip.getDepTime());
+        currentTrip.setDepDate(updatedTrip.getDepDate());
         currentTrip.setEstTime(updatedTrip.getEstTime());
         currentTrip.setTripCode(updatedTrip.getTripCode());
         currentTrip.setStatus(updatedTrip.isStatus());
@@ -98,4 +108,10 @@ public class TripController {
         tripService.deleteTrip(tripId);
         return "redirect:/trips";
     }
+    
+    @InitBinder
+    public void initializeBider(WebDataBinder binder) {
+    	binder.setAllowedFields("booking","busId","deptime","depDate","estTime","tripCode","status","unitPrice");
+    }
+    
 }

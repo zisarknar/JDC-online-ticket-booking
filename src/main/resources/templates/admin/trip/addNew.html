@@ -33,21 +33,31 @@
 								<label for="tripCode">Trip Code</label> <input type="text"
 									class="form-control" id="tripCode"
 									placeholder="Enter Trip Code" th:field="*{tripCode}" />
+									<label th:errors="*{tripCode}" class="text-danger"></label>
 							</div>
 							<div class="form-group">
-								<label for="depTime">Dep Time</label> <input type="text"
+								<label for="depDate">Dep Date</label> <input type="date"
+									class="form-control" id="depDate"
+									placeholder="Enter Deperture Date" th:field="*{depDate}" />
+									<label th:errors="*{depDate}" class="text-danger"></label>
+							</div>
+							<div class="form-group">
+								<label for="depTime">Dep Time</label> <input type="time"
 									class="form-control" id="depTime"
 									placeholder="Enter Deperture time" th:field="*{depTime}" />
+									<label th:errors="*{depTime}" class="text-danger"></label>
 							</div>
 							<div class="form-group">
 								<label for="estTime">Est Time</label> <input type="text"
 									class="form-control" id="estTime" placeholder="Enter Est time"
 									th:field="*{estTime}" />
+									<label th:errors="*{estTime}" class="text-danger"></label>
 							</div>
 							<div class="form-group">
 								<label for="unitPrice">Unit Price </label> <input type="text"
 									class="form-control" id="unitPrice" placeholder="Enter Price "
 									th:field="*{unitPrice}" />
+									<label th:errors="*{unitPrice}" class="text-danger"></label>
 							</div>
 							<div class="form-group">
 								<label for="busId">Bus Id</label> <select id="busId"
@@ -68,7 +78,7 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="cityList">Station Id</label> <select id="cityList"
+								<label for="cityList">Source</label> <select id="cityList"
 									class="form-control" th:field="*{source}">
 									<option value="-1">Select Source</option>
 									<option th:each="cities : ${allcities}" th:value="${cities}"
@@ -80,7 +90,7 @@
 
 
 							<div class="form-group">
-								<label for="cityList">Destination</label> <select id="cityList"
+								<label for="cityList1">Destination</label> <select id="cityList1"
 									class="form-control" th:field="*{destination}">
 									<option value="-1">Select Destination</option>
 									<option th:each="cities : ${allcities}" th:value="${cities}"

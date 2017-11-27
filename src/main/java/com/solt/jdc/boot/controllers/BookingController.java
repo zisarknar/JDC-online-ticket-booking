@@ -9,6 +9,9 @@ import com.solt.jdc.boot.services.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 @Controller
-public class BookingController {
+public class BookingController   {
 
     @Autowired
     private BookingService bookingService;
@@ -25,7 +30,8 @@ public class BookingController {
     private CustomerService customerService;
     @Autowired
     private TripService tripService;
-
+    @Autowired
+    private MainController mainController;
 
     @RequestMapping("/bookings")
     public String getAllBooking(Model model){
@@ -49,11 +55,16 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/bookings/add", method = RequestMethod.POST)
-    public String processAddBooking(@ModelAttribute ("newBooking") Booking newBooking){
+    public String processAddBooking(@ModelAttribute ("newBooking") @Valid Booking newBooking,BindingResult result){
+    	if(result.hasErrors()) {
+    		return "admin/booking/addNew";
+    	}
+    	mainController.disallowedFieldException(result);
         bookingService.saveBooking(newBooking);
         return "redirect:/bookings";
     }
 
+	
     @RequestMapping(value = "/booking/update/{id}", method = RequestMethod.GET)
     public String updateBooking(@PathVariable("id") int bookingId, Model model){
         model.addAttribute("allTrip", tripService.getAllTrips());
@@ -63,8 +74,11 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/booking/update/{id}", method = RequestMethod.POST)
-    public String processUpdateBooking(@ModelAttribute ("updatedBooking") Booking updatedBooking, @PathVariable ("id") int bookingId){
-        Booking currentBooking = bookingService.getBooking(bookingId);
+    public String processUpdateBooking(@ModelAttribute ("updatedBooking")@Valid Booking updatedBooking, @PathVariable ("id") int bookingId,BindingResult result){
+    	 if(result.hasErrors()) {
+     		return "admin/booking/update";
+     	}
+    	Booking currentBooking = bookingService.getBooking(bookingId);
         currentBooking.setNoOfSeats(updatedBooking.getNoOfSeats());
         currentBooking.setBookDate(updatedBooking.getBookDate());
         currentBooking.setRegCode(updatedBooking.getRegCode());
@@ -80,6 +94,11 @@ public class BookingController {
     public String deleteBooking(@PathVariable("id") int bookingId){
         bookingService.deleteBooking(bookingId);
         return "redirect:/bookings";
+    }
+    
+    @InitBinder
+    public void intializeBinder(WebDataBinder binder) {
+    	binder.setAllowedFields("regCode","bookDate","noOfSeats","totalAmount","status","trip","customer");
     }
 
 

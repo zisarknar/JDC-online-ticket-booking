@@ -33,6 +33,7 @@
 								<label for="exampleInputEmail1">Sevice Name</label> <input
 									type="text" class="form-control" id="exampleInputEmail1"
 									placeholder="Enter Service" th:field="*{services}" />
+									<label th:errors="*{services}" class="text-danger"></label>
 							</div>
 							
 						</div>

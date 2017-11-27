@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +29,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private MainController mainController;
+	
 	
 	@RequestMapping(method=RequestMethod.GET)
 
@@ -46,7 +50,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public String save(@ModelAttribute("user") User user) {
+	public String save(@ModelAttribute("user") @Valid User user,BindingResult result) {
+		if(result.hasErrors()) {
+    		return "admin/user/userAdd";
+    	}
+		mainController.disallowedFieldException(result);
 		userService.save(user); 
 		return "redirect:/user";
 	}
@@ -60,7 +68,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/edit",method=RequestMethod.POST)
-	public String edit(@ModelAttribute("user") User user){
+	public String edit(@ModelAttribute("user") @Valid User user,BindingResult result){
+		if(result.hasErrors()) {
+    		return "admin/user/userEdit";
+    	}
 		
 		User currentUser=userService.find(user.getId());
 		
@@ -90,4 +101,9 @@ public class UserController {
 		userService.delete(userService.find(id));
 		return "redirect:/user";
 	}	
+	
+	@InitBinder
+	public void initializeBinder(WebDataBinder binder) {
+		binder.setAllowedFields("userName","firstName","lastName","phone","email","role","status","password");
+	}
 }

@@ -30,18 +30,22 @@
                         <div class="form-group">
                             <label for="tripCode">Trip Code</label>
                             <input type="text" class="form-control" id="tripCode" placeholder="Enter Trip Code" th:field="*{tripCode}"/>
+                            <label th:errors="*{tripCode}" class="text-danger"></label>
                         </div>
                         <div class="form-group">
                             <label for="depTime">Dep Time</label>
                             <input type="time" class="form-control" id="depTime" placeholder="Enter Deperture time" th:field="*{depTime}"/>
+                            <label th:errors="*{depTime}" class="text-danger"></label>
                         </div>
                         <div class="form-group">
                             <label for="estTime">Est Time</label>
                             <input type="time" class="form-control" id="estTime" placeholder="Enter Est time" th:field="*{estTime}"/>
+                            <label th:errors="*{estTime}" class="text-danger"></label>
                         </div>
                         <div class="form-group">
                             <label for="unitPrice">Unit Price </label>
                             <input type="text" class="form-control" id="unitPrice" placeholder="Enter Price " th:field="*{unitPrice}"/>
+                            <label th:errors="*{unitPrice}" class="text-danger"></label>
                         </div>
                         <div class="form-group">
                             <label for="busId">Bus Id</label>

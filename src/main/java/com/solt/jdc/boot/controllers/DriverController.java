@@ -1,9 +1,14 @@
 package com.solt.jdc.boot.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +25,9 @@ public class DriverController {
 
 	@Autowired
 	private DriverService driverService;
+	
+	@Autowired
+	private MainController mainController;
 	
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -39,7 +47,11 @@ public class DriverController {
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public String save(@ModelAttribute("driver") Driver driver) {
+	public String save(@ModelAttribute("driver") @Valid Driver driver,BindingResult result) {
+		if(result.hasErrors()) {
+    		return "admin/driver/driverAdd";
+    	}
+		mainController.disallowedFieldException(result);
 		driverService.save(driver); 
 		return "redirect:/driver";
 	}
@@ -53,8 +65,10 @@ public class DriverController {
 	}
 	
 	@RequestMapping(value="/edit",method=RequestMethod.POST)
-	public String edit(@ModelAttribute("driver") Driver driver){
-		
+	public String edit(@ModelAttribute("driver") @Valid Driver driver,BindingResult result){
+		if(result.hasErrors()) {
+    		return "admin/bus/driverEdit";
+    	}
 		Driver currentDriver=driverService.find(driver.getId());
 		
 		currentDriver.setName(driver.getName());
@@ -63,7 +77,7 @@ public class DriverController {
 		currentDriver.setDriverRole(driver.getDriverRole());
 		currentDriver.setCode(driver.getCode());
 		currentDriver.setStatus(driver.isStatus());
-		
+		mainController.disallowedFieldException(result);
 		driverService.update(currentDriver);
 		
 		return"redirect:/driver";
@@ -75,5 +89,10 @@ public class DriverController {
 		driverService.delete(driverService.find(id));
 		return "redirect:/driver";
 	}	
+	
+	@InitBinder
+	public void initializeBinder(WebDataBinder binder) {
+		binder.setAllowedFields("name","phone","email","driverRole","code","status");
+	}
 }
 

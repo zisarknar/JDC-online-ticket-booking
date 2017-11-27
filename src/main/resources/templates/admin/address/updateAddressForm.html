@@ -33,6 +33,7 @@
 								<label for="address">Address Name</label> <input type="text"
 									class="form-control" id="address" placeholder="Enter Address"
 									th:field="*{addressName}" />
+									<label th:errors="*{addressName}" class="text-danger"></label>
 							</div>
 							<div class="dropdown">
 								<button class="btn btn-secondary dropdown-toggle" type="button"
