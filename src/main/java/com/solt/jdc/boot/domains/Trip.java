@@ -32,14 +32,9 @@ public class Trip {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "trip")
     private Booking booking;
     
-   
-    
     private String source;
     private String destination;
     
-   
-
-
     public Trip() {
     }
 

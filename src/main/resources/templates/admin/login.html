@@ -7,11 +7,11 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" th:href="@{/components/bootstrap/dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css"/>
     <!-- Font Awesome -->
-    <link rel="stylesheet" th:href="@{/components/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" href="/components/font-awesome/css/font-awesome.min.css"/>
     <!-- Theme style -->
-    <link rel="stylesheet" th:href="@{dist/css/AdminLTE.min.css}"/>
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,13 +32,13 @@
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form th:action="@{/admin/login}" method="POST">
+        <form th:action="@{/login}" method="POST">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="User Name"/>
+                <input type="text" class="form-control" name="username" placeholder="User Name" autofocus="true" required="true"/>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password"/>
+                <input type="password" class="form-control" name="password" placeholder="Password" required="true"/>
                 <span class="glyphicon glyphicon-eye-open form-control-feedback"></span>
             </div>
             <div class="row">
@@ -68,9 +68,9 @@
 <!-- /.login-box -->
 
 <!-- jQuery 3 -->
-<script th:src="@{/components/jquery/dist/jquery.min.js}"></script>
+<script src="/components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script th:src="@{/components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>

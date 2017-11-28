@@ -21,8 +21,6 @@ public class BusType {
 	@OneToMany(mappedBy="busType")
 	private List<Bus> busList=new ArrayList<>();
 	
-	
-
 	public List<Bus> getBusList() {
 		return busList;
 	}
