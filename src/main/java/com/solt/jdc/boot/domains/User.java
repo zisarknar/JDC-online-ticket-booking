@@ -1,17 +1,25 @@
 package com.solt.jdc.boot.domains;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
+
 
 @Entity
 public class User {
@@ -51,27 +59,27 @@ public class User {
 	//@Transient
 	private boolean status=true;
 	
-	@Enumerated(EnumType.STRING)
-	private Role role;
+	/*@Enumerated(EnumType.STRING)
+	private Role role;*/
 	//
+	/*@Transient
+	@Embedded
+	private Role role;
+	*/
+	@NotNull
+	private String role; 
 	
 	
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@JoinColumn(name="user_station_id")
+	private Station station;
 	public User() {
 		
 	}
 
 
-	public User(String userName, String password, String firstName, String lastName, String email, String phone, boolean status, Role role) {
-		this.userName = userName;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.phone = phone;
-		this.status = status;
-		this.role = role;
-	}
 
+	
 	public int getId() {
 		return id;
 	}
@@ -152,13 +160,46 @@ public class User {
 	}
 
 
-	public Role getRole() {
+
+
+	public String getRole() {
 		return role;
 	}
 
 
-	public void setRole(Role role) {
+
+
+	public void setRole(String role) {
 		this.role = role;
 	}
+
+
+	
+	
+	
+//==========================
+	/*
+	public enum Role{
+
+		ADIM("admin"),
+		USER("user");
+		
+		
+		private final String displayRole;
+		
+		Role(String role) {
+			this.displayRole=role;
+		}
+		
+		public String getRoleName() {
+			return displayRole;
+		}	
+	}*/
+	
+	//===================================
+
+	
+
+	
 		
 }

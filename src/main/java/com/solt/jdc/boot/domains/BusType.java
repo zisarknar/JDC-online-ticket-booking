@@ -18,6 +18,7 @@ public class BusType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
+	
 	@OneToMany(mappedBy="busType")
 	private List<Bus> busList=new ArrayList<>();
 	
