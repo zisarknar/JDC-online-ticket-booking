@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
+@RequestMapping("/admin")
 public class UserController {
 
 	@Autowired
@@ -34,7 +35,7 @@ public class UserController {
 	@RequestMapping(value="/users/add",method=RequestMethod.POST)
 	public String save(@ModelAttribute("user") User user) {
 		userService.save(user); 
-		return "redirect:/users";
+		return "redirect:/admin/users";
 	}
 	
 	@RequestMapping(value="/user/update/{id}",method=RequestMethod.GET)
@@ -58,13 +59,13 @@ public class UserController {
 			currentUser.setPassword(user.getPassword());
 		}
 		userService.update(currentUser);
-		return"redirect:/users";
+		return"redirect:/admin/users";
 	}
 	
 	
 	@RequestMapping(value="/user/delete/{id}")
 	public String delete(@PathVariable("id") int id) {
 		userService.delete(userService.find(id));
-		return "redirect:/users";
+		return "redirect:/admin/users";
 	}	
 }

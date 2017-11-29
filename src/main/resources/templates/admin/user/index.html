@@ -25,7 +25,7 @@
 				<div class="box">
 					<div class="box-header">
 						<h3 class="box-title">User List</h3>
-						<a th:href="@{/users/add}" class="btn btn-primary pull-right"><i
+						<a th:href="@{/admin/users/add}" class="btn btn-primary pull-right"><i
 							class="fa fa-plus"></i>Add New User</a>
 					</div>
 					<div class="box-body">
@@ -58,9 +58,9 @@
 									<td th:text="${user.status}"></td>
 
 
-									<td><a th:href="@{/user/delete/}+${user.id}"
+									<td><a th:href="@{/admin/user/delete/}+${user.id}"
 										class="btn btn-danger"><i class="fa fa-trash" onclick="return confirm('Are you sure to delete ?')"></i>Delete</a> 
-										<a th:href="@{/user/edit/}+${user.id}" class="btn btn-info" ><i class="fa fa-trash"></i>
+										<a th:href="@{/admin/user/edit/}+${user.id}" class="btn btn-info" ><i class="fa fa-trash"></i>
 											Edit</a></td>
 								</tr>
 							</tbody>
