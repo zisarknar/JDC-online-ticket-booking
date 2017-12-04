@@ -87,8 +87,6 @@ public class Bus {
 		this.takenSeats = takenSeats;
 	}
 
-	
-
 	public String getBusCompany() {
 		return busCompany;
 	}
