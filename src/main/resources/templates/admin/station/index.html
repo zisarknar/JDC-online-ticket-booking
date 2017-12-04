@@ -39,7 +39,8 @@
                         <tr th:each="station : ${stations}">
                             <td th:text="${station.name}"></td>
                             <td th:text="${station.phoneNumber}"></td>
-                                <td>
+                            
+                            <td>
                                 <a th:href="@{/admin/station/delete/}+${station.id}" class="btn btn-danger"><i
                                         class="fa fa-trash"></i> Delete</a>
                                 <a th:href="${'/admin/station/update/'+station.id}" class="btn btn-info"><i

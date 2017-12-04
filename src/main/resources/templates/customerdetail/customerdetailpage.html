@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>User Detail View</title>
+</head>
+
+<body>
+	<h1>This is Userer detail page</h1>
+	<div class="container">
+		<div class="starter-template">
+			<h1>Uer Detail</h1>
+			<div th:inline="text">
+			Welcome to _________User  : '[[${#httpServletRequest.remoteUser}]]'				
+			
+			 and
+			 '[[${#httpServletRequest.getUserPrincipal().getName}]]'
+			 
+			</div>
+		
+		</div>
+	
+	</div>
+</body>
+</html>
+
+
+

@@ -28,9 +28,11 @@ public class StationController {
 
     @RequestMapping(value = "/stations/add", method = RequestMethod.GET)
     public String addStationGET(Model model) {
+    	
         Station station = new Station();
         model.addAttribute("station", station);
         model.addAttribute("addresses", addressService.getAllAddress());
+        
         return "admin/station/addStation";
     }
 
