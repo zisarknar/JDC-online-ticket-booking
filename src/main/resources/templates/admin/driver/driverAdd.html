@@ -74,9 +74,14 @@
 
                         <div class="form-group">
                             <label for="driverStatus">Status</label>
-                            <input type="radio" id="driverStatus" value="true" th:checked="*{status}"/>Yes
-                            <input type="radio" id="driverStatus" value="false"
-                                   th:checked="*{status}==false"/>No
+                            <input type="radio" 
+                            		id="driverStatus" 
+                            		value="true" 
+                            		th:field="*{status}"/>Yes
+                            <input type="radio" 
+                            		id="driverStatus" 
+                            		value="false"
+                                   	th:field="*{status}"/>No     
                         </div>
 
                     </div>

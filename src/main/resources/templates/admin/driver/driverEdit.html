@@ -24,10 +24,10 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title pull-right">Update Drivers</h3>
-                    <a th:href="@{/admin/drivera}" class="btn btn-primary"><i
+                    <a th:href="@{/admin/drivers}" class="btn btn-primary"><i
                             class="fa fa-arrow-left"></i> Back</a>
                 </div>
-                <form role="form" th:action="@{/admin/driver/edit}" method="post"
+                <form role="form" th:action="@{/admin/driver/update}" method="post"
                       th:object="${driver}">
                     <div class="box-body">
                         <div class="form-group">
@@ -69,11 +69,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="driverStatus">Status</label> <input type="radio"
-                                                                            id="driverStatus" value="true"
-                                                                            th:checked="*{status}"/>Yes <input
-                                type="radio" id="driverStatus" value="false"
-                                th:checked="*{status}==false"/>No
+                            <label for="driverStatus">Status</label> 
+	                            <input type="radio"
+	                                   id="driverStatus" value="true"
+	                                   th:field="*{status}"/>Yes 
+	                                   
+	                             <input
+	                                	type="radio" id="driverStatus" value="false"
+	                                	th:field="*{status}"/>No
 
                         </div>
 

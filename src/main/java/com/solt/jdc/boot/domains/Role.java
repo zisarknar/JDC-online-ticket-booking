@@ -2,8 +2,8 @@ package com.solt.jdc.boot.domains;
 
 public enum Role {
 	
-	ADIM("admin"),
-	USER("user");
+	MANAGER("Manager"),
+	STAFF("Staff");
 	
 	
 	private final String displayRole;

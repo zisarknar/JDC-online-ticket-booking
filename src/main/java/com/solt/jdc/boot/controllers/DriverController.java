@@ -14,7 +14,7 @@ import com.solt.jdc.boot.services.DriverService;
 
 
 @Controller
-@RequestMapping("admin")
+@RequestMapping("/admin")
 public class DriverController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class DriverController {
     @RequestMapping(value = "/drivers/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("driver") Driver driver) {
         driverService.save(driver);
-        return "redirect:/admin/driver";
+        return "redirect:/admin/drivers";
     }
 
     @RequestMapping(value = "/driver/update/{id}", method = RequestMethod.GET)
@@ -47,9 +47,11 @@ public class DriverController {
         return "admin/driver/driverEdit";
     }
 
-    @RequestMapping(value = "/driver/update/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/driver/update", method = RequestMethod.POST)
     public String edit(@ModelAttribute("driver") Driver driver) {
+    	//
         Driver currentDriver = driverService.find(driver.getId());
+    	
         currentDriver.setName(driver.getName());
         currentDriver.setPhone(driver.getPhone());
         currentDriver.setEmail(driver.getEmail());

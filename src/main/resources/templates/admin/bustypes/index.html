@@ -29,6 +29,7 @@
 							class="fa fa-plus"></i> add New</a>
 					</div>
 					<div class="box-body">
+					
 						<table id="bustypes" class="table table-bordered table-hover"
 							dt:table="true">
 							<thead>
@@ -37,6 +38,7 @@
 									<th>Action</th>
 								</tr>
 							</thead>
+							
 							<tbody>
 								<tr th:each="bustype : ${bustypes}">
 									<td th:text="${bustype.type}"></td>
@@ -46,6 +48,7 @@
 										class="btn btn-info"><i class="fa fa-trash"></i> Edit</a></td>
 								</tr>
 							</tbody>
+							
 						</table>
 					</div>
 				</div>

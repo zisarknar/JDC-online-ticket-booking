@@ -14,19 +14,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
+@RequestMapping("/admin")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(method=RequestMethod.GET, value = "/users")
+	@RequestMapping(method=RequestMethod.GET, value ="/users")
 	public String findAllUser(Model model) {
 		model.addAttribute("users",userService.findAll());
 		return "admin/user/index";
 	}
 	
+	
 	@RequestMapping(value="/users/add",method=RequestMethod.GET)
 	public String add(ModelMap map) {
+		
 		map.put("user",new User());
 		return "admin/user/userAdd";
 	}
@@ -34,7 +37,7 @@ public class UserController {
 	@RequestMapping(value="/users/add",method=RequestMethod.POST)
 	public String save(@ModelAttribute("user") User user) {
 		userService.save(user); 
-		return "redirect:/users";
+		return "redirect:/admin/users";
 	}
 	
 	@RequestMapping(value="/user/update/{id}",method=RequestMethod.GET)
@@ -58,13 +61,16 @@ public class UserController {
 			currentUser.setPassword(user.getPassword());
 		}
 		userService.update(currentUser);
-		return"redirect:/users";
+		return"redirect:/admin/users";
 	}
+	
 	
 	
 	@RequestMapping(value="/user/delete/{id}")
 	public String delete(@PathVariable("id") int id) {
+		
+		
 		userService.delete(userService.find(id));
-		return "redirect:/users";
+		return "redirect:/admin/users";
 	}	
 }

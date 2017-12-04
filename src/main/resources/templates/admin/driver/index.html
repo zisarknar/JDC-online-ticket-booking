@@ -52,13 +52,25 @@
                             <td th:text="${driver.email}"></td>
                             <td th:text="${driver.phone}"></td>
                             <td th:text="${driver.driverRole}"></td>
-                            <td th:text="${driver.status}"></td>
+                            
+                            <td >
+							
+									<span th:if="${driver.status}">
+											<a href="#"><i class="fa fa-circle text-success"></i>							
+											</a>
+									</span>
+										
+									<span th:unless="${driver.status}">
+											false	
+									
+									</span>
+							</td>
 
 
                             <td><a th:href="@{/admin/driver/delete/}+${driver.id}"
                                    class="btn btn-danger"><i class="fa fa-trash"
                                                              onclick="return confirm('Are you sure to delete ?')"></i>Delete</a>
-                                <a th:href="@{/admin/driver/edit/}+${driver.id}" class="btn btn-info"><i
+                                <a th:href="@{/admin/driver/update/}+${driver.id}" class="btn btn-info"><i
                                         class="fa fa-trash"></i>
                                     Edit</a></td>
                         </tr>
