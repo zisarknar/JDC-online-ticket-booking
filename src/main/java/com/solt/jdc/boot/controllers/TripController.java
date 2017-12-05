@@ -33,14 +33,12 @@ public class TripController {
     private TripService tripService;
     @Autowired
     private CitiesService citiesService;
-<<<<<<< HEAD
-=======
+
     
     @Autowired
     private MainController mainController;
 
 
->>>>>>> feature/trip&cities_Binding
     @Autowired
     private BusService busService;
     @Autowired
@@ -49,11 +47,7 @@ public class TripController {
     @RequestMapping("/trips")
     public String getAllTrip(Model model) {
         model.addAttribute("trips", tripService.getAllTrips());
-<<<<<<< HEAD
-        List<String> testList = citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList());
-        testList.stream().forEach(System.out::println);
-=======
->>>>>>> feature/trip&cities_Binding
+
         return "admin/trip/index";
     }
 
@@ -69,11 +63,8 @@ public class TripController {
         model.addAttribute("newTrip", trip);
         model.addAttribute("allBus", busService.getAllBus());
         model.addAttribute("allStation", stationService.getAllStations());
-<<<<<<< HEAD
-        model.addAttribute("allcities", citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
-=======
+
         model.addAttribute("allcities", citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList()));
->>>>>>> feature/trip&cities_Binding
         return "admin/trip/addNew";
     }
 
@@ -97,14 +88,11 @@ public class TripController {
     }
 
     @RequestMapping(value = "/trip/update/{id}", method = RequestMethod.POST)
-<<<<<<< HEAD
-    public String processUpdateTrip(@ModelAttribute("trip") Trip updatedTrip, @PathVariable("id") int tripId) {
-=======
+
     public String processUpdateTrip(@ModelAttribute("trip") @Valid Trip updatedTrip, @PathVariable("id") int tripId,BindingResult result){
     	if(result.hasErrors()) {
     		return "admin/bus/update";
     	}
->>>>>>> feature/trip&cities_Binding
         Trip currentTrip = tripService.getTrip(tripId);
         currentTrip.setBooking(updatedTrip.getBooking());
         currentTrip.setBusId(updatedTrip.getBusId());

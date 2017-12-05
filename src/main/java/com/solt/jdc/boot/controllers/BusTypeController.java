@@ -31,19 +31,7 @@ public class BusTypeController {
 	@Autowired
 	private MainController mainController;
 
-<<<<<<< HEAD
-	@RequestMapping(value = "/bustypes/add", method = RequestMethod.GET)
-	public String addBusTypeGet(Model model) {
-		BusType busType = new BusType();
-		model.addAttribute("busType", busType);
-		return "admin/bustypes/addBusType";
-	}
-	
-	@RequestMapping(value="/bustypes/add",method=RequestMethod.POST)
-	public String addBusTypePost(@ModelAttribute("busType")BusType busType) {
-		busTypeService.addBusType(busType);
-		return "redirect:/admin/bustypes";
-=======
+
 	
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
@@ -62,7 +50,6 @@ public class BusTypeController {
 		mainController.disallowedFieldException(result);
 		busTypeService.addBusType(busType);
 		return "redirect:/bus/buses";
->>>>>>> feature/trip&cities_Binding
 	}
 	
 	@RequestMapping(value="/bustypes")
@@ -71,27 +58,7 @@ public class BusTypeController {
 		return "admin/bustypes/index";
 	}
 	
-<<<<<<< HEAD
-	@RequestMapping(value="/bustype/delete/{busTypeId}")
-	public String deleteBus(Model model,@PathVariable("busTypeId")int busTypeId) {
-		
-		busTypeService.deleteBusType(busTypeService.findById(busTypeId));
-		return "redirect:/admin/bustypes";
-	}
-	
-	@RequestMapping(value="/bustype/update/{busTypeId}",method=RequestMethod.GET)
-	public String updateBusGet(Model model,@PathVariable("busTypeId")int busTypeId) {
-		model.addAttribute("bustype", busTypeService.findById(busTypeId));
-		return "admin/bustypes/updateform";
-	}
-	
-	@RequestMapping(value="/bustype/update/{busTypeId}",method=RequestMethod.POST)
-	public String updateBusPOST(@ModelAttribute("bustype")BusType newbusType,@PathVariable("busTypeId")int id) {
-		BusType currentBusType=busTypeService.findById(id);
-		currentBusType.setType(newbusType.getType());
-		busTypeService.updateBusType(currentBusType);
-		return "redirect:/admin/bustypes";
-=======
+
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String update(@ModelAttribute("busType")@Valid BusType newBusType) {
@@ -119,7 +86,6 @@ public class BusTypeController {
 	@InitBinder
 	public void initializeBinder(WebDataBinder binder) {
 		binder.setAllowedFields("id","type");
->>>>>>> feature/trip&cities_Binding
 	}
 	
 

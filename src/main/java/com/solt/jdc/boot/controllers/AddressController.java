@@ -31,28 +31,19 @@ public class AddressController {
 
 	@Autowired
 	private CitiesService citiesService;
-<<<<<<< HEAD
-	
-	@RequestMapping(value="/addresses/add",method=RequestMethod.GET)
-=======
+
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
->>>>>>> feature/trip&cities_Binding
+
 	public String addAddressGET(Model model) {
 		Address address = new Address();
 		model.addAttribute("address", address);
 		model.addAttribute("allcities", citiesService.getAllCities());
 		return "admin/address/addAddress";
 	}
-<<<<<<< HEAD
-	
-	@RequestMapping(value="/addresses/add",method=RequestMethod.POST)
-	public String addAddressPOST(Model model,@ModelAttribute("address")Address address) {
-		addressService.addAddress(address);
-		return "redirect:/admin/addresses";
-=======
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/addresses/add", method = RequestMethod.POST)
 	public String addAddressPOST(Model model, @ModelAttribute("address") @Valid Address address, BindingResult result) {
 		mainController.disallowedFieldException(result);
 		if (result.hasErrors()) {
@@ -67,7 +58,6 @@ public class AddressController {
 		addressService.addAddress(address);
 
 		return "redirect:/station/stations";
->>>>>>> feature/trip&cities_Binding
 	}
 
 	@RequestMapping("/addresses")
@@ -75,17 +65,7 @@ public class AddressController {
 		model.addAttribute("addresses", addressService.getAllAddress());
 		return "admin/address/index";
 	}
-<<<<<<< HEAD
-	
-	@RequestMapping("/address/delete/{addressId}")
-	public String deleteAddress(@PathVariable("addressId")int addressId) {
-		addressService.deleteAddress(addressId);
-		return "redirect:/admin/addresses";
-	}
-	
-	@RequestMapping(value="/address/update/{addressId}",method=RequestMethod.GET)
-	public String updateAddressGET(Model model,@PathVariable("addressId")int addressId) {
-=======
+
 
 	@RequestMapping("/delete/{addressId}")
 	public String deleteAddress(@PathVariable("addressId") int addressId) {
@@ -95,17 +75,12 @@ public class AddressController {
 
 	@RequestMapping(value = "/update/{addressId}", method = RequestMethod.GET)
 	public String updateAddressGET(Model model, @PathVariable("addressId") int addressId) {
->>>>>>> feature/trip&cities_Binding
+
 		model.addAttribute("address", addressService.findById(addressId));
 		model.addAttribute("allcities", citiesService.getAllCities());
 		return "admin/address/updateAddressForm";
 	}
-<<<<<<< HEAD
-	
-	@RequestMapping(value="/address/update/{addressId}",method=RequestMethod.POST)
-	public String updateAddressPOST(Model model,@ModelAttribute("address")Address newAddress,@PathVariable("addressId")int addressId) {
-		Address currentAddress=addressService.findById(addressId);
-=======
+
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updateAddressPOST(Model model, @ModelAttribute("address") @Valid Address newAddress,
@@ -115,14 +90,11 @@ public class AddressController {
 		}
 
 		Address currentAddress = addressService.findById(newAddress.getId());
->>>>>>> feature/trip&cities_Binding
 		currentAddress.setAddressName(newAddress.getAddressName());
 		currentAddress.setCities(newAddress.getCities());
 
 		addressService.updateAddress(currentAddress);
-<<<<<<< HEAD
-		return "redirect:/admin/addresses";
-=======
+
 		return "redirect:/station/stations";
 	}
 
@@ -135,6 +107,5 @@ public class AddressController {
 	@InitBinder
 	public void initializeBinder(WebDataBinder binder) {
 		binder.setAllowedFields("id", "addressName", "cities");
->>>>>>> feature/trip&cities_Binding
 	}
 }

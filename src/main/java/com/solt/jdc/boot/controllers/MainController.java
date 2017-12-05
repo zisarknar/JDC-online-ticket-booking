@@ -1,11 +1,9 @@
 package com.solt.jdc.boot.controllers;
 
 import org.springframework.stereotype.Controller;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.GetMapping;
-=======
+
 import org.springframework.validation.BindingResult;
->>>>>>> feature/trip&cities_Binding
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller

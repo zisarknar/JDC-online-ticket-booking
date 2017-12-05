@@ -22,59 +22,7 @@ import com.solt.jdc.boot.services.DriverService;
 @RequestMapping("/admin")
 public class DriverController {
 
-<<<<<<< HEAD
-    @Autowired
-    private DriverService driverService;
 
-
-    @RequestMapping(value = "/drivers", method = RequestMethod.GET)
-    public String findAlldriver(Model model) {
-        model.addAttribute("drivers", driverService.findAll());
-        return "admin/driver/index";
-    }
-
-    @RequestMapping(value = "/drivers/add", method = RequestMethod.GET)
-    public String add(ModelMap map) {
-        map.put("driver", new Driver());
-        return "admin/driver/driverAdd";
-
-    }
-
-    @RequestMapping(value = "/drivers/add", method = RequestMethod.POST)
-    public String save(@ModelAttribute("driver") Driver driver) {
-        driverService.save(driver);
-        return "redirect:/admin/drivers";
-    }
-
-    @RequestMapping(value = "/driver/update/{id}", method = RequestMethod.GET)
-    public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("drivers", driverService.findAll());
-        model.addAttribute("driver", driverService.find(id));
-        return "admin/driver/driverEdit";
-    }
-
-    @RequestMapping(value = "/driver/update", method = RequestMethod.POST)
-    public String edit(@ModelAttribute("driver") Driver driver) {
-    	//
-        Driver currentDriver = driverService.find(driver.getId());
-    	
-        currentDriver.setName(driver.getName());
-        currentDriver.setPhone(driver.getPhone());
-        currentDriver.setEmail(driver.getEmail());
-        currentDriver.setDriverRole(driver.getDriverRole());
-        currentDriver.setCode(driver.getCode());
-        currentDriver.setStatus(driver.isStatus());
-        driverService.update(currentDriver);
-        return "redirect:/admin/drivers";
-    }
-
-
-    @RequestMapping(value = "/driver/delete/{id}")
-    public String delete(@PathVariable("id") int id) {
-        driverService.delete(driverService.find(id));
-        return "redirect:/admin/drivers";
-    }
-=======
 	@Autowired
 	private DriverService driverService;
 	
@@ -146,6 +94,5 @@ public class DriverController {
 	public void initializeBinder(WebDataBinder binder) {
 		binder.setAllowedFields("name","phone","email","driverRole","code","status");
 	}
->>>>>>> feature/trip&cities_Binding
 }
 

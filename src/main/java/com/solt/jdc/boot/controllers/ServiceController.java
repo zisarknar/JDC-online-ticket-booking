@@ -25,55 +25,7 @@ import com.solt.jdc.boot.services.ServicesService;
 @Controller
 @RequestMapping("/admin")
 public class ServiceController {
-<<<<<<< HEAD
-    @Autowired
-    private ServicesService servicesService;
 
-    @Autowired
-    private BusService busService;
-
-    @RequestMapping(value = "/services/add", method = RequestMethod.GET)
-    public String addServiceGET(Model model) {
-        Services service = new Services();
-        model.addAttribute("service", service);
-        model.addAttribute("buses", busService.getAllBus());
-        return "admin/services/addService";
-    }
-
-    @RequestMapping(value = "/services/add", method = RequestMethod.POST)
-    public String addServicePOST(Model model, @ModelAttribute("service") Services service) {
-        servicesService.addService(service);
-        return "redirect:/admin/services";
-    }
-
-    @RequestMapping(value = "/services")
-    public String getAllServices(Model model) {
-        model.addAttribute("services", servicesService.getAllServices());
-        return "admin/services/index";
-    }
-
-    @RequestMapping(value = "/service/delete/{serviceId}")
-    public String deleteService(@PathVariable("serviceId") int serviceId, Model model) {
-        servicesService.deleteService(serviceId);
-        return "redirect:/admin/services";
-    }
-
-    @RequestMapping(value = "/service/update/{serviceId}", method = RequestMethod.GET)
-    public String updateServiceGET(Model model, @PathVariable("serviceId") int serviceId) {
-        model.addAttribute("service", servicesService.findById(serviceId));
-        model.addAttribute("buses", busService.getAllBus());
-        return "admin/services/updateServiceForm";
-    }
-
-    @RequestMapping(value = "/service/update/{serviceId}", method = RequestMethod.POST)
-    public String updateServicePOST(@ModelAttribute("service") Services newService, @PathVariable("serviceId") int serviceId) {
-        Services currentService = servicesService.findById(serviceId);
-        currentService.setServices(newService.getServices());
-        currentService.setBus(newService.getBus());
-        servicesService.updateService(currentService);
-        return "redirect:/admin/services";
-    }
-=======
 	@Autowired
 	private ServicesService servicesService;
 	
@@ -137,5 +89,4 @@ public class ServiceController {
 	public void intializeBinder(WebDataBinder binder) {
 		binder.setAllowedFields("id","services","bus");
 	}
->>>>>>> feature/trip&cities_Binding
 }

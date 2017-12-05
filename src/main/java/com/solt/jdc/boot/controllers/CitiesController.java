@@ -20,11 +20,8 @@ import com.solt.jdc.boot.domains.Cities;
 import com.solt.jdc.boot.services.CitiesService;
 
 @Controller
-<<<<<<< HEAD
-@RequestMapping("/admin")
-=======
+
 @RequestMapping("/cities/")
->>>>>>> feature/trip&cities_Binding
 public class CitiesController {
 	@Autowired
 	private CitiesService citiesService;
@@ -39,12 +36,7 @@ public class CitiesController {
 		return "admin/cities/addCities";
 	}
 
-<<<<<<< HEAD
-	@RequestMapping(value = "/cities/add", method = RequestMethod.POST)
-	public String addCityPOST(@ModelAttribute("cities") Cities cities) {
-		citiesService.createCity(cities);
-		return "redirect:/admin/allcities";
-=======
+
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addCityPOST(@ModelAttribute("cities") @Valid Cities cities,BindingResult result) {
 		if(result.hasErrors()) {
@@ -61,7 +53,6 @@ public class CitiesController {
 		citiesService.createCity(cities);
 		mainController.disallowedFieldException(result);
 		return "redirect:/station/stations";
->>>>>>> feature/trip&cities_Binding
 	}
 
 	
@@ -77,20 +68,7 @@ public class CitiesController {
 		return "redirect:/admin/cities";
 	}
 
-<<<<<<< HEAD
-	@RequestMapping(value = "/city/update/{citiesId}", method = RequestMethod.GET)
-	public String updateCitiesGET(Model model,@PathVariable("citiesId")int citiesId) {
-		model.addAttribute("cities",citiesService.findById(citiesId));
-		return "admin/cities/updateCitiesForm";
-	}
-	
-	@RequestMapping(value="/city/update/{citiesId}",method=RequestMethod.POST)
-	public String updateCitiesPOST(@ModelAttribute("cities")Cities newCities,@PathVariable("citiesId")int citiesId) {
-		Cities currentCities=citiesService.findById(citiesId);
-		currentCities.setName(newCities.getName());
-		citiesService.updateCities(currentCities);
-		return "redirect:/admin/cities";
-=======
+
 	
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -113,6 +91,5 @@ public class CitiesController {
 	@InitBinder
 	public void initializeBinder(WebDataBinder binder) {
 		binder.setAllowedFields("id","name");
->>>>>>> feature/trip&cities_Binding
 	}
 }

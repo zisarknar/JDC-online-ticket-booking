@@ -53,22 +53,12 @@ public class Trip {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "trip")
     private Booking booking;
     
-<<<<<<< HEAD
-=======
    
    
->>>>>>> feature/trip&cities_Binding
     private String source;
     
     private String destination;
     
-<<<<<<< HEAD
-=======
-    
-   
-
-
->>>>>>> feature/trip&cities_Binding
     public Trip() {
     }
 

@@ -22,12 +22,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 @Controller
-<<<<<<< HEAD
-@RequestMapping("/admin")
-public class BookingController{
-=======
+
 public class BookingController   {
->>>>>>> feature/trip&cities_Binding
 
     @Autowired
     private BookingService bookingService;

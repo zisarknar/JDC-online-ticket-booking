@@ -2,17 +2,17 @@ package com.solt.jdc.boot.controllers;
 
 import com.solt.jdc.boot.domains.User;
 import com.solt.jdc.boot.services.UserService;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-<<<<<<< HEAD
-=======
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
->>>>>>> feature/trip&cities_Binding
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,15 +26,12 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-<<<<<<< HEAD
-=======
+
 	
 	@Autowired
 	private MainController mainController;
 	
 	
-	@RequestMapping(method=RequestMethod.GET)
->>>>>>> feature/trip&cities_Binding
 
 	@RequestMapping(method=RequestMethod.GET, value ="/users")
 	public String findAllUser(Model model) {
@@ -50,17 +47,12 @@ public class UserController {
 		return "admin/user/userAdd";
 	}
 	
-<<<<<<< HEAD
-	@RequestMapping(value="/users/add",method=RequestMethod.POST)
-	public String save(@ModelAttribute("user") User user) {
-=======
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String save(@ModelAttribute("user") @Valid User user,BindingResult result) {
 		if(result.hasErrors()) {
     		return "admin/user/userAdd";
     	}
 		mainController.disallowedFieldException(result);
->>>>>>> feature/trip&cities_Binding
 		userService.save(user); 
 		return "redirect:/admin/users";
 	}
@@ -72,17 +64,12 @@ public class UserController {
 		return "admin/user/userEdit";
 	}
 	
-<<<<<<< HEAD
-	@RequestMapping(value="/user/update",method=RequestMethod.POST)
-	public String edit(@ModelAttribute("user") User user){
-=======
 	@RequestMapping(value="/edit",method=RequestMethod.POST)
 	public String edit(@ModelAttribute("user") @Valid User user,BindingResult result){
 		if(result.hasErrors()) {
     		return "admin/user/userEdit";
     	}
 		
->>>>>>> feature/trip&cities_Binding
 		User currentUser=userService.find(user.getId());
 		currentUser.setUserName(user.getUserName());
 		currentUser.setFirstName(user.getFirstName());

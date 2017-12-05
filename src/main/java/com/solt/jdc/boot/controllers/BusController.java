@@ -27,11 +27,8 @@ import com.solt.jdc.boot.services.BusTypeService;
 import com.solt.jdc.boot.services.ServicesService;
 
 @Controller
-<<<<<<< HEAD
-@RequestMapping("/admin")
-=======
 
->>>>>>> feature/trip&cities_Binding
+
 public class BusController {
 	@Autowired
 	private BusService busService;
@@ -39,26 +36,14 @@ public class BusController {
 	@Autowired
 	private BusTypeService busTypeService;
 
-<<<<<<< HEAD
-	@RequestMapping(value = "/buses/add", method = RequestMethod.GET)
-	public String addBusGET(Model model) {
-		Bus bus = new Bus();
-		model.addAttribute("bustypes", busTypeService.getAllBusTypes());
-		model.addAttribute("bus", bus);
-		return "admin/bus/addBus";
-=======
+
 	@Autowired
 	private BusRepository busRepository;
->>>>>>> feature/trip&cities_Binding
 
 	@Autowired
 	private MainController mainController;
 
-<<<<<<< HEAD
-	@RequestMapping(value = "/buses/add", method = RequestMethod.POST)
-	public String addBusPOST(Model model, @ModelAttribute("bus") Bus newBus) {
-		
-=======
+
 	@Autowired
 	private ServicesService servicesService;
 
@@ -76,7 +61,6 @@ public class BusController {
 			Bus bus = busList.get(busList.size() - 1);
 			newBus.setId(bus.getId() + 1);
 		}
->>>>>>> feature/trip&cities_Binding
 		busService.createBus(newBus);
 		return "redirect:/bus/buses";
 	}
@@ -101,11 +85,7 @@ public class BusController {
 
 		return "admin/bus/index";
 	}
-<<<<<<< HEAD
-	
-	@RequestMapping(value="/bus/delete/{busId}")
-	public String deleteBus(@PathVariable("busId")int busId,Model model) {
-=======
+
 
 	@RequestMapping(value = "/bus/findByBusType", method = RequestMethod.POST)
 	public String findByBusType(@ModelAttribute("busType") BusType busType, Model model) {
@@ -115,23 +95,10 @@ public class BusController {
 
 	@RequestMapping(value = "/bus/delete/{busId}")
 	public String deleteBus(@PathVariable("busId") int busId, Model model) {
->>>>>>> feature/trip&cities_Binding
 		busService.deleteBus(busId);
 		return "redirect:/admin/buses";
 	}
-<<<<<<< HEAD
-	
-	@RequestMapping(value="/bus/update/{busId}",method=RequestMethod.GET)
-	public String updateBusGET(Model model,@PathVariable("busId")int busId) {
-		model.addAttribute("bustypes", busTypeService.getAllBusTypes());
-		model.addAttribute("bus",busService.findById(busId));
-		return "admin/bus/updateBusForm";
-	}
-	
-	@RequestMapping(value="/bus/update/{busId}",method=RequestMethod.POST)
-	public String updateBusPOST(Model model,@ModelAttribute("bus")Bus newBus,@PathVariable("busId")int id) {
-		Bus currentBus=busService.findById(id);
-=======
+
 
 	@ResponseBody
 	@RequestMapping(value = "/bus/loadBusTable")
@@ -142,7 +109,6 @@ public class BusController {
 	@RequestMapping(value = "/bus/update", method = RequestMethod.POST)
 	public String update(@ModelAttribute("bus") Bus newBus) {
 		Bus currentBus = busService.findById(newBus.getId());
->>>>>>> feature/trip&cities_Binding
 		currentBus.setBusCode(newBus.getBusCode());
 		currentBus.setBusCompany(newBus.getBusCompany());
 		currentBus.setBusNumber(newBus.getBusNumber());
@@ -150,12 +116,9 @@ public class BusController {
 		currentBus.setTakenSeats(newBus.getTakenSeats());
 		currentBus.setBusType(newBus.getBusType());
 		busService.updateBus(currentBus);
-<<<<<<< HEAD
-		return "redirect:/admin/buses";
-=======
+
 
 		return "redirect:/bus/buses";
->>>>>>> feature/trip&cities_Binding
 	}
 
 	@ResponseBody

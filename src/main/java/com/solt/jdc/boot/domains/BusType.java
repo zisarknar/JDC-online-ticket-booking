@@ -27,17 +27,10 @@ public class BusType  {
 
 	@NotBlank(message = "Please enter bus type")
 	private String type;
-<<<<<<< HEAD
-	
-	@OneToMany(mappedBy="busType")
-	private List<Bus> busList=new ArrayList<>();
-	
-=======
 	@JsonIgnore
 	@OneToMany(mappedBy = "busType")
 	private List<Bus> busList = new ArrayList<>();
 
->>>>>>> feature/trip&cities_Binding
 	public List<Bus> getBusList() {
 		return busList;
 	}
