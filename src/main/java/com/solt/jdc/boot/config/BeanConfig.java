@@ -11,7 +11,6 @@ public class BeanConfig {
 
 	@Bean
 	public AuthenticationSuccessHandler successHandler() {
-		
 		return new SuccessHandler();
 	}
 }

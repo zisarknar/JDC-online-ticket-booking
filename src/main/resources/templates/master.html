@@ -1,28 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Admin | Dashboard</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" th:href="@{/components/bootstrap/dist/css/bootstrap.min.css}" media="screen"/>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" th:href="@{/components/font-awesome/css/font-awesome.min.css}"/>
-    <!--PACE-->
-    <link rel="stylesheet" th:href="@{/components/PACE/themes/red/pace-theme-minimal.css}"/>
-    <!-- Theme style -->
-    <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
-    <!-- DataTables -->
-    <link rel="stylesheet" th:href="@{/components/datatables.net-bs/css/dataTables.bootstrap.min.css}"/>
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Admin | Dashboard</title>
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet"
+	th:href="@{/components/bootstrap/dist/css/bootstrap.min.css}"
+	media="screen" />
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	th:href="@{/components/font-awesome/css/font-awesome.min.css}" />
+<!--PACE-->
+<link rel="stylesheet"
+	th:href="@{/components/PACE/themes/red/pace-theme-minimal.css}" />
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}" />
+<!-- DataTables -->
+<link rel="stylesheet"
+	th:href="@{/components/datatables.net-bs/css/dataTables.bootstrap.min.css}" />
+<!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}"/>
-    <!-- Google Font -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
+<link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}" />
+<!-- Google Font -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic" />
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+<<<<<<< HEAD
 <div class="wrapper">
     <header class="main-header">
         <!-- Logo -->
@@ -61,47 +70,63 @@
 
     <!--Sidebar-->
     <aside class="main-sidebar" th:replace="fragments/sidebar :: sidebar"/>
+=======
+	<div class="wrapper">
+		<header class="main-header">
+			<!-- Logo -->
+			<a href="#" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+				<span class="logo-mini"><b>J</b>DC</span> <!-- logo for regular state and mobile devices -->
+				<span class="logo-lg"><b>Online</b>TicketBooking</span>
+			</a>
+			<!-- Header Navbar: style can be found in header.less -->
+			<nav class="navbar navbar-static-top">
+				<!-- Sidebar toggle button-->
+				<a href="#" class="sidebar-toggle" data-toggle="push-menu"
+					role="button"> <span class="sr-only">Toggle navigation</span>
+				</a>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header" layout:fragment="header">
-            <h1>
-                Dashboard
-                <small>Control panel</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
-        </section>
-
-        <section class="content" layout:fragment="content">
-
-        </section>
-    </div>
-
-    <!--Footer-->
-    <footer class="main-footer" th:replace="fragments/footer :: footer"/>
-
-</div> <!--End of wrapper-->
-<!-- jQuery 3 -->
-<script th:src="@{/components/jquery/dist/jquery.min.js}"></script>
-<!-- Bootstrap 3.3.7 -->
-<script th:src="@{/components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<!--PACE-->
-<script th:src="@{/components/PACE/pace.min.js}"></script>
-<!-- AdminLTE App -->
-<script th:src="@{/dist/js/adminlte.min.js}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script th:src="@{/dist/js/pages/dashboard.js}"></script>
-<!-- AdminLTE for demo purposes -->
-<script th:src="@{/dist/js/demo.js}"></script>
-<!-- DataTables -->
-<script th:src="@{/components/datatables.net/js/jquery.dataTables.min.js}"></script>
-<script th:src="@{/components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+				<div class="navbar-custom-menu">
+					<ul class="nav navbar-nav">
+						<!-- User Account: style can be found in dropdown.less -->
+						<li class="dropdown user user-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <img
+								th:src="@{/dist/img/user7-128x128.jpg}" class="user-image"
+								alt="User Image" /> <span class="hidden-xs">Alexander
+									Pierce</span>
+						</a></li>
+						<!-- Control Sidebar Toggle Button -->
+						<li><a href="#" data-toggle="control-sidebar"><i
+								class="fa fa-sign-out"></i></a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+>>>>>>> feature/trip&cities_Binding
 
 
+		<!--Sidebar-->
+		<aside class="main-sidebar" th:replace="fragments/sidebar :: sidebar" />
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header" layout:fragment="header">
+				<h1>
+					Dashboard <small>Control panel</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li class="active">Dashboard</li>
+				</ol>
+			</section>
+
+			<section class="content" layout:fragment="content"></section>
+		</div>
+
+		<!--Footer-->
+		<footer class="main-footer" th:replace="fragments/footer :: footer" />
+
+<<<<<<< HEAD
 <script>
     $(document).ready(function () {
         // get current URL path and assign 'active' class
@@ -110,10 +135,42 @@
     })
 
 </script>
+=======
+	</div>
+	<!--End of wrapper-->
+	<!-- jQuery 3 -->
+	<script th:src="@{/components/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script th:src="@{/components/bootstrap/dist/js/bootstrap.min.js}"></script>
+	<!--PACE-->
+	<script th:src="@{/components/PACE/pace.min.js}"></script>
+	<!-- AdminLTE App -->
+	<script th:src="@{/dist/js/adminlte.min.js}"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<script th:src="@{/dist/js/pages/dashboard.js}"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script th:src="@{/dist/js/demo.js}"></script>
+	<!-- DataTables -->
+	<script
+		th:src="@{/components/datatables.net/js/jquery.dataTables.min.js}"></script>
+	<script
+		th:src="@{/components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	
+>>>>>>> feature/trip&cities_Binding
 
-<!--Custom Script-->
-<script layout:fragment="myScript">
+	<script>
+		$(document).ready(
+				function() {
+					// get current URL path and assign 'active' class
+					var pathname = window.location.pathname;
+					$('.sidebar-menu > li > a[href="' + pathname + '"]')
+							.parent().addClass('active');
+				})
+	</script>
 
-</script>
+	<!--Custom Script-->
+	<script layout:fragment="myScript">
+		
+	</script>
 </body>
 </html>

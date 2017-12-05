@@ -3,25 +3,35 @@ package com.solt.jdc.boot.domains;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity(name = "customer")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotNull
+    @NotBlank(message="Please enter user name")
     private String username;
     @NotNull
+    @NotBlank(message="Please enter first name")
     private String firstName;
     @NotNull
+    @NotBlank(message="Please enter last name")
     private String lastName;
     @NotNull
+    @NotBlank(message="Please enter password")
     private String password;
+    private String matchPassword;
     @NotNull
+    @NotBlank(message="Please enter phone number")
     private String phone;
+    
     private String email;
+    
     private String nrcNumber;
-    private boolean isDeactivated;
+    @Column(name = "enabled")
+    private boolean enabled;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
     private Booking booking;
@@ -93,14 +103,6 @@ public class Customer {
         this.nrcNumber = nrcNumber;
     }
 
-    public boolean isDeactivated() {
-        return isDeactivated;
-    }
-
-    public void setDeactivated(boolean deactivated) {
-        isDeactivated = deactivated;
-    }
-
     public Booking getBooking() {
         return booking;
     }
@@ -109,51 +111,20 @@ public class Customer {
         this.booking = booking;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Customer Customer = (Customer) o;
-
-        if (id != Customer.id) return false;
-        if (isDeactivated != Customer.isDeactivated) return false;
-        if (username != null ? !username.equals(Customer.username) : Customer.username != null) return false;
-        if (firstName != null ? !firstName.equals(Customer.firstName) : Customer.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(Customer.lastName) : Customer.lastName != null) return false;
-        if (password != null ? !password.equals(Customer.password) : Customer.password != null) return false;
-        if (phone != null ? !phone.equals(Customer.phone) : Customer.phone != null) return false;
-        if (email != null ? !email.equals(Customer.email) : Customer.email != null) return false;
-        return nrcNumber != null ? nrcNumber.equals(Customer.nrcNumber) : Customer.nrcNumber == null;
+    public String getMatchPassword() {
+        return matchPassword;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (nrcNumber != null ? nrcNumber.hashCode() : 0);
-        result = 31 * result + (isDeactivated ? 1 : 0);
-        return result;
+    public void setMatchPassword(String matchPassword) {
+        this.matchPassword = matchPassword;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", nrcNumber='" + nrcNumber + '\'' +
-                ", isDeactivated=" + isDeactivated +
-                '}';
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
 

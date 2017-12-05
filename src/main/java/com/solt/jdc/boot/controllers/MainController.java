@@ -1,6 +1,11 @@
 package com.solt.jdc.boot.controllers;
 
 import org.springframework.stereotype.Controller;
+<<<<<<< HEAD
+import org.springframework.web.bind.annotation.GetMapping;
+=======
+import org.springframework.validation.BindingResult;
+>>>>>>> feature/trip&cities_Binding
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -10,5 +15,17 @@ public class MainController {
     public String getMain(){
         return "admin/index";
     }
+
+    @GetMapping("/")
+    public String getIndex() {
+        return "front-master";
+    }
+    
+    protected void disallowedFieldException(BindingResult result) {
+		String[] suppressedFields=result.getSuppressedFields();
+    	if(suppressedFields.length>0) {
+    		throw new RuntimeException("Unable to bind disallowed fields");
+    	}
+	}
 
 }

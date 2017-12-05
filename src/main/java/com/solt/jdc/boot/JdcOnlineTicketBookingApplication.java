@@ -2,14 +2,21 @@ package com.solt.jdc.boot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+<<<<<<< HEAD
 import java.util.Locale;
 
+=======
+import com.solt.jdc.boot.services.CitiesService;
+@EntityScan(basePackageClasses= {JdcOnlineTicketBookingApplication.class,Jsr310JpaConverters.class})
+>>>>>>> feature/trip&cities_Binding
 @SpringBootApplication
 public class JdcOnlineTicketBookingApplication {
 

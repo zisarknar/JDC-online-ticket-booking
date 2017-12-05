@@ -23,37 +23,48 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title pull-right">Add New Customer</h3>
-                    <a th:href="@{/admin/customers}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                    <a th:href="@{/customers}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
-                <form th:object="${newCustomer}" th:action="@{/admin/customers/add}" method="POST">
+                <form th:object="${newCustomer}" th:action="@{/customers/add}" method="POST">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="firstName">First Name</label>
                             <input type="text" class="form-control" id="firstName" placeholder="Enter first name" th:field="*{firstName}"/>
+                            <label th:errors="*{firstName}" class="text-danger"></label>
                         </div>
                         <div class="form-group">
                             <label for="lastName">Last Name</label>
                             <input type="text" class="form-control" id="lastName" placeholder="Enter last name" th:field="*{lastName}"/>
+                            <label th:errors="*{lastName}" class="text-danger"></label>
                         </div>
                         <div class="form-group">
                             <label for="userName">User Name</label>
                             <input type="text" class="form-control" id="userName" placeholder="Enter user name" th:field="*{username}"/>
+                            <label th:errors="*{username}" class="text-danger"></label>
                         </div>
                         <div class="form-group">
                             <label for="password">Password </label>
                             <input type="password" class="form-control" id="password" placeholder="Enter Password " th:field="*{password}"/>
+							<label th:errors="*{password}" class="text-danger"></label>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmed Password </label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Comfirmed Password " th:field="*{matchPassword}"/>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="Enter Email" th:field="*{email}"/>
+                            <label th:errors="*{email}" class="text-danger"></label>
                         </div>
                         <div class="form-group">
                             <label for="phNumber">Phone Nnumber</label>
                             <input type="text" class="form-control" id="phNumber" placeholder="Enter Phone Number" th:field="*{phone}"/>
+                            <label th:errors="*{phone}" class="text-danger"></label>
                         </div>
                         <div class="form-group">
                             <label for="nrcNumber">NRC Nnumber</label>
                             <input type="text" class="form-control" id="nrcNumber" placeholder="Enter NRC Number" th:field="*{nrcNumber}"/>
+                            <label th:errors="*{nrcNumber}" class="text-danger"></label>
                         </div>
                     </div>
                     <!-- /.box-body -->
