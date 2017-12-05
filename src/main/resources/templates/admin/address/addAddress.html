@@ -33,6 +33,7 @@
 								<label for="exampleInputEmail1">Address Name</label> <input
 									type="text" class="form-control" id="exampleInputEmail1"
 									placeholder="Enter Address" th:field="*{addressName}" />
+								<label th:errors="*{addressName}" class="text-danger"></label>
 							</div>
 							<select class="form-control" th:field="*{cities}">
 								<option value="">Select City</option>
