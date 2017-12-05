@@ -1,8 +1,6 @@
 package com.solt.jdc.boot.controllers;
 
 import com.solt.jdc.boot.domains.Booking;
-import com.solt.jdc.boot.domains.Customer;
-import com.solt.jdc.boot.domains.Trip;
 import com.solt.jdc.boot.services.BookingService;
 import com.solt.jdc.boot.services.CustomerService;
 import com.solt.jdc.boot.services.TripService;
@@ -11,18 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @Controller
-
+@RequestMapping("/admin")
 public class BookingController   {
 
     @Autowired

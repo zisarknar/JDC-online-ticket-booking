@@ -33,7 +33,7 @@ public class AddressController {
 	private CitiesService citiesService;
 
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/addresses/add", method = RequestMethod.GET)
 
 	public String addAddressGET(Model model) {
 		Address address = new Address();
@@ -67,13 +67,13 @@ public class AddressController {
 	}
 
 
-	@RequestMapping("/delete/{addressId}")
+	@RequestMapping("/address/delete/{addressId}")
 	public String deleteAddress(@PathVariable("addressId") int addressId) {
 		addressService.deleteAddress(addressId);
 		return "redirect:/station/stations";
 	}
 
-	@RequestMapping(value = "/update/{addressId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/address/update/{addressId}", method = RequestMethod.GET)
 	public String updateAddressGET(Model model, @PathVariable("addressId") int addressId) {
 
 		model.addAttribute("address", addressService.findById(addressId));
@@ -82,7 +82,7 @@ public class AddressController {
 	}
 
 
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/address/update", method = RequestMethod.POST)
 	public String updateAddressPOST(Model model, @ModelAttribute("address") @Valid Address newAddress,
 			BindingResult result) {
 		if (result.hasErrors()) {

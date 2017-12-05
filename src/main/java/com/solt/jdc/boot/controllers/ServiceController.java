@@ -34,10 +34,8 @@ public class ServiceController {
 	
 	@Autowired
 	private MainController mainController;
-	
-	
-	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
+
+	@RequestMapping(value="/drivers/add",method=RequestMethod.POST)
 	public String addServicePOST(Model model,@ModelAttribute("service") @Valid Services service,BindingResult result) {
 		if(result.hasErrors()) {
     		return "admin/services/addService";
@@ -52,20 +50,18 @@ public class ServiceController {
 		}
 		mainController.disallowedFieldException(result);
 		servicesService.addService(service);
-		return "redirect:/bus/buses";
+		return "redirect:/admin/buses";
 	}
-	
-	
-	
-	@RequestMapping(value="/delete/{serviceId}")
+
+	@RequestMapping(value="/driver/delete/{serviceId}")
 	public String deleteService(@PathVariable("serviceId")int serviceId,Model model) {
 		servicesService.deleteService(serviceId);
-		return "redirect:/bus/buses";
+		return "redirect:/admin/buses";
 	}
 	
 	
 	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@RequestMapping(value="/driver/update",method=RequestMethod.POST)
 	public String updateServicePOST(@ModelAttribute("service") @Valid Services newService,BindingResult result) {
 		if(result.hasErrors()) {
     		return "admin/bus/updateServiceForm";
@@ -74,10 +70,8 @@ public class ServiceController {
 		currentService.setServices(newService.getServices());
 		currentService.setBus(newService.getBus());
 		servicesService.updateService(currentService);
-		return "redirect:/bus/buses";
+		return "redirect:/admin/buses";
 	}
-	
-	
 	
 	@ResponseBody
 	@RequestMapping(value="/loadEntity/{id}")
