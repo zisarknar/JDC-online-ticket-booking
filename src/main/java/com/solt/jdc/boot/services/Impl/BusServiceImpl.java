@@ -36,7 +36,7 @@ public class BusServiceImpl implements BusService {
 
 	@Override
 	public Bus findById(int busId) {
-		return busRepository.getOne(busId);
+		return busRepository.findById(busId);
 	}
 	
 }

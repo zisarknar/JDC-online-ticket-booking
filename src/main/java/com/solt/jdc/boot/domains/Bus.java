@@ -19,13 +19,17 @@ import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Table(name = "bus")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Bus {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	
+	private Integer id;
 	
 	@NotBlank(message="Bus Number cannot be blank")
 	private String busNumber;
@@ -34,7 +38,7 @@ public class Bus {
 	private int maxSeats;
 	
 	
-	private int takenSeats;
+	private int takenSeats=0;
 	@NotBlank(message="Please enter name of the bus company")
 	private String busCompany;
 	@NotBlank(message="Please enter bus code")
@@ -45,6 +49,7 @@ public class Bus {
 	private BusType busType;
 
 	@OneToMany(mappedBy = "bus")
+	@JsonIgnore
 	private List<Services> servicesList = new ArrayList<>();
 
 	public String getBusNumber() {
@@ -71,11 +76,13 @@ public class Bus {
 		this.servicesList = servicesList;
 	}
 
-	public int getId() {
+	
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -113,20 +120,18 @@ public class Bus {
 		this.busCode = busCode;
 	}
 
-	
-
-	@Override
-	public String toString() {
-		return "Bus [id=" + id + ", busNumber=" + busNumber + ", maxSeats=" + maxSeats + ", takenSeats=" + takenSeats
-				+ ", busCompany=" + busCompany + ", busCode=" + busCode + ", busType=" + busType + ", servicesList="
-				+ servicesList + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((busCode == null) ? 0 : busCode.hashCode());
+		result = prime * result + ((busCompany == null) ? 0 : busCompany.hashCode());
+		result = prime * result + ((busNumber == null) ? 0 : busNumber.hashCode());
+		result = prime * result + ((busType == null) ? 0 : busType.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + maxSeats;
+		result = prime * result + ((servicesList == null) ? 0 : servicesList.hashCode());
+		result = prime * result + takenSeats;
 		return result;
 	}
 
@@ -139,9 +144,52 @@ public class Bus {
 		if (getClass() != obj.getClass())
 			return false;
 		Bus other = (Bus) obj;
-		if (id != other.id)
+		if (busCode == null) {
+			if (other.busCode != null)
+				return false;
+		} else if (!busCode.equals(other.busCode))
+			return false;
+		if (busCompany == null) {
+			if (other.busCompany != null)
+				return false;
+		} else if (!busCompany.equals(other.busCompany))
+			return false;
+		if (busNumber == null) {
+			if (other.busNumber != null)
+				return false;
+		} else if (!busNumber.equals(other.busNumber))
+			return false;
+		if (busType == null) {
+			if (other.busType != null)
+				return false;
+		} else if (!busType.equals(other.busType))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (maxSeats != other.maxSeats)
+			return false;
+		if (servicesList == null) {
+			if (other.servicesList != null)
+				return false;
+		} else if (!servicesList.equals(other.servicesList))
+			return false;
+		if (takenSeats != other.takenSeats)
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Bus [id=" + id + ", busNumber=" + busNumber + ", maxSeats=" + maxSeats + ", takenSeats=" + takenSeats
+				+ ", busCompany=" + busCompany + ", busCode=" + busCode + ", busType=" + busType + ", servicesList="
+				+ servicesList + "]";
+	}
+
+	
+
+	
 
 }

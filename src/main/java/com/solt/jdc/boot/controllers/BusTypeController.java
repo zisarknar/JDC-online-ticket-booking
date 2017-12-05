@@ -1,5 +1,8 @@
 package com.solt.jdc.boot.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.solt.jdc.boot.domains.Bus;
 import com.solt.jdc.boot.domains.BusType;
 import com.solt.jdc.boot.services.BusTypeService;
 
@@ -26,21 +31,24 @@ public class BusTypeController {
 	@Autowired
 	private MainController mainController;
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public String addBusTypeGet(Model model) {
-		BusType busType = new BusType();
-		model.addAttribute("busType", busType);
-		return "admin/bus/index";
-	}
+	
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String addBusTypePost(@ModelAttribute("busType") @Valid BusType busType,BindingResult result) {
 		if(result.hasErrors()) {
     		return "admin/bustypes/addBusType";
     	}
+		List<BusType> busTypeList=busTypeService.getAllBusTypes();
+		if(busTypeList.size()==0) {
+			busType.setId(1);
+		}
+		else {
+			BusType busTypeForId=busTypeList.get(busTypeList.size()-1);
+			busType.setId(busTypeForId.getId()+1);
+		}
 		mainController.disallowedFieldException(result);
 		busTypeService.addBusType(busType);
-		return "redirect:/bus/index";
+		return "redirect:/bus/buses";
 	}
 	
 	@RequestMapping(value="/bustypes")
@@ -49,36 +57,33 @@ public class BusTypeController {
 		return "admin/bustypes/index";
 	}
 	
-	@RequestMapping(value="/delete/{busTypeId}")
-	public String deleteBus(Model model,@PathVariable("busTypeId")int busTypeId) {
-		
-		busTypeService.deleteBusType(busTypeService.findById(busTypeId));
-		return "redirect:/bustype/bustypes";
-	}
 	
-	@RequestMapping(value="/update/{busTypeId}",method=RequestMethod.GET)
-	public String updateBusGet(Model model,@PathVariable("busTypeId")int busTypeId) {
-		model.addAttribute("bustype", busTypeService.findById(busTypeId));
-		return "admin/bustypes/updateform";
-	}
-	
-	@RequestMapping(value="/update/{busTypeId}",method=RequestMethod.POST)
-	public String updateBusPOST(@ModelAttribute("bustype") @Valid BusType newbusType,@PathVariable("busTypeId")int id,BindingResult result) {
-		if(result.hasErrors()) {
-    		return "admin/bustypes/updateform";
-    	}
-		mainController.disallowedFieldException(result);
-		BusType currentBusType=busTypeService.findById(id);
-		currentBusType.setType(newbusType.getType());
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public String update(@ModelAttribute("busType")@Valid BusType newBusType) {
 		
 		
+		BusType currentBusType=busTypeService.findById(newBusType.getId());
+		currentBusType.setType(newBusType.getType());
 		busTypeService.updateBusType(currentBusType);
-		return "redirect:/bustype/bustypes";
+		return "redirect:/bus/buses";
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/loadEntity/{id}", method = RequestMethod.GET)
+	public BusType loadEntity(@PathVariable("id") Integer id) {
+		return busTypeService.findById(id);
+	}
+	
+	@RequestMapping("/delete/{id}")
+	public String deleteBusType(@PathVariable("id")int id) {
+		busTypeService.deleteBusType(busTypeService.findById(id));
+		return "redirect:/bus/buses";
 	}
 	
 	@InitBinder
 	public void initializeBinder(WebDataBinder binder) {
-		binder.setAllowedFields("type");
+		binder.setAllowedFields("id","type");
 	}
 	
 

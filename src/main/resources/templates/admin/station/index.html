@@ -1,71 +1,644 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="master" xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="master"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 <head>
-    <meta charset=" UTF-8"></meta>
-    <title>Customer</title>
+<meta charset=" UTF-8"></meta>
+<title>Customer</title>
+<script th:src="@{/dist/js/ajax.js}"></script>
+<script th:src="@{/dist/js/bus.js}"></script>
 </head>
 <body>
 
-<section class="content-header" layout:fragment="header">
-    <h1>
-       	Station
-        <small>Management panel</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-    </ol>
-</section>
+	<section class="content-header" layout:fragment="header">
+		<h1>
+			Station <small>Management panel</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active">Dashboard</li>
+		</ol>
+	</section>
 
-<section class="content" layout:fragment="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Station List</h3>
-                    <a th:href="@{/station/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
-                </div>
-                <div class="box-body">
-                    <table id="customer" class="table table-bordered table-hover" dt:table="true">
-                        <thead>
-                        <tr>
-                            <th>Station Name</th>
-                            <th>Phone Number</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="station : ${stations}">
-                            <td th:text="${station.name}"></td>
-                            <td th:text="${station.phoneNumber}"></td>
-                                <td>
-                                <a th:href="@{/station/delete/}+${station.id}" class="btn btn-danger"><i
-                                        class="fa fa-trash"></i> Delete</a>
-                                <a th:href="${'/station/update/'+station.id}" class="btn btn-info"><i
-                                        class="fa fa-trash"></i> Edit</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+	<section class="content" layout:fragment="content">
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Address List</h3>
+						<button type="button" class="btn btn-info btn-lg pull-right"
+							data-toggle="modal" data-target="#myModal5">Add New</button>
+						<div id="myModal5" class="modal fade" role="dialog">
+							<div class="modal-dialog">
 
-<script layout:fragment="myScript">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<form id="addAddressForm" role="form"
+										th:action="@{/address/add}" th:object="${address}"
+										method="post">
+										<div class="box-body">
+											<div class="form-group">
+												<label for="addressName">Address Name</label> <input
+													type="text" class="form-control" id="addressName"
+													placeholder="Enter Address" th:field="*{addressName}" /> <label
+													id="addressName_error" class="text-danger"></label>
+											</div>
+											<select class="form-control" th:field="*{cities}">
+												<option value="">Select City</option>
+												<option th:each="cities : ${allcities}"
+													th:value="${cities.id}" th:text="${cities.name}"></option>
+											</select>
+										</div>
+										<!-- /.box-body -->
 
-    $(function () {
-        $('#customer').DataTable({
-            'paging': true,
-            'lengthChange': true,
-            'searching': true,
-            'ordering': true,
-            'info': true,
-            'autoWidth': false
-        })
-    })
-</script>
+										<div class="box-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+
+							</div>
+						</div>
+						<div th:id="umodal5" class="modal fade" tabindex="-1"
+							role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title">Update Address</h4>
+									</div>
+									<div class="modal-body">
+										<form id="updateAddressForm" role="form" method="post"
+											th:action="@{/address/update}" th:object="${address}">
+											<input id="update-addressid" type="hidden" th:field="*{id}"
+												th:value="${address.id}" />
+											<fieldset class="form-group">
+												<label for="update-addressName">Address Name</label> <input
+													th:field="*{addressName}" th:value="${address.addressName}"
+													class="form-control" id="update-addressName" type="text"
+													placeholder="Enter Address Name" /> <label
+													id="updateAddressNameError" class="text-danger"></label>
+											</fieldset>
+											<fieldset class="form-group">
+												<select class="form-control" th:field="*{cities}">
+													<option value="">Select City</option>
+													<option th:each="cities : ${allcities}"
+														th:value="${cities.id}" th:text="${cities.name}"></option>
+												</select>
+											</fieldset>
+
+											<div class="form-group">
+												<button class="btn btn-success" type="submit">Save</button>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Cancel</button>
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal-dialog -->
+						</div>
+					</div>
+					<div class="box-body">
+						<table id="customer" class="table table-bordered table-hover"
+							dt:table="true">
+							<thead>
+								<tr>
+									<th>Address Name</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="address : ${addresses}">
+									<td th:text="${address.addressName}"></td>
+									<td><a th:href="@{/address/delete/}+${address.id}"
+										class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+										<a data-toggle="modal" class="btn btn-success"
+										data-target="#umodal5"
+										th:onclick="'addressShowEditModal(' + ${address.id} + ')'"><i
+											class="fa fa-pencil"></i>Edit</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Cities List</h3>
+						<button type="button" class="btn btn-info btn-lg pull-right"
+							data-toggle="modal" data-target="#myModal6">Add New</button>
+						<div id="myModal6" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="box-header">
+										<div class="col-md-12 col-md-offset-3 col-md-6">
+											<h4>Add City</h4>
+										</div>
+									</div>
+									<form id="addCityForm" role="form" th:action="@{/cities/add}"
+										th:object="${cities}" method="post">
+										<div class="box-body">
+											<div class="form-group col-md-12 col-md-offset-3 col-md-6">
+												<label for="name">City Name</label> <input id="name"
+													type="text" class="form-control" placeholder="Enter City"
+													th:field="*{name}" /> <label id="name_error"
+													class="text-danger">Ass</label>
+											</div>
+
+										</div>
+										<!-- /.box-body -->
+
+										<div class="box-footer ">
+											<div class="col-md-12 col-md-offset-3 col-md-6">
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</div>
+									</form>
+								</div>
+
+							</div>
+						</div>
+						<div th:id="umodal6" class="modal fade" tabindex="-1"
+							role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title">Update Cities</h4>
+									</div>
+									<div class="modal-body">
+										<form id="updateCityForm" role="form" method="post"
+											th:action="@{/cities/update}" th:object="${cities}">
+											<input id="update-citiesid" type="hidden" th:field="*{id}"
+												th:value="${cities.id}" />
+											<fieldset class="form-group ">
+												<div class="col-md-12 col-md-offset-3 col-md-6">
+													<label for="update-name">City Name</label> <input
+														th:field="*{name}" th:value="${cities.name}"
+														class="form-control" id="update-name" type="text"
+														placeholder="Enter City Name" /> <label
+														id="updateCityNameError" class="text-danger"></label>
+												</div>
+											</fieldset>
+
+
+
+
+										</form>
+									</div>
+									<div class="modal-footer">
+										
+											<div class="form-group col-md-12 col-md-6">
+												<button class="btn btn-success" type="submit">Save</button>
+											</div>
+
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal-dialog -->
+						</div>
+					</div>
+					<div class="box-body">
+						<table id="customer" class="table table-bordered table-hover"
+							dt:table="true">
+							<thead>
+								<tr>
+									<th>City Name</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="cities : ${allcities}">
+									<td th:text="${cities.name}"></td>
+									<td><a th:href="@{/cities/delete/}+${cities.id}"
+										class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+										<a data-toggle="modal" class="btn btn-success"
+										data-target="#umodal6"
+										th:onclick="'citiesShowEditModal(' + ${cities.id} + ')'"><i
+											class="fa fa-pencil"></i>Edit</a></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Station List</h3>
+						<button type="button" class="btn btn-info btn-lg pull-right"
+							data-toggle="modal" data-target="#myModal4">Add New</button>
+						<div id="myModal4" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<form id="addStationForm" role="form"
+										th:action="@{/station/add}" th:object="${station}"
+										method="post">
+										<div class="box-header col-xs-offset-3 col-xs-6">
+											<h4>Add Station</h4>
+										</div>
+										<div class="box-body">
+											<div class="form-group col-md-12 col-md-offset-3 col-md-6">
+												<label for="stationName">Station Name</label> <input
+													type="text" class="form-control" id="stationName"
+													placeholder="Enter Station Name" th:field="*{name}" /> <label
+													id="stationName_error" class="text-danger"></label>
+											</div>
+											<div class="form-group col-md-12 col-md-offset-3 col-md-6">
+												<label for="stationPhoneNumber">Station Phone Number</label>
+												<input type="text" class="form-control"
+													id="stationPhoneNumber"
+													placeholder="Enter Station Phone Number"
+													th:field="*{phoneNumber}" /> <label
+													id="stationPhoneNumber_error" class="text-danger"></label>
+											</div>
+											<div class="form-group col-md-12 col-md-offset-3 col-md-6 ">
+												<label class="control-label">Select Address</label> <select
+													class="form-control" th:field="*{address}">
+													<option th:each="address : ${addresses}"
+														th:value="${address.id}" th:text="${address.addressName}"></option>
+												</select>
+											</div>
+										</div>
+
+
+
+										<!-- /.box-body -->
+
+										<div class="box-footer">
+											<div class="col-xs-offset-3 col-xs-6">
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</div>
+									</form>
+								</div>
+
+							</div>
+						</div>
+						<div th:id="umodal4" class="modal fade" tabindex="-1"
+							role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title">Update Station</h4>
+									</div>
+									<div class="modal-body">
+										<form id="updateStationForm" role="form" method="post"
+											th:action="@{/station/update}" th:object="${station}">
+											<input id="update-stationid" type="hidden" th:field="*{id}"
+												th:value="${station.id}" />
+											<fieldset class="form-group">
+												<label for="update-stationName">Station Name</label> <input
+													th:field="*{name}" th:value="${station.name}"
+													class="form-control" id="update-stationName" type="text"
+													placeholder="Enter Station Name" /> <label
+													id="updateStationNameError" class="text-danger"></label>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="update-phoneNumber">Station Phone Number</label>
+												<input th:field="*{phoneNumber}"
+													th:value="${station.phoneNumber}" class="form-control"
+													id="update-phoneNumber" type="text"
+													placeholder="Enter Station Phone Number" /> <label
+													id="updatePhoneNumberError" class="text-danger"></label>
+											</fieldset>
+
+											<fieldset class="form-group">
+												<select class="form-control" th:field="*{address}">
+													<option value="">Select Address</option>
+													<option th:each="address : ${addresses}"
+														th:value="${address.id}" th:text="${address.addressName}"></option>
+												</select>
+											</fieldset>
+
+											<div class="form-group">
+												<button class="btn btn-success" type="submit">Save</button>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Cancel</button>
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal-dialog -->
+						</div>
+					</div>
+					<div class="box-body">
+						<table id="customer" class="table table-bordered table-hover"
+							dt:table="true">
+							<thead>
+								<tr>
+									<th>Station Name</th>
+									<th>Phone Number</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="station : ${stations}">
+									<td th:text="${station.name}"></td>
+									<td th:text="${station.phoneNumber}"></td>
+									<td><a th:href="@{/station/delete/}+${station.id}"
+										class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+										<a data-toggle="modal" class="btn btn-success"
+										data-target="#umodal4"
+										th:onclick="'stationShowEditModal(' + ${station.id} + ')'"><i
+											class="fa fa-pencil"></i>Edit</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script layout:fragment="myScript">
+		$(function() {
+			$('#customer').DataTable({
+				'paging' : true,
+				'lengthChange' : true,
+				'searching' : true,
+				'ordering' : true,
+				'info' : true,
+				'autoWidth' : false
+			})
+		})
+
+		$(function() {
+			$("#addressName_error").hide();
+			var addressName_error = false;
+
+			$("#addressName").focusout(function() {
+				checkAddressName();
+			})
+
+			function checkAddressName() {
+				if ($("#addressName").val().length == 0) {
+					$("#addressName_error").html("Please Enter Address");
+					$("#addressName_error").show();
+					addressName_error = true;
+				} else {
+					$("#addressName_error").hide();
+					addressName_error = false;
+				}
+			}
+
+			$("#addAddressForm").submit(function() {
+				addressName_error = false;
+
+				checkAddressName();
+
+				if (addressName_error == true) {
+					alert("Please Enter Valid Information");
+					return false;
+				} else {
+					return true;
+				}
+			})
+		})
+
+		$(function() {
+			$("#updateAddressNameError").hide();
+			var updateAddressError = false;
+
+			$("#update-addressName").focusout(function() {
+				updateCheckAddressName();
+			})
+
+			function updateCheckAddressName() {
+				if ($("#update-addressName").val().length == 0) {
+					$("#updateAddressNameError").html("Please Enter Address");
+					$("#updateAddressNameError").show();
+					updateAddressError = true;
+				} else {
+					$("#updateAddressNameError").hide();
+					addressName_error = false;
+				}
+			}
+
+			$("#updateAddressForm").submit(function() {
+				updateAddressError = false;
+
+				updateCheckAddressName();
+
+				if (updateAddressError == true) {
+					alert("Please Enter Valid Information");
+					return false;
+				} else {
+					return true;
+				}
+			})
+		})
+
+		$(function() {
+			$("#name_error").hide();
+			var name_error = false;
+
+			$("#name").focusout(function() {
+				checkCityName();
+			})
+
+			function checkCityName() {
+				if ($("#name").val().length == 0) {
+					$("#name_error").html("Please Enter City Name");
+					$("#name_error").show();
+					name_error = true;
+				} else {
+					$("#name_error").hide();
+					cityName_error = false;
+				}
+			}
+
+			$("#addCityForm").submit(function() {
+
+				name_error = false;
+
+				checkCityName();
+				if (name_error == true) {
+					alert("Please Enter Valid Information");
+					return false;
+				} else {
+					return true;
+				}
+			})
+		})
+
+		$(function() {
+			$("#updateCityNameError").hide();
+			var updateCityNameError = false;
+
+			$("#update-name").focusout(function() {
+				updateCheckCityName();
+			})
+
+			function updateCheckCityName() {
+				if ($("#update-name").val().length == 0) {
+					$("#updateCityNameError").html("Please Enter City Name");
+					$("#updateCityNameError").show();
+					updateCityNameError = true;
+				} else {
+					$("#updateCityNameError").hide();
+					updateCityNameError = false;
+				}
+			}
+
+			$("#updateCityForm").submit(function() {
+
+				updateCityNameError = false;
+
+				updateCheckCityName();
+
+				if (updateCityNameError == true) {
+					alert("Please Enter Valid Information");
+					return false;
+				} else {
+					return true;
+				}
+			})
+		})
+
+		$(function() {
+			$("#stationName_error").hide();
+			$("#stationPhoneNumber_error").hide();
+
+			var stationName_error = false;
+			var stationPhoneNumber_error = false;
+
+			$("#stationName").focusout(function() {
+				checkStationName();
+			})
+
+			$("#stationPhoneNumber").focusout(function() {
+				checkPhoneNumber();
+			})
+
+			function checkStationName() {
+				if ($("#stationName").val().length == 0) {
+					$("#stationName_error").html("Please Enter Station Name");
+					$("#stationName_error").show();
+					stationName_error = true;
+				} else {
+					$("#stationName_error").hide();
+					stationName_error = false;
+				}
+			}
+
+			function checkPhoneNumber() {
+				if ($("#stationPhoneNumber").val().length == 0) {
+					$("#stationPhoneNumber_error").html(
+							"Please Enter Station Phone Number");
+					$("#stationPhoneNumber_error").show();
+					stationName_error = true;
+				} else {
+					$("#stationPhoneNumber_error").hide();
+					stationName_error = false;
+				}
+			}
+
+			$("#addStationForm").submit(
+					function() {
+						stationName_error = false;
+						stationPhoneNumber_error = false;
+
+						checkStationName();
+						checkPhoneNumber();
+
+						if (stationName_error == true
+								|| stationPhoneNumber_error == true) {
+							alert("Please Enter Valid Information")
+							return false;
+						} else {
+							return true;
+						}
+					})
+
+		})
+
+		$(function() {
+			$("#updateStationNameError").hide();
+			$("#updatePhoneNumberError").hide();
+
+			var updateStationNameError = false;
+			var updatePhoneNumberError = false;
+
+			$("#update-stationName").focusout(function() {
+				updateCheckStationName();
+			})
+
+			$("#update-phoneNumber").focusout(function() {
+				updateCheckPhoneNumber();
+			})
+
+			function updateCheckStationName() {
+				if ($("#update-stationName").val().length == 0) {
+					$("#updateStationNameError").html(
+							"Please Enter Station Name");
+					$("#updateStationNameError").show();
+					updateStationNameError = true;
+				} else {
+					$("#updateStationNameError").hide();
+					updateStationNameError = false;
+				}
+			}
+
+			function updateCheckPhoneNumber() {
+				if ($("#update-phoneNumber").val().length == 0) {
+					$("#updatePhoneNumberError").html(
+							"Please Enter Station Phone Number");
+					$("#updatePhoneNumberError").show();
+					updatePhoneNumberError = true;
+				} else {
+					$("#updatePhoneNumberError").hide();
+					updatePhoneNumberError = false;
+				}
+			}
+
+			$("#updateStationForm").submit(
+					function() {
+						updateStationNameError = false;
+						updatePhoneNumberError = false;
+
+						updateCheckStationName();
+						updateCheckPhoneNumber();
+
+						if (updateStationNameError == true
+								|| updatePhoneNumberError == true) {
+							alert("Please Enter Valid Information")
+							return false;
+						} else {
+							return true;
+						}
+					})
+
+		})
+	</script>
+
+
 
 </body>
 </html>

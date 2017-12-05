@@ -1,5 +1,7 @@
 package com.solt.jdc.boot.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.solt.jdc.boot.domains.Cities;
 import com.solt.jdc.boot.services.CitiesService;
 
 @Controller
-@RequestMapping("/cities")
+@RequestMapping("/cities/")
 public class CitiesController {
 	@Autowired
 	private CitiesService citiesService;
@@ -37,9 +40,17 @@ public class CitiesController {
 		if(result.hasErrors()) {
     		return "admin/cities/addCities";
     	}
+		List<Cities> citiesList=citiesService.getAllCities();
+		
+		if(citiesList.size()==0) {
+			cities.setId(1);
+		}
+		else {
+			cities.setId((citiesList.get(citiesList.size()-1)).getId()+1);
+		}
 		citiesService.createCity(cities);
 		mainController.disallowedFieldException(result);
-		return "redirect:/cities/allcities";
+		return "redirect:/station/stations";
 	}
 
 	
@@ -55,26 +66,27 @@ public class CitiesController {
 		return "redirect:/cities/allcities";
 	}
 
-	@RequestMapping(value = "/update/{citiesId}", method = RequestMethod.GET)
-	public String updateCitiesGET(Model model,@PathVariable("citiesId")int citiesId) {
-		model.addAttribute("cities",citiesService.findById(citiesId));
-		return "admin/cities/updateCitiesForm";
+	
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateCitiesPOST(@ModelAttribute("cities") @Valid Cities newCities, BindingResult result) {
+		if (result.hasErrors()) {
+			return "/station/stations";
+		}
+		Cities currentCities = citiesService.findById(newCities.getId());
+		currentCities.setName(newCities.getName());
+		citiesService.updateCities(currentCities);
+		return "redirect:/station/stations";
 	}
 	
-	@RequestMapping(value="/update/{citiesId}",method=RequestMethod.POST)
-	public String updateCitiesPOST(@ModelAttribute("cities") @Valid Cities newCities,@PathVariable("citiesId")int citiesId,BindingResult result) {
-		if(result.hasErrors()) {
-    		return "admin/cities/updateCitiesForm";
-    	}
-		Cities currentCities=citiesService.findById(citiesId);
-		currentCities.setName(newCities.getName());
-		mainController.disallowedFieldException(result);
-		citiesService.updateCities(currentCities);
-		return "redirect:/cities/allcities";
+	@ResponseBody
+	@RequestMapping(value="/loadEntity/{id}")
+	public Cities loadEntity(@PathVariable("id")int id) {
+		return citiesService.findById(id);
 	}
 	
 	@InitBinder
 	public void initializeBinder(WebDataBinder binder) {
-		binder.setAllowedFields("name");
+		binder.setAllowedFields("id","name");
 	}
 }

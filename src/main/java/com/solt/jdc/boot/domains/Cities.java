@@ -12,15 +12,19 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Cities {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@NotBlank(message="Please enter city name")
 	private String name;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="cities")
 	private List<Address> addressList=new ArrayList<>();
 
