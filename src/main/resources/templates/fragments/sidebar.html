@@ -62,8 +62,7 @@
                 </a>
                 
             </li>
-			
-			
+					
             <li >
                 <a th:if="${#httpServletRequest.isUserInRole('ROOT')}"  th:href="@{/admin/customers}">
                     <i class="fa fa-users"></i> <span>Manage Customers</span>
@@ -100,8 +99,6 @@
                     <i class="fa fa-road"></i> <span>Manage Trips</span>
                 </a>
             </li>
-
-			
             <li>
                 <a  th:if="${#httpServletRequest.isUserInRole('STAFF')}"  class="hide">
                     <i class="fa fa-home"></i> <span>Manage Address</span>
@@ -172,8 +169,6 @@
                     <i class="fa fa-wrench"></i> <span>Manage Stations</span>
                 </a>
             </li>
-
-
             <li>
             	<a th:if="${#httpServletRequest.isUserInRole('STAFF')}"  class="hide" >
             		<i class="fa fa-road"></i> <span>Manage Users</span>

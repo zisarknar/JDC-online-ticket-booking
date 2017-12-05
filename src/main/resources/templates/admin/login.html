@@ -21,7 +21,8 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -33,8 +34,19 @@
         <p class="login-box-msg">Sign in to start your session</p>
 
         <form th:action="@{/login}" method="POST">
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">
+                    Invalid username and password.
+                </div>
+            </div>
+            <div th:if="${param.logout}">
+                <div class="alert alert-info">
+                    You have been logged out.
+                </div>
+            </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="username" placeholder="User Name" autofocus="true" required="true"/>
+                <input type="text" class="form-control" name="username" placeholder="User Name" autofocus="true"
+                       required="true"/>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group">
@@ -44,7 +56,7 @@
             <div class="row">
                 <!-- /.col -->
                 <div class="col-xs-12">
-                    <input type="submit" class="btn btn-primary btn-block btn-flat" value="Sign in" />
+                    <input type="submit" class="btn btn-primary btn-block btn-flat" value="Sign in"/>
                 </div>
                 <!-- /.col -->
             </div>
@@ -52,21 +64,25 @@
 
         <div class="social-auth-links text-center">
             <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
-                Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+            <form th:action="@{/connect/facebook}" method="post">
+                <button type="submit" class="btn btn-block btn-social btn-facebook btn-flat"><i
+                        class="fa fa-facebook"></i> Sign in using
+                    Facebook
+                </button>
+            </form>
+            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in
+                using
                 Google+</a>
         </div>
-        <!-- /.social-auth-links -->
-
+        <!-- /.connect-auth-links -->
         <a href="#">I forgot my password</a><br/>
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a th:href="@{/customer/register}" class="text-center">Register a new membership</a><br/>
+        <a th:href="@{/}" class="text-center">&DoubleLongLeftArrow; Back</a>
 
     </div>
     <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-
 <!-- jQuery 3 -->
 <script src="/components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

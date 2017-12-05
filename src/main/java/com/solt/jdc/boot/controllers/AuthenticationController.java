@@ -1,5 +1,7 @@
 package com.solt.jdc.boot.controllers;
 
+import com.solt.jdc.boot.domains.Customer;
+import com.solt.jdc.boot.services.CustomerService;
 import com.solt.jdc.boot.utils.IAuthenticationFacade;
 import org.codehaus.groovy.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +25,6 @@ public class AuthenticationController {
     public String getLoginPage(){
         return "admin/login";
     }
+
 
 }
