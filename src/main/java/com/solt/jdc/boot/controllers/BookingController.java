@@ -19,10 +19,13 @@ public class BookingController   {
 
     @Autowired
     private BookingService bookingService;
+
     @Autowired
     private CustomerService customerService;
+
     @Autowired
     private TripService tripService;
+
     @Autowired
     private MainController mainController;
 
