@@ -42,7 +42,6 @@ public class AddressController {
 		return "admin/address/addAddress";
 	}
 
-
 	@RequestMapping(value = "/addresses/add", method = RequestMethod.POST)
 	public String addAddressPOST(Model model, @ModelAttribute("address") @Valid Address address, BindingResult result) {
 		mainController.disallowedFieldException(result);
@@ -66,7 +65,6 @@ public class AddressController {
 		return "admin/address/index";
 	}
 
-
 	@RequestMapping("/address/delete/{addressId}")
 	public String deleteAddress(@PathVariable("addressId") int addressId) {
 		addressService.deleteAddress(addressId);
@@ -75,7 +73,6 @@ public class AddressController {
 
 	@RequestMapping(value = "/address/update/{addressId}", method = RequestMethod.GET)
 	public String updateAddressGET(Model model, @PathVariable("addressId") int addressId) {
-
 		model.addAttribute("address", addressService.findById(addressId));
 		model.addAttribute("allcities", citiesService.getAllCities());
 		return "admin/address/updateAddressForm";
@@ -88,14 +85,16 @@ public class AddressController {
 		if (result.hasErrors()) {
 			return "admin/address/updateAddressForm";
 		}
-
 		Address currentAddress = addressService.findById(newAddress.getId());
 		currentAddress.setAddressName(newAddress.getAddressName());
 		currentAddress.setCities(newAddress.getCities());
-
 		addressService.updateAddress(currentAddress);
+<<<<<<< HEAD
 
 		return "redirect:/admin/stations";
+=======
+		return "redirect:/station/stations";
+>>>>>>> 675fddbae65ad8e0b4102a2d9816bec0aa16d880
 	}
 
 	@ResponseBody
