@@ -13,6 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class CustomerController {
 
+	@GetMapping("/customerdetails")
+	public String getCustomerDetails() {
+		
+		return "customerdetail/customerdetailpage";
+	
+	}
+	
+	
     @Autowired
     private CustomerService customerService;
 

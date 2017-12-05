@@ -20,14 +20,16 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(method=RequestMethod.GET, value = "/users")
+	@RequestMapping(method=RequestMethod.GET, value ="/users")
 	public String findAllUser(Model model) {
 		model.addAttribute("users",userService.findAll());
 		return "admin/user/index";
 	}
 	
+	
 	@RequestMapping(value="/users/add",method=RequestMethod.GET)
 	public String add(ModelMap map) {
+		
 		map.put("user",new User());
 		return "admin/user/userAdd";
 	}
@@ -63,8 +65,11 @@ public class UserController {
 	}
 	
 	
+	
 	@RequestMapping(value="/user/delete/{id}")
 	public String delete(@PathVariable("id") int id) {
+		
+		
 		userService.delete(userService.find(id));
 		return "redirect:/admin/users";
 	}	
