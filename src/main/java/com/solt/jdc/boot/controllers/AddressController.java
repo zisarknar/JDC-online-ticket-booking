@@ -57,7 +57,7 @@ public class AddressController {
 		}
 		addressService.addAddress(address);
 
-		return "redirect:/station/stations";
+		return "redirect:/admin/stations";
 	}
 
 	@RequestMapping("/addresses")
@@ -70,7 +70,7 @@ public class AddressController {
 	@RequestMapping("/address/delete/{addressId}")
 	public String deleteAddress(@PathVariable("addressId") int addressId) {
 		addressService.deleteAddress(addressId);
-		return "redirect:/station/stations";
+		return "redirect:/admin/stations";
 	}
 
 	@RequestMapping(value = "/address/update/{addressId}", method = RequestMethod.GET)
@@ -95,11 +95,11 @@ public class AddressController {
 
 		addressService.updateAddress(currentAddress);
 
-		return "redirect:/station/stations";
+		return "redirect:/admin/stations";
 	}
 
 	@ResponseBody
-	@RequestMapping("/loadEntity/{id}")
+	@RequestMapping("/address/loadEntity/{id}")
 	public Address loadEntity(@PathVariable("id") int id) {
 		return addressService.findById(id);
 	}

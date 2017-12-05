@@ -36,33 +36,29 @@ public class BusTypeController {
         }
         mainController.disallowedFieldException(result);
         busTypeService.addBusType(busType);
-        return "redirect:/bus/buses";
+        return "redirect:/admin/buses";
     }
 
-    @RequestMapping(value = "/bustypes")
-    public String getAllBusTypes(Model model) {
-        model.addAttribute("bustypes", busTypeService.getAllBusTypes());
-        return "admin/bustypes/index";
-    }
+  
 
     @RequestMapping(value = "/bustype/update", method = RequestMethod.POST)
     public String update(@ModelAttribute("busType") @Valid BusType newBusType) {
         BusType currentBusType = busTypeService.findById(newBusType.getId());
         currentBusType.setType(newBusType.getType());
         busTypeService.updateBusType(currentBusType);
-        return "redirect:/bus/buses";
+        return "redirect:/admin/buses";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/loadEntity/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/bustype/loadEntity/{id}", method = RequestMethod.GET)
     public BusType loadEntity(@PathVariable("id") Integer id) {
         return busTypeService.findById(id);
     }
 
-    @RequestMapping("/delete/{id}")
+    @RequestMapping("/bustype/delete/{id}")
     public String deleteBusType(@PathVariable("id") int id) {
         busTypeService.deleteBusType(busTypeService.findById(id));
-        return "redirect:/bus/buses";
+        return "redirect:/admin/buses";
     }
 
     @InitBinder

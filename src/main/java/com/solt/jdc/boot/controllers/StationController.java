@@ -86,9 +86,15 @@ public class StationController {
         stationService.updateStation(currentStation);
         return "redirect:/admin/stations";
     }
+    
+    @RequestMapping("/station/delete/{id}")
+    public String deleteStation(@PathVariable("id")int id) {
+    	stationService.deleteStation(id);
+    	return "redirect:/admin/stations";
+    }
 
     @ResponseBody
-    @RequestMapping(value = "loadEntity/{id}")
+    @RequestMapping(value = "/station/loadEntity/{id}")
     public Station loadEntity(@PathVariable("id") int id) {
         return stationService.findById(id);
     }

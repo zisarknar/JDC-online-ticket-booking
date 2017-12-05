@@ -4,23 +4,23 @@
  */
 
 // Begin Something modal population and submit functions
-var busUrl = "/bus/";
+var busUrl = "/admin/bus/";
 var busEditModalTarget = busUrl + "loadEntity/";
 var busTableTarget = busUrl + "loadBusTable/";
 
-var busTypeUrl = "/bustype/";
+var busTypeUrl = "/admin/bustype/";
 var busTypeEditModalTarget = busTypeUrl + "loadEntity/";
 
-var servicesUrl = "/services/";
+var servicesUrl = "/admin/service/";
 var servicesEditModalTarget = servicesUrl + "loadEntity/";
 
-var stationUrl = "/station/";
+var stationUrl = "/admin/station/";
 var stationEditModalTarget = stationUrl + "loadEntity/";
 
-var addressUrl = "/address/";
+var addressUrl = "/admin/address/";
 var addressEditModalTarget = addressUrl + "loadEntity/";
 
-var citiesUrl = "/cities/";
+var citiesUrl = "/admin/city/";
 var citiesEditModalTarget = citiesUrl + "loadEntity/";
 
 // Build the url for the Ajax request for Something.

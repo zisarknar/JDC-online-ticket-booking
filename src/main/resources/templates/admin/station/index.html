@@ -11,69 +11,7 @@
 </head>
 <body>
 
-<<<<<<< HEAD
-<section class="content-header" layout:fragment="header">
-    <h1>
-       	Station
-        <small>Management panel</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-    </ol>
-</section>
 
-<section class="content" layout:fragment="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Station List</h3>
-                    <a th:href="@{/admin/stations/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
-                </div>
-                <div class="box-body">
-                    <table id="customer" class="table table-bordered table-hover" dt:table="true">
-                        <thead>
-                        <tr>
-                            <th>Station Name</th>
-                            <th>Phone Number</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="station : ${stations}">
-                            <td th:text="${station.name}"></td>
-                            <td th:text="${station.phoneNumber}"></td>
-                            
-                            <td>
-                                <a th:href="@{/admin/station/delete/}+${station.id}" class="btn btn-danger"><i
-                                        class="fa fa-trash"></i> Delete</a>
-                                <a th:href="${'/admin/station/update/'+station.id}" class="btn btn-info"><i
-                                        class="fa fa-trash"></i> Edit</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<script layout:fragment="myScript">
-
-    $(function () {
-        $('#customer').DataTable({
-            'paging': true,
-            'lengthChange': true,
-            'searching': true,
-            'ordering': true,
-            'info': true,
-            'autoWidth': false
-        })
-    })
-</script>
-=======
 	<section class="content-header" layout:fragment="header">
 		<h1>
 			Station <small>Management panel</small>
@@ -98,7 +36,7 @@
 								<!-- Modal content-->
 								<div class="modal-content">
 									<form id="addAddressForm" role="form"
-										th:action="@{/address/add}" th:object="${address}"
+										th:action="@{/admin/addresses/add}" th:object="${address}"
 										method="post">
 										<div class="box-body">
 											<div class="form-group">
@@ -136,7 +74,7 @@
 									</div>
 									<div class="modal-body">
 										<form id="updateAddressForm" role="form" method="post"
-											th:action="@{/address/update}" th:object="${address}">
+											th:action="@{/admin/address/update}" th:object="${address}">
 											<input id="update-addressid" type="hidden" th:field="*{id}"
 												th:value="${address.id}" />
 											<fieldset class="form-group">
@@ -181,7 +119,7 @@
 							<tbody>
 								<tr th:each="address : ${addresses}">
 									<td th:text="${address.addressName}"></td>
-									<td><a th:href="@{/address/delete/}+${address.id}"
+									<td><a th:href="@{/admin/address/delete/}+${address.id}"
 										class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
 										<a data-toggle="modal" class="btn btn-success"
 										data-target="#umodal5"
@@ -209,8 +147,9 @@
 											<h4>Add City</h4>
 										</div>
 									</div>
-									<form id="addCityForm" role="form" th:action="@{/cities/add}"
-										th:object="${cities}" method="post">
+									<form id="addCityForm" role="form"
+										th:action="@{/admin/cities/add}" th:object="${cities}"
+										method="post">
 										<div class="box-body">
 											<div class="form-group col-md-12 col-md-offset-3 col-md-6">
 												<label for="name">City Name</label> <input id="name"
@@ -245,7 +184,7 @@
 									</div>
 									<div class="modal-body">
 										<form id="updateCityForm" role="form" method="post"
-											th:action="@{/cities/update}" th:object="${cities}">
+											th:action="@{/admin/city/update}" th:object="${cities}">
 											<input id="update-citiesid" type="hidden" th:field="*{id}"
 												th:value="${cities.id}" />
 											<fieldset class="form-group ">
@@ -259,17 +198,14 @@
 											</fieldset>
 
 
-
-
-										</form>
-									</div>
-									<div class="modal-footer">
-										
 											<div class="form-group col-md-12 col-md-6">
 												<button class="btn btn-success" type="submit">Save</button>
 											</div>
 
+
+										</form>
 									</div>
+									
 								</div>
 								<!-- /.modal-content -->
 							</div>
@@ -288,7 +224,7 @@
 							<tbody>
 								<tr th:each="cities : ${allcities}">
 									<td th:text="${cities.name}"></td>
-									<td><a th:href="@{/cities/delete/}+${cities.id}"
+									<td><a th:href="@{/admin/city/delete/}+${cities.id}"
 										class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
 										<a data-toggle="modal" class="btn btn-success"
 										data-target="#umodal6"
@@ -313,7 +249,7 @@
 								<!-- Modal content-->
 								<div class="modal-content">
 									<form id="addStationForm" role="form"
-										th:action="@{/station/add}" th:object="${station}"
+										th:action="@{/admin/stations/add}" th:object="${station}"
 										method="post">
 										<div class="box-header col-xs-offset-3 col-xs-6">
 											<h4>Add Station</h4>
@@ -369,7 +305,7 @@
 									</div>
 									<div class="modal-body">
 										<form id="updateStationForm" role="form" method="post"
-											th:action="@{/station/update}" th:object="${station}">
+											th:action="@{/admin/station/update}" th:object="${station}">
 											<input id="update-stationid" type="hidden" th:field="*{id}"
 												th:value="${station.id}" />
 											<fieldset class="form-group">
@@ -425,7 +361,7 @@
 								<tr th:each="station : ${stations}">
 									<td th:text="${station.name}"></td>
 									<td th:text="${station.phoneNumber}"></td>
-									<td><a th:href="@{/station/delete/}+${station.id}"
+									<td><a th:href="@{/admin/station/delete/}+${station.id}"
 										class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
 										<a data-toggle="modal" class="btn btn-success"
 										data-target="#umodal4"
@@ -702,7 +638,6 @@
 	</script>
 
 
->>>>>>> feature/trip&cities_Binding
 
 </body>
 </html>

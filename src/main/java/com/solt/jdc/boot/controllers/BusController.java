@@ -97,7 +97,7 @@ public class BusController {
         currentBus.setTakenSeats(newBus.getTakenSeats());
         currentBus.setBusType(newBus.getBusType());
         busService.updateBus(currentBus);
-        return "redirect:/bus/buses";
+        return "redirect:/admin/buses";
     }
 
     @ResponseBody

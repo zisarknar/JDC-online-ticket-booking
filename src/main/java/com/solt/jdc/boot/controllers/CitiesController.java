@@ -50,7 +50,7 @@ public class CitiesController {
         }
         citiesService.createCity(cities);
         mainController.disallowedFieldException(result);
-        return "redirect:/station/stations";
+        return "redirect:/admin/stations";
     }
 
     @RequestMapping("/cities")
@@ -62,22 +62,22 @@ public class CitiesController {
     @RequestMapping("/city/delete/{citiesId}")
     public String deleteCities(@PathVariable("citiesId") int citiesId) {
         citiesService.deleteCities(citiesId);
-        return "redirect:/admin/cities";
+        return "redirect:/admin/stations";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/city/update", method = RequestMethod.POST)
     public String updateCitiesPOST(@ModelAttribute("cities") @Valid Cities newCities, BindingResult result) {
         if (result.hasErrors()) {
-            return "/station/stations";
+            return "/admin/stations";
         }
         Cities currentCities = citiesService.findById(newCities.getId());
         currentCities.setName(newCities.getName());
         citiesService.updateCities(currentCities);
-        return "redirect:/station/stations";
+        return "redirect:/admin/stations";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/loadEntity/{id}")
+    @RequestMapping(value = "/city/loadEntity/{id}")
     public Cities loadEntity(@PathVariable("id") int id) {
         return citiesService.findById(id);
     }

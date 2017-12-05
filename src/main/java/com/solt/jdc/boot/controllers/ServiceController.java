@@ -35,7 +35,7 @@ public class ServiceController {
 	@Autowired
 	private MainController mainController;
 
-	@RequestMapping(value="/drivers/add",method=RequestMethod.POST)
+	@RequestMapping(value="/services/add",method=RequestMethod.POST)
 	public String addServicePOST(Model model,@ModelAttribute("service") @Valid Services service,BindingResult result) {
 		if(result.hasErrors()) {
     		return "admin/services/addService";
@@ -53,7 +53,7 @@ public class ServiceController {
 		return "redirect:/admin/buses";
 	}
 
-	@RequestMapping(value="/driver/delete/{serviceId}")
+	@RequestMapping(value="/service/delete/{serviceId}")
 	public String deleteService(@PathVariable("serviceId")int serviceId,Model model) {
 		servicesService.deleteService(serviceId);
 		return "redirect:/admin/buses";
@@ -61,7 +61,7 @@ public class ServiceController {
 	
 	
 	
-	@RequestMapping(value="/driver/update",method=RequestMethod.POST)
+	@RequestMapping(value="/service/update",method=RequestMethod.POST)
 	public String updateServicePOST(@ModelAttribute("service") @Valid Services newService,BindingResult result) {
 		if(result.hasErrors()) {
     		return "admin/bus/updateServiceForm";
@@ -74,7 +74,7 @@ public class ServiceController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/loadEntity/{id}")
+	@RequestMapping(value="/service/loadEntity/{id}")
 	public Services loadEntity(@PathVariable("id")int id) {
 		return servicesService.findById(id);
 	}
