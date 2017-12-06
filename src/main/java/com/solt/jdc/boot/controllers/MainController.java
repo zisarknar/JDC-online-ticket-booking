@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 
     @RequestMapping("/admin")
-    public String getMain(){
+    public String getMain() {
         return "admin/index";
     }
 
     @GetMapping("/")
     public String getIndex() {
-        return "front-master";
+        return "frontend/index";
     }
-    
+
     protected void disallowedFieldException(BindingResult result) {
-		String[] suppressedFields=result.getSuppressedFields();
-    	if(suppressedFields.length>0) {
-    		throw new RuntimeException("Unable to bind disallowed fields");
-    	}
-	}
+        String[] suppressedFields = result.getSuppressedFields();
+        if (suppressedFields.length > 0) {
+            throw new RuntimeException("Unable to bind disallowed fields");
+        }
+    }
 
 }
