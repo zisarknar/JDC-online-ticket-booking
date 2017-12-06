@@ -23,8 +23,6 @@ public class Services {
 	@ManyToOne
 	private Bus bus;
 
-	
-	
 	public Bus getBus() {
 		return bus;
 	}

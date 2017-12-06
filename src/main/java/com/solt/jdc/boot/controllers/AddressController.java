@@ -1,7 +1,6 @@
 package com.solt.jdc.boot.controllers;
 
 import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +31,7 @@ public class AddressController {
 	@Autowired
 	private CitiesService citiesService;
 
-
 	@RequestMapping(value = "/addresses/add", method = RequestMethod.GET)
-
 	public String addAddressGET(Model model) {
 		Address address = new Address();
 		model.addAttribute("address", address);
@@ -55,7 +52,6 @@ public class AddressController {
 			address.setId((addressList.get(addressList.size() - 1)).getId() + 1);
 		}
 		addressService.addAddress(address);
-
 		return "redirect:/admin/stations";
 	}
 
@@ -89,8 +85,6 @@ public class AddressController {
 		currentAddress.setAddressName(newAddress.getAddressName());
 		currentAddress.setCities(newAddress.getCities());
 		addressService.updateAddress(currentAddress);
-
-
 		return "redirect:/admin/stations";
 	}
 
