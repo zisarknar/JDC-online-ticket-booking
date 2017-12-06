@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.solt.jdc.boot.domains.Trip;
 import com.solt.jdc.boot.repositories.TripRepository;
 import com.solt.jdc.boot.services.CitiesService;
+import com.solt.jdc.boot.services.TripService;
 import com.solt.jdc.boot.utils.TripFinder;
 
 
@@ -24,7 +25,7 @@ import com.solt.jdc.boot.utils.TripFinder;
 public class MainController {
 	
 	@Autowired
-	private TripRepository tripRepository;
+	private TripService tripService;
 	
 	@Autowired
 	private CitiesService citiesService;
@@ -47,7 +48,7 @@ public class MainController {
     	String source=tripFinder.getSource();
     	String destination=tripFinder.getDestination();
     	Date depDate=tripFinder.getDepDate();
-    	List<Trip> tripList=tripRepository.findTripByFilter(source, destination,depDate);
+    	List<Trip> tripList=tripService.findTripByFilter(source, destination,depDate);
     	tripList.stream().forEach(System.out::println);
     	return "redirect:/";
     }
