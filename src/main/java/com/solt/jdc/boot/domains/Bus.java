@@ -55,7 +55,7 @@ public class Bus {
 
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="bus_station_id")
-	private Bus bus;
+	private Station station;
 	
 	public String getBusNumber() {
 		return busNumber;

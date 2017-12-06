@@ -43,5 +43,13 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.saveAndFlush(booking);
     }
 
+	@Override
+	public Booking findByNameAndPhone(String userName,String phone) {
+		
+		
+		return bookingRepository.findByNameAndPhone(userName,phone);
+		
+	}
+
 
 }
