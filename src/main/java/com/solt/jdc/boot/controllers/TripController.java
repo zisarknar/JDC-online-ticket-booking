@@ -63,7 +63,7 @@ public class TripController {
         if (result.hasErrors()) {
             return "admin/trip/addNew";
         }
-        mainController.disallowedFieldException(result);
+       // mainController.disallowedFieldException(result);
         tripService.saveTrip(newTrip);
         return "redirect:/admin/trips";
     }
@@ -102,9 +102,9 @@ public class TripController {
         return "redirect:/admin/trips";
     }
 
-    @InitBinder
+   /* @InitBinder
     public void initializeBider(WebDataBinder binder) {
-        binder.setAllowedFields("booking", "busId", "deptime", "depDate", "estTime", "tripCode", "status", "unitPrice");
-    }
+        binder.setAllowedFields( "busId", "deptime", "depDate", "estTime", "tripCode", "status", "unitPrice","source","destination","busId","stationId","booking");
+    }*/
 
 }
