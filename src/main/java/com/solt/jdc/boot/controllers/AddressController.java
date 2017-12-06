@@ -89,15 +89,14 @@ public class AddressController {
 		currentAddress.setAddressName(newAddress.getAddressName());
 		currentAddress.setCities(newAddress.getCities());
 		addressService.updateAddress(currentAddress);
-<<<<<<< HEAD
-
-		return "redirect:/admin/stations";
-
-=======
 
 
 		return "redirect:/admin/stations";
->>>>>>> 9579f1d514314880be81c34af3c93d1d2d793730
+
+
+
+
+	
 	}
 
 	@ResponseBody
