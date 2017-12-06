@@ -8,7 +8,7 @@ import com.solt.jdc.boot.domains.Bus;
 import com.solt.jdc.boot.domains.BusType;
 
 public interface BusRepository extends JpaRepository<Bus, Integer> {
-	Bus findById(int id);
-	
-	List<Bus> findByBusType(BusType busType);
+    Bus findById(int id);
+
+    List<Bus> findByBusType(BusType busType);
 }

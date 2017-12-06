@@ -81,8 +81,6 @@ public class Bus {
 		this.servicesList = servicesList;
 	}
 
-	
-
 	public Integer getId() {
 		return id;
 	}

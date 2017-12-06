@@ -35,7 +35,6 @@ public class Booking {
     private double totalAmount;
     private boolean status;
 
-
 //    Booking is the Owner of the relationship
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trip")

@@ -31,16 +31,16 @@ public class MainController {
 	private CitiesService citiesService;
 	
     @RequestMapping("/admin")
-    public String getMain(){
+    public String getMain() {
         return "admin/index";
     }
-
+  
     @GetMapping("/")
     public String getIndex(Model model) {
     	TripFinder tripFinder=new TripFinder();
     	model.addAttribute("allcities",citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList()));
     	model.addAttribute("tripFinder", tripFinder);
-        return "front-master";
+        return "frontend/index";
     }
     
     @RequestMapping(value="/trip/search",method=RequestMethod.POST)
@@ -54,10 +54,10 @@ public class MainController {
     }
     
     protected void disallowedFieldException(BindingResult result) {
-		String[] suppressedFields=result.getSuppressedFields();
-    	if(suppressedFields.length>0) {
-    		throw new RuntimeException("Unable to bind disallowed fields");
-    	}
-	}
+        String[] suppressedFields = result.getSuppressedFields();
+        if (suppressedFields.length > 0) {
+            throw new RuntimeException("Unable to bind disallowed fields");
+        }
+    }
 
 }
