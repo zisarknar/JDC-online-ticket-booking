@@ -20,6 +20,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    
     @RequestMapping("/customers")
     public String getAllCustomers(Model model) {
         model.addAttribute("customers", customerService.getAllCustomers());
@@ -82,7 +83,8 @@ public class CustomerController {
 
     @InitBinder
     public void initializeBinder(WebDataBinder binder) {
-        binder.setAllowedFields("username", "firstName", "lastName", "password", "phone", "email", "nrcNumber", "isEnabled", "booking");
+        binder.setAllowedFields("username", "firstName", 
+        		"lastName", "password","matchPassword", "phone", "email", "nrcNumber","address");
     }
 
     @RequestMapping(value = "/customer/register", method = RequestMethod.GET)

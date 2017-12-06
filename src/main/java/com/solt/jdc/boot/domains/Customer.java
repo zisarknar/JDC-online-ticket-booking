@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity(name = "customer")
 public class Customer {
@@ -12,6 +13,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message="Please enter user name")
+    //@NotEmpty
     private String username;
     @NotNull
     @NotBlank(message="Please enter first name")
@@ -26,6 +28,10 @@ public class Customer {
     @NotNull
     @NotBlank(message="Please enter phone number")
     private String phone;
+    
+    @NotNull
+    @NotBlank(message="Please enter  your address ")
+    private String address;
     
     private String email;
     
@@ -126,5 +132,16 @@ public class Customer {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+    
+    
+    
 }
 

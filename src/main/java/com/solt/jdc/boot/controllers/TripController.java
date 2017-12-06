@@ -104,7 +104,7 @@ public class TripController {
 
     @InitBinder
     public void initializeBider(WebDataBinder binder) {
-        binder.setAllowedFields("booking", "busId", "deptime", "depDate", "estTime", "tripCode", "status", "unitPrice");
+        binder.setAllowedFields("busId", "depTime", "depDate", "estTime", "tripCode",  "unitPrice","busId","stationId","source","destionation");
     }
 
 }

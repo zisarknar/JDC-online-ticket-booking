@@ -30,7 +30,7 @@ public class Station {
 	private Address address;
 
 	
-	@OneToMany(mappedBy="bus")
+	@OneToMany(mappedBy="station")
 	private List<Bus> busList=new ArrayList<>();
 	
 	@OneToMany(mappedBy="station")
