@@ -47,7 +47,6 @@ public class MainController {
     	String source=tripFinder.getSource();
     	String destination=tripFinder.getDestination();
     	Date depDate=tripFinder.getDepDate();
-    	
     	List<Trip> tripList=tripRepository.findTripByFilter(source, destination,depDate);
     	tripList.stream().forEach(System.out::println);
     	return "redirect:/";
