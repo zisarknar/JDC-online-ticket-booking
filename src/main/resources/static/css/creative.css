@@ -134,7 +134,7 @@ body {
 @media (min-width: 992px) {
     #mainNav {
         border-color: transparent;
-        background-color: transparent;
+        background-color: #ffffff;
     }
 
     #mainNav .navbar-brand {
@@ -142,7 +142,7 @@ body {
     }
 
     #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-        color: #fff;
+        color: #000000;
     }
 
     #mainNav .navbar-nav > li.nav-item > a.nav-link {
@@ -156,7 +156,7 @@ body {
 
     #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
     #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-        color: #fff;
+        color: #F05F40;
     }
 
     #mainNav.navbar-shrink {
@@ -321,7 +321,7 @@ header.masthead p {
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
     color: #fff;
-    background-color: #eed70c !important;
+    background-color: #ee5000 !important;
 }
 
 .btn-primary:active, .btn-primary:focus {

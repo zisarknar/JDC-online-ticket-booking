@@ -39,7 +39,6 @@
                                 type="text" class="form-control" id="rootPassword"
                                 placeholder="Enter Password" th:field="*{rootPassword}" />
                         </div>
-
                     </div>
                     <!-- /.box-body -->
 
@@ -51,5 +50,10 @@
         </div>
     </div>
 </section>
+<script layout:fragment="myScript">
+    $(document).ready(function(){
+        $('#rootName').focus();
+    })
+</script>
 </body>
 </html>

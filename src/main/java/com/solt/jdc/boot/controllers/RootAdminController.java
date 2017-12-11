@@ -53,7 +53,7 @@ public class RootAdminController {
         RootAdmin currentRootAdmin = rootAdminService.getRootAdmin(updateAdminId);
         currentRootAdmin.setRootName(updatedAdmin.getRootName());
         currentRootAdmin.setRootPassword(updatedAdmin.getRootPassword());
-        rootAdminService.updateRootAdmin(currentRootAdmin);
+        rootAdminService.saveRootAdmin(currentRootAdmin);
         return "redirect:/admin/roots";
     }
 
@@ -62,6 +62,5 @@ public class RootAdminController {
         rootAdminService.deleteRootAdmin(rootAdminId);
         return "redirect:/admin/roots";
     }
-
 
 }

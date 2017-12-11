@@ -20,12 +20,12 @@
                     <form th:object="${tripFinder}" th:action="@{/trip/search}" method="post" class="form-inline">
                         <div class="form-group mb-2 mr-sm-2 mb-sm-0">
                             <select class="form-control" th:field="*{source}">
-                            	<option th:each="city:${allcities}" th:value="${city}" th:text="${city}"/>
+                                <option th:each="city:${allcities}" th:value="${city}" th:text="${city}"/>
                             </select>
                         </div>
                         <div class="form-group mb-2 mr-sm-2 mb-sm-0">
-							<select class="form-control" th:field="*{destination}">
-                            	<option th:each="city:${allcities}" th:value="${city}" th:text="${city}"/>
+                            <select class="form-control" th:field="*{destination}">
+                                <option th:each="city:${allcities}" th:value="${city}" th:text="${city}"/>
                             </select>
                         </div>
                         <div class="form-group mb-2 mr-sm-2 mb-sm-0">
@@ -207,7 +207,7 @@
     <section class="bg-dark text-white">
         <div class="container text-center">
             <h2 class="mb-4">You can Pay with MPU Members and Visa / Master</h2>
-            <a class="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">Pay
+            <a class="btn btn-light btn-xl sr-button" href="#">Pay
                 Now!</a>
         </div>
     </section>

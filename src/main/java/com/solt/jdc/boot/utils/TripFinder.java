@@ -1,17 +1,15 @@
 package com.solt.jdc.boot.utils;
 
-import java.util.Date;
-
-import javax.persistence.Temporal;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import java.util.Date;
+
 public class TripFinder {
+
 	private String source;
 	
 	private String destination;
-	
 	
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date depDate;

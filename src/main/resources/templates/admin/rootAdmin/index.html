@@ -7,7 +7,6 @@
 </head>
 <body>
 
-
 <section class="content-header" layout:fragment="header">
     <h1>
         Root Admin
@@ -43,7 +42,7 @@
                             <td th:text="${root.rootName}"></td>
                             <td th:text="${root.rootPassword}"></td>
                             <td>
-                                <a th:href="@{/admin/root/delete/}+${root.id}" class="btn btn-danger"><i
+                                <a th:href="@{/admin/root/delete/}+${root.id}" class="btn btn-danger" id="delete"><i
                                         class="fa fa-trash"></i> Delete</a>
                                 <a th:href="@{/admin/root/update/}+${root.id}" class="btn btn-info"><i
                                         class="fa fa-gear"></i> Edit</a>
@@ -59,7 +58,6 @@
 </section>
 
 <script layout:fragment="myScript">
-
     $(function () {
         $('#root').DataTable({
             'paging': true,

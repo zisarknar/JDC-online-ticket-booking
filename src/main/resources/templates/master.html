@@ -5,24 +5,23 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Admin | Dashboard</title>
-    <meta
-            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-            name="viewport"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet"
-          th:href="@{/components/bootstrap/dist/css/bootstrap.min.css}"
-          media="screen"/>
+    <link rel="stylesheet" th:href="@{/components/bootstrap/dist/css/bootstrap.min.css}" media="screen"/>
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-          th:href="@{/components/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/components/font-awesome/css/font-awesome.min.css}"/>
     <!--PACE-->
-    <link rel="stylesheet"
-          th:href="@{/components/PACE/themes/red/pace-theme-minimal.css}"/>
+    <link rel="stylesheet" th:href="@{/components/PACE/themes/red/pace-theme-minimal.css}"/>
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
+    <!--Bootstrap Datepicker-->
+    <!-- Date Picker -->
+    <link rel="stylesheet" th:href="@{/components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css}"/>
     <!-- DataTables -->
     <link rel="stylesheet"
           th:href="@{/components/datatables.net-bs/css/dataTables.bootstrap.min.css}"/>
+    <!--Animate CSS-->
+    <link rel="stylesheet" th:href="@{/component/animate/animate.css}"/>
     <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}"/>
@@ -93,8 +92,12 @@
 <!--End of wrapper-->
 <!-- jQuery 3 -->
 <script th:src="@{/components/jquery/dist/jquery.min.js}"></script>
+<!--Sweet alert 2-->
+<script th:src="@{https://unpkg.com/sweetalert2@7.0.9/dist/sweetalert2.all.js}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script th:src="@{/components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!--Bootstrap Datepicker-->
+<script th:src="@{/components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js}"></script>
 <!--PACE-->
 <script th:src="@{/components/PACE/pace.min.js}"></script>
 <!-- AdminLTE App -->
@@ -115,12 +118,9 @@
             var pathname = window.location.pathname;
             $('.sidebar-menu > li > a[href="' + pathname + '"]')
                 .parent().addClass('active');
-        })
+        });
 </script>
-
 <!--Custom Script-->
-<script layout:fragment="myScript">
-
-</script>
+<script layout:fragment="myScript"/>
 </body>
 </html>
