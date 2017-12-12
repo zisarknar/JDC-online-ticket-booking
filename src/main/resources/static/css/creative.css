@@ -327,3 +327,10 @@ header.masthead p {
 .btn-primary:active, .btn-primary:focus {
     box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
 }
+
+.footer-copy {
+    background-color: #181818;
+    color: #8a8a8a;
+    text-align: center;
+    padding: 50px;
+}

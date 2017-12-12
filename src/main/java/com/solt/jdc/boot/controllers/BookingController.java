@@ -60,7 +60,6 @@ public class BookingController   {
         return "redirect:/admin/bookings";
     }
 
-	
     @RequestMapping(value = "/booking/update/{id}", method = RequestMethod.GET)
     public String updateBooking(@PathVariable("id") int bookingId, Model model){
         model.addAttribute("allTrip", tripService.getAllTrips());

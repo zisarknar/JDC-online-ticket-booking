@@ -74,7 +74,6 @@ public class AddressController {
 		return "admin/address/updateAddressForm";
 	}
 
-
 	@RequestMapping(value = "/address/update", method = RequestMethod.POST)
 	public String updateAddressPOST(Model model, @ModelAttribute("address") @Valid Address newAddress,
 			BindingResult result) {
