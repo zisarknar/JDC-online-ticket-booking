@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
@@ -26,9 +28,6 @@ public class TripController {
     private CitiesService citiesService;
 
     @Autowired
-    private MainController mainController;
-
-    @Autowired
     private BusService busService;
 
     @Autowired
@@ -37,7 +36,6 @@ public class TripController {
     @RequestMapping("/trips")
     public String getAllTrip(Model model) {
         model.addAttribute("trips", tripService.getAllTrips());
-
         return "admin/trip/index";
     }
 
@@ -53,7 +51,6 @@ public class TripController {
         model.addAttribute("newTrip", trip);
         model.addAttribute("allBus", busService.getAllBus());
         model.addAttribute("allStation", stationService.getAllStations());
-
         model.addAttribute("allcities", citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
         return "admin/trip/addNew";
     }
@@ -78,7 +75,6 @@ public class TripController {
     }
 
     @RequestMapping(value = "/trip/update/{id}", method = RequestMethod.POST)
-
     public String processUpdateTrip(@ModelAttribute("trip") @Valid Trip updatedTrip, @PathVariable("id") int tripId, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/bus/update";

@@ -5,6 +5,9 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +16,9 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import java.util.Date;
 
 @Entity(name = "book")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Booking {
 
     @Id
@@ -44,72 +50,6 @@ public class Booking {
     @JoinColumn(name = "customer")
     private Customer customer;
 
-    public Booking() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getRegCode() {
-        return regCode;
-    }
-
-    public void setRegCode(String regCode) {
-        this.regCode = regCode;
-    }
-
-    public Date getBookDate() {
-        return bookDate;
-    }
-
-    public void setBookDate(Date bookDate) {
-        this.bookDate = bookDate;
-    }
-
-    public int getNoOfSeats() {
-        return noOfSeats;
-    }
-
-    public void setNoOfSeats(int noOfSeats) {
-        this.noOfSeats = noOfSeats;
-    }
-
-    public double getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Trip getTrip() {
-        return trip;
-    }
-
-    public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
     @Override
     public boolean equals(Object o) {

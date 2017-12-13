@@ -5,6 +5,9 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -19,6 +22,9 @@ import java.util.List;
  * @author User
  */
 @Entity(name = "trip")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Trip {
 
     @Id
@@ -54,104 +60,6 @@ public class Trip {
 
     private String destination;
 
-    public Trip() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTripCode() {
-        return tripCode;
-    }
-
-    public void setTripCode(String tripCode) {
-        this.tripCode = tripCode;
-    }
-
-    public LocalTime getDepTime() {
-        return depTime;
-    }
-
-    public void setDepTime(LocalTime depTime) {
-        this.depTime = depTime;
-    }
-
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public int getBusId() {
-        return busId;
-    }
-
-    public void setBusId(int busId) {
-        this.busId = busId;
-    }
-
-    public int getStationId() {
-        return stationId;
-    }
-
-    public void setStationId(int stationId) {
-        this.stationId = stationId;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Booking getBooking() {
-        return booking;
-    }
-
-    public void setBooking(Booking booking) {
-        this.booking = booking;
-    }
-
-    public Date getDepDate() {
-        return depDate;
-    }
-
-    public void setDepDate(Date depDate) {
-        this.depDate = depDate;
-    }
-
-    public void setEstTime(int estTime) {
-        this.estTime = estTime;
-    }
-
-    public int getEstTime() {
-        return estTime;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
 
     @Override
     public int hashCode() {

@@ -1,11 +1,18 @@
 package com.solt.jdc.boot.domains;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class RootAdmin {
 
     @Id
@@ -15,41 +22,6 @@ public class RootAdmin {
     private String rootName;
     private String rootPassword;
     private boolean isRoot;
-
-    public RootAdmin() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getRootName() {
-        return rootName;
-    }
-
-    public void setRootName(String rootName) {
-        this.rootName = rootName;
-    }
-
-    public String getRootPassword() {
-        return rootPassword;
-    }
-
-    public void setRootPassword(String rootPassword) {
-        this.rootPassword = rootPassword;
-    }
-
-    public boolean isRoot() {
-        return isRoot;
-    }
-
-    public void setRoot(boolean root) {
-        isRoot = root;
-    }
 
     @Override
     public boolean equals(Object o) {

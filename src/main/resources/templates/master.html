@@ -81,12 +81,11 @@
             </ol>
         </section>
 
-        <section class="content" layout:fragment="content"></section>
+        <section class="content" layout:fragment="content">
+        </section>
     </div>
-
     <!--Footer-->
     <footer class="main-footer" th:replace="fragments/footer :: footer"/>
-
 </div>
 <!--End of wrapper-->
 <!-- jQuery 3 -->
@@ -106,10 +105,8 @@
 <!-- AdminLTE for demo purposes -->
 <script th:src="@{/dist/js/demo.js}"></script>
 <!-- DataTables -->
-<script
-        th:src="@{/components/datatables.net/js/jquery.dataTables.min.js}"></script>
-<script
-        th:src="@{/components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<script th:src="@{/components/datatables.net/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
 <script>
     $(document).ready(
         function () {

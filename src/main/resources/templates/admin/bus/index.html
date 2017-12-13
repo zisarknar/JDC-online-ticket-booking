@@ -1,774 +1,764 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="master"
-	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="master"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 
 <head>
-<meta charset=" UTF-8"></meta>
-<title>Customer</title>
-<script th:src="@{/dist/js/ajax.js}"></script>
-<script th:src="@{/dist/js/bus.js}"></script>
+    <meta charset=" UTF-8"></meta>
+    <title>Customer</title>
+    <script th:src="@{/dist/js/ajax.js}"></script>
+    <script th:src="@{/dist/js/bus.js}"></script>
 </head>
 <body>
-	<section class="content-header" layout:fragment="header">
-		<h1>
-			Bus <small>Management panel</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Dashboard</li>
-		</ol>
-	</section>
-
-	<section class="content" layout:fragment="content">
-		<div class="row"></div>
-		<div class="col-xs-6">
-			<div class="box">
-				<div class="box-header">
-					<h3 class="box-title">Bus Type</h3>
-					
-					<button type="button" class="btn btn-info btn-lg pull-right"
-						data-toggle="modal" data-target="#myModal2">Add New</button>
-
-					<!-- Modal -->
-					<div id="myModal2" class="modal fade" role="dialog">
-						<div class="modal-dialog">
-
-							<!-- Modal content-->
-							<div class="modal-content">
-								<div class="container">
-									<form id="addBusTypeForm" role="form"
-										th:action="@{/admin/bustypes/add}" th:object="${busType}"
-										method="post">
-										<div class="box-body">
-											<div class="form-group">
-												<label for="busType">Bus Type</label> <input type="text"
-													class="form-control" id="busType"
-													placeholder="Enter Bus Type" th:field="*{type}" /> <label
-													id="busType_error" class="text-danger"></label>
-											</div>
-
-										</div>
-										<!-- /.box-body -->
-
-										<div class="box-footer">
-											<button id="busTypeSubmit" type="submit"
-												class="btn btn-primary">Submit</button>
-										</div>
-									</form>
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-					<div th:id="umodal2" class="modal fade" tabindex="-1" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-									<h4 class="modal-title">Update Bus Type</h4>
-								</div>
-								<div class="modal-body">
-									<form id="busTypeUpdateForm" role="form" method="post"
-										th:action="@{/admin/bustype/update}" th:object="${busType}">
-										<input id="update-busTypeid" type="hidden" th:field="*{id}"
-											th:value="${busType.id}" />
-										<fieldset class="form-group">
-											<label for="update-type">Bus Type</label> <input
-												th:field="*{type}" th:value="${busType.type}"
-												class="form-control" id="update-type" type="text"
-												placeholder="Enter Type" />
-
-										</fieldset>
-										<fieldset class="form-group">
-											<label id="update-typeError" class="text-danger"></label>
-										</fieldset>
-
-										<div class="form-group">
-											<button class="btn btn-success" type="submit">Save</button>
-										</div>
-									</form>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">Cancel</button>
-								</div>
-							</div>
-							<!-- /.modal-content -->
-						</div>
-						<!-- /.modal-dialog -->
-					</div>
-
-
-				</div>
-
-				<div class="box-body">
-					<table id="bustypes" class="table table-bordered table-hover"
-						dt:table="true">
-						<thead>
-							<tr>
-								<th>Bus Type</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="bustype : ${bustypes}">
-								<td th:text="${bustype.type}"></td>
-								<td><a th:href="@{/admin/bustype/delete/}+${bustype.id}"
-									class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a> <a
-									data-toggle="modal" class="btn btn-success"
-									data-target="#umodal2"
-									th:onclick="'busTypeShowEditModal(' + ${bustype.id} + ')'"><i
-										class="fa fa-pencil"></i>Edit</a></td>
-
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-6">
-			<div class="box">
-				<div class="box-header">
-
-					<h3 class="box-title">Services List</h3>
-					<button type="button" class="btn btn-info btn-lg pull-right"
-						data-toggle="modal" data-target="#myModal3">Add New</button>
-					<div id="myModal3" class="modal fade" role="dialog">
-						<div class="modal-dialog">
-
-							<!-- Modal content-->
-							<div class="modal-content">
-								<form id="addServicesForm" role="form"
-									th:action="@{/admin/services/add}" th:object="${services}"
-									method="post">
-									<div class="box-body">
-										<div class="form-group">
-											<label for="services">Sevice Name</label> <input type="text"
-												class="form-control" id="services"
-												placeholder="Enter Service" th:field="*{services}" /> <label
-												id="services_error" class="text-danger"></label>
-										</div>
-										<div class="form-group">
-											<label class="control-label">Select Bus</label> <select
-												th:field="*{bus}" class="form-control">
-												<option th:each="bus:${buses}" th:value="${bus.id}"
-													th:text="${bus.busCode}"></option>
-
-											</select>
-										</div>
-
-									</div>
-									<!-- /.box-body -->
-
-									<div class="box-footer">
-										<button id="servicesSubmitButton" type="submit"
-											class="btn btn-primary">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div th:id="umodal3" class="modal fade" tabindex="-1" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-									<h4 class="modal-title">Update Services</h4>
-								</div>
-								<div class="modal-body">
-									<form id="updateServicesForm" role="form" method="post"
-										th:action="@{/admin/service/update}" th:object="${services}">
-										<input id="update-servicesid" type="hidden" th:field="*{id}"
-											th:value="${services.id}" />
-										<fieldset class="form-group">
-											<label for="update-services">Service</label> <input
-												th:field="*{services}" th:value="${services.services}"
-												class="form-control" id="update-services" type="text"
-												placeholder="Enter Services" /> <label
-												id="update-servicesError" class="text-danger"></label>
-										</fieldset>
-
-
-
-										<fieldset>
-											<div class="form-group">
-												<label>Bus Code</label> <select th:field="*{bus}">
-													<option th:each="bus:${buses}" th:value="${bus.id}"
-														th:text="${bus.busCode}"></option>
-
-												</select>
-											</div>
-										</fieldset>
-
-										<div class="form-group">
-											<button class="btn btn-success" type="submit">Save</button>
-										</div>
-									</form>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">Cancel</button>
-								</div>
-							</div>
-							<!-- /.modal-content -->
-						</div>
-						<!-- /.modal-dialog -->
-					</div>
-				</div>
-
-				<div class="box-body">
-					<table class="table table-bordered table-hover" dt:table="true">
-						<thead>
-							<tr>
-								<th>Service Name</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="service : ${manyServices}">
-								<td th:text="${service.services}"></td>
-								<td><a th:href="@{/admin/service/delete/}+${service.id}"
-									class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a> <a
-									data-toggle="modal" class="btn btn-success"
-									data-target="#umodal3"
-									th:onclick="'servicesShowEditModal(' + ${service.id} + ')'"><i
-										class="fa fa-pencil"></i>Edit</a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-12">
-			<div class="box">
-				<div class="box-header">
-					<h3 class="box-title">Bus List</h3>
-					<!-- <a  class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a> -->
-					<!-- Trigger the modal with a button -->
-					<button type="button" class="btn btn-info btn-lg pull-right"
-						data-toggle="modal" data-target="#myModal">Add New</button>
-					<div>
-						<select>
-							<option th:each="bustype:${bustypes}" th:value="${bustype.type}"
-								th:text="${bustype.type}" />
-						</select> <input type="submit" value="search" />
-					</div>
-
-					<!-- Modal -->
-					<div id="myModal" class="modal fade" role="dialog">
-						<div class="modal-dialog">
-
-							<!-- Modal content-->
-							<div class="modal-content">
-								<form id="addBusForm" role="form" th:action="@{/admin/buses/add}"
-									th:object="${bus}" method="post">
-									<div class="box-body">
-
-										<div class="form-group">
-											<label for="busNumber">Bus Number</label> <input type="text"
-												class="form-control" id="busNumber"
-												placeholder="Enter Bus Number" th:field="*{busNumber}" /> <label
-												id="busNumber_error" class="text-danger"></label>
-										</div>
-										<div class="form-group">
-											<label for="busCode">Bus Code</label> <input type="text"
-												class="form-control" id="busCode"
-												placeholder="Enter Bus Code" th:field="*{busCode}" /> <label
-												id="busCode_error" class="text-danger"></label>
-										</div>
-										<div class="form-group">
-											<label for="busCompany">Bus Company</label> <input
-												type="text" class="form-control" id="busCompany"
-												placeholder="Enter Bus Company" th:field="*{busCompany}" />
-											<label id="busCompany_error" class="text-danger"></label>
-										</div>
-										<div class="form-group">
-
-											<label for="maxSeats">Maximum Seats</label> <input
-												type="text" class="form-control" id="maxSeats"
-												placeholder="Enter Max Seats" th:field="*{maxSeats}" /> <label
-												id="maxSeats_error" class="text-danger"></label>
-										</div>
-
-										<select id="busTypeSelect" class="form-control"
-											th:field="*{busType}">
-											<option th:each="bustype : ${bustypes}"
-												th:value="${bustype.id}" th:text="${bustype.type}"></option>
-										</select>
-
-
-									</div>
-									<!-- /.box-body -->
-
-									<div class="box-footer">
-										<button type="submit" class="btn btn-primary">Submit</button>
-									</div>
-								</form>
-							</div>
-
-						</div>
-					</div>
-
-
-
-					<div th:id="umodal" class="modal fade" tabindex="-1" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-									<h4 class="modal-title">Update Bus</h4>
-								</div>
-								<div class="modal-body">
-									<form id="updateBusForm" role="form" th:method="post"
-										th:action="@{/admin/bus/update}" th:object="${bus}">
-										<input id="update-id" type="hidden" th:field="*{id}" />
-										<fieldset class="form-group">
-											<label for="update-busNumber">Bus Number</label> <input
-												th:field="*{busNumber}" th:value="${bus.busNumber}"
-												class="form-control" id="update-busNumber" type="text"
-												placeholder="Enter Bus Number" /> <label
-												id="updateBusNumberError" class="text-danger"></label>
-										</fieldset>
-										<fieldset class="form-group">
-											<label for="update-busCode">Bus Code</label> <input
-												th:field="*{busCode}" th:value="${bus.busCode}"
-												class="form-control" id="update-busCode" type="text"
-												placeholder="Enter Bus Code" /> <label
-												id="updateBusCodeError" class="text-danger"></label>
-										</fieldset>
-										<fieldset class="form-group">
-											<label for="update-busCompany">Bus Company</label> <input
-												th:field="*{busCompany}" th:value="${bus.busCompany}"
-												class="form-control" id="update-busCompany" type="text"
-												placeholder="Enter Bus Company" /> <label
-												id="updateBusCompanyError" class="text-danger"></label>
-										</fieldset>
-										<fieldset class="form-group">
-											<label for="update-maxSeats">Maximum Seats</label> <input
-												th:field="*{maxSeats}" th:value="${bus.maxSeats}"
-												class="form-control" id="update-maxSeats" type="text"
-												placeholder="Enter Maximum Seats" /> <label
-												id="updateMaxSeatsError" class="text-danger"></label>
-										</fieldset>
-
-										<fieldset class="form-group">
-											<label class="control-label">Bus Type</label> <select
-												th:field="*{busType}" class="form-control">
-												<option th:each="bustype:${bustypes}"
-													th:text="${bustype.type}" th:value="${bustype.id}" />
-											</select>
-										</fieldset>
-										<div class="form-group">
-											<button class="btn btn-success" type="submit">Save</button>
-										</div>
-									</form>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">Cancel</button>
-								</div>
-							</div>
-							<!-- /.modal-content -->
-						</div>
-						<!-- /.modal-dialog -->
-					</div>
-					<!-- /.modal -->
-				</div>
-				<div class="box-body">
-					<table id="bus-table" class="table table-bordered table-hover"
-						dt:table="true">
-						<thead>
-							<tr>
-								<th>Bus Number</th>
-								<th>Bus Code</th>
-								<th>Bus Company</th>
-								<th>Maximum Seats</th>
-								<th>Taken Seats</th>
-							</tr>
-						</thead>
-						<tbody id="table-body">
-							<tr th:each="bus : ${buses}">
-								<td th:text="${bus.busNumber}"></td>
-								<td th:text="${bus.busCode}"></td>
-								<td th:text="${bus.busCompany}"></td>
-								<td th:text="${bus.maxSeats}"></td>
-								<td th:text="${bus.takenSeats}"></td>
-								<td><a th:href="@{/admin/bus/delete/}+${bus.id}"
-									class="btn btn-danger"><i class="fa fa-trash "></i> Delete</a>
-									<a data-toggle="modal" class="btn btn-success"
-									data-target="#umodal"
-									th:onclick="'busShowEditModal(' + ${bus.id} + ')'"><i
-										class="fa fa-pencil"></i>Edit</a></td>
-
-
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-
-	<script layout:fragment="myScript">
-		$(function() {
-			$('#bus-table').DataTable({
-				'paging' : true,
-				'lengthChange' : true,
-				'searching' : true,
-				'ordering' : true,
-				'info' : true,
-				'autoWidth' : false
-			})
-		});
-
-		$(function() {
-			$("#busType_error").hide();
-			var busType_error = false;
-
-			$("#busType").focusout(function() {
-				checkBusType();
-			})
-
-			function checkBusType() {
-				if ($("#busType").val().length > 0) {
-					$("#busType_error").hide();
-					busType_error = false;
-
-				} else if ($("#busType").val().length == 0) {
-					$("#busType_error").html("Please Enter BusType");
-					$("#busType_error").show();
-					busType_error = true;
-
-				}
-			}
-
-			$("#addBusTypeForm").submit(function() {
-				if (busType_error == false) {
-					return true;
-				} else {
-					alert("Please Enter Valid Information In The Form");
-					return false;
-
-				}
-			});
-		})
-
-		$(function() {
-
-			$("#update-typeError").show();
-			var updateTypeError = false;
-
-			$("#update-type").focusout(function() {
-				checkUpdateBusType();
-			})
-
-			function checkUpdateBusType() {
-				if ($("#update-type").val().length > 0) {
-					$("#update-typeError").hide();
-					updateTypeError = false;
-
-				} else if ($("#update-type").val().length == 0) {
-					$("#update-typeError").html("Please Enter BusType");
-					$("#update-typeError").show();
-					updateTypeError = true;
-
-				}
-			}
-
-			$("#busTypeUpdateForm").submit(function() {
-				if (updateTypeError == false) {
-					return true;
-				} else {
-					alert("Please Enter Valid Information In The Form");
-					return false;
-
-				}
-			});
-		})
-
-		$(function() {
-			$("#services_error").hide();
-			var services_error = false;
-
-			$("#services").focusout(function() {
-				checkServices();
-			})
-
-			function checkServices() {
-				if ($("#services").val().length > 0) {
-					$("#services_error").hide();
-					services_error = false;
-
-				} else if ($("#services").val().length == 0) {
-					$("#services_error").html("Please enter service");
-					$("#services_error").show();
-					services_error = true;
-
-				}
-			}
-
-			$("#addServicesForm").submit(function() {
-				services_error = false;
-				checkServices();
-
-				if (services_error == false) {
-					return true;
-				} else {
-					alert("Please Enter valid informations in the form");
-					return false;
-
-				}
-			})
-		})
-
-		$(function() {
-			$("#update-servicesError").hide();
-			var updateServicesError = false;
-
-			$("#update-services").focusout(function() {
-				checkUpdateServices();
-			})
-
-			function checkUpdateServices() {
-				if ($("#update-services").val().length > 0) {
-					$("#update-servicesError").hide();
-					updateServicesError = false;
-
-				} else if ($("#update-services").val().length == 0) {
-					$("#update-servicesError").html("Please Enter service");
-					$("#update-servicesError").show();
-					updateServicesError = true;
-
-				}
-			}
-
-			$("#updateServicesForm").submit(function() {
-				updateServicesError = false;
-				checkUpdateServices();
-
-				if (updateServicesError == false) {
-					return true;
-				} else {
-					alert("Please Enter valid informations in the form");
-					return false;
-
-				}
-			})
-		})
-
-		$(function() {
-			$("#busNumber_error").hide();
-			$("#busCode_error").hide();
-			$("#busCompany_error").hide();
-			$("#maxSeats_error").hide();
-
-			var busNumber_error = false;
-			var busCode_error = false;
-			var busCompany_error = false;
-			var maxSeats_error = false;
-
-			$("#busNumber").focusout(function() {
-				checkBusNumber();
-			});
-
-			$("#busCode").focusout(function() {
-				checkBusCode();
-			});
-
-			$("#busCompany").focusout(function() {
-				checkBusCompany();
-			});
-
-			$("#maxSeats").focusout(function() {
-				checkMaxSeats();
-			});
-
-			$("#busTypeSelect").focusout(function() {
-				checkBusType();
-			});
-
-			function checkBusNumber() {
-				if ($("#busNumber").val().length > 0) {
-					busNumber_error = false;
-					$("#busNumber_error").hide();
-				} else if ($("#busNumber").val().length == 0) {
-					busNumber_error = true;
-					$("#busNumber_error").html("Please Enter Bus Number");
-					$("#busNumber_error").show();
-				}
-			}
-			function checkBusCode() {
-				if ($("#busCode").val().length > 0) {
-					busCode_error = false;
-					$("#busCode_error").hide();
-				} else if ($("#busCode").val().length == 0) {
-					busNumber_error = true;
-					$("#busCode_error").html("Please Enter Bus Code");
-					$("#busCode_error").show();
-				}
-			}
-			function checkBusCompany() {
-				if ($("#busCompany").val().length > 0) {
-					busCompany_error = false;
-					$("#busCompany_error").hide();
-				} else if ($("#busCompany").val().length == 0) {
-					busNumber_error = true;
-					$("#busCompany_error").html("Please Enter Bus Company");
-					$("#busCompany_error").show();
-				}
-			}
-
-			function checkMaxSeats() {
-				if (parseInt($("#maxSeats").val()) >= 20) {
-					maxSeats_error = false;
-					$("#maxSeats_error").hide();
-				} else {
-					maxSeats_error = true;
-					$("#maxSeats_error").html(
-							"Maximum number of seats must be atleast 20");
-					$("#maxSeats_error").show();
-				}
-
-			}
-
-			$("#addBusForm").submit(
-					function() {
-						busNumber_error = false;
-						busCode_error = false;
-						busCompany_error = false;
-						maxSeats_error = false;
-						busTypeSelect_error = false;
-
-						checkBusNumber();
-						checkBusCode();
-						checkBusCompany();
-
-						if (busNumber_error == true || busCode_error == true
-								|| busCompany_error == true
-								|| maxSeats_error == true) {
-							alert("Please Enter Valid Information In The Form")
-							return false;
-
-						} else {
-							return true;
-						}
-					});
-
-		})
-
-		$(function() {
-			$("#updateBusNumberError").hide();
-			$("#updateBusCodeError").hide();
-			$("#updateBusCompanyError").hide();
-			$("#updateMaxSeatsError").hide();
-
-			var updateBusNumberError = false;
-			var updateBusCodeError = false;
-			var updateBusCompany = false;
-			var updateMaxSeats = false;
-
-			$("#update-busNumber").focusout(function() {
-				updateCheckBusNumber();
-			});
-
-			$("#update-busCode").focusout(function() {
-				updateCheckBusCode();
-			});
-
-			$("#update-busCompany").focusout(function() {
-				updateCheckBusCompany();
-			});
-
-			$("#update-maxSeats").focusout(function() {
-				updateCheckMaxSeats();
-			});
-
-			function updateCheckBusNumber() {
-				if ($("#update-busNumber").val().length > 0) {
-					updateBusNumberError = false;
-					$("#updateBusNumberError").hide();
-				} else if ($("#update-busNumber").val().length == 0) {
-					updateBusNumberError = true;
-					$("#updateBusNumberError").html("Please Enter Bus Number");
-					$("#updateBusNumberError").show();
-				}
-			}
-			function updateCheckBusCode() {
-				if ($("#update-busCode").val().length > 0) {
-					updateBusCodeError = false;
-					$("#updateBusCodeError").hide();
-				} else if ($("#update-busCode").val().length == 0) {
-					updateBusCodeError = true;
-					$("#updateBusCodeError").html("Please Enter Bus Code");
-					$("#updateBusCodeError").show();
-				}
-			}
-			function updateCheckBusCompany() {
-				if ($("#update-busCompany").val().length > 0) {
-					updateBusCompanyError = false;
-					$("#updateBusCompanyError").hide();
-				} else if ($("#update-busCompany").val().length == 0) {
-					updateBusCompanyError = true;
-					$("#updateBusCompanyError")
-							.html("Please Enter Bus Company");
-					$("#updateBusCompanyError").show();
-				}
-			}
-
-			function updateCheckMaxSeats() {
-				if (parseInt($("#update-maxSeats").val()) >= 20) {
-					updateMaxSeatsError = false;
-					$("#updateMaxSeatsError").hide();
-				} else {
-					updateMaxSeatsError = true;
-					$("#updateMaxSeatsError").html(
-							"Maximum number of seats must be atleast 20");
-					$("#updateMaxSeatsError").show();
-				}
-
-			}
-
-			$("#updateBusForm").submit(
-					function() {
-						updateBusNumberError = false;
-						updateBusCodeError = false;
-						updateBusCompany = false;
-						updateMaxSeats = false;
-
-						updateCheckBusNumber();
-						updateCheckBusCode();
-						updateCheckBusCompany();
-						updateCheckMaxSeats();
-
-						if (updateBusNumberError == true
-								|| updateBusCodeError == true
-								|| updateBusCompanyError == true
-								|| updateMaxSeatsError == true) {
-							alert("Please Enter Valid Information In The Form")
-							return false;
-
-						} else {
-							return true;
-						}
-					});
-
-		})
-	</script>
-
+<section class="content-header" layout:fragment="header">
+    <h1>
+        Bus
+        <small>Management panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+
+<section class="content" layout:fragment="content">
+    <div class="row"></div>
+    <div class="col-xs-6">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Bus Type</h3>
+                <button type="button" class="btn btn-info pull-right"
+                        data-toggle="modal" data-target="#myModal2">Add New
+                </button>
+                <!-- Modal -->
+                <div id="myModal2" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                                <form id="addBusTypeForm" role="form"
+                                      th:action="@{/admin/bustypes/add}" th:object="${busType}"
+                                      method="post">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="busType">Bus Type</label><input type="text"
+                                                                                        class="form-control"
+                                                                                        id="busType"
+                                                                                        placeholder="Enter Bus Type"
+                                                                                        th:field="*{type}"/> <label
+                                                id="busType_error" class="text-danger"></label>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <button id="busTypeSubmit" type="submit"
+                                                class="btn btn-primary">Submit
+                                        </button>
+                                    </div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+                <div th:id="umodal2" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title">Update Bus Type</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="busTypeUpdateForm" role="form" method="post"
+                                      th:action="@{/admin/bustype/update}" th:object="${busType}">
+                                    <input id="update-busTypeid" type="hidden" th:field="*{id}"
+                                           th:value="${busType.id}"/>
+                                    <fieldset class="form-group">
+                                        <label for="update-type">Bus Type</label> <input
+                                            th:field="*{type}" th:value="${busType.type}"
+                                            class="form-control" id="update-type" type="text"
+                                            placeholder="Enter Type"/>
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label id="update-typeError" class="text-danger"></label>
+                                    </fieldset>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-success" type="submit">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">Cancel
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="bus-type" class="table table-striped table-bordered table-hover"
+                       dt:table="true">
+                    <thead>
+                    <tr>
+                        <th>Bus Type</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="bustype : ${bustypes}">
+                        <td th:text="${bustype.type}"></td>
+                        <td><a th:href="@{/admin/bustype/delete/}+${bustype.id}"
+                               class="btn btn-default"><i class="fa fa-trash"></i> Delete</a>
+                            <a data-toggle="modal" class="btn btn-default"
+                                data-target="#umodal2"
+                                th:onclick="'busTypeShowEditModal(' + ${bustype.id} + ')'"><i
+                                class="fa fa-pencil"></i>Edit</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Services List</h3>
+                <button type="button" class="btn btn-info pull-right"
+                        data-toggle="modal" data-target="#myModal3">Add New
+                </button>
+                <div id="myModal3" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <form id="addServicesForm" role="form"
+                                  th:action="@{/admin/services/add}" th:object="${services}"
+                                  method="post">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="services">Sevice Name</label> <input type="text"
+                                                                                         class="form-control"
+                                                                                         id="services"
+                                                                                         placeholder="Enter Service"
+                                                                                         th:field="*{services}"/> <label
+                                            id="services_error" class="text-danger"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Select Bus</label> <select
+                                            th:field="*{bus}" class="form-control">
+                                        <option th:each="bus:${buses}" th:value="${bus.id}"
+                                                th:text="${bus.busCode}"></option>
+
+                                    </select>
+                                    </div>
+
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button id="servicesSubmitButton" type="submit"
+                                            class="btn btn-primary">Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div th:id="umodal3" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title">Update Services</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="updateServicesForm" role="form" method="post"
+                                      th:action="@{/admin/service/update}" th:object="${services}">
+                                    <input id="update-servicesid" type="hidden" th:field="*{id}"
+                                           th:value="${services.id}"/>
+                                    <fieldset class="form-group">
+                                        <label for="update-services">Service</label> <input
+                                            th:field="*{services}" th:value="${services.services}"
+                                            class="form-control" id="update-services" type="text"
+                                            placeholder="Enter Services"/> <label
+                                            id="update-servicesError" class="text-danger"></label>
+                                    </fieldset>
+
+
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label>Bus Code</label> <select th:field="*{bus}">
+                                            <option th:each="bus:${buses}" th:value="${bus.id}"
+                                                    th:text="${bus.busCode}"></option>
+
+                                        </select>
+                                        </div>
+                                    </fieldset>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-success" type="submit">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">Cancel
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+            </div>
+
+            <div class="box-body">
+                <table class="table table-striped table-bordered table-hover" dt:table="true" id="service">
+                    <thead>
+                    <tr>
+                        <th>Service Name</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="service : ${manyServices}">
+                        <td th:text="${service.services}"></td>
+                        <td><a th:href="@{/admin/service/delete/}+${service.id}"
+                               class="btn btn-default"><i class="fa fa-trash"></i> Delete</a>
+                            <a data-toggle="modal" class="btn btn-default"
+                                data-target="#umodal3"
+                                th:onclick="'servicesShowEditModal(' + ${service.id} + ')'"><i
+                                class="fa fa-pencil"></i>Edit</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Bus List</h3>
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-info pull-right"
+                        data-toggle="modal" data-target="#myModal">Add New
+                </button>
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <form id="addBusForm" role="form" th:action="@{/admin/buses/add}"
+                                  th:object="${bus}" method="post">
+                                <div class="box-body">
+
+                                    <div class="form-group">
+                                        <label for="busNumber">Bus Number</label> <input type="text"
+                                                                                         class="form-control"
+                                                                                         id="busNumber"
+                                                                                         placeholder="Enter Bus Number"
+                                                                                         th:field="*{busNumber}"/>
+                                        <label
+                                                id="busNumber_error" class="text-danger"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="busCode">Bus Code</label> <input type="text"
+                                                                                     class="form-control" id="busCode"
+                                                                                     placeholder="Enter Bus Code"
+                                                                                     th:field="*{busCode}"/> <label
+                                            id="busCode_error" class="text-danger"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="busCompany">Bus Company</label> <input
+                                            type="text" class="form-control" id="busCompany"
+                                            placeholder="Enter Bus Company" th:field="*{busCompany}"/>
+                                        <label id="busCompany_error" class="text-danger"></label>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <label for="maxSeats">Maximum Seats</label> <input
+                                            type="text" class="form-control" id="maxSeats"
+                                            placeholder="Enter Max Seats" th:field="*{maxSeats}"/> <label
+                                            id="maxSeats_error" class="text-danger"></label>
+                                    </div>
+
+                                    <select id="busTypeSelect" class="form-control"
+                                            th:field="*{busType}">
+                                        <option th:each="bustype : ${bustypes}"
+                                                th:value="${bustype.id}" th:text="${bustype.type}"></option>
+                                    </select>
+
+
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div th:id="umodal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title">Update Bus</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="updateBusForm" role="form" th:method="post"
+                                      th:action="@{/admin/bus/update}" th:object="${bus}">
+                                    <input id="update-id" type="hidden" th:field="*{id}"/>
+                                    <fieldset class="form-group">
+                                        <label for="update-busNumber">Bus Number</label> <input
+                                            th:field="*{busNumber}" th:value="${bus.busNumber}"
+                                            class="form-control" id="update-busNumber" type="text"
+                                            placeholder="Enter Bus Number"/> <label
+                                            id="updateBusNumberError" class="text-danger"></label>
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label for="update-busCode">Bus Code</label> <input
+                                            th:field="*{busCode}" th:value="${bus.busCode}"
+                                            class="form-control" id="update-busCode" type="text"
+                                            placeholder="Enter Bus Code"/> <label
+                                            id="updateBusCodeError" class="text-danger"></label>
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label for="update-busCompany">Bus Company</label> <input
+                                            th:field="*{busCompany}" th:value="${bus.busCompany}"
+                                            class="form-control" id="update-busCompany" type="text"
+                                            placeholder="Enter Bus Company"/> <label
+                                            id="updateBusCompanyError" class="text-danger"></label>
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label for="update-maxSeats">Maximum Seats</label> <input
+                                            th:field="*{maxSeats}" th:value="${bus.maxSeats}"
+                                            class="form-control" id="update-maxSeats" type="text"
+                                            placeholder="Enter Maximum Seats"/> <label
+                                            id="updateMaxSeatsError" class="text-danger"></label>
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label class="control-label">Bus Type</label> <select
+                                            th:field="*{busType}" class="form-control">
+                                        <option th:each="bustype:${bustypes}"
+                                                th:text="${bustype.type}" th:value="${bustype.id}"/>
+                                    </select>
+                                    </fieldset>
+                                    <div class="form-group">
+                                        <button class="btn btn-success" type="submit">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">Cancel
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+            </div>
+            <div class="box-body">
+                <table id="bus-list" class="table table-striped table-bordered table-hover"
+                       dt:table="true">
+                    <thead>
+                    <tr>
+                        <th>Bus Number</th>
+                        <th>Bus Code</th>
+                        <th>Bus Company</th>
+                        <th>Maximum Seats</th>
+                        <th>Taken Seats</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    <tr th:each="bus : ${buses}">
+                        <td th:text="${bus.busNumber}"></td>
+                        <td th:text="${bus.busCode}"></td>
+                        <td th:text="${bus.busCompany}"></td>
+                        <td th:text="${bus.maxSeats}"></td>
+                        <td th:text="${bus.takenSeats}"></td>
+                        <td><a th:href="@{/admin/bus/delete/}+${bus.id}"
+                               class="btn btn-default"><i class="fa fa-trash "></i> Delete</a>
+                            <a data-toggle="modal" class="btn btn-default"
+                               data-target="#umodal"
+                               th:onclick="'busShowEditModal(' + ${bus.id} + ')'"><i
+                                    class="fa fa-pencil"></i>Edit</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script layout:fragment="myScript">
+    $(function () {
+        $('table').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+    });
+
+    $(function () {
+        $("#busType_error").hide();
+        var busType_error = false;
+
+        $("#busType").focusout(function () {
+            checkBusType();
+        })
+
+        function checkBusType() {
+            if ($("#busType").val().length > 0) {
+                $("#busType_error").hide();
+                busType_error = false;
+
+            } else if ($("#busType").val().length == 0) {
+                $("#busType_error").html("Please Enter BusType");
+                $("#busType_error").show();
+                busType_error = true;
+
+            }
+        }
+
+        $("#addBusTypeForm").submit(function () {
+            if (busType_error == false) {
+                return true;
+            } else {
+                alert("Please Enter Valid Information In The Form");
+                return false;
+
+            }
+        });
+    })
+
+    $(function () {
+
+        $("#update-typeError").show();
+        var updateTypeError = false;
+
+        $("#update-type").focusout(function () {
+            checkUpdateBusType();
+        })
+
+        function checkUpdateBusType() {
+            if ($("#update-type").val().length > 0) {
+                $("#update-typeError").hide();
+                updateTypeError = false;
+
+            } else if ($("#update-type").val().length == 0) {
+                $("#update-typeError").html("Please Enter BusType");
+                $("#update-typeError").show();
+                updateTypeError = true;
+
+            }
+        }
+
+        $("#busTypeUpdateForm").submit(function () {
+            if (updateTypeError == false) {
+                return true;
+            } else {
+                alert("Please Enter Valid Information In The Form");
+                return false;
+
+            }
+        });
+    })
+
+    $(function () {
+        $("#services_error").hide();
+        var services_error = false;
+
+        $("#services").focusout(function () {
+            checkServices();
+        })
+
+        function checkServices() {
+            if ($("#services").val().length > 0) {
+                $("#services_error").hide();
+                services_error = false;
+
+            } else if ($("#services").val().length == 0) {
+                $("#services_error").html("Please enter service");
+                $("#services_error").show();
+                services_error = true;
+
+            }
+        }
+
+        $("#addServicesForm").submit(function () {
+            services_error = false;
+            checkServices();
+
+            if (services_error == false) {
+                return true;
+            } else {
+                alert("Please Enter valid informations in the form");
+                return false;
+
+            }
+        })
+    })
+
+    $(function () {
+        $("#update-servicesError").hide();
+        var updateServicesError = false;
+
+        $("#update-services").focusout(function () {
+            checkUpdateServices();
+        })
+
+        function checkUpdateServices() {
+            if ($("#update-services").val().length > 0) {
+                $("#update-servicesError").hide();
+                updateServicesError = false;
+
+            } else if ($("#update-services").val().length == 0) {
+                $("#update-servicesError").html("Please Enter service");
+                $("#update-servicesError").show();
+                updateServicesError = true;
+
+            }
+        }
+
+        $("#updateServicesForm").submit(function () {
+            updateServicesError = false;
+            checkUpdateServices();
+
+            if (updateServicesError == false) {
+                return true;
+            } else {
+                alert("Please Enter valid informations in the form");
+                return false;
+
+            }
+        })
+    })
+
+    $(function () {
+        $("#busNumber_error").hide();
+        $("#busCode_error").hide();
+        $("#busCompany_error").hide();
+        $("#maxSeats_error").hide();
+
+        var busNumber_error = false;
+        var busCode_error = false;
+        var busCompany_error = false;
+        var maxSeats_error = false;
+
+        $("#busNumber").focusout(function () {
+            checkBusNumber();
+        });
+
+        $("#busCode").focusout(function () {
+            checkBusCode();
+        });
+
+        $("#busCompany").focusout(function () {
+            checkBusCompany();
+        });
+
+        $("#maxSeats").focusout(function () {
+            checkMaxSeats();
+        });
+
+        $("#busTypeSelect").focusout(function () {
+            checkBusType();
+        });
+
+        function checkBusNumber() {
+            if ($("#busNumber").val().length > 0) {
+                busNumber_error = false;
+                $("#busNumber_error").hide();
+            } else if ($("#busNumber").val().length == 0) {
+                busNumber_error = true;
+                $("#busNumber_error").html("Please Enter Bus Number");
+                $("#busNumber_error").show();
+            }
+        }
+
+        function checkBusCode() {
+            if ($("#busCode").val().length > 0) {
+                busCode_error = false;
+                $("#busCode_error").hide();
+            } else if ($("#busCode").val().length == 0) {
+                busNumber_error = true;
+                $("#busCode_error").html("Please Enter Bus Code");
+                $("#busCode_error").show();
+            }
+        }
+
+        function checkBusCompany() {
+            if ($("#busCompany").val().length > 0) {
+                busCompany_error = false;
+                $("#busCompany_error").hide();
+            } else if ($("#busCompany").val().length == 0) {
+                busNumber_error = true;
+                $("#busCompany_error").html("Please Enter Bus Company");
+                $("#busCompany_error").show();
+            }
+        }
+
+        function checkMaxSeats() {
+            if (parseInt($("#maxSeats").val()) >= 20) {
+                maxSeats_error = false;
+                $("#maxSeats_error").hide();
+            } else {
+                maxSeats_error = true;
+                $("#maxSeats_error").html(
+                    "Maximum number of seats must be atleast 20");
+                $("#maxSeats_error").show();
+            }
+
+        }
+
+        $("#addBusForm").submit(
+            function () {
+                busNumber_error = false;
+                busCode_error = false;
+                busCompany_error = false;
+                maxSeats_error = false;
+                busTypeSelect_error = false;
+
+                checkBusNumber();
+                checkBusCode();
+                checkBusCompany();
+
+                if (busNumber_error == true || busCode_error == true
+                    || busCompany_error == true
+                    || maxSeats_error == true) {
+                    alert("Please Enter Valid Information In The Form")
+                    return false;
+
+                } else {
+                    return true;
+                }
+            });
+
+    })
+
+    $(function () {
+        $("#updateBusNumberError").hide();
+        $("#updateBusCodeError").hide();
+        $("#updateBusCompanyError").hide();
+        $("#updateMaxSeatsError").hide();
+
+        var updateBusNumberError = false;
+        var updateBusCodeError = false;
+        var updateBusCompany = false;
+        var updateMaxSeats = false;
+
+        $("#update-busNumber").focusout(function () {
+            updateCheckBusNumber();
+        });
+
+        $("#update-busCode").focusout(function () {
+            updateCheckBusCode();
+        });
+
+        $("#update-busCompany").focusout(function () {
+            updateCheckBusCompany();
+        });
+
+        $("#update-maxSeats").focusout(function () {
+            updateCheckMaxSeats();
+        });
+
+        function updateCheckBusNumber() {
+            if ($("#update-busNumber").val().length > 0) {
+                updateBusNumberError = false;
+                $("#updateBusNumberError").hide();
+            } else if ($("#update-busNumber").val().length == 0) {
+                updateBusNumberError = true;
+                $("#updateBusNumberError").html("Please Enter Bus Number");
+                $("#updateBusNumberError").show();
+            }
+        }
+
+        function updateCheckBusCode() {
+            if ($("#update-busCode").val().length > 0) {
+                updateBusCodeError = false;
+                $("#updateBusCodeError").hide();
+            } else if ($("#update-busCode").val().length == 0) {
+                updateBusCodeError = true;
+                $("#updateBusCodeError").html("Please Enter Bus Code");
+                $("#updateBusCodeError").show();
+            }
+        }
+
+        function updateCheckBusCompany() {
+            if ($("#update-busCompany").val().length > 0) {
+                updateBusCompanyError = false;
+                $("#updateBusCompanyError").hide();
+            } else if ($("#update-busCompany").val().length == 0) {
+                updateBusCompanyError = true;
+                $("#updateBusCompanyError")
+                    .html("Please Enter Bus Company");
+                $("#updateBusCompanyError").show();
+            }
+        }
+
+        function updateCheckMaxSeats() {
+            if (parseInt($("#update-maxSeats").val()) >= 20) {
+                updateMaxSeatsError = false;
+                $("#updateMaxSeatsError").hide();
+            } else {
+                updateMaxSeatsError = true;
+                $("#updateMaxSeatsError").html(
+                    "Maximum number of seats must be atleast 20");
+                $("#updateMaxSeatsError").show();
+            }
+
+        }
+
+        $("#updateBusForm").submit(
+            function () {
+                updateBusNumberError = false;
+                updateBusCodeError = false;
+                updateBusCompany = false;
+                updateMaxSeats = false;
+
+                updateCheckBusNumber();
+                updateCheckBusCode();
+                updateCheckBusCompany();
+                updateCheckMaxSeats();
+
+                if (updateBusNumberError == true
+                    || updateBusCodeError == true
+                    || updateBusCompanyError == true
+                    || updateMaxSeatsError == true) {
+                    alert("Please Enter Valid Information In The Form")
+                    return false;
+
+                } else {
+                    return true;
+                }
+            });
+
+    })
+</script>
 
 
 </body>

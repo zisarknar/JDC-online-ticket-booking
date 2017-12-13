@@ -51,9 +51,9 @@
                             <th th:text="${booking.trip.tripCode}"></th>
                             <th th:text="${booking.totalAmount}"></th>
                             <td>
-                                <a th:href="@{/admin/booking/delete/}+${booking.id}" class="btn btn-danger"><i
+                                <a th:href="@{/admin/booking/delete/}+${booking.id}" class="btn btn-default"><i
                                         class="fa fa-trash"></i> Delete</a>
-                                <a th:href="@{/admin/booking/update/}+${booking.id}" class="btn btn-info"><i
+                                <a th:href="@{/admin/booking/update/}+${booking.id}" class="btn btn-default"><i
                                         class="fa fa-gear"></i> Edit</a>
                             </td>
                         </tr>
@@ -68,7 +68,7 @@
 <script layout:fragment="myScript">
 
     $(function () {
-        $('#booking').DataTable({
+        $('table').DataTable({
             'paging': true,
             'lengthChange': true,
             'searching': true,
