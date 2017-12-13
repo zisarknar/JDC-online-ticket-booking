@@ -1,6 +1,6 @@
 package com.solt.jdc.boot.config;
 
-import com.solt.jdc.boot.handlers.AccessDeniedHandler;
+import com.solt.jdc.boot.handlers.DeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
+    private DeniedHandler accessDeniedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

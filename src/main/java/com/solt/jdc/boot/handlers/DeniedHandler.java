@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +17,13 @@ import java.io.IOException;
 
 
 @Component
-public class AccessDeniedHandler implements org.springframework.security.web.access.AccessDeniedHandler {
+public class DeniedHandler implements AccessDeniedHandler {
 
     @Autowired
     private IAuthenticationFacade iAuthenticationFacade;
 
     private static Logger logger = LoggerFactory.getLogger(AccessDeniedHandler.class);
+
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         Authentication auth = iAuthenticationFacade.getAuthentiation();
@@ -32,6 +34,6 @@ public class AccessDeniedHandler implements org.springframework.security.web.acc
                     + request.getRequestURI());
         }
 
-        response.sendRedirect(request.getContextPath()+"/403");
+        response.sendRedirect(request.getContextPath() + "/403");
     }
 }
