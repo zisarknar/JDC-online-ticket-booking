@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="master"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<head>
+<meta charset="UTF-8" />
+<title>Customer</title>
+</head>
+<body>
+	<section class="content-header" layout:fragment="header">
+		<h1>
+			Customer Detail <small th:text="${customer.username}"></small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active">Dashboard</li>
+		</ol>
+	</section>
+	<section class="content" layout:fragment="content">
+		<form th:action="@{/customer/update/}+${id}" method="POST">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h5 class="box-title pull-right">
+								<a id="edit" class="btn btn-primary show-label " >Edit</a> <input
+									type="submit"  value="Save" id="save"
+									class="btn btn-primary edit-input" />
+							</h5>
+							<a id="hello" th:href="@{/customers}" class="btn btn-primary"><i
+								class="fa fa-arrow-left"></i> Back</a>
+						</div>
+						<div class="box-body ">
+							<div class="col-lg-4 col-md-12 panel panel-default">
+								<div class="row ">
+									<div class="panel col-lg-12">
+										<div >
+											<img class="img-circle  img-responsive center-block"
+											style="margin: 10px auto;"
+											th:src="@{/dist/img/user_image.jpg}" width="80" height="120" />
+										</div>
+										<div class="panel-body">
+											<div class="col-lg-12 text-center text-primary ">
+												<span class="h2 " th:text="${customer.firstName}"></span>
+												<span class="h2 " th:text=" ${customer.lastName}"></span>
+											</div>
+										</div>
+									</div>
+									<div class="panel col-lg-12">
+										<div class="panel-header">
+											<h3 class="text-primary">Contact Info</h3>
+											<div style="border: 0.5px solid #D7DBDD;"></div>
+										</div>
+										<div class="panel-body">
+											<span class="glyphicon glyphicon-envelope show-label">&nbsp;</span><label
+												class="show-label" th:text=" ${customer.email}"></label>
+											<div class="inner-addon left-addon edit-input form-group">
+												<i class="glyphicon glyphicon-envelope" ></i> <input
+													class="form-control" id="email" type="text"
+													placeholder="email address" th:field="${customer.email}" required="true" />
+													<span class="glyphicon  form-control-feedback"></span>
+											</div>
+
+											<div style="border: 0.3px solid #D7DBDD;"></div>
+											<span class="glyphicon glyphicon-phone show-label">&nbsp;</span><label
+												class="show-label" th:text=" ${customer.phone}"></label>
+											<div class="inner-addon left-addon edit-input form-group">
+												<i class="glyphicon glyphicon-phone" ></i> <input type="text"
+													class="form-control edit-input" id="phone"
+													placeholder="phone number" th:field="${customer.phone}" required="true" />
+													<span class="glyphicon  form-control-feedback"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-7 col-md-12 col-lg-offset-1 panel panel-default">
+								<div class="panel-header">
+									<h3 class="text-primary">Personal Details</h3>
+									<div style="border: 0.5px solid #D7DBDD;"></div>
+								</div>
+								<div class="panel-body">
+									<div>
+										<label class="show-label"><i class="glyphicon glyphicon-user">&nbsp;</i>First Name : <i
+											th:text="${customer.firstName}"></i></label> 
+											<div class="inner-addon left-addon form-group edit-input">
+												<i class="glyphicon glyphicon-user" ></i> 
+												<input class="form-control " id="firstname" type="text"
+													th:field="${customer.firstName}"	placeholder="firstname" required="true" />
+													<span class="glyphicon  form-control-feedback"></span>
+											</div>
+									</div>
+									<div>
+										<label class="show-label"><i class="glyphicon glyphicon-user">&nbsp;</i>Last Name : <i
+											th:text="${customer.lastName}"></i></label> 
+											<div class="inner-addon left-addon form-group edit-input">
+												<i class="glyphicon glyphicon-user" ></i> 
+												<input class="form-control " id="lastname" type="text"
+													th:field="${customer.lastName}"	placeholder="lastname" required="true" />
+													<span class="glyphicon  form-control-feedback"></span>
+											</div>
+									</div>
+									<div>
+										<label class="show-label"><i class="glyphicon glyphicon-user">&nbsp;</i>User Name : &nbsp;<i
+											th:text="${customer.username}"></i></label> 
+											<div class=" inner-addon left-addon form-group edit-input">
+												<i class="glyphicon glyphicon-user" ></i>
+												<input class="form-control " id="username" type="text"
+													placeholder="username" th:field="${customer.username}" required="true" />
+												<span class="glyphicon  form-control-feedback"></span>
+											</div>
+
+									</div>
+									<div>
+										<label class="show-label"><i class="glyphicon glyphicon-lock">&nbsp;</i>Password : &nbsp;<i
+											 th:text="${customer.password}"></i></label> 
+											<div class="inner-addon left-addon form-group edit-input">
+												<i class="glyphicon glyphicon-lock" ></i> 
+												<input class="form-control " id="password" type="password"
+													th:field="${customer.password}"	placeholder="password" required="true" />
+													<span class="glyphicon  form-control-feedback"></span>
+											</div>
+									</div>
+									<div>
+										<label class="show-label"><span><img class="glyphicon" th:src="@{/dist/img/nrc_card.png}" /></span>NRC : &nbsp;<i
+											th:text="${customer.nrcNumber}"></i></label>
+											<div class="inner-addon left-addon form-group edit-input">
+											<img class="glyphicon" th:src="@{/dist/img/nrc_card.png}" />
+											 <input class="form-control " id="nrc" type="text"
+													placeholder="NRC number" th:field="${customer.nrcNumber}" required="true" />
+											<span class="glyphicon  form-control-feedback"></span>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</section>
+	<script layout:fragment="myScript">
+	 $('#edit').click(function(){
+			$('.show-label').hide();
+			$('.edit-input').show();
+		});
+	</script>
+</body>
+</html>

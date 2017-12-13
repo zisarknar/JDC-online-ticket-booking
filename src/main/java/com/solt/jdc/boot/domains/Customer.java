@@ -3,6 +3,7 @@ package com.solt.jdc.boot.domains;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity(name = "customer")
@@ -26,7 +27,7 @@ public class Customer {
     @NotNull
     @NotBlank(message="Please enter phone number")
     private String phone;
-    
+    @Email(message="This is not email type")
     private String email;
     
     private String nrcNumber;
