@@ -25,6 +25,7 @@ public class Address {
     @ManyToOne
     private Cities cities;
 
+    
     public int getId() {
         return id;
     }

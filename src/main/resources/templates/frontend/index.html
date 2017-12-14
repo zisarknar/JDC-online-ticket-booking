@@ -17,7 +17,7 @@
                     <hr/>
                 </div>
                 <div class="col-lg-8 mx-auto">
-                    <form th:object="${tripFinder}" th:action="@{/trip/search}" method="post" class="form-inline">
+                    <form th:object="${tripFinder}" th:action="@{/searchResult}" method="post" class="form-inline">
                         <div class="form-group mb-2 mr-sm-2 mb-sm-0">
                             <select class="form-control" th:field="*{source}">
                             	<option th:each="city:${allcities}" th:value="${city}" th:text="${city}"/>

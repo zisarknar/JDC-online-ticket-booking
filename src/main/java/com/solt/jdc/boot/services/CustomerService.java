@@ -15,4 +15,6 @@ public interface CustomerService {
     void deleteCustomer(int id);
 
     Customer updateCustomer(Customer customer);
+    
+    Customer findByusername(String username);
 }

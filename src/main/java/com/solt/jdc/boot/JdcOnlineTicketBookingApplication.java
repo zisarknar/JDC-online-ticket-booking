@@ -17,6 +17,7 @@ import java.util.Locale;
 import com.solt.jdc.boot.services.CitiesService;
 @EntityScan(basePackageClasses= {JdcOnlineTicketBookingApplication.class,Jsr310JpaConverters.class})
 
+
 @SpringBootApplication
 public class JdcOnlineTicketBookingApplication {
 
@@ -43,7 +44,4 @@ WebMvcConfigurerAdapter webMvcConfigurerAdapter() {
     public static void main(String[] args) {
         SpringApplication.run(JdcOnlineTicketBookingApplication.class, args);
     }
-
-
-
 }

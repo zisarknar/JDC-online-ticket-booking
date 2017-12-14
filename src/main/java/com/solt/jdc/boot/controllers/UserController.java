@@ -41,7 +41,7 @@ public class UserController {
         return "admin/user/userAdd";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/users/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") @Valid User user, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/user/userAdd";
@@ -58,11 +58,13 @@ public class UserController {
         return "admin/user/userEdit";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String edit(@ModelAttribute("user") @Valid User user, BindingResult result) {
+    @RequestMapping(value = "/user/update/{id}", method = RequestMethod.POST)
+    public String edit(@PathVariable("id") int id,@ModelAttribute("user") @Valid User user, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/user/userEdit";
         }
+        //User currentUser=userService.find(id);
+        
         User currentUser = userService.find(user.getId());
         currentUser.setUserName(user.getUserName());
         currentUser.setFirstName(user.getFirstName());

@@ -8,13 +8,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 public class TripFinder {
+	
 	private String source;
-	
 	private String destination;
-	
 	
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date depDate;
+	
+	
+	
 	
 	public String getSource() {
 		return source;
@@ -33,6 +35,7 @@ public class TripFinder {
 	}
 	public void setDepDate(Date depDate) {
 		this.depDate = depDate;
+
 	}
 	
 	

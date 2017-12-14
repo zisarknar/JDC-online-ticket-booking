@@ -27,41 +27,26 @@
         </form>
         
         <!-- /.search form -->
-
-
-			
-
-
-
-        <ul class="sidebar-menu" data-widget="tree" id="user">
-        
-        
-        
+ <ul class="sidebar-menu" data-widget="tree" id="user">
             <li class="header">MAIN NAVIGATION</li>
-            
-            
-           
             
             <li>
                <a  th:href="@{/admin/}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
-               
-               
             </li>
     		
 			
-   			<li> 
-   			 	
+   			<li>   			 	
                 <a th:if="${#httpServletRequest.isUserInRole('ROOT')}" th:href="@{/admin/roots}">
                     <i class="fa fa-users"></i> <span>Manage Root</span>
                 </a>
                 
                 <a th:unless="${#httpServletRequest.isUserInRole('ROOT')}" class="hide">
                 	 <i class="fa fa-users"></i> <span>Manage Root</span>
-                </a>
-                
+                </a>                
             </li>
+					
 					
             <li >
                 <a th:if="${#httpServletRequest.isUserInRole('ROOT')}"  th:href="@{/customers}">
@@ -181,10 +166,12 @@
                 </a>
             </li>
 
+
             <li>
             	<a th:if="${#httpServletRequest.isUserInRole('STAFF')}"  class="hide" >
             		<i class="fa fa-road"></i> <span>Manage Drivers</span>
                 </a>
+            
             
                 <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/drivers}">
                     <i class="fa fa-road"></i> <span>Manage Drivers</span>

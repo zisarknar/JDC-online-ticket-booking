@@ -17,10 +17,20 @@ public class CustomerController {
     @Autowired
     private MainController mainController;
 
+    
+    @RequestMapping("/customerdetails")
+    public String userDetails(Model model) {
+    	
+    	//model.addAttribute("customerdetails", customerService.getAllCustomers());
+    	//return "customerdetail/customerdetailpage";
+    	return "frontend/index";
+    }
+    
+    
+    
     @Autowired
     private CustomerService customerService;
 
-    
     @RequestMapping("/customers")
     public String getAllCustomers(Model model) {
         model.addAttribute("customers", customerService.getAllCustomers());

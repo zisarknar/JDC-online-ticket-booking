@@ -54,7 +54,10 @@ public class TripController {
         model.addAttribute("allBus", busService.getAllBus());
         model.addAttribute("allStation", stationService.getAllStations());
 
-        model.addAttribute("allcities", citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
+        model.addAttribute("allcities", citiesService.getAllCities()
+        								.stream()
+        								.map(e -> e.getName())
+        								.collect(Collectors.toList()));
         return "admin/trip/addNew";
     }
 
@@ -73,13 +76,17 @@ public class TripController {
         model.addAttribute("allBus", busService.getAllBus());
         model.addAttribute("allStation", stationService.getAllStations());
         model.addAttribute("trip", tripService.getTrip(tripId));
-        model.addAttribute("allcities", citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
+        model.addAttribute("allcities", citiesService.getAllCities()
+        								.stream()
+        								.map(e -> e.getName())
+        								.collect(Collectors.toList()));
         return "admin/trip/update";
     }
 
     @RequestMapping(value = "/trip/update/{id}", method = RequestMethod.POST)
 
-    public String processUpdateTrip(@ModelAttribute("trip") @Valid Trip updatedTrip, @PathVariable("id") int tripId, BindingResult result) {
+    public String processUpdateTrip(@ModelAttribute("trip") @Valid Trip updatedTrip, 
+    								@PathVariable("id") int tripId, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/bus/update";
         }
@@ -108,7 +115,7 @@ public class TripController {
         binder.setAllowedFields("busId", "depTime", "depDate", "estTime", "tripCode",  "unitPrice","busId","stationId","source","destionation");
     }
 
-        binder.setAllowedFields( "busId", "deptime", "depDate", "estTime", "tripCode", "status", "unitPrice","source","destination","busId","stationId","booking");
+        
     }*/
 
 

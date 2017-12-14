@@ -34,22 +34,49 @@ public class MainController {
     public String getMain() {
         return "admin/index";
     }
+    
+    
+    
+	
+	@RequestMapping("/booking")
+	public String booking(Model model) {
+		
+		return "frontend/booking";
+	}
+
+	
+	@RequestMapping("/searchResult")
+	public String search(Model model) {
+		
+		return "frontend/searchResult";
+	}
+	
+	
   
     @GetMapping("/")
     public String getIndex(Model model) {
     	TripFinder tripFinder=new TripFinder();
-    	model.addAttribute("allcities",citiesService.getAllCities().stream().map(e->e.getName()).collect(Collectors.toList()));
+    	model.addAttribute("allcities",
+    						citiesService.getAllCities()
+    						.stream()
+    						.map(e->e.getName())
+    						.collect(Collectors.toList()));
+    	
     	model.addAttribute("tripFinder", tripFinder);
+    	
         return "frontend/index";
     }
     
     @RequestMapping(value="/trip/search",method=RequestMethod.POST)
     public String getTrip(@ModelAttribute("tripFinder")TripFinder tripFinder) {
+    	
     	String source=tripFinder.getSource();
     	String destination=tripFinder.getDestination();
     	Date depDate=tripFinder.getDepDate();
     	List<Trip> tripList=tripService.findTripByFilter(source, destination,depDate);
+    	
     	tripList.stream().forEach(System.out::println);
+    	
     	return "redirect:/";
     }
     
@@ -59,5 +86,4 @@ public class MainController {
             throw new RuntimeException("Unable to bind disallowed fields");
         }
     }
-
 }
