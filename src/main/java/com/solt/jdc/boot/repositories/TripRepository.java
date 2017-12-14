@@ -17,4 +17,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	
 	@Query("SELECT t FROM trip t WHERE t.source=?1 AND t.destination=?2 AND t.depDate=?3")
 	List<Trip> findTripByFilter(String source,String destination,@DateTimeFormat(iso=ISO.DATE)Date depDate);
+	
+	@Query("SELECT t FROM trip t WHERE t.source=?1 AND t.destination=?2")
+	List<Trip> findTripByRoute(String source,String destination);
 }

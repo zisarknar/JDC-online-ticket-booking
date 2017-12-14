@@ -50,4 +50,9 @@ public class TripServiceImpl implements TripService {
 		
 		return tripRepository.findTripByFilter(source, destination, depDate);
 	}
+
+	@Override
+	public List<Trip> findTripByRoute(String source, String destination) {
+		return tripRepository.findTripByRoute(source, destination);
+	}
 }
