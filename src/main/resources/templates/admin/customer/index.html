@@ -30,27 +30,22 @@
                     <table id="customer" class="table table-bordered table-hover" dt:table="true">
                         <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Username</th>
-                            <th>Password</th>
-                            <th>First name</th>
-                            <th>Last name</th>
+                            
+                            <th>Username</th>                            
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>NRC</th>
+                            
+
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="customer : ${customers}">
-                            <td th:text="${customer.id}"></td>
+                            
                             <td th:text="${customer.username}"></td>
-                            <td th:text="${customer.password}"></td>
-                            <td th:text="${customer.firstName}"></td>
-                            <td th:text="${customer.lastName}"></td>
                             <td th:text="${customer.phone}"></td>
                             <td th:text="${customer.email}"></td>
-                            <td th:text="${customer.nrcNumber}"></td>
+                            
                             <td>
                                 <a th:href="@{/customer/delete/}+${customer.id}" class="btn btn-danger"><i
                                         class="fa fa-trash"></i> Delete</a>

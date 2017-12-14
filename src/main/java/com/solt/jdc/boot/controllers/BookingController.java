@@ -32,6 +32,15 @@ public class BookingController   {
     @RequestMapping("/bookings")
     public String getAllBooking(Model model){
         model.addAttribute("bookings", bookingService.getAllBooking());
+       
+        
+        
+        Booking book = bookingService.findByNameAndPhone("Thaw Thaw", "0900077");
+        
+
+        System.out.println(book);
+        
+        
         return "admin/booking/index";
     }
 
@@ -86,6 +95,9 @@ public class BookingController   {
         return "redirect:/admin/bookings";
     }
 
+    //@RequestMapping("")
+    
+    
     @RequestMapping("/booking/delete/{id}")
     public String deleteBooking(@PathVariable("id") int bookingId){
         bookingService.deleteBooking(bookingId);
