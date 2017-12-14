@@ -31,6 +31,8 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
     <!--  Custom CSS -->
     <link rel="stylesheet" th:href="@{/dist/css/myStyle.css}"/>
+    <!-- iCheck CSS-->
+    <link rel="stylesheet" th:href="@{/components/iCheck/square/blue.css}"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -113,6 +115,8 @@
         th:src="@{/components/datatables.net/js/jquery.dataTables.min.js}"></script>
 <script
         th:src="@{/components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<!-- iCheck script -->
+<script th:src="@{/components/iCheck/icheck.min.js}"></script>
 <script>
     $(document).ready(
         function () {

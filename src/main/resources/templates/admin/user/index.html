@@ -36,9 +36,6 @@
 								<tr>
 									<th>Id</th>
 									<th>UserName</th>
-									<th>Password</th>
-									<th>FirstName</th>
-									<th>LastName</th>
 									<th>Email</th>
 									<th>Phone</th>
 									<th>Role</th>
@@ -50,9 +47,6 @@
 								<tr th:each="user,iterState: ${users}">
 									<td th:text="${user.id}"></td>
 									<td th:text="${user.userName}"></td>
-									<td th:text="${user.password}"></td>
-									<td th:text="${user.firstName}"></td>
-									<td th:text="${user.lastName}"></td>
 									<td th:text="${user.email}"></td>
 									<td th:text="${user.phone}"></td>
 									<td th:text="${user.role}"></td>
@@ -73,8 +67,8 @@
 
 									<td><a th:href="@{/admin/user/delete/}+${user.id}"
 										class="btn btn-danger"><i class="fa fa-trash" onclick="return confirm('Are you sure to delete ?')"></i>Delete</a> 
-										<a th:href="@{/admin/user/edit/}+${user.id}" class="btn btn-info" ><i class="fa fa-trash"></i>
-											Edit</a></td>
+										<a th:href="@{/admin/user/update/}+${user.id}" class="btn btn-info" ><i class="fa fa-trash"></i>
+											Detail</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -86,7 +80,7 @@
 
 <script layout:fragment="myScript">
     $(function () {
-        $('#user').DataTable({
+        $('table').DataTable({
             'paging': true,
             'lengthChange': true,
             'searching': true,

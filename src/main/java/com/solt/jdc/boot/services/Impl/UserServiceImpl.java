@@ -3,6 +3,7 @@ package com.solt.jdc.boot.services.Impl;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.solt.jdc.boot.domains.User;
@@ -15,6 +16,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public Iterable<User> findAll() {
@@ -28,6 +31,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void save(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+	
 		userRepository.save(user);
 		
 	}

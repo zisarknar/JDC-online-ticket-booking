@@ -3,6 +3,7 @@ package com.solt.jdc.boot.controllers;
 import com.solt.jdc.boot.domains.RootAdmin;
 import com.solt.jdc.boot.services.RootAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,8 @@ public class RootAdminController {
 
     @Autowired
     private RootAdminService rootAdminService;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @RequestMapping("/roots")
     public String getAllRootAdmin(Model model){
@@ -45,16 +48,16 @@ public class RootAdminController {
     @RequestMapping(value = "/root/update/{id}", method = RequestMethod.GET)
     public String updateRootAdmin(@PathVariable ("id") int rootAdminId, Model model){
         model.addAttribute("updatedRootAdmin", rootAdminService.getRootAdmin(rootAdminId));
-        return "admin/rootAdmin/update";
+        return "admin/rootAdmin/viewRoot";
     }
 
     @RequestMapping(value = "/root/update/{id}", method = RequestMethod.POST)
     public String processUpdateRootAdmin(@ModelAttribute("updatedRootAdmin") RootAdmin updatedAdmin, @PathVariable ("id") int updateAdminId){
         RootAdmin currentRootAdmin = rootAdminService.getRootAdmin(updateAdminId);
         currentRootAdmin.setRootName(updatedAdmin.getRootName());
-        currentRootAdmin.setRootPassword(updatedAdmin.getRootPassword());
+        currentRootAdmin.setRootPassword(passwordEncoder.encode(updatedAdmin.getRootPassword()));
         rootAdminService.updateRootAdmin(currentRootAdmin);
-        return "redirect:/admin/roots";
+        return "redirect:/admin/root/update/"+updateAdminId;
     }
 
     @RequestMapping("/root/delete/{id}")
