@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="master">
+<head>
+<meta charset="UTF-8" />
+<title>User</title>
+</head>
+<body>
+	<section class="content-header" layout:fragment="header">
+		<h1>
+			User Details <small th:text="${user.userName}"></small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active">Dashboard</li>
+		</ol>
+	</section>
+	<section class="content" layout:fragment="content">
+		<form th:object="${user}" th:action="@{/admin/user/update/}+${id}"
+			method="POST">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h5 class="box-title pull-right">
+								<a id="edit" class="btn btn-primary show-label ">Edit</a> <input
+									type="submit" value="Save" id="save"
+									class="btn btn-primary edit-input" />
+							</h5>
+							<a id="hello" th:href="@{/admin/users}" class="btn btn-primary"><i
+								class="fa fa-arrow-left"></i> Back</a>
+						</div>
+						<div class="box-body ">
+							<div class="col-lg-4 col-md-12 panel panel-default">
+								<div class="row ">
+									<div class="panel col-lg-12">
+										<div>
+											<img class="img-circle  img-responsive center-block"
+												style="margin: 10px auto;"
+												th:src="@{/dist/img/user_image.jpg}" width="80" height="120" />
+										</div>
+										<div class="panel-body">
+											<div class="col-lg-12 text-center text-primary ">
+												<span class="h2 " th:text="*{firstName}"></span> <span
+													class="h2 " th:text="*{lastName}"></span><span th:if="*{status}">
+											<a href="#"><i class="fa fa-circle text-success"></i>							
+											</a>
+									</span>
+										
+									<span th:unless="${user.status}">
+											false	
+									
+									</span>
+											</div>
+										</div>
+									</div>
+									<div class="panel col-lg-12">
+										<div class="panel-header">
+											<h3 class="text-primary">Contact Info</h3>
+											<div style="border: 0.5px solid #D7DBDD;"></div>
+										</div>
+										<div class="panel-body">
+											<span class="glyphicon glyphicon-envelope show-label">&nbsp;</span><label
+												class="show-label" th:text=" *{email}"></label>
+											<div class="inner-addon left-addon edit-input form-group">
+												<i class="glyphicon glyphicon-envelope"></i> <input
+													class="form-control" id="email" type="text"
+													placeholder="email address" th:field="*{email}"
+													required="true" /> <span
+													class="glyphicon  form-control-feedback"></span>
+											</div>
+
+											<div style="border: 0.3px solid #D7DBDD;"></div>
+											<span class="glyphicon glyphicon-phone show-label">&nbsp;</span><label
+												class="show-label" th:text=" *{phone}"></label>
+											<div class="inner-addon left-addon edit-input form-group">
+												<i class="glyphicon glyphicon-phone"></i> <input
+													type="text" class="form-control edit-input" id="phone"
+													placeholder="phone number" th:field="*{phone}"
+													required="true" /> <span
+													class="glyphicon  form-control-feedback"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div
+								class="col-lg-7 col-md-12 col-lg-offset-1 panel panel-default">
+								<div class="panel-header">
+									<h3 class="text-primary">Personal Details</h3>
+									<div style="border: 0.5px solid #D7DBDD;"></div>
+								</div>
+								<div class="panel-body">
+									<div>
+										<label class="show-label"><i
+											class="glyphicon glyphicon-user">&nbsp;</i>First Name : <i
+											th:text="*{firstName}"></i></label>
+										<div class="inner-addon left-addon form-group edit-input">
+											<i class="glyphicon glyphicon-user"></i> <input
+												class="form-control " id="firstname" type="text"
+												th:field="*{firstName}" placeholder="firstname"
+												required="true" /> <span
+												class="glyphicon  form-control-feedback"></span>
+										</div>
+									</div>
+									<div>
+										<label class="show-label"><i
+											class="glyphicon glyphicon-user">&nbsp;</i>Last Name : <i
+											th:text="*{lastName}"></i></label>
+										<div class="inner-addon left-addon form-group edit-input">
+											<i class="glyphicon glyphicon-user"></i> <input
+												class="form-control " id="lastname" type="text"
+												th:field="*{lastName}" placeholder="lastname"
+												required="true" /> <span
+												class="glyphicon  form-control-feedback"></span>
+										</div>
+									</div>
+									<div>
+										<label class="show-label"><i
+											class="glyphicon glyphicon-user">&nbsp;</i>User Name : &nbsp;<i
+											th:text="*{userName}"></i></label>
+										<div class=" inner-addon left-addon form-group edit-input">
+											<i class="glyphicon glyphicon-user"></i> <input
+												class="form-control " id="userName" type="text"
+												placeholder="username" th:field="*{userName}"
+												required="true" /> <span
+												class="glyphicon  form-control-feedback"></span>
+										</div>
+
+									</div>
+									<div>
+										<label class="show-label"><i
+											class="glyphicon glyphicon-lock">&nbsp;</i>Password : &nbsp;<i
+											th:text="*{password}"></i></label>
+										<div class="inner-addon left-addon form-group edit-input">
+											<i class="glyphicon glyphicon-lock"></i> <input
+												class="form-control " id="password" type="password"
+												th:field="*{password}" placeholder="password"
+												required="true" /> <span
+												class="glyphicon  form-control-feedback"></span>
+										</div>
+									</div>
+									<div>
+										<label class="show-label"><i
+											class="glyphicon glyphicon-user">&nbsp;</i>Role : &nbsp;<i
+											th:text="*{role}"></i></label>
+										<div class="inner-addon left-addon form-group edit-input text-center">
+											<select id="role" 
+												class="form-control dropdown" th:field="*{role}">
+												<option  
+													th:each="role:${T(com.solt.jdc.boot.domains.Role).values()}"
+													th:value="${role}" th:text="${role.getRoleName()}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="edit-input  icheck form-group">
+								<label for="userStatus">Status : </label><span> <input type="radio"
+									id="userStatus"  value="true" th:field="*{status}" /></span>&nbsp;Yes<span> <input
+									type="radio" id="userStatus"  value="false"
+									 th:field="*{status}" />&nbsp;No</span>
+
+							</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</section>
+	<script layout:fragment="myScript">
+	$('#edit').click(function(){
+		$('.show-label').hide();
+		$('.edit-input').show();
+	});
+	$(function () {
+	    $('input').iCheck({
+	      checkboxClass: 'icheckbox_square-blue',
+	      radioClass: 'iradio_square-blue',
+	      increaseArea: '10%' // optional
+	    });
+	  });
+	</script>
+</body>
+</html>

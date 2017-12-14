@@ -1,3 +1,33 @@
 .pt100 {
     padding-top: 100px !important;
 }
+.edit-input{
+	display:none;
+}
+/* enable absolute positioning */
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+.show-label span>img{
+	margin: 0 12px 5px 0;
+}
+.center{
+	margin: 10px 18% !important;
+	
+}

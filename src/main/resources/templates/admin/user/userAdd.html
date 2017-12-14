@@ -65,8 +65,10 @@
 
 							<div class="form-group">
 								<label for="phoneNumber">Phone</label> <input type="text"
-									class="form-control" id="phoneNumber"
-									placeholder="Enter phone number" th:field="*{phone}" />
+									class="form-control" id="phoneNumber" placeholder="Enter phone number"
+									th:field="*{phone}" />
+									<label th:errors="*{phone}" class="text-danger"></label>
+
 							</div>
 							
 							<div>
@@ -83,8 +85,8 @@
 								</select> 
 							</div>
 
-							<div class="form-group">
-								<label for="userStatus">Status</label> 
+							<div class="form-group icheck">
+								<label for="userStatus">Status :</label> 
 								<input type="radio"
 										id="userStatus" 
 										value="true" 
@@ -96,14 +98,30 @@
 										th:field="*{status}" />No
 
 							</div>
-						</div>
-							<div class="box-footer">
-							<button type="submit" class="btn btn-primary">Submit</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</section>
+
+                        
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script layout:fragment="myScript">
+$(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '10%' // optional
+    });
+  });
+</script>
+
 </body>
 </html>

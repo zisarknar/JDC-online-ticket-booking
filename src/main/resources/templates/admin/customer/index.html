@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="master" xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="master"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 <head>
-    <meta charset=" UTF-8"></meta>
-    <title>Customer</title>
+<meta charset=" UTF-8"></meta>
+<title>Customer</title>
 </head>
 <body>
 
@@ -61,8 +63,48 @@
     </div>
 </section>
 
-<script layout:fragment="myScript">
 
+	<section class="content" layout:fragment="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">Customer List</h3>
+						<a th:href="@{/customers/add}" class="btn btn-primary pull-right"><i
+							class="fa fa-plus"></i> add New</a>
+					</div>
+					<div class="box-body">
+						<table id="customer" class="table table-bordered table-hover"
+							dt:table="true">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Username</th>
+									<th>Phone</th>
+									<th>Email</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="customer : ${customers}" >
+									<td th:text="${customer.id}"></td>
+									<td th:text="${customer.username}"></td>
+									<td th:text="${customer.phone}"></td>
+									<td th:text="${customer.email}"></td>
+									<td> <a th:href="@{/customer/delete/}+${customer.id}"
+										class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+										<a th:href="@{/customer/}+${customer.id}"
+										class="btn btn-primary"><i class="glyphicon glyphicon-info-sign"></i> Detail</a>
+										</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script layout:fragment="myScript">
     $(function () {
         $('#customer').DataTable({
             'paging': true,
@@ -73,7 +115,7 @@
             'autoWidth': false
         })
     })
-</script>
-
+    
+    </script>
 </body>
 </html>
