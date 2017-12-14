@@ -32,9 +32,6 @@ public class Station {
 
 	
 	@OneToMany(mappedBy="station")
-=======
-	@OneToMany(mappedBy="bus")
-
 	private List<Bus> busList=new ArrayList<>();
 	
 	@OneToMany(mappedBy="station")

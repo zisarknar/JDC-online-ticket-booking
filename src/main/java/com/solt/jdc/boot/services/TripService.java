@@ -18,4 +18,6 @@ public interface TripService {
     Trip updateTrip(Trip trip);
     
     List<Trip> findTripByFilter(String source,String destination,Date depDate);
+    
+    List<Trip> findTripByRoute(String source,String destination);
 }
