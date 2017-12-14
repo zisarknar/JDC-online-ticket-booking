@@ -16,4 +16,5 @@ public interface BookingService {
 
     Booking updateBooking(Booking booking);
 
+    Booking findByNameAndPhone(String name,String phone); 
 }

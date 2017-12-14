@@ -19,6 +19,18 @@ public class CustomerController {
     private MainController mainController;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    
+    @RequestMapping("/customerdetails")
+    public String userDetails(Model model) {
+    	
+    	//model.addAttribute("customerdetails", customerService.getAllCustomers());
+    	//return "customerdetail/customerdetailpage";
+    	return "frontend/index";
+    }
+    
+    
+    
     @Autowired
     private CustomerService customerService;
 
@@ -85,6 +97,7 @@ public class CustomerController {
     @InitBinder
     public void initializeBinder(WebDataBinder binder) {
         binder.setAllowedFields("username", "firstName", "lastName", "password", "phone","matchPassword", "email", "nrcNumber", "isEnabled", "booking");
+        
     }
 
     @RequestMapping(value = "/customer/register", method = RequestMethod.GET)

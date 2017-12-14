@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="master"
-      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="master"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 <head>
-    <meta charset=" UTF-8"></meta>
-    <title>USER</title>
+<meta charset=" UTF-8"></meta>
+<title>User</title>
 </head>
 <body>
 
-<section class="content-header" layout:fragment="header">
-    <h1>
-        User
-        <small>Management panel</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-    </ol>
-</section>
+	<section class="content-header" layout:fragment="header">
+		<h1>
+			User <small>Management panel</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active">Dashboard</li>
+		</ol>
+	</section>
 
 	<section class="content" layout:fragment="content">
 		<div class="row">
@@ -50,19 +49,18 @@
 									<td th:text="${user.email}"></td>
 									<td th:text="${user.phone}"></td>
 									<td th:text="${user.role}"></td>
-                            
-                            <td >
-							
-									<span th:if="${user.status}">
+									
+									<td>
+										<div th:if="${user.status}">
 											<a href="#"><i class="fa fa-circle text-success"></i>							
 											</a>
-									</span>
+										</div>
 										
-									<span th:unless="${user.status}">
+										<div th:unless="${user.status}">
 											false	
 									
-									</span>
-							</td>
+										</div>
+									</td>
 
 
 									<td><a th:href="@{/admin/user/delete/}+${user.id}"
@@ -78,18 +76,19 @@
 		</div>
 	</section>
 
-<script layout:fragment="myScript">
-    $(function () {
-        $('table').DataTable({
-            'paging': true,
-            'lengthChange': true,
-            'searching': true,
-            'ordering': true,
-            'info': true,
-            'autoWidth': false
-        })
-    })
-</script>
+
+	<script layout:fragment="myScript">
+		$(function() {
+			$('#user').DataTable({
+				'paging' : true,
+				'lengthChange' : true,
+				'searching' : true,
+				'ordering' : true,
+				'info' : true,
+				'autoWidth' : false
+			})
+		})
+	</script>
 
 </body>
 </html>

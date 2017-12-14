@@ -9,15 +9,60 @@
 </head>
 <body>
 
-	<section class="content-header" layout:fragment="header">
-		<h1>
-			Customer <small>Management panel</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Dashboard</li>
-		</ol>
-	</section>
+<section class="content-header" layout:fragment="header">
+    <h1>
+        Customer
+        <small>Management panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+
+<section class="content" layout:fragment="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Customer List</h3>
+                    <a th:href="@{/customers/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
+                </div>
+                <div class="box-body">
+                    <table id="customer" class="table table-bordered table-hover" dt:table="true">
+                        <thead>
+                        <tr>
+                            
+                            <th>Username</th>                            
+                            <th>Phone</th>
+                            <th>Email</th>
+                            
+
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="customer : ${customers}">
+                            
+                            <td th:text="${customer.username}"></td>
+                            <td th:text="${customer.phone}"></td>
+                            <td th:text="${customer.email}"></td>
+                            
+                            <td>
+                                <a th:href="@{/customer/delete/}+${customer.id}" class="btn btn-danger"><i
+                                        class="fa fa-trash"></i> Delete</a>
+                                <a th:href="@{/customer/update/}+${customer.id}" class="btn btn-info"><i
+                                        class="fa fa-gear"></i> Edit</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 	<section class="content" layout:fragment="content">
 		<div class="row">

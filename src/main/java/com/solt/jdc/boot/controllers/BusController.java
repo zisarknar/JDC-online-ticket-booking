@@ -7,6 +7,8 @@ import com.solt.jdc.boot.repositories.BusRepository;
 import com.solt.jdc.boot.services.BusService;
 import com.solt.jdc.boot.services.BusTypeService;
 import com.solt.jdc.boot.services.ServicesService;
+import com.solt.jdc.boot.services.StationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +38,9 @@ public class BusController {
 
     @Autowired
     private ServicesService servicesService;
+    
+    @Autowired
+    private StationService stationService;
 
     @RequestMapping(value = "/buses/add", method = RequestMethod.POST)
     public String addBusPOST(Model model, @ModelAttribute("bus") @Valid Bus newBus, BindingResult result) {
@@ -61,6 +66,7 @@ public class BusController {
         Services service = new Services();
         model.addAttribute("bustypes", busTypeService.getAllBusTypes());
         model.addAttribute("manyServices", servicesService.getAllServices());
+        model.addAttribute("stations", stationService.getAllStations());
         model.addAttribute("buses", busService.getAllBus());
         model.addAttribute("bus", bus);
         model.addAttribute("busType", busType);
@@ -108,6 +114,6 @@ public class BusController {
 
     @InitBinder
     public void intializeBinder(WebDataBinder binder) {
-        binder.setAllowedFields("id", "busNumber", "busCompany", "busCode", "maxSeats", "takenSeats", "busType");
+        binder.setAllowedFields("id", "busNumber", "busCompany", "busCode", "maxSeats", "takenSeats", "busType","station");
     }
 }

@@ -19,16 +19,15 @@
     </ol>
 </section>
 <section class="content" layout:fragment="content">
-<<<<<<< HEAD
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title pull-right">Update Drivers</h3>
-                    <a th:href="@{/admin/drivers}" class="btn btn-primary"><i
+                    <a th:href="@{/admin/drivera}" class="btn btn-primary"><i
                             class="fa fa-arrow-left"></i> Back</a>
                 </div>
-                <form role="form" th:action="@{/admin/driver/update}" method="post"
+                <form role="form" th:action="@{/admin/driver/edit}" method="post"
                       th:object="${driver}">
                     <div class="box-body">
                         <div class="form-group">
@@ -70,14 +69,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="driverStatus">Status</label> 
-	                            <input type="radio"
-	                                   id="driverStatus" value="true"
-	                                   th:field="*{status}"/>Yes 
-	                                   
-	                             <input
-	                                	type="radio" id="driverStatus" value="false"
-	                                	th:field="*{status}"/>No
+                            <label for="driverStatus">Status</label> <input type="radio"
+                                                                            id="driverStatus" value="true"
+                                                                            th:field="*{status}"/>Yes <input
+                                type="radio" id="driverStatus" value="false"
+                                th:field="*{status}"/>No
 
                         </div>
 
@@ -98,91 +94,6 @@
             </div>
         </div>
     </div>
-=======
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="box box-primary">
-				<div class="box-header with-border">
-					<h3 class="box-title pull-right">Add New Customer</h3>
-					<a th:href="@{/driver}" class="btn btn-primary"><i
-							class="fa fa-arrow-left"></i> Back</a>
-				</div>
-				<form role="form" th:action="@{/driver/edit}" method="post"
-					  th:object="${driver}">
-
-					<div class="box-body">
-
-					
-					
-							<div class="form-group">
-
-								<label for="driverCode">driver Code</label> <input type="text"
-									class="form-control" id="driverCode"
-									placeholder="Enter driver Code" th:field="*{code}" />
-									<label th:errors="*{code}" class="text-danger"></label>
-							</div>
-
-							<div class="form-group">
-								<label for="driverName">Name</label> <input
-									type="text" class="form-control" id="driverName"
-									placeholder="Enter Name" th:field="*{name}" />
-									<label th:errors="*{name}" class="text-danger"></label>
-							</div>
-
-							
-							<div class="form-group">
-								<label for="driverEmail">Email address</label> <input type="email"
-									class="form-control" id="driverEmail" placeholder="Enter  your email"
-									th:field="*{email}" />
-									<label th:errors="*{email}" class="text-danger"></label>
-							</div>
-
-							<div class="form-group">
-								<label for="phoneNumber">Phone</label> <input type="text"
-									class="form-control" id="phoneNumber" placeholder="Enter phone number"
-									th:field="*{phone}" />
-									<label th:errors="*{phone}" class="text-danger"></label>
-							</div>
-
-
-							<div class="form-group">
-								<label>Role</label> <select id="role" class="form-control"
-									th:field="*{driverRole}">
-									<option
-										th:each="driverRole:${T(com.solt.jdc.boot.domains.DriverRole).values()}"
-										th:value="${driverRole}" th:text="${driverRole.getRoleName()}"></option>
-								</select>
-							</div>
-
-							<div class="form-group">
-								<label for="driverStatus">Status</label> <input type="radio"
-									id="driverStatus" value="true" th:checked="*{status}" />Yes <input
-									type="radio" id="driverStatus" value="false"
-									th:checked="*{status}==false" />No
-
-							</div>
-
-
-					
-					
-					
-					</div>
-					<!-- /.box-body -->
-
-					<div class="box-footer">
-						<button type="submit" class="btn btn-primary">Submit</button>
-
-							<input type="hidden" th:field="*{id}"/>
-
-
-					</div>
-
-
-				</form>
-			</div>
-		</div>
-	</div>
->>>>>>> feature/trip&cities_Binding
 </section>
 </body>
 </html>

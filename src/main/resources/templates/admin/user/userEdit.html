@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="master">
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="master">
 <head>
-<meta charset="UTF-8"></meta>
-<title>Add New User</title>
+	<meta charset="UTF-8"></meta>
+	<title>Add New User</title>
 </head>
 <body>
 
@@ -92,21 +92,70 @@
 
 							</div>
 
-
+						<div class="form-group">
+							<label for="lastName1">Last Name</label> <input type="text"
+																			class="form-control" id="lastName1"
+																			placeholder="Enter Last Name" th:field="*{lastName}" />
 						</div>
-						<!-- /.box-body -->
 
-						<div class="box-footer">
-							<button type="submit" class="btn btn-primary">Submit</button>
+						<div class="form-group">
+							<label for="userEmail">Email address</label> <input type="email"
+																				class="form-control" id="userEmail" placeholder="Enter email"
+																				th:field="*{email}" />
+						</div>
+
+						<div class="form-group">
+							<label for="phoneNumber">Phone</label> <input type="text"
+																		  class="form-control" id="phoneNumber" placeholder="Enter phone number"
+																		  th:field="*{phone}" />
+						</div>
 
 							<input type="hidden" th:field="*{id}" />
 						</div>
+						<div class="form-group">
+							<label>Role</label> 
+							<select id="role" class="form-control"
+														th:field="*{role}">
+							<option
+									th:each="role:${T(com.solt.jdc.boot.domains.Role).values()}"
+									th:value="${role}" 
+									th:text="${role.getRoleName()}"></option>
+						</select>
+						</div>
 
-					</form>
-				</div>
+						<div class="form-group">
+								<label for="userStatus">Status</label> 
+								<input type="radio"
+										id="userStatus" 
+										value="true" 
+										th:field="*{status}" />Yes 
+								
+								<input type="radio" 
+										id="userStatus" 
+										value="false"
+										th:field="*{status}" />No
+
+							</div>
+
+
+
+					</div>
+					<!-- /.box-body -->
+
+					<div class="box-footer">
+						<button type="submit" class="btn btn-primary">Submit</button>
+
+							<input type="hidden" th:field="*{id}"/>
+
+
+					</div>
+
+
+				</form>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 </body>
 </html>
 

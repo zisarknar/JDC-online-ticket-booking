@@ -6,6 +6,7 @@ import com.solt.jdc.boot.services.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,4 +44,15 @@ public class TripServiceImpl implements TripService {
     public Trip updateTrip(Trip trip) {
         return tripRepository.saveAndFlush(trip);
     }
+
+	@Override
+	public List<Trip> findTripByFilter(String source, String destination, Date depDate) {
+		
+		return tripRepository.findTripByFilter(source, destination, depDate);
+	}
+
+	@Override
+	public List<Trip> findTripByRoute(String source, String destination) {
+		return tripRepository.findTripByRoute(source, destination);
+	}
 }

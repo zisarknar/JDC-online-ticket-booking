@@ -55,7 +55,7 @@ public class Bus {
 
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="bus_station_id")
-	private Bus bus;
+	private Station station;
 	
 	public String getBusNumber() {
 		return busNumber;
@@ -80,8 +80,6 @@ public class Bus {
 	public void setServicesList(List<Services> servicesList) {
 		this.servicesList = servicesList;
 	}
-
-	
 
 	public Integer getId() {
 		return id;
@@ -121,6 +119,16 @@ public class Bus {
 
 	public void setBusCode(String busCode) {
 		this.busCode = busCode;
+	}
+	
+	
+
+	public Station getStation() {
+		return station;
+	}
+
+	public void setStation(Station station) {
+		this.station = station;
 	}
 
 	@Override

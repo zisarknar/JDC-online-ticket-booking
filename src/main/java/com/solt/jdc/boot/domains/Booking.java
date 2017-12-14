@@ -18,6 +18,7 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     @NotBlank(message="Registration Code cannot be empty")
     private String regCode;
     
@@ -33,8 +34,8 @@ public class Booking {
     @NotNull
     @Min(value=1)
     private double totalAmount;
+    
     private boolean status;
-
 
 //    Booking is the Owner of the relationship
     @OneToOne(cascade = CascadeType.ALL)
@@ -45,6 +46,12 @@ public class Booking {
     @JoinColumn(name = "customer")
     private Customer customer;
 
+    
+    @Embedded
+    private Passenger passenger;
+    
+    
+    
     public Booking() {
     }
 
@@ -111,8 +118,16 @@ public class Booking {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+    
+    	public Passenger getPassenger() {
+		return passenger;
+	}
 
-    @Override
+	public void setPassenger(Passenger passenger) {
+		this.passenger = passenger;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -139,10 +154,10 @@ public class Booking {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (status ? 1 : 0);
         return result;
-    }
+     }
 
-    @Override
-    public String toString() {
+     @Override
+     public String toString() {
         return "Booking{" +
                 "id=" + id +
                 ", regCode='" + regCode + '\'' +

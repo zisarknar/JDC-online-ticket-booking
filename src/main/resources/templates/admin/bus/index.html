@@ -30,7 +30,7 @@
 			<div class="box">
 				<div class="box-header">
 					<h3 class="box-title">Bus Type</h3>
-					
+
 					<button type="button" class="btn btn-info btn-lg pull-right"
 						data-toggle="modal" data-target="#myModal2">Add New</button>
 
@@ -272,8 +272,9 @@
 
 							<!-- Modal content-->
 							<div class="modal-content">
-								<form id="addBusForm" role="form" th:action="@{/admin/buses/add}"
-									th:object="${bus}" method="post">
+								<form id="addBusForm" role="form"
+									th:action="@{/admin/buses/add}" th:object="${bus}"
+									method="post">
 									<div class="box-body">
 
 										<div class="form-group">
@@ -301,13 +302,21 @@
 												placeholder="Enter Max Seats" th:field="*{maxSeats}" /> <label
 												id="maxSeats_error" class="text-danger"></label>
 										</div>
-
-										<select id="busTypeSelect" class="form-control"
-											th:field="*{busType}">
-											<option th:each="bustype : ${bustypes}"
-												th:value="${bustype.id}" th:text="${bustype.type}"></option>
-										</select>
-
+										<div class="form-group">
+											<label>Bus Type</label> <select id="busTypeSelect"
+												class="form-control" th:field="*{busType}">
+												<option th:each="bustype : ${bustypes}"
+													th:value="${bustype.id}" th:text="${bustype.type}"></option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label>Station</label>
+											<select id="stationSelect" class="form-control"
+												th:field="*{station}">
+												<option th:each="station : ${stations}"
+													th:value="${station.id}" th:text="${station.name}"></option>
+											</select>
+										</div>
 
 									</div>
 									<!-- /.box-body -->
@@ -371,6 +380,13 @@
 												th:field="*{busType}" class="form-control">
 												<option th:each="bustype:${bustypes}"
 													th:text="${bustype.type}" th:value="${bustype.id}" />
+											</select>
+										</fieldset>
+										<fieldset class="form-group">
+											<label class="control-label">Station</label> <select
+												th:field="*{station}" class="form-control">
+												<option th:each="station:${stations}"
+													th:text="${station.name}" th:value="${station.id}" />
 											</select>
 										</fieldset>
 										<div class="form-group">
