@@ -36,6 +36,7 @@ public class Customer {
     private String email;
     
     private String nrcNumber;
+    
     @Column(name = "enabled")
     private boolean enabled;
 

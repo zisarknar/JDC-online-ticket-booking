@@ -22,6 +22,10 @@ public class AuthenticationController {
     public String getLoginPage(){
         return "admin/login";
     }
-
-
+ 
+    @RequestMapping("/registration")
+    	public String getRegistrationPage() {
+    		return "admin/register";
+    	}
+    
 }

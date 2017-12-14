@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="front-master"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<head>
+<meta charset=" UTF-8"></meta>
+
+<title></title>
+</head>
+
+<style type="text/css">
+/*  */
+.search-content {
+    padding: 19px;
+    border: 1px solid #eeeeee;
+}
+</style>
+
+<body class=" w-100 h-25 m-5 p-5 opaque-overlay">
+	<div layout:fragment="content">
+
+		<div class="container">
+			
+			<div th:inline="text">
+			<!-- Welcome to _________User  : '[[${#httpServletRequest.remoteUser}]]' -->				
+			</div>
+			<div class="row">
+				<div class="col-sm-12 content">
+					<div class="row" style="border: thin; border-bottom-style: outset;">
+						<div class="col-sm-6"  style="border: blue;">
+							<div class="search-content active">&nbsp;</div>
+							<form >
+								<!--<form class="" method="post" action="https://formspree.io/"> -->
+								<div class="title" style="border: thin; border-bottom-style: outset;">
+									<h2 style="font:oblique;">
+										<i><span >Passenger Information</span></i>										
+									</h2>
+								</div>
+
+								<div class="clear-fix">&nbsp;</div>
+
+								<div class="form-group row">
+
+									<label>Passenger Name<br />
+									</label> <input type="text"
+										name="passengerName" class="form-control"
+										placeholder="Enter passenger name"
+										
+										th:value="${customer.username}"
+										
+										style=""
+										 />
+								</div>
+
+								<div class="form-group row">
+									<label>Register No<br /></label> <input type="text"
+										name="regNo" class="form-control"
+										placeholder="Enter your registration number"
+										 
+										th:value="${customer.nrcNumber}"
+										/>
+								</div>
+
+								<div class="form-group row">
+									<label>Phone</label> <input type="text" name="passengerPhone"
+										class="form-control" placeholder="Enter phone Number"
+										 
+										th:value="${customer.phone}"
+										/>
+								</div>
+								
+								<div class="clear-fix">&nbsp;</div>
+									
+
+								<div class="">
+									<div class="form-group row">
+										<div class="col-md-12">
+											<div class="title">
+												<span>Terms and Conditions</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<div class="col-md-3">
+											<label>&nbsp;</label>
+											<div class="optional"></div>
+										</div>
+										
+										<div class="col-lg-9 col-md-9 col-xs-9 lists">
+											<div>
+												<p>
+													<i class="fa fa-info-circle"></i> Travellers must reach the
+													bus station 30 minutes before the departure time.
+												</p>
+											</div>
+											<div>
+												<p>
+													<i class="fa fa-info-circle"></i> Travellers are not
+													allowed to carry illegal products, explosives and drugs.
+												</p>
+											</div>
+											<div>
+												<p>
+													<i class="fa fa-info-circle"></i> Extra Fees are chargeable
+													for bags or luggage that weigh more than 10 kg.
+												</p>
+											</div>
+											<div>
+												<p>
+													<i class="fa fa-info-circle"></i> Valuable personal
+													belongings are to be kept with the customer at all time,
+													and the bus operator will not be responsible for the lost
+													items.
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<hr />
+								<div class="">
+									<div class="form-group row">
+										<div class="col-md-12">
+											<div class="title">
+												<span>ခရီးသည္မ်ားလိုက္နာရန္ </span>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<div class="col-md-3">
+											<label>&nbsp;</label>
+											<div class="optional"></div>
+										</div>
+										<div class="col-lg-9 col-md-9 col-xs-9 lists">
+											<p>
+												<i class="fa fa-info-circle"></i> ယာဥ္မထြက္မီ မိနစ္ ၃၀
+												အလိုတြင္ ကားဂိတ္သို ့အေရာက္လာေပးပါရန္။
+											</p>
+											<p>
+												<i class="fa fa-info-circle"></i> ဥပေဒႏွင့္
+												လြတ္ကင္းမွဳမရွိေသာ ပစၥည္းမ်ား ၊ေပါက္ကြဲေစတတ္ေသာပစၥည္းမ်ား
+												ႏွင့္ မူးယစ္ေဆး၀ါးမ်ားအား သယ္ေဆာင္၍ မရပါ။
+											</p>
+											<p>
+												<i class="fa fa-info-circle"></i> ၁၀ ကီလိုထက္ပိုေလးေသာ
+												ပစၥည္းမ်ားအား ကားဂိတ္အလိုက္ တန္ဆာခေတာင္းႏိုင္ပါသည္။
+											</p>
+											<p>
+												<i class="fa fa-info-circle"></i> တန္ဖို းၾကီး ပစၥည္းမ်ား
+												စာရြက္စာတမ္းမ်ားကို ခရီးသည္မွ ထိန္းသိမ္းပါရန္ႏွင့္
+												ေပ်ာက္ဆံုးပါကကားဂိတ္မွ တာ၀န္ယူမည္မဟုတ္ပါ။
+											</p>
+										</div>
+									</div>
+								</div>
+								<hr />
+								<div class="form-group row">
+									<div class="col-sm-offset-3 col-sm-9">
+										
+										
+										<div class="row">
+										
+										<div class="col-xs-8">
+										<div class="checkbox icheck">
+											
+											<label for="agree" class="form-check-label">		
+											<input id="agree" type="checkbox"
+												name="agree"  required="required"/>
+										
+												<b>I accept the Terms and
+													Conditions. ( အထက္ပါ စည္းမ်ဥ္းမ်ားကုိ သေဘာတူ လက္ခံပါသည္။ )</b>
+											</label>
+										</div>
+										</div>
+										</div>
+										
+									</div>
+								</div>
+														
+							<div class="form-group row">
+									<div class="col-sm-offset-3 col-sm-9">
+										<button type="submit"
+												name="confirmOrder"												
+												class="btn sample"												
+												id="confirmOrder">Submit Order</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<div class="col-md-6">
+							<table class="table table-striped" th:object="${trip}">
+								<tbody>
+									<tr>
+										<td colspan="2" class="border border-primary    h1 "><i>Booking
+												Summary</i></td>
+									</tr>
+
+									<tr>
+										<td colspan="2" class="h4"><b th:text="*{stationId}"></b></td>
+									</tr>
+									<tr>
+										<td colspan="2"><b th:text="*{source}"></b> To <b
+											th:text="*{destination}"></b></td>
+									</tr>
+
+									<tr>
+										<td colspan="2"><b th:text="*{depDate}"></b></td>
+									</tr>
+
+									<tr>
+										<td colspan="2">Normal</td>
+									</tr>
+									<tr>
+										<td colspan="2"><b th:text="*{stationId}"></b></td>
+									</tr>
+									<tr>
+										<td colspan="2">Seat Qty : <b th:text="*{unitPrice}"></b></td>
+									</tr>
+
+									<tr class="total">
+										<td>Total</td>
+										<td class="text-right"><span id="totalAmount">5,500</span>
+											MMK</td>
+									</tr>
+
+									<tr>
+										<td colspan="2">&nbsp;</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script layout:fragment="myScript">
+var checktermNcondition =function(){
+	if ($('#agree').prop("checked") == true) {
+		$('#comfirmorder').prop('disabled',false);
+    }else{
+		$('#comfirmorder').prop('disabled', true);
+    }
+}
+
+$("#agree").click(function() {
+	checktermNcondition();
+});
+
+checktermNcondition();
+
+
+$(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+
+</script> 
+</body>
+</html>
+
+

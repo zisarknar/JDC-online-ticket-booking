@@ -29,8 +29,6 @@ public class Station {
 	@OneToOne
 	private Address address;
 
-
-	
 	@OneToMany(mappedBy="station")
 	private List<Bus> busList=new ArrayList<>();
 	
