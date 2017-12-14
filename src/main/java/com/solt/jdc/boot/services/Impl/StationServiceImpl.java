@@ -40,4 +40,19 @@ public class StationServiceImpl implements StationService {
 		stationRepository.saveAndFlush(station);
 	}
 
+	@Override
+	public List<Station> findStationByCity(String city) {
+		return stationRepository.findStationByCity(city);
+	}
+
+	@Override
+	public List<Station> findStationByName(String stationName) {
+		return stationRepository.findStationByName(stationName);
+	}
+
+	@Override
+	public List<Station> findStationByFilter(String busCode, String cityName) {
+		return stationRepository.findStationByFilter(busCode, cityName);
+	}
+
 }

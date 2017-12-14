@@ -120,6 +120,16 @@ public class Bus {
 	public void setBusCode(String busCode) {
 		this.busCode = busCode;
 	}
+	
+	
+
+	public Station getStation() {
+		return station;
+	}
+
+	public void setStation(Station station) {
+		this.station = station;
+	}
 
 	@Override
 	public int hashCode() {

@@ -14,4 +14,10 @@ public interface StationService {
 	void deleteStation(int stationId);
 
 	void updateStation(Station station);
+	
+	List<Station> findStationByCity(String city);
+	
+	List<Station> findStationByName(String stationName);
+	
+	List<Station> findStationByFilter(String stationName,String cityName);
 }
