@@ -79,8 +79,8 @@ public class BookingController   {
         currentBooking.setRegCode(updatedBooking.getRegCode());
         currentBooking.setTotalAmount(updatedBooking.getTotalAmount());
         currentBooking.setStatus(updatedBooking.isStatus());
-        currentBooking.setCustomer(updatedBooking.getCustomer());
-        currentBooking.setTrip(updatedBooking.getTrip());
+        currentBooking.setCustomerList(updatedBooking.getCustomerList());
+        currentBooking.setTripList(updatedBooking.getTripList());
         bookingService.updateBooking(updatedBooking);
         return "redirect:/admin/bookings";
     }
@@ -95,6 +95,5 @@ public class BookingController   {
     public void intializeBinder(WebDataBinder binder) {
     	binder.setAllowedFields("regCode","bookDate","noOfSeats","totalAmount","status","trip","customer");
     }
-
 
 }

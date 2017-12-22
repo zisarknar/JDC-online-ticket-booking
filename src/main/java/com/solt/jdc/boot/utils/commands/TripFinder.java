@@ -1,4 +1,4 @@
-package com.solt.jdc.boot.utils;
+package com.solt.jdc.boot.utils.commands;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +12,12 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class TripFinder {
+
     private String source;
+
     private String destination;
+
     @DateTimeFormat(iso = ISO.DATE)
     private Date depDate;
+
 }

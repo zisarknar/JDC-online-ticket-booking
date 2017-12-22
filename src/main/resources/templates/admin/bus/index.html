@@ -21,7 +21,6 @@
         <li class="active">Dashboard</li>
     </ol>
 </section>
-
 <section class="content" layout:fragment="content">
     <div class="row"></div>
     <div class="col-xs-6">
@@ -36,26 +35,26 @@
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
-                                <form id="addBusTypeForm" role="form"
-                                      th:action="@{/admin/bustypes/add}" th:object="${busType}"
-                                      method="post">
-                                    <div class="box-body">
-                                        <div class="form-group">
-                                            <label for="busType">Bus Type</label><input type="text"
-                                                                                        class="form-control"
-                                                                                        id="busType"
-                                                                                        placeholder="Enter Bus Type"
-                                                                                        th:field="*{type}"/> <label
-                                                id="busType_error" class="text-danger"></label>
-                                        </div>
+                            <form id="addBusTypeForm" role="form"
+                                  th:action="@{/admin/bustypes/add}" th:object="${busType}"
+                                  method="post">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="busType">Bus Type</label><input type="text"
+                                                                                    class="form-control"
+                                                                                    id="busType"
+                                                                                    placeholder="Enter Bus Type"
+                                                                                    th:field="*{type}"/> <label
+                                            id="busType_error" class="text-danger"></label>
                                     </div>
-                                    <!-- /.box-body -->
-                                    <div class="box-footer">
-                                        <button id="busTypeSubmit" type="submit"
-                                                class="btn btn-primary">Submit
-                                        </button>
-                                    </div>
-                                </form>
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button id="busTypeSubmit" type="submit"
+                                            class="btn btn-primary">Submit
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -115,9 +114,9 @@
                         <td><a th:href="@{/admin/bustype/delete/}+${bustype.id}"
                                class="btn btn-default"><i class="fa fa-trash"></i> Delete</a>
                             <a data-toggle="modal" class="btn btn-default"
-                                data-target="#umodal2"
-                                th:onclick="'busTypeShowEditModal(' + ${bustype.id} + ')'"><i
-                                class="fa fa-pencil"></i>Edit</a></td>
+                               data-target="#umodal2"
+                               th:onclick="'busTypeShowEditModal(' + ${bustype.id} + ')'"><i
+                                    class="fa fa-pencil"></i>Edit</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -234,9 +233,9 @@
                         <td><a th:href="@{/admin/service/delete/}+${service.id}"
                                class="btn btn-default"><i class="fa fa-trash"></i> Delete</a>
                             <a data-toggle="modal" class="btn btn-default"
-                                data-target="#umodal3"
-                                th:onclick="'servicesShowEditModal(' + ${service.id} + ')'"><i
-                                class="fa fa-pencil"></i>Edit</a></td>
+                               data-target="#umodal3"
+                               th:onclick="'servicesShowEditModal(' + ${service.id} + ')'"><i
+                                    class="fa fa-pencil"></i>Edit</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -434,12 +433,10 @@
             if ($("#busType").val().length > 0) {
                 $("#busType_error").hide();
                 busType_error = false;
-
             } else if ($("#busType").val().length == 0) {
                 $("#busType_error").html("Please Enter BusType");
                 $("#busType_error").show();
                 busType_error = true;
-
             }
         }
 
@@ -467,12 +464,10 @@
             if ($("#update-type").val().length > 0) {
                 $("#update-typeError").hide();
                 updateTypeError = false;
-
             } else if ($("#update-type").val().length == 0) {
                 $("#update-typeError").html("Please Enter BusType");
                 $("#update-typeError").show();
                 updateTypeError = true;
-
             }
         }
 
@@ -499,12 +494,10 @@
             if ($("#services").val().length > 0) {
                 $("#services_error").hide();
                 services_error = false;
-
             } else if ($("#services").val().length == 0) {
                 $("#services_error").html("Please enter service");
                 $("#services_error").show();
                 services_error = true;
-
             }
         }
 
@@ -539,7 +532,6 @@
                 $("#update-servicesError").html("Please Enter service");
                 $("#update-servicesError").show();
                 updateServicesError = true;
-
             }
         }
 
@@ -646,12 +638,9 @@
                 checkBusCode();
                 checkBusCompany();
 
-                if (busNumber_error == true || busCode_error == true
-                    || busCompany_error == true
-                    || maxSeats_error == true) {
+                if (busNumber_error == true || busCode_error == true || busCompany_error == true || maxSeats_error == true) {
                     alert("Please Enter Valid Information In The Form")
                     return false;
-
                 } else {
                     return true;
                 }
@@ -745,13 +734,9 @@
                 updateCheckBusCompany();
                 updateCheckMaxSeats();
 
-                if (updateBusNumberError == true
-                    || updateBusCodeError == true
-                    || updateBusCompanyError == true
-                    || updateMaxSeatsError == true) {
+                if (updateBusNumberError == true || updateBusCodeError == true || updateBusCompanyError == true || updateMaxSeatsError == true) {
                     alert("Please Enter Valid Information In The Form")
                     return false;
-
                 } else {
                     return true;
                 }

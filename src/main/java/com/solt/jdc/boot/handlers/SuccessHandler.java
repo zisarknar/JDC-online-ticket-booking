@@ -21,7 +21,6 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     private static final SimpleGrantedAuthority CUSTOMER_AUTHORITY = new SimpleGrantedAuthority("ROLE_CUSTOMER");
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    // private static Logger logger = LoggerFactory.getLogger(SuccessHandler.class);
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication arg2)
             throws IOException, ServletException {
@@ -33,8 +32,5 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
 
             redirectStrategy.sendRedirect(request, response, "/admin");
         }
-        /*UserDetails authUser=(UserDetails)auth.getPrincipal();
-		System.out.println(authUser.getUsername());
-		System.out.println(authUser.getPassword());*/
     }
 }

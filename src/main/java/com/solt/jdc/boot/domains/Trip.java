@@ -44,7 +44,7 @@ public class Trip {
 
     private boolean status;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "trip")
+    @OneToMany(mappedBy = "tripList")
     private Booking booking;
 
     private String source;

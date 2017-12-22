@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="master"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<head>
+    <meta charset=" UTF-8"></meta>
+    <title>Booking | Report</title>
+</head>
+<body>
+
+<section class="content-header" layout:fragment="header">
+    <h1>
+        Booking
+        <small>Report</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+
+<section class="content" layout:fragment="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3>Reports</h3>
+                    <button class="btn btn-primary pull-right"><i class="fa fa-chart">View Charts</i></button>
+                    <br/>
+                    <div class="row">
+                        <form th:action="@{/admin/report/booking/result}" method="POST" th:object="${bookFinder}">
+                            <!--From Date input-->
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" id="fromDate" class="form-control pull-right"
+                                               th:field="*{fromDate}"
+                                               placeholder="From Date"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- To Date input-->
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" id="toDate" class="form-control pull-right"
+                                               th:field="*{toDate}"
+                                               placeholder="To Date"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="submit" class="btn btn-flat btn-primary">Get Report</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h2 class="box-title">Booking Report Result</h2>
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Date</th>
+                            <th>Reg Code</th>
+                            <th>No Of Seats</th>
+                            <th>Total amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="booking : ${bookingsByDate}">
+                            <td th:text="${booking.id}"></td>
+                            <td th:text="${booking.bookDate}"></td>
+                            <td th:text="${booking.regCode}"></td>
+                            <td th:text="${booking.noOfSeats}"></td>
+                            <td th:text="${booking.totalAmount}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script layout:fragment="myScript">
+    $(function () {
+        $('#fromDate').datepicker({
+            format: 'yyyy-mm-dd',
+            orientation: 'bottom right',
+            todayHighlight: true,
+        });
+        $('#toDate').datepicker({
+            format: 'yyyy-mm-dd',
+            orientation: 'bottom right',
+            todayHighlight: true,
+        })
+    })
+    $('table').dataTable({
+        'paging': true,
+        'lengthChange': true,
+        'searching': true,
+        'ordering': true,
+        'info': true,
+        'autoWidth': false
+    });
+</script>
+</body>
+</html>

@@ -10,15 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.solt.jdc.boot.domains.Trip;
-import com.solt.jdc.boot.repositories.TripRepository;
 import com.solt.jdc.boot.services.CitiesService;
 import com.solt.jdc.boot.services.TripService;
-import com.solt.jdc.boot.utils.TripFinder;
+import com.solt.jdc.boot.utils.commands.TripFinder;
 
 
 @Controller

@@ -6,6 +6,7 @@ import com.solt.jdc.boot.services.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -15,7 +16,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     public void getBookingRepository(BookingRepository bookingRepository) {
-       this.bookingRepository = bookingRepository;
+        this.bookingRepository = bookingRepository;
     }
 
     @Override
@@ -41,6 +42,11 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Booking updateBooking(Booking booking) {
         return bookingRepository.saveAndFlush(booking);
+    }
+
+    @Override
+    public List<Booking> getBookingReport(Date fromDate, Date toDate) {
+        return bookingRepository.getBookingByDateRange(fromDate, toDate);
     }
 
 
