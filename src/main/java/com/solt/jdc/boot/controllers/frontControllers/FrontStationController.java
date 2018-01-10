@@ -31,7 +31,7 @@ public class FrontStationController {
 
 	@Autowired
 	private BusService busService;
-
+	
 	@RequestMapping("/findStation")
 	public String findStationByCityGET(Model model) {
 		StationFinder stationFinder = new StationFinder();

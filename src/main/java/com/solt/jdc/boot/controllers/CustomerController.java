@@ -1,16 +1,25 @@
 package com.solt.jdc.boot.controllers;
 
-import com.solt.jdc.boot.domains.Customer;
-import com.solt.jdc.boot.services.CustomerService;
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
+import com.solt.jdc.boot.domains.Customer;
+import com.solt.jdc.boot.services.CustomerService;
 
 @Controller
 public class CustomerController {
@@ -39,10 +48,10 @@ public class CustomerController {
         model.addAttribute("customers", customerService.getAllCustomers());
         return "admin/customer/index";
     }
-
-    @RequestMapping("/customer/{id}")
+    
+    @RequestMapping("/customers/{id}")
     public String getCustomer(Model model, @PathVariable("id") int customerId) {
-        model.addAttribute("customer", customerService.getCustomer(customerId));
+        model.addAttribute("updatedCustomer", customerService.getCustomer(customerId));
         return "admin/customer/viewCustomer";
     }
 
@@ -57,23 +66,24 @@ public class CustomerController {
     public String processAddCustomer(@ModelAttribute("newCustomer") @Valid Customer customer, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/customer/addNew";
-        }
+        } 
         mainController.disallowedFieldException(result);
         customerService.saveCustomer(customer);
         return "redirect:/customers";
     }
 
-    @RequestMapping(value = "/customer/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/customers/update/{id}", method = RequestMethod.GET)
     public String updateCustomer(Model model, @PathVariable("id") int customerId) {
         model.addAttribute("updatedCustomer", customerService.getCustomer(customerId));
         return "admin/customer/viewCustomer";
     }
 
-    @RequestMapping(value = "/customer/update/{id}", method = RequestMethod.POST)
-    public String processUpdateCustomer(@ModelAttribute("customer") @Valid Customer updatedCustomer, @PathVariable("id") int customerId, BindingResult result) {
+    @RequestMapping(value = "/customers/update/{id}", method = RequestMethod.POST)
+    public String processUpdateCustomer(@ModelAttribute("updatedCustomer") @Valid Customer updatedCustomer, @PathVariable("id") int customerId, BindingResult result) {
         if (result.hasErrors()) {
-            return "admin/customer/{id}";
+            return "admin/customer/index";
         }
+        mainController.disallowedFieldException(result);
         Customer currentCustomer = customerService.getCustomer(customerId);
         currentCustomer.setUsername(updatedCustomer.getUsername());
         currentCustomer.setBooking(updatedCustomer.getBooking());
@@ -84,11 +94,13 @@ public class CustomerController {
         currentCustomer.setPassword(bCryptPasswordEncoder.encode(updatedCustomer.getPassword()));
         currentCustomer.setMatchPassword(updatedCustomer.getMatchPassword());
         currentCustomer.setNrcNumber(updatedCustomer.getNrcNumber());
+        currentCustomer.setAddress(updatedCustomer.getAddress());
+        
         customerService.updateCustomer(currentCustomer);
-        return "redirect:/customer/"+customerId;
+        return "redirect:/customers/update/"+customerId;
     }
 
-    @RequestMapping("/customer/delete/{id}")
+    @RequestMapping("/customers/delete/{id}")
     public String deleteCustomer(@PathVariable("id") int customerId) {
         customerService.deleteCustomer(customerId);
         return "redirect:/customers";
@@ -96,7 +108,7 @@ public class CustomerController {
 
     @InitBinder
     public void initializeBinder(WebDataBinder binder) {
-        binder.setAllowedFields("username", "firstName", "lastName", "password", "phone","matchPassword", "email", "nrcNumber", "isEnabled", "booking");
+        binder.setAllowedFields("id","username", "firstName", "lastName", "password", "phone","matchPassword","tempPassword", "email", "nrcNumber", "isEnabled", "booking","address");
         
     }
 
@@ -112,5 +124,53 @@ public class CustomerController {
         customerService.saveCustomer(regedCustomer);
         return "redirect:/login";
     }
-    
+    @RequestMapping(value="/customerdetails/account",method=RequestMethod.GET)
+    public String viewProfile(ModelMap model) {
+    	model.addAttribute("customer", customerService.currentCustomer());
+    	return "frontend/account";
+    }
+    @RequestMapping(value="/customerdetails/account/edit",method=RequestMethod.GET)
+    public String editCustomerProfile(Model model) {
+    	model.addAttribute("customer", customerService.currentCustomer());
+    	return "/frontend/edit-account";
+    }
+    @RequestMapping(value="/customerdetails/account/edit",method=RequestMethod.POST)
+    public String processEditCustomerProfile(@ModelAttribute("customer")@Valid Customer updatedCustomer,BindingResult result) {
+    	if(result.hasErrors()) {
+    		return "/frontend/edit-account";
+    	}
+    	Customer currentCustomer=customerService.getCustomer(customerService.currentCustomer().getId());
+        currentCustomer.setUsername(updatedCustomer.getUsername());
+        currentCustomer.setBooking(updatedCustomer.getBooking());
+        currentCustomer.setFirstName(updatedCustomer.getFirstName());
+        currentCustomer.setLastName(updatedCustomer.getLastName());
+        currentCustomer.setEmail(updatedCustomer.getEmail());
+        currentCustomer.setPhone(updatedCustomer.getPhone());
+        currentCustomer.setMatchPassword(updatedCustomer.getMatchPassword());
+        currentCustomer.setNrcNumber(updatedCustomer.getNrcNumber());
+        currentCustomer.setAddress(updatedCustomer.getAddress());
+        mainController.disallowedFieldException(result);
+        customerService.updateCustomer(currentCustomer);
+    	return "redirect:/customerdetails/account";
+    }
+    @RequestMapping(value="/customerdetails/account/changepassword",method=RequestMethod.GET)
+    public String changePassword(Model model) {
+    	Customer customer=customerService.currentCustomer();
+    	model.addAttribute("customer", customer);
+    	model.addAttribute("password", customer.getPassword());
+    	return "/frontend/change-password";
+    }
+    @RequestMapping(value="/customerdetails/account/changepassword",method=RequestMethod.POST)
+    public String processChangePassword(@ModelAttribute("customer") Customer updatedPassword,Model model,BindingResult result) {
+    	String currentPassword=customerService.currentCustomer().getPassword();
+    	if(!bCryptPasswordEncoder.matches(updatedPassword.getPassword(), currentPassword)) {
+    		model.addAttribute("passwordMsg", "Your current password is not valid!");
+    		return "/frontend/change-password";
+    	}
+    	Customer currentCustomer=customerService.getCustomer(customerService.currentCustomer().getId());
+    	System.out.println(updatedPassword.getMatchPassword());
+    	currentCustomer.setPassword(bCryptPasswordEncoder.encode(updatedPassword.getTempPassword()));
+    	customerService.updateCustomer(currentCustomer);
+    	return "redirect:/customerdetails/account";
+    }
 }

@@ -2,12 +2,14 @@ package com.solt.jdc.boot.config;
 
 import com.solt.jdc.boot.handlers.AccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -18,16 +20,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
-
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
-
+    @Autowired@Qualifier("customer_details_service")
+    private UserDetailsService userDetailsService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/admin/roots/**").hasRole("ROOT")
                 .antMatchers("/customers/**").hasRole("ROOT")
-                .antMatchers("/customerdetails/**").hasAnyRole("ROOT", "CUSTOMER")
+                .antMatchers("/customerdetails/**").authenticated()
                 .antMatchers("/admin/bookings/**").hasAnyRole("ROOT", "MANAGER", "STAFF")
                 .antMatchers("/admin/buses/**").hasAnyRole("ROOT", "MANAGER")
                 .antMatchers("/admin/addresses/**").hasAnyRole("ROOT", "MANAGER")
@@ -58,9 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("manager").password("password").roles("MANAGER")
                 .and()
-                .withUser("customer").password("password").roles("CUSTOMER")
-                .and()
                 .withUser("sargon").password("sargon").roles("ROOT");
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean

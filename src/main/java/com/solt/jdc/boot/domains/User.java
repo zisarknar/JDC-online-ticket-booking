@@ -70,11 +70,11 @@ public class User {
 	*/
 	@NotNull
 	private String role; 
-	
-	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="user_station_id")
 	private Station station;
+	@ManyToOne//moe
+    private UserRole role_user;
 	public User() {
 		
 	}
@@ -151,4 +151,20 @@ public class User {
 		this.role = role;
 	}
 
+	public UserRole getRole_user() {
+		return role_user;
+	}
+
+	public void setRole_user(UserRole role_user) {
+		this.role_user = role_user;
+	}
+
+	public Station getStation() {
+		return station;
+	}
+
+	public void setStation(Station station) {
+		this.station = station;
+	}
+	
 }

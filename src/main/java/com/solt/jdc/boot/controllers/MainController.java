@@ -21,6 +21,7 @@ import com.solt.jdc.boot.domains.Trip;
 import com.solt.jdc.boot.repositories.TripRepository;
 import com.solt.jdc.boot.services.BusService;
 import com.solt.jdc.boot.services.CitiesService;
+import com.solt.jdc.boot.services.CustomerService;
 import com.solt.jdc.boot.services.StationService;
 import com.solt.jdc.boot.services.TripService;
 import com.solt.jdc.boot.utils.TripFinder;
@@ -33,7 +34,13 @@ public class MainController {
 
 	@Autowired
 	private CitiesService citiesService;
+	@Autowired
+	private StationService stationService;
 
+	@Autowired
+	private BusService busService;
+	@Autowired
+	private CustomerService CustomerService;
 	
     @RequestMapping("/admin")
     public String getMain() {
@@ -68,22 +75,10 @@ public class MainController {
     						.collect(Collectors.toList()));
     	
     	model.addAttribute("tripFinder", tripFinder);
-    	
         return "frontend/index";
     }
     
-    @RequestMapping(value="/trip/search",method=RequestMethod.POST)
-    public String getTrip(@ModelAttribute("tripFinder")TripFinder tripFinder) {
-    	
-    	String source=tripFinder.getSource();
-    	String destination=tripFinder.getDestination();
-    	Date depDate=tripFinder.getDepDate();
-    	List<Trip> tripList=tripService.findTripByFilter(source, destination,depDate);
-    	
-    	tripList.stream().forEach(System.out::println);
-    	
-    	return "redirect:/";
-    }
+   
     
     protected void disallowedFieldException(BindingResult result) {
         String[] suppressedFields = result.getSuppressedFields();
@@ -91,28 +86,10 @@ public class MainController {
             throw new RuntimeException("Unable to bind disallowed fields");
         }
     }
-}
 
 
-	@Autowired
-	private StationService stationService;
 
-	@Autowired
-	private BusService busService;
-
-	@RequestMapping("/admin")
-	public String getMain() {
-		return "admin/index";
-	}
-
-	@GetMapping("/")
-	public String getIndex(Model model) {
-		TripFinder tripFinder = new TripFinder();
-		model.addAttribute("allcities",
-				citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
-		model.addAttribute("tripFinder", tripFinder);
-		return "frontend/index";
-	}
+	
 
 	@RequestMapping(value = "/trip/search", method = RequestMethod.POST)
 	public String getTrip(@ModelAttribute("tripFinder") TripFinder tripFinder, RedirectAttributes redirect) {
@@ -154,12 +131,7 @@ public class MainController {
 		return "redirect:/findBookingTrips";
 	}
 
-	protected void disallowedFieldException(BindingResult result) {
-		String[] suppressedFields = result.getSuppressedFields();
-		if (suppressedFields.length > 0) {
-			throw new RuntimeException("Unable to bind disallowed fields");
-		}
-	}
+	
 
 }
 

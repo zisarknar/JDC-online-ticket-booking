@@ -1,11 +1,23 @@
 package com.solt.jdc.boot.domains;
 
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
+
+import com.solt.jdc.boot.validator.CharacterConstraint;
+import com.solt.jdc.boot.validator.ContactNumberConstraint;
 
 @Entity(name = "customer")
 public class Customer {
@@ -13,24 +25,22 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message="Please enter user name")
-    //@NotEmpty
+    @Size(min=4)
     private String username;
-    @NotNull
-    @NotBlank(message="Please enter first name")
+    @CharacterConstraint(message="Your's frist name should be only character")//moe
     private String firstName;
-    @NotNull
-    @NotBlank(message="Please enter last name")
+    @CharacterConstraint(message="Your's last name should be only character")//moe
     private String lastName;
     @NotNull
     @NotBlank(message="Please enter password")
+    @Size(min=8)
     private String password;
+    @Transient
     private String matchPassword;
-    @NotNull
-    @NotBlank(message="Please enter phone number")
+    @ContactNumberConstraint
     private String phone;
-    
-  
+    @ManyToOne//moe
+    private UserRole role_user;
     @NotNull
     @NotBlank(message="Please enter  your address ")
     private String address;
@@ -45,7 +55,9 @@ public class Customer {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
     private Booking booking;
-
+    @Transient
+    private String tempPassword;
+    
     public Customer() {
     }
 
@@ -144,6 +156,23 @@ public class Customer {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	public UserRole getRole_user() {
+		return role_user;
+	}
+
+	public void setRole_user(UserRole role_user) {
+		this.role_user = role_user;
+	}
+
+	public String getTempPassword() {
+		return tempPassword;
+	}
+
+	public void setTempPassword(String tempPassword) {
+		this.tempPassword = tempPassword;
+	}
+
     
     
     
