@@ -11,7 +11,7 @@
 <body>
 	<section class="content-header" layout:fragment="header">
 		<h1>
-			Customer Details <small th:text="${customer.username}"></small>
+			Customer Details <small th:text="${updatedCustomer.username}"></small>
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -19,7 +19,7 @@
 		</ol>
 	</section>
 	<section class="content" layout:fragment="content">
-		<form th:action="@{/customer/update/}+${id}" method="POST">
+		<form th:object="${updatedCustomer}" th:action="@{/customers/update/}+*{id}" method="POST">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box box-primary">
@@ -43,8 +43,8 @@
 										</div>
 										<div class="panel-body">
 											<div class="col-lg-12 text-center text-primary ">
-												<span class="h2 " th:text="${customer.firstName}"></span>
-												<span class="h2 " th:text=" ${customer.lastName}"></span>
+												<span class="h2 " th:text="${updatedCustomer.firstName}"></span>
+												<span class="h2 " th:text=" ${updatedCustomer.lastName}"></span>
 											</div>
 										</div>
 									</div>
@@ -55,21 +55,21 @@
 										</div>
 										<div class="panel-body">
 											<span class="glyphicon glyphicon-envelope show-label">&nbsp;</span><label
-												class="show-label" th:text=" ${customer.email}"></label>
+												class="show-label" th:text=" ${updatedCustomer.email}"></label>
 											<div class="inner-addon left-addon edit-input form-group">
 												<i class="glyphicon glyphicon-envelope" ></i> <input
 													class="form-control" id="email" type="text"
-													placeholder="email address" th:field="${customer.email}" required="true" />
+													placeholder="email address" th:field="*{email}" required="required" />
 													<span class="glyphicon  form-control-feedback"></span>
 											</div>
 
 											<div style="border: 0.3px solid #D7DBDD;"></div>
 											<span class="glyphicon glyphicon-phone show-label">&nbsp;</span><label
-												class="show-label" th:text=" ${customer.phone}"></label>
+												class="show-label" th:text=" ${updatedCustomer.phone}"></label>
 											<div class="inner-addon left-addon edit-input form-group">
 												<i class="glyphicon glyphicon-phone" ></i> <input type="text"
 													class="form-control edit-input" id="phone"
-													placeholder="phone number" th:field="${customer.phone}" required="true" />
+													placeholder="phone number" th:field="*{phone}" required="required" />
 													<span class="glyphicon  form-control-feedback"></span>
 											</div>
 										</div>
@@ -85,53 +85,68 @@
 								<div class="panel-body">
 									<div>
 										<label class="show-label"><i class="glyphicon glyphicon-user">&nbsp;</i>First Name : <i
-											th:text="${customer.firstName}"></i></label> 
+											th:text="${updatedCustomer.firstName}"></i></label> 
 											<div class="inner-addon left-addon form-group edit-input">
 												<i class="glyphicon glyphicon-user" ></i> 
 												<input class="form-control " id="firstname" type="text"
-													th:field="${customer.firstName}"	placeholder="firstname" required="true" />
-													<span class="glyphicon  form-control-feedback"></span>
+													th:field="*{firstName}"	placeholder="firstname" required="required" />
+												<label th:errors="*{firstName}" class="text-danger"></label>
 											</div>
 									</div>
 									<div>
 										<label class="show-label"><i class="glyphicon glyphicon-user">&nbsp;</i>Last Name : <i
-											th:text="${customer.lastName}"></i></label> 
+											th:text="${updatedCustomer.lastName}"></i></label> 
 											<div class="inner-addon left-addon form-group edit-input">
 												<i class="glyphicon glyphicon-user" ></i> 
 												<input class="form-control " id="lastname" type="text"
-													th:field="${customer.lastName}"	placeholder="lastname" required="true" />
-													<span class="glyphicon  form-control-feedback"></span>
+													th:field="*{lastName}"	placeholder="lastname" required="required" />
+												<label th:errors="*{lastName}" class="text-danger"></label>
 											</div>
 									</div>
 									<div>
 										<label class="show-label"><i class="glyphicon glyphicon-user">&nbsp;</i>User Name : &nbsp;<i
-											th:text="${customer.username}"></i></label> 
+											th:text="${updatedCustomer.username}"></i></label> 
 											<div class=" inner-addon left-addon form-group edit-input">
 												<i class="glyphicon glyphicon-user" ></i>
 												<input class="form-control " id="username" type="text"
-													placeholder="username" th:field="${customer.username}" required="true" />
-												<span class="glyphicon  form-control-feedback"></span>
+													placeholder="username" th:field="*{username}" required="required" />
+												<label th:errors="*{username}" class="text-danger"></label>
 											</div>
 
 									</div>
 									<div>
 										<label class="show-label"><i class="glyphicon glyphicon-lock">&nbsp;</i>Password : &nbsp;<i
-											 th:text="${customer.password}"></i></label> 
+											 th:text="${updatedCustomer.password}"></i></label> 
 											<div class="inner-addon left-addon form-group edit-input">
 												<i class="glyphicon glyphicon-lock" ></i> 
 												<input class="form-control " id="password" type="password"
-													th:field="${customer.password}"	placeholder="password" required="true" />
-													<span class="glyphicon  form-control-feedback"></span>
+													th:field="*{password}"	placeholder="password" required="required" />
+												<label th:errors="*{password}" class="text-danger"></label>
 											</div>
+									</div>
+                        			<div class="inner-addon left-addon form-group edit-input">
+												<i class="glyphicon glyphicon-lock" ></i> 
+												<input class="form-control " id="confirmPassword" type="password"
+													th:field="*{matchPassword}"	placeholder="comfirmed password" required="required" />
 									</div>
 									<div>
 										<label class="show-label"><span><img class="glyphicon" th:src="@{/dist/img/nrc_card.png}" /></span>NRC : &nbsp;<i
-											th:text="${customer.nrcNumber}"></i></label>
+											th:text="${updatedCustomer.nrcNumber}"></i></label>
 											<div class="inner-addon left-addon form-group edit-input">
 											<img class="glyphicon" th:src="@{/dist/img/nrc_card.png}" />
 											 <input class="form-control " id="nrc" type="text"
-													placeholder="NRC number" th:field="${customer.nrcNumber}" required="true" />
-											<span class="glyphicon  form-control-feedback"></span>
+													placeholder="NRC number" th:field="*{nrcNumber}" required="required" />
+											<label th:errors="*{nrcNumber}" class="text-danger"></label>
+											</div>
+									</div>
+									<div>
+										<label class="show-label"><i class="fa fa-address-book">&nbsp;</i>Address : &nbsp;<i
+											 th:text="${updatedCustomer.address}"></i></label> 
+											<div class="inner-addon left-addon form-group edit-input">
+												<i class=" glyphicon fa fa-address-book" ></i> 
+												<input class="form-control " id="address" type="text"
+													th:field="*{address}"	placeholder="address" required="required" />
+													<label th:errors="*{address}" class="text-danger"></label>
 											</div>
 									</div>
 								</div>
