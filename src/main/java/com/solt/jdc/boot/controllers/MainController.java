@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.solt.jdc.boot.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.solt.jdc.boot.domains.Trip;
-import com.solt.jdc.boot.services.CitiesService;
-import com.solt.jdc.boot.services.TripService;
 import com.solt.jdc.boot.utils.commands.TripFinder;
 
 
@@ -24,12 +23,24 @@ public class MainController {
 	
 	@Autowired
 	private TripService tripService;
+
+	@Autowired
+	private CustomerService customerService;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private BookingService bookingService;
 	
 	@Autowired
 	private CitiesService citiesService;
 	
     @RequestMapping("/admin")
-    public String getMain() {
+    public String getMain(Model model) {
+        model.addAttribute("userCount", userService.getCount());
+        model.addAttribute("bookingCount", bookingService.getBookingCount());
+        model.addAttribute("customerCount", customerService.getCustomerCount());
         return "admin/index";
     }
   

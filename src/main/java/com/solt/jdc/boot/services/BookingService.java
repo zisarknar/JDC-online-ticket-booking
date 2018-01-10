@@ -19,4 +19,6 @@ public interface BookingService {
 
     List<Booking> getBookingReport(Date fromDate, Date toDate);
 
+    long getBookingCount();
+
 }

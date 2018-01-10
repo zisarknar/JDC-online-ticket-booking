@@ -36,10 +36,10 @@ public class Booking {
     private boolean status;
 
     //  Booking is the Owner of the relationship
-    @ManyToOne(cascade = CascadeType.ALL)
-    private List<Trip> tripList;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Trip tripList;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private List<Customer> customerList;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Customer customerList;
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/admin")
 public class CustomerController {
 
     @Autowired
@@ -85,16 +86,4 @@ public class CustomerController {
         binder.setAllowedFields("username", "firstName", "lastName", "password", "phone", "email", "nrcNumber", "isEnabled", "booking");
     }
 
-    @RequestMapping(value = "/customer/register", method = RequestMethod.GET)
-    public String registerCustomer(Model model) {
-        Customer regCustomer = new Customer();
-        model.addAttribute("regCustomer", regCustomer);
-        return "admin/register";
-    }
-
-    @RequestMapping(value = "/customer/register", method = RequestMethod.POST)
-    public String processRegisterCustomer(@ModelAttribute("regCustomer") Customer regedCustomer) {
-        customerService.saveCustomer(regedCustomer);
-        return "redirect:/login";
-    }
 }

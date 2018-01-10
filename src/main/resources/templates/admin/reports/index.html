@@ -26,7 +26,6 @@
             <div class="box">
                 <div class="box-header">
                     <h3>Reports</h3>
-                    <button class="btn btn-primary pull-right"><i class="fa fa-chart">View Charts</i></button>
                     <br/>
                     <div class="row">
                         <form th:action="@{/admin/report/booking/result}" method="POST" th:object="${bookFinder}">
@@ -62,6 +61,11 @@
                         </form>
                     </div>
                 </div>
+                <div th:if="${bookingsByDateCount == '0'}">
+                    <div class="alert alert-danger">
+                        Booking Not Found.
+                    </div>
+                </div>
                 <div class="box-body">
                     <h2 class="box-title">Booking Report Result</h2>
                     <table class="table table-striped table-bordered table-hover">
@@ -93,25 +97,20 @@
 
 <script layout:fragment="myScript">
     $(function () {
-        $('#fromDate').datepicker({
-            format: 'yyyy-mm-dd',
-            orientation: 'bottom right',
-            todayHighlight: true,
+        $('table').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
         });
-        $('#toDate').datepicker({
-            format: 'yyyy-mm-dd',
-            orientation: 'bottom right',
-            todayHighlight: true,
-        })
+
+        $('#fromDate').datepicker();
+
+        $('#toDate').datepicker();
     })
-    $('table').dataTable({
-        'paging': true,
-        'lengthChange': true,
-        'searching': true,
-        'ordering': true,
-        'info': true,
-        'autoWidth': false
-    });
 </script>
+
 </body>
 </html>

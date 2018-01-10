@@ -24,9 +24,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/admin").authenticated()
+                .antMatchers("/admin/error/**").authenticated()
                 .antMatchers("/admin/roots/**").hasRole("ROOT")
-                .antMatchers("/customers/**").hasRole("ROOT")
-                .antMatchers("/customerdetails/**").hasAnyRole("ROOT", "CUSTOMER")
+                .antMatchers("/admin/customers/**").hasRole("ROOT")
                 .antMatchers("/admin/bookings/**").hasAnyRole("ROOT", "MANAGER", "STAFF")
                 .antMatchers("/admin/buses/**").hasAnyRole("ROOT", "MANAGER")
                 .antMatchers("/admin/addresses/**").hasAnyRole("ROOT", "MANAGER")
@@ -39,13 +40,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/users/**").hasAnyRole("ROOT", "MANAGER")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/admin/login")
                 .defaultSuccessUrl("/admin/")
                 .successHandler(authenticationSuccessHandler)
                 .permitAll()
                 .and()
                 .logout()
                 .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);

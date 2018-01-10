@@ -8,106 +8,105 @@
 </head>
 <body>
 
-	<section class="content-header" layout:fragment="header">
-		<h1>
-			User <small>Management panel</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Dashboard</li>
-		</ol>
-	</section>
-	<section class="content" layout:fragment="content">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="box box-primary">
-					<div class="box-header with-border">
-						<h3 class="box-title pull-right">Add New Customer</h3>
-						<a th:href="@{/admin/users}" class="btn btn-primary"><i
-							class="fa fa-arrow-left"></i> Back</a>
-					</div>
-					<form role="form" th:action="@{/admin/users/add}" method="post"
-						th:object="${user}">
+<section class="content-header" layout:fragment="header">
+    <h1>
+        User
+        <small>Management panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+<section class="content" layout:fragment="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title pull-right">Add New Customer</h3>
+                    <a th:href="@{/admin/users}" class="btn btn-primary"><i
+                            class="fa fa-arrow-left"></i> Back</a>
+                </div>
+                <form role="form" th:action="@{/admin/users/add}" method="post"
+                      th:object="${user}">
 
-						<div class="box-body">
-							<div class="form-group">
+                    <div class="box-body">
+                        <div class="form-group">
 
-								<label for="userName1">User Name</label> 
-								<input type="text"
-									class="form-control" id="userName1"
-									placeholder="Enter User Name" th:field="*{userName}" />
-									<label th:errors="*{userName}" class="text-danger"></label>
-							</div>
+                            <label for="userName1">User Name</label>
+                            <input type="text"
+                                   class="form-control" id="userName1"
+                                   placeholder="Enter User Name" th:field="*{userName}"/>
+                            <label th:errors="*{userName}" class="text-danger"></label>
+                        </div>
 
-							<div class="form-group">
-								<label for="userPassword">Password</label> <input
-									type="password" class="form-control" id="userPassword"
-									placeholder="Enter Password" th:field="*{password}" />
-									<label th:errors="*{password}" class="text-danger"></label>
-							</div>
+                        <div class="form-group">
+                            <label for="userPassword">Password</label> <input
+                                type="password" class="form-control" id="userPassword"
+                                placeholder="Enter Password" th:field="*{password}"/>
+                            <label th:errors="*{password}" class="text-danger"></label>
+                        </div>
 
-							<div class="form-group">
-								<label for="firstName1">First Name</label> <input type="text"
-									class="form-control" id="firstName1"
-									placeholder="Enter Frist Name" th:field="*{firstName}" />
-									<label th:errors="*{firstName}" class="text-danger"></label>
-							</div>
+                        <div class="form-group">
+                            <label for="firstName1">First Name</label> <input type="text"
+                                                                              class="form-control" id="firstName1"
+                                                                              placeholder="Enter Frist Name"
+                                                                              th:field="*{firstName}"/>
+                            <label th:errors="*{firstName}" class="text-danger"></label>
+                        </div>
 
-							<div class="form-group">
-								<label for="lastName1">Last Name</label> <input type="text"
-									class="form-control" id="lastName1"
-									placeholder="Enter Last Name" th:field="*{lastName}" />
-									<label th:errors="*{lastName}" class="text-danger"></label>
-							</div>
+                        <div class="form-group">
+                            <label for="lastName1">Last Name</label> <input type="text"
+                                                                            class="form-control" id="lastName1"
+                                                                            placeholder="Enter Last Name"
+                                                                            th:field="*{lastName}"/>
+                            <label th:errors="*{lastName}" class="text-danger"></label>
+                        </div>
 
-							<div class="form-group">
-								<label for="userEmail">Email address</label> <input type="email"
-									class="form-control" id="userEmail" placeholder="Enter email"
-									th:field="*{email}" />
-									<label th:errors="*{email}" class="text-danger"></label>
-							</div>
+                        <div class="form-group">
+                            <label for="userEmail">Email address</label> <input type="email"
+                                                                                class="form-control" id="userEmail"
+                                                                                placeholder="Enter email"
+                                                                                th:field="*{email}"/>
+                            <label th:errors="*{email}" class="text-danger"></label>
+                        </div>
 
-							<div class="form-group">
-								<label for="phoneNumber">Phone</label> <input type="text"
-<<<<<<< HEAD
-									class="form-control" id="phoneNumber"
-									placeholder="Enter phone number" th:field="*{phone}" />
-=======
-									class="form-control" id="phoneNumber" placeholder="Enter phone number"
-									th:field="*{phone}" />
-									<label th:errors="*{phone}" class="text-danger"></label>
->>>>>>> feature/trip&cities_Binding
-							</div>
-							
-							<div>
-								
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone</label> <input type="text"
+                                                                          class="form-control" id="phoneNumber"
+                                                                          placeholder="Enter phone number"
+                                                                          th:field="*{phone}"/>
+                            <label th:errors="*{phone}" class="text-danger"></label>
+                        </div>
+
+                        <div>
 
 
-							 <label>Role</label> 
-								<select id="role" 
-										class="form-control"
-										th:field="*{role}">
-									<option
-										th:each="role:${T(com.solt.jdc.boot.domains.Role).values()}"
-										th:value="${role}" th:text="${role.getRoleName()}"></option>
-								</select> 
-							</div>
+                            <label>Role</label>
+                            <select id="role"
+                                    class="form-control"
+                                    th:field="*{role}">
+                                <option
+                                        th:each="role:${T(com.solt.jdc.boot.domains.Role).values()}"
+                                        th:value="${role}" th:text="${role.getRoleName()}"></option>
+                            </select>
+                        </div>
 
-							<div class="form-group">
-								<label for="userStatus">Status</label> 
-								<input type="radio"
-										id="userStatus" 
-										value="true" 
-										th:field="*{status}" />Yes 
-								
-								<input type="radio" 
-										id="userStatus" 
-										value="false"
-										th:field="*{status}" />No
+                        <div class="form-group">
+                            <label for="userStatus">Status</label>
+                            <input type="radio"
+                                   id="userStatus"
+                                   value="true"
+                                   th:field="*{status}"/>Yes
 
-							</div>
+                            <input type="radio"
+                                   id="userStatus"
+                                   value="false"
+                                   th:field="*{status}"/>No
 
-                        
+                        </div>
+
+
                     </div>
                     <!-- /.box-body -->
 

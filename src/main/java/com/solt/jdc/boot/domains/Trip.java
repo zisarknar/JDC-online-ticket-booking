@@ -44,7 +44,7 @@ public class Trip {
 
     private boolean status;
 
-    @OneToMany(mappedBy = "tripList")
+    @OneToOne(mappedBy = "tripList")
     private Booking booking;
 
     private String source;

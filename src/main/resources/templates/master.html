@@ -14,8 +14,9 @@
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
     <!--Bootstrap Datepicker-->
-    <!-- Date Picker -->
     <link rel="stylesheet" th:href="@{/components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css}"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" th:href="@{/components/Ionicons/css/ionicons.min.css}"/>
     <!-- DataTables -->
     <link rel="stylesheet"
           th:href="@{/components/datatables.net-bs/css/dataTables.bootstrap.min.css}"/>
@@ -54,9 +55,7 @@
                             <li><a href="#">Action</a></li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <form th:action="@{/logout}" method="POST">
-                                    <input type="submit" value="Sign out" class="btn btn-primary"/>
-                                </form>
+                                <a class="dropdown" th:href="@{/admin/login?logout}">Logout</a>
                             </li>
                         </ul>
                     </li>

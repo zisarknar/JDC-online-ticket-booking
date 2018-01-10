@@ -48,4 +48,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer updateCustomer(Customer customer) {
         return customerRepository.saveAndFlush(customer);
     }
+
+    @Override
+    public long getCustomerCount() {
+        return customerRepository.count();
+    }
 }

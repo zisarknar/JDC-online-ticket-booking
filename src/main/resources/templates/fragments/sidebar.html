@@ -38,12 +38,7 @@
                 </a>
             </li>
             <li>
-                <a th:if="${#httpServletRequest.isUserInRole('ROOT')}" th:href="@{/admin/roots}">
-                    <i class="fa fa-users"></i> <span>Manage Root</span>
-                </a>
-            </li>
-            <li>
-                <a th:if="${#httpServletRequest.isUserInRole('ROOT')}" th:href="@{/customers}">
+                <a th:if="${#httpServletRequest.isUserInRole('ROOT')}" th:href="@{/admin/customers}">
                     <i class="fa fa-users"></i> <span>Manage Customers</span>
                 </a>
             </li>
@@ -62,42 +57,10 @@
             </li>
             <li>
                 <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
-                    <i class="fa fa-home"></i> <span>Manage Address</span>
-                </a>
-                <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/addresses}">
-                    <i class="fa fa-home"></i> <span>Manage Address</span>
-                </a>
-            </li>
-            <li>
-                <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
                     <i class="fa fa-bus"></i> <span>Manage Buses</span>
                 </a>
                 <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/buses}">
                     <i class="fa fa-bus"></i> <span>Manage Buses</span>
-                </a>
-            </li>
-            <li>
-                <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
-                    <i class="fa fa-road"></i> <span>Manage Bus Types</span>
-                </a>
-                <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/bustypes}">
-                    <i class="fa fa-road"></i> <span>Manage Bus Types</span>
-                </a>
-            </li>
-            <li>
-                <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
-                    <i class="fa fa-road"></i> <span>Manage Cities</span>
-                </a>
-                <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/cities}">
-                    <i class="fa fa-building"></i> <span>Manage Cities</span>
-                </a>
-            </li>
-            <li>
-                <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
-                    <i class="fa fa-cutlery"></i> <span>Manage Services</span>
-                </a>
-                <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/services}">
-                    <i class="fa fa-cutlery"></i> <span>Manage Services</span>
                 </a>
             </li>
             <li>
@@ -110,18 +73,18 @@
             </li>
             <li>
                 <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
-                    <i class="fa fa-road"></i> <span>Manage Users</span>
+                    <i class="fa fa-smile-o"></i> <span>Manage Users</span>
                 </a>
                 <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/users}">
-                    <i class="fa fa-road"></i> <span>Manage Users</span>
+                    <i class="fa fa-smile-o"></i> <span>Manage Users</span>
                 </a>
             </li>
             <li>
                 <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
-                    <i class="fa fa-road"></i> <span>Manage Drivers</span>
+                    <i class="fa fa-male"></i> <span>Manage Drivers</span>
                 </a>
                 <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/drivers}">
-                    <i class="fa fa-road"></i> <span>Manage Drivers</span>
+                    <i class="fa fa-male"></i> <span>Manage Drivers</span>
                 </a>
             </li>
             <li class="treeview">

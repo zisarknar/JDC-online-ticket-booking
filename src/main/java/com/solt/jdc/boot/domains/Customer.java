@@ -38,7 +38,7 @@ public class Customer {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerList")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customerList")
     private Booking booking;
 
 }

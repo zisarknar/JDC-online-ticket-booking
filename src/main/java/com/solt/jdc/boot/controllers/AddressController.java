@@ -22,79 +22,79 @@ import com.solt.jdc.boot.services.CitiesService;
 @Controller
 @RequestMapping("/admin")
 public class AddressController {
-	@Autowired
-	private AddressService addressService;
+    @Autowired
+    private AddressService addressService;
 
-	@Autowired
-	private MainController mainController;
+    @Autowired
+    private MainController mainController;
 
-	@Autowired
-	private CitiesService citiesService;
+    @Autowired
+    private CitiesService citiesService;
 
-	@RequestMapping(value = "/addresses/add", method = RequestMethod.GET)
-	public String addAddressGET(Model model) {
-		Address address = new Address();
-		model.addAttribute("address", address);
-		model.addAttribute("allcities", citiesService.getAllCities());
-		return "admin/address/addAddress";
-	}
+    @RequestMapping(value = "/addresses/add", method = RequestMethod.GET)
+    public String addAddressGET(Model model) {
+        Address address = new Address();
+        model.addAttribute("address", address);
+        model.addAttribute("allcities", citiesService.getAllCities());
+        return "admin/address/addAddress";
+    }
 
-	@RequestMapping(value = "/addresses/add", method = RequestMethod.POST)
-	public String addAddressPOST(Model model, @ModelAttribute("address") @Valid Address address, BindingResult result) {
-		mainController.disallowedFieldException(result);
-		if (result.hasErrors()) {
-			return "admin/address/addAddress";
-		}
-		List<Address> addressList = addressService.getAllAddress();
-		if (addressList.size() == 0) {
-			address.setId(1);
-		} else {
-			address.setId((addressList.get(addressList.size() - 1)).getId() + 1);
-		}
-		addressService.addAddress(address);
-		return "redirect:/admin/stations";
-	}
+    @RequestMapping(value = "/addresses/add", method = RequestMethod.POST)
+    public String addAddressPOST(Model model, @ModelAttribute("address") @Valid Address address, BindingResult result) {
+        mainController.disallowedFieldException(result);
+        if (result.hasErrors()) {
+            return "admin/address/addAddress";
+        }
+        List<Address> addressList = addressService.getAllAddress();
+        if (addressList.size() == 0) {
+            address.setId(1);
+        } else {
+            address.setId((addressList.get(addressList.size() - 1)).getId() + 1);
+        }
+        addressService.addAddress(address);
+        return "redirect:/admin/stations";
+    }
 
-	@RequestMapping("/addresses")
-	public String getAllAddresses(Model model) {
-		model.addAttribute("addresses", addressService.getAllAddress());
-		return "admin/address/index";
-	}
+    @RequestMapping("/addresses")
+    public String getAllAddresses(Model model) {
+        model.addAttribute("addresses", addressService.getAllAddress());
+        return "admin/address/index";
+    }
 
-	@RequestMapping("/address/delete/{addressId}")
-	public String deleteAddress(@PathVariable("addressId") int addressId) {
-		addressService.deleteAddress(addressId);
-		return "redirect:/admin/stations";
-	}
+    @RequestMapping("/address/delete/{addressId}")
+    public String deleteAddress(@PathVariable("addressId") int addressId) {
+        addressService.deleteAddress(addressId);
+        return "redirect:/admin/stations";
+    }
 
-	@RequestMapping(value = "/address/update/{addressId}", method = RequestMethod.GET)
-	public String updateAddressGET(Model model, @PathVariable("addressId") int addressId) {
-		model.addAttribute("address", addressService.findById(addressId));
-		model.addAttribute("allcities", citiesService.getAllCities());
-		return "admin/address/updateAddressForm";
-	}
+    @RequestMapping(value = "/address/update/{addressId}", method = RequestMethod.GET)
+    public String updateAddressGET(Model model, @PathVariable("addressId") int addressId) {
+        model.addAttribute("address", addressService.findById(addressId));
+        model.addAttribute("allcities", citiesService.getAllCities());
+        return "admin/address/updateAddressForm";
+    }
 
-	@RequestMapping(value = "/address/update", method = RequestMethod.POST)
-	public String updateAddressPOST(Model model, @ModelAttribute("address") @Valid Address newAddress,
-			BindingResult result) {
-		if (result.hasErrors()) {
-			return "admin/address/updateAddressForm";
-		}
-		Address currentAddress = addressService.findById(newAddress.getId());
-		currentAddress.setAddressName(newAddress.getAddressName());
-		currentAddress.setCities(newAddress.getCities());
-		addressService.updateAddress(currentAddress);
-		return "redirect:/admin/stations";
-	}
+    @RequestMapping(value = "/address/update", method = RequestMethod.POST)
+    public String updateAddressPOST(Model model, @ModelAttribute("address") @Valid Address newAddress,
+                                    BindingResult result) {
+        if (result.hasErrors()) {
+            return "admin/address/updateAddressForm";
+        }
+        Address currentAddress = addressService.findById(newAddress.getId());
+        currentAddress.setAddressName(newAddress.getAddressName());
+        currentAddress.setCities(newAddress.getCities());
+        addressService.updateAddress(currentAddress);
+        return "redirect:/admin/stations";
+    }
 
-	@ResponseBody
-	@RequestMapping("/address/loadEntity/{id}")
-	public Address loadEntity(@PathVariable("id") int id) {
-		return addressService.findById(id);
-	}
+    @ResponseBody
+    @RequestMapping("/address/loadEntity/{id}")
+    public Address loadEntity(@PathVariable("id") int id) {
+        return addressService.findById(id);
+    }
 
-	@InitBinder
-	public void initializeBinder(WebDataBinder binder) {
-		binder.setAllowedFields("id", "addressName", "cities");
-	}
+    @InitBinder
+    public void initializeBinder(WebDataBinder binder) {
+        binder.setAllowedFields("id", "addressName", "cities");
+    }
 }

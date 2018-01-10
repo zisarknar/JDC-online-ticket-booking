@@ -1,7 +1,9 @@
 package com.solt.jdc.boot.domains;
 
+import com.solt.jdc.boot.validators.customAnnotations.ValidEmail;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -36,7 +38,8 @@ public class User {
     private String lastName;
 
     @NotNull
-    @Size(min = 3, max = 100)
+    @NotEmpty
+    @ValidEmail
     private String email;
 
     @NotNull
@@ -44,19 +47,11 @@ public class User {
     @Size(min = 3, max = 100)
     private String phone;
 
-    //@Transient
+    @NotNull
     private boolean status = true;
 
-    /*@Enumerated(EnumType.STRING)
-    private Role role;*/
-    //
-	/*@Transient
-	@Embedded
-	private Role role;
-	*/
     @NotNull
     private String role;
-
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_station_id")

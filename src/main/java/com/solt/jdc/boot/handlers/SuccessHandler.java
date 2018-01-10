@@ -29,7 +29,6 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         if (authorities.contains(CUSTOMER_AUTHORITY)) {
             redirectStrategy.sendRedirect(request, response, "/customerdetails");
         } else {
-
             redirectStrategy.sendRedirect(request, response, "/admin");
         }
     }

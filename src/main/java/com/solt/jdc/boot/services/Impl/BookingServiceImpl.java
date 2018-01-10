@@ -49,5 +49,10 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.getBookingByDateRange(fromDate, toDate);
     }
 
+    @Override
+    public long getBookingCount() {
+        return bookingRepository.count();
+    }
+
 
 }
