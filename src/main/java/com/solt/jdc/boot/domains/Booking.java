@@ -10,7 +10,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "book")
 public class Booking {
@@ -24,12 +26,13 @@ public class Booking {
     
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso=ISO.DATE)
-    @Future
     @NotNull
     private Date bookDate;
     
-    @Min(value=20,message="No of seats must be atleast 20")
+    @Min(value=1,message="No of seats must be atleast 1")
     private int noOfSeats;
+    
+    private String seatNo;
     
     @NotNull
     @Min(value=1)
@@ -38,8 +41,8 @@ public class Booking {
     private boolean status;
 
 //    Booking is the Owner of the relationship
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "trip")
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="trip_id")
     private Trip trip;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -103,15 +106,27 @@ public class Booking {
         this.status = status;
     }
 
-    public Trip getTrip() {
-        return trip;
-    }
+    
 
-    public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
+   
 
-    public Customer getCustomer() {
+	public String getSeatNo() {
+		return seatNo;
+	}
+
+	public void setSeatNo(String seatNo) {
+		this.seatNo = seatNo;
+	}
+
+	public Trip getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trip trip) {
+		this.trip = trip;
+	}
+
+	public Customer getCustomer() {
         return customer;
     }
 

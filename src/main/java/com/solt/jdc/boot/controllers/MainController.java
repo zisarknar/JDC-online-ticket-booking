@@ -1,11 +1,15 @@
 package com.solt.jdc.boot.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,15 +18,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.solt.jdc.boot.domains.Booking;
 import com.solt.jdc.boot.domains.Bus;
+import com.solt.jdc.boot.domains.Passenger;
 import com.solt.jdc.boot.domains.Trip;
+import com.solt.jdc.boot.domains.User;
 import com.solt.jdc.boot.repositories.TripRepository;
 import com.solt.jdc.boot.services.BusService;
 import com.solt.jdc.boot.services.CitiesService;
 import com.solt.jdc.boot.services.StationService;
 import com.solt.jdc.boot.services.TripService;
+import com.solt.jdc.boot.utils.FacebookProfile;
 import com.solt.jdc.boot.utils.TripFinder;
 
 @Controller
@@ -33,6 +42,9 @@ public class MainController {
 
 	@Autowired
 	private CitiesService citiesService;
+	
+	@Autowired
+	private Facebook facebook;
 
 	
     @RequestMapping("/admin")
@@ -40,7 +52,20 @@ public class MainController {
         return "admin/index";
     }
     
-    
+    @RequestMapping("/facebookuser")
+    @ResponseBody
+    public Principal getUser(Principal principal) {
+    	/*OAuth2Authentication oAuth2Authentication=(OAuth2Authentication)principal;
+    	Authentication authentication=oAuth2Authentication.getUserAuthentication();
+    	System.out.println(authentication.getDetails());*/
+    	
+    	
+    	
+    	String [] fields = { "id","name","birthday","email","location","hometown","gender","first_name","last_name"};
+    	System.out.println(facebook.fetchObject("me", FacebookProfile.class,fields));
+    	
+    	return principal;
+    }
     
 	
 	@RequestMapping("/booking")
@@ -55,55 +80,17 @@ public class MainController {
 		
 		return "frontend/searchResult";
 	}
-	
-	
-  
-    @GetMapping("/")
-    public String getIndex(Model model) {
-    	TripFinder tripFinder=new TripFinder();
-    	model.addAttribute("allcities",
-    						citiesService.getAllCities()
-    						.stream()
-    						.map(e->e.getName())
-    						.collect(Collectors.toList()));
-    	
-    	model.addAttribute("tripFinder", tripFinder);
-    	
-        return "frontend/index";
-    }
-    
-    @RequestMapping(value="/trip/search",method=RequestMethod.POST)
-    public String getTrip(@ModelAttribute("tripFinder")TripFinder tripFinder) {
-    	
-    	String source=tripFinder.getSource();
-    	String destination=tripFinder.getDestination();
-    	Date depDate=tripFinder.getDepDate();
-    	List<Trip> tripList=tripService.findTripByFilter(source, destination,depDate);
-    	
-    	tripList.stream().forEach(System.out::println);
-    	
-    	return "redirect:/";
-    }
-    
-    protected void disallowedFieldException(BindingResult result) {
-        String[] suppressedFields = result.getSuppressedFields();
-        if (suppressedFields.length > 0) {
-            throw new RuntimeException("Unable to bind disallowed fields");
-        }
-    }
-}
-
 
 	@Autowired
 	private StationService stationService;
 
 	@Autowired
 	private BusService busService;
+	
+	@Autowired
+	private TripService tripServcie;
 
-	@RequestMapping("/admin")
-	public String getMain() {
-		return "admin/index";
-	}
+	
 
 	@GetMapping("/")
 	public String getIndex(Model model) {

@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,11 +46,11 @@ public class Bus {
 	@NotBlank(message="Please enter bus code")
 	private String busCode;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "bus_type_id")
 	private BusType busType;
 
-	@OneToMany(mappedBy = "bus")
+	@OneToMany(mappedBy = "bus",cascade=CascadeType.ALL)
 	@JsonIgnore
 	private List<Services> servicesList = new ArrayList<>();
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.solt.jdc.boot.domains.Bus;
 import com.solt.jdc.boot.domains.Trip;
@@ -38,14 +39,17 @@ public class FrontTripSearchController {
 	}
 
 	@RequestMapping(value = "/busBinding/{id}", method = RequestMethod.POST)
-	public String bindBus(@ModelAttribute("bus") Bus bus, @PathVariable("id") int tripId) {
+	public String bindBus(@ModelAttribute("bus") Bus bus, @PathVariable("id") int tripId,RedirectAttributes redirect) {
 		Trip trip = tripService.getTrip(tripId);
 		Bus currentBus=busService.findById(trip.getBusId());
+		
+		//Selecting chosen Seat
+		redirect.addFlashAttribute("chosenSeat", bus.getTakenSeats());
+		
 		currentBus.setTakenSeats(currentBus.getTakenSeats()+bus.getTakenSeats());
 		
 		busService.updateBus(currentBus);
-		
-		System.out.println(currentBus.getTakenSeats());
-		return null;
+		int id=trip.getId();
+		return "redirect:/frontendBooking/trip/"+String.valueOf(id);
 	}
 }

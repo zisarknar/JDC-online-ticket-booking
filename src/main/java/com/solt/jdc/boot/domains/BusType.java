@@ -28,7 +28,7 @@ public class BusType {
     @NotBlank(message = "Please enter bus type")
     private String type;
     @JsonIgnore
-    @OneToMany(mappedBy = "busType")
+    @OneToMany(mappedBy = "busType",cascade=CascadeType.ALL)
     private List<Bus> busList = new ArrayList<>();
 
     public List<Bus> getBusList() {

@@ -48,8 +48,8 @@ public class Trip {
 
     private boolean status;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "trip")
-    private Booking booking;
+    @OneToMany(mappedBy="trip")
+    private List<Booking> booking=new ArrayList<>();
 
     private String source;
 
@@ -114,15 +114,16 @@ public class Trip {
         this.status = status;
     }
 
-    public Booking getBooking() {
-        return booking;
-    }
+  
+    public List<Booking> getBooking() {
+		return booking;
+	}
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
-    }
+	public void setBooking(List<Booking> booking) {
+		this.booking = booking;
+	}
 
-    public Date getDepDate() {
+	public Date getDepDate() {
         return depDate;
     }
 
