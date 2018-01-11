@@ -40,92 +40,32 @@ import java.util.List;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Bus {
 
-	@Id
-	
-	private Integer id;
-	
-	@NotBlank(message="Bus Number cannot be blank")
-	private String busNumber;
-	
-	@Min(value=20,message="Maximum seats must be atleast 20 seats")
-	private int maxSeats;
-	
-	
-	private int takenSeats=0;
-	@NotBlank(message="Please enter name of the bus company")
-	private String busCompany;
-	@NotBlank(message="Please enter bus code")
-	private String busCode;
+    @Id
+    private Integer id;
 
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "bus_type_id")
-	private BusType busType;
+    @NotBlank(message = "Bus Number cannot be blank")
+    private String busNumber;
 
-	@OneToMany(mappedBy = "bus",cascade=CascadeType.ALL)
-	@JsonIgnore
-	private List<Services> servicesList = new ArrayList<>();
+    @Min(value = 20, message = "Maximum seats must be atleast 20 seats")
+    private int maxSeats;
 
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	@JoinColumn(name="bus_station_id")
-	private Station station;
-	
-	public String getBusNumber() {
-		return busNumber;
-	}
+    private int takenSeats = 0;
+    @NotBlank(message = "Please enter name of the bus company")
+    private String busCompany;
+    @NotBlank(message = "Please enter bus code")
+    private String busCode;
 
-	public void setBusNumber(String busNumber) {
-		this.busNumber = busNumber;
-	}
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bus_type_id")
+    private BusType busType;
 
-	public BusType getBusType() {
-		return busType;
-	}
+    @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Services> servicesList = new ArrayList<>();
 
-	public void setBusType(BusType busType) {
-		this.busType = busType;
-	}
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "bus_station_id")
+    private Station station;
 
-	public List<Services> getServicesList() {
-		return servicesList;
-	}
-
-	public void setServicesList(List<Services> servicesList) {
-		this.servicesList = servicesList;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public int getMaxSeats() {
-		return maxSeats;
-	}
-
-	public void setMaxSeats(int maxSeats) {
-		this.maxSeats = maxSeats;
-	}
-
-	public int getTakenSeats() {
-		return takenSeats;
-	}
-
-	public void setTakenSeats(int takenSeats) {
-		this.takenSeats = takenSeats;
-	}
-
-	public String getBusCompany() {
-		return busCompany;
-	}
-
-	public void setBusCompany(String busCompany) {
-		this.busCompany = busCompany;
-	}
-
-
-   
 
 }
