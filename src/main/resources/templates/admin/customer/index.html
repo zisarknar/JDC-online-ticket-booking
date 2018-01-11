@@ -19,6 +19,7 @@
         <li class="active">Dashboard</li>
     </ol>
 </section>
+<<<<<<< HEAD
 	<section class="content" layout:fragment="content">
 		<div class="row">
 			<div class="col-xs-12">
@@ -62,8 +63,61 @@
 		</div>
 	</section>
 	<script layout:fragment="myScript">
+=======
+
+<section class="content" layout:fragment="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Customer List</h3>
+                    <a th:href="@{/admin/customers/add}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add New</a>
+                </div>
+                <div class="box-body">
+                    <table id="customer" class="table table-striped table-bordered table-hover" dt:table="true">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>NRC</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="customer : ${customers}">
+                            <td th:text="${customer.id}"></td>
+                            <td th:text="${customer.username}"></td>
+                            <td th:text="${customer.password}"></td>
+                            <td th:text="${customer.firstName}"></td>
+                            <td th:text="${customer.lastName}"></td>
+                            <td th:text="${customer.phone}"></td>
+                            <td th:text="${customer.email}"></td>
+                            <td th:text="${customer.nrcNumber}"></td>
+                            <td>
+                                <a th:href="@{/customer/delete/}+${customer.id}" class="btn btn-default"><i
+                                        class="fa fa-trash"></i> Delete</a>
+                                <a th:href="@{/customer/update/}+${customer.id}" class="btn btn-default"><i
+                                        class="fa fa-gear"></i> Edit</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script layout:fragment="myScript">
+
+>>>>>>> feature/third-week-features
     $(function () {
-        $('#customer').DataTable({
+        $('table').DataTable({
             'paging': true,
             'lengthChange': true,
             'searching': true,

@@ -1,22 +1,17 @@
 package com.solt.jdc.boot.domains;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
 
 @Entity
+@Data
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotBlank(message = "Address cannot be empty")
@@ -25,6 +20,7 @@ public class Address {
     @ManyToOne
     private Cities cities;
 
+<<<<<<< HEAD
     
     public int getId() {
         return id;
@@ -78,4 +74,6 @@ public class Address {
         return "Address [id=" + id + ", address=" + "]";
     }
 
+=======
+>>>>>>> feature/third-week-features
 }

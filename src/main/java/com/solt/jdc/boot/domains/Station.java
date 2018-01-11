@@ -1,22 +1,21 @@
 package com.solt.jdc.boot.domains;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import org.hibernate.validator.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Station {
+<<<<<<< HEAD
 	@Id
 	private int id;
 	
@@ -58,40 +57,24 @@ public class Station {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+=======
+    @Id
+    private int id;
+>>>>>>> feature/third-week-features
 
-	public Address getAddress() {
-		return address;
-	}
+    @NotBlank(message = "Please enter name")
+    private String name;
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    @NotBlank(message = "Please enter phoneNumber")
+    private String phoneNumber;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
+    @OneToOne
+    private Address address;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Station other = (Station) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    @OneToMany(mappedBy = "bus")
+    private List<Bus> busList = new ArrayList<>();
 
-	@Override
-	public String toString() {
-		return "Station [id=" + id + ", name=" + name + ", phoneNumber=" + phoneNumber + "]";
-	}
+    @OneToMany(mappedBy = "station")
+    private List<User> userList = new ArrayList<>();
 
 }

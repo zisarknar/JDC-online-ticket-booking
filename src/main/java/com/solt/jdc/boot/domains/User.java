@@ -1,31 +1,20 @@
 package com.solt.jdc.boot.domains;
 
-import java.util.Arrays;
-import java.util.List;
+import com.solt.jdc.boot.validators.customAnnotations.ValidEmail;
+import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
-
-
 
 @Entity
+@Data
 public class User {
 
+<<<<<<< HEAD
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -150,6 +139,51 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+=======
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "user_name", nullable = false)
+    @NotBlank(message = "User Name cannot be empty")
+    @NotNull
+    private String userName;
+
+    @Size(min = 3, max = 100)
+    @NotBlank(message = "Please Enter password")
+    private String password;
+
+    @NotNull
+    @NotBlank(message = "Please Enter First Name")
+    @Size(min = 3, max = 100)
+    private String firstName;
+
+    @NotNull
+    @NotBlank(message = "Please Enter last name")
+    @Size(min = 3, max = 100)
+    private String lastName;
+
+    @NotNull
+    @NotEmpty
+    @ValidEmail
+    private String email;
+
+    @NotNull
+    @NotBlank(message = "Please enter phone")
+    @Size(min = 3, max = 100)
+    private String phone;
+
+    @NotNull
+    private boolean status = true;
+
+    @NotNull
+    private String role;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_station_id")
+    private Station station;
+
+>>>>>>> feature/third-week-features
 
 	public UserRole getRole_user() {
 		return role_user;

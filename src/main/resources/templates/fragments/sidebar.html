@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <aside class="main-sidebar" th:fragment="sidebar">
+
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
+
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
@@ -14,7 +15,7 @@
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
-        
+
         <!-- search form -->
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
@@ -25,16 +26,26 @@
               </span>
             </div>
         </form>
+<<<<<<< HEAD
         
         <!-- /.search form -->
  <ul class="sidebar-menu" data-widget="tree" id="user">
             <li class="header">MAIN NAVIGATION</li>
             
+=======
+
+        <!-- /.search form -->
+
+        <!-- menu navigation list-->
+        <ul class="sidebar-menu" data-widget="tree" id="user">
+            <li class="header">MAIN NAVIGATION</li>
+>>>>>>> feature/third-week-features
             <li>
-               <a  th:href="@{/admin/}">
+                <a th:href="@{/admin/}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
+<<<<<<< HEAD
     		
 			
    			<li>   			 	
@@ -54,31 +65,21 @@
                 </a>
                 
                 <a th:unless="${#httpServletRequest.isUserInRole('ROOT')}"  class="hide">
+=======
+            <li>
+                <a th:if="${#httpServletRequest.isUserInRole('ROOT')}" th:href="@{/admin/customers}">
+>>>>>>> feature/third-week-features
                     <i class="fa fa-users"></i> <span>Manage Customers</span>
                 </a>
-                
             </li>
-         
-            
             <li>
-                <a  th:href="@{/admin/bookings}">
+                <a th:href="@{/admin/bookings}">
                     <i class="fa fa-book"></i> <span>Manage Booking</span>
                 </a>
             </li>
-            					
-            
-            
-            <!-- 
-            	<div th:switch="${#httpServletRequest.remoteUser}.getRole()"> 
-  				<p th:case="'ADMIN'">User is an administrator</p>
-  				<p th:case="#{Role.USER}">User is a manager</p>
-  				<p th:case="*">User is some other thing</p> 
-				</div>
-            
-             -->
-            <li >
-                <a  th:if="${#httpServletRequest.isUserInRole('STAFF')}"  class="hide">
-                	<i class="fa fa-road"></i> <span>Manage Trips</span>
+            <li>
+                <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
+                    <i class="fa fa-road"></i> <span>Manage Trips</span>
                 </a>
                 <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/trips}">
                     <i class="fa fa-road"></i> <span>Manage Trips</span>
@@ -87,6 +88,7 @@
             
             <!-- 
             <li>
+<<<<<<< HEAD
                 <a  th:if="${#httpServletRequest.isUserInRole('STAFF')}"  class="hide">
                     <i class="fa fa-home"></i> <span>Manage Address</span>
                 </a>
@@ -103,25 +105,25 @@
             <li >
             
                 <a th:if="${#httpServletRequest.isUserInRole('STAFF')}"  class="hide" >
+=======
+                <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
+>>>>>>> feature/third-week-features
                     <i class="fa fa-bus"></i> <span>Manage Buses</span>
                 </a>
-              
-              <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}"  th:href="@{/admin/buses}">
+                <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/buses}">
                     <i class="fa fa-bus"></i> <span>Manage Buses</span>
                 </a>
-              
             </li>
+<<<<<<< HEAD
             
            <!--  
+=======
+>>>>>>> feature/third-week-features
             <li>
-                
-                <a th:if="${#httpServletRequest.isUserInRole('STAFF')}"  class="hide" >
-                	<i class="fa fa-road"></i> <span>Manage Bus Types</span>
+                <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
+                    <i class="fa fa-road"></i> <span>Manage Stations</span>
                 </a>
-                	
-                <a  th:unless="${#httpServletRequest.isUserInRole('STAFF')}"  th:href="@{/admin/bustypes}">
-                    <i class="fa fa-road"></i> <span>Manage Bus Types</span>
-                </a>
+<<<<<<< HEAD
             </li> -->
             
             <!-- 
@@ -152,32 +154,51 @@
             		<i class="fa fa-road"></i> <span>Manage Stations</span>
                 </a>
             
+=======
+>>>>>>> feature/third-week-features
                 <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/stations}">
                     <i class="fa fa-wrench"></i> <span>Manage Stations</span>
                 </a>
             </li>
             <li>
-            	<a th:if="${#httpServletRequest.isUserInRole('STAFF')}"  class="hide" >
-            		<i class="fa fa-road"></i> <span>Manage Users</span>
+                <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
+                    <i class="fa fa-smile-o"></i> <span>Manage Users</span>
                 </a>
-            
                 <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/users}">
-                    <i class="fa fa-road"></i> <span>Manage Users</span>
+                    <i class="fa fa-smile-o"></i> <span>Manage Users</span>
                 </a>
             </li>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> feature/third-week-features
             <li>
-            	<a th:if="${#httpServletRequest.isUserInRole('STAFF')}"  class="hide" >
-            		<i class="fa fa-road"></i> <span>Manage Drivers</span>
+                <a th:if="${#httpServletRequest.isUserInRole('STAFF')}" class="hide">
+                    <i class="fa fa-male"></i> <span>Manage Drivers</span>
                 </a>
+<<<<<<< HEAD
             
             
+=======
+>>>>>>> feature/third-week-features
                 <a th:unless="${#httpServletRequest.isUserInRole('STAFF')}" th:href="@{/admin/drivers}">
-                    <i class="fa fa-road"></i> <span>Manage Drivers</span>
+                    <i class="fa fa-male"></i> <span>Manage Drivers</span>
                 </a>
             </li>
-
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Report</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a th:href="@{/admin/report/booking}"><i class="fa fa-circle-o"></i> Booking</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> User</a></li>
+                </ul>
+            </li>
         </ul>
     </section>
 </aside>

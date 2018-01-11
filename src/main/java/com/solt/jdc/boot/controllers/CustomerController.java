@@ -22,6 +22,7 @@ import com.solt.jdc.boot.domains.Customer;
 import com.solt.jdc.boot.services.CustomerService;
 
 @Controller
+@RequestMapping("/admin")
 public class CustomerController {
 
     @Autowired
@@ -112,6 +113,7 @@ public class CustomerController {
         
     }
 
+<<<<<<< HEAD
     @RequestMapping(value = "/customer/register", method = RequestMethod.GET)
     public String registerCustomer(Model model) {
         Customer regCustomer = new Customer();
@@ -173,4 +175,6 @@ public class CustomerController {
     	customerService.updateCustomer(currentCustomer);
     	return "redirect:/customerdetails/account";
     }
+=======
+>>>>>>> feature/third-week-features
 }

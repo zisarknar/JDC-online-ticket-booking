@@ -22,12 +22,16 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+<<<<<<< HEAD
     // private static Logger logger = LoggerFactory.getLogger(SuccessHandler.class);
     
+=======
+>>>>>>> feature/third-week-features
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication arg2)
             throws IOException, ServletException {
         Authentication auth = iAuthenticationFacade.getAuthentiation();
+<<<<<<< HEAD
         
 		if (auth != null) {
 
@@ -94,3 +98,13 @@ System.out.println(authUser.getPassword());*/
 
 
 
+=======
+        Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+        if (authorities.contains(CUSTOMER_AUTHORITY)) {
+            redirectStrategy.sendRedirect(request, response, "/customerdetails");
+        } else {
+            redirectStrategy.sendRedirect(request, response, "/admin");
+        }
+    }
+}
+>>>>>>> feature/third-week-features

@@ -14,6 +14,7 @@ import com.solt.jdc.boot.services.UserService;
 @Transactional
 public class UserServiceImpl implements UserService {
 
+<<<<<<< HEAD
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -50,4 +51,50 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
+=======
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Override
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User find(int id) {
+        return userRepository.findOne(id);
+    }
+
+    @Override
+    public void save(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setStatus(true);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
+    public void update(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public long getCount() {
+        return userRepository.count();
+    }
+
+    @Override
+    public User registerNewUser(User user) {
+        return user;
+    }
+
+
+>>>>>>> feature/third-week-features
 }

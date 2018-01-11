@@ -13,18 +13,27 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+<<<<<<< HEAD
 import org.hibernate.validator.constraints.Email;
+=======
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+>>>>>>> feature/third-week-features
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.solt.jdc.boot.validator.CharacterConstraint;
 import com.solt.jdc.boot.validator.ContactNumberConstraint;
 
 @Entity(name = "customer")
+@Data
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+<<<<<<< HEAD
     @Size(min=4)
     private String username;
     @CharacterConstraint(message="Your's frist name should be only character")//moe
@@ -34,9 +43,22 @@ public class Customer {
     @NotNull
     @NotBlank(message="Please enter password")
     @Size(min=8)
+=======
+    @NotBlank(message = "Please enter user name")
+    private String username;
+    @NotNull
+    @NotBlank(message = "Please enter first name")
+    private String firstName;
+    @NotNull
+    @NotBlank(message = "Please enter last name")
+    private String lastName;
+    @NotNull
+    @NotBlank(message = "Please enter password")
+>>>>>>> feature/third-week-features
     private String password;
     @Transient
     private String matchPassword;
+<<<<<<< HEAD
     @ContactNumberConstraint
     private String phone;
     @ManyToOne//moe
@@ -46,15 +68,22 @@ public class Customer {
     private String address;
   
     @Email(message="This is not email type")  
+=======
+    @NotNull
+    @NotBlank(message = "Please enter phone number")
+    private String phone;
+
+>>>>>>> feature/third-week-features
     private String email;
-    
+
     private String nrcNumber;
     
     @Column(name = "enabled")
     private boolean enabled;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customerList")
     private Booking booking;
+<<<<<<< HEAD
     @Transient
     private String tempPassword;
     
@@ -176,5 +205,8 @@ public class Customer {
     
     
     
+=======
+
+>>>>>>> feature/third-week-features
 }
 

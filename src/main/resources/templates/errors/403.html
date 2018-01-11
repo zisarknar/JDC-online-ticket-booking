@@ -1,23 +1,28 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="master">
 <head>
-    <title>403</title>
+    <meta charset="UTF-8"/>
+    <title>403 | Access is denied</title>
 </head>
 <body>
-
-
-<div class="container">
+<section class="content text-center" layout:fragment="content">
 
     <div class="starter-template">
         <h1>403 - Access is denied</h1>
+<<<<<<< HEAD
 	        <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]',
 	            you do not have permission to access this page.</div>
 
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="logout"/>
         </form>
+=======
+        <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]',
+            you do not have permission to access this page.
+        </div>
+>>>>>>> feature/third-week-features
     </div>
-
-</div>
+</section>
 </body>
 </html>

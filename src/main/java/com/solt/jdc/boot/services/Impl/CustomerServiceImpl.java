@@ -70,6 +70,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.saveAndFlush(customer);
     }
 
+<<<<<<< HEAD
 	@Override
 	public Customer findByEmail(String email) {
 		return customerRepository.findByEmail(email);
@@ -91,4 +92,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepository.findByUsername(username);
 	}
 	
+=======
+    @Override
+    public long getCustomerCount() {
+        return customerRepository.count();
+    }
+>>>>>>> feature/third-week-features
 }

@@ -1,6 +1,6 @@
 package com.solt.jdc.boot.config;
 
-import com.solt.jdc.boot.handlers.AccessDeniedHandler;
+import com.solt.jdc.boot.handlers.DeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -15,21 +15,31 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 @EnableWebSecurity
-
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
     @Autowired
+<<<<<<< HEAD
     private AccessDeniedHandler accessDeniedHandler;
     @Autowired@Qualifier("customer_details_service")
     private UserDetailsService userDetailsService;
+=======
+    private DeniedHandler accessDeniedHandler;
+
+>>>>>>> feature/third-week-features
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/admin").authenticated()
+                .antMatchers("/admin/error/**").authenticated()
                 .antMatchers("/admin/roots/**").hasRole("ROOT")
+<<<<<<< HEAD
                 .antMatchers("/customers/**").hasRole("ROOT")
                 .antMatchers("/customerdetails/**").authenticated()
+=======
+                .antMatchers("/admin/customers/**").hasRole("ROOT")
+>>>>>>> feature/third-week-features
                 .antMatchers("/admin/bookings/**").hasAnyRole("ROOT", "MANAGER", "STAFF")
                 .antMatchers("/admin/buses/**").hasAnyRole("ROOT", "MANAGER")
                 .antMatchers("/admin/addresses/**").hasAnyRole("ROOT", "MANAGER")
@@ -42,12 +52,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/users/**").hasAnyRole("ROOT", "MANAGER")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/admin/login")
                 .defaultSuccessUrl("/admin/")
                 .successHandler(authenticationSuccessHandler)
                 .permitAll()
                 .and()
                 .logout()
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
@@ -69,7 +81,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
-
-
 
 }

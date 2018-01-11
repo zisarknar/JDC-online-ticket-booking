@@ -1,28 +1,22 @@
 package com.solt.jdc.boot.domains;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 @Table(name = "bus_type")
+@Data
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BusType {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank(message = "Please enter bus type")
@@ -30,71 +24,5 @@ public class BusType {
     @JsonIgnore
     @OneToMany(mappedBy = "busType")
     private List<Bus> busList = new ArrayList<>();
-
-    public List<Bus> getBusList() {
-        return busList;
-    }
-
-    public void setBusList(List<Bus> busList) {
-        this.busList = busList;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((busList == null) ? 0 : busList.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        BusType other = (BusType) obj;
-        if (busList == null) {
-            if (other.busList != null)
-                return false;
-        } else if (!busList.equals(other.busList))
-            return false;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (type == null) {
-            if (other.type != null)
-                return false;
-        } else if (!type.equals(other.type))
-            return false;
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "BusType [id=" + id + ", type=" + type + ", busList=" + busList + "]";
-    }
 
 }

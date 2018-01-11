@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -47,6 +48,8 @@ public class UserController {
     public String save(@ModelAttribute("user") @Valid User user, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/user/userAdd";
+        } else {
+
         }
         mainController.disallowedFieldException(result);
         userService.save(user);
@@ -86,6 +89,7 @@ public class UserController {
         userService.delete(userService.find(id));
         return "redirect:/admin/users";
     }
+
 
     @InitBinder
     public void initializeBinder(WebDataBinder binder) {

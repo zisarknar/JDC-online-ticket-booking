@@ -5,19 +5,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.solt.jdc.boot.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.solt.jdc.boot.domains.Bus;
 import com.solt.jdc.boot.domains.Trip;
+<<<<<<< HEAD
 import com.solt.jdc.boot.repositories.TripRepository;
 import com.solt.jdc.boot.services.BusService;
 import com.solt.jdc.boot.services.CitiesService;
@@ -25,6 +26,9 @@ import com.solt.jdc.boot.services.CustomerService;
 import com.solt.jdc.boot.services.StationService;
 import com.solt.jdc.boot.services.TripService;
 import com.solt.jdc.boot.utils.TripFinder;
+=======
+import com.solt.jdc.boot.utils.commands.TripFinder;
+>>>>>>> feature/third-week-features
 
 @Controller
 public class MainController {
@@ -32,6 +36,18 @@ public class MainController {
 	@Autowired
 	private TripService tripService;
 
+<<<<<<< HEAD
+=======
+	@Autowired
+	private CustomerService customerService;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private BookingService bookingService;
+	
+>>>>>>> feature/third-week-features
 	@Autowired
 	private CitiesService citiesService;
 	@Autowired
@@ -43,7 +59,10 @@ public class MainController {
 	private CustomerService CustomerService;
 	
     @RequestMapping("/admin")
-    public String getMain() {
+    public String getMain(Model model) {
+        model.addAttribute("userCount", userService.getCount());
+        model.addAttribute("bookingCount", bookingService.getBookingCount());
+        model.addAttribute("customerCount", customerService.getCustomerCount());
         return "admin/index";
     }
     
