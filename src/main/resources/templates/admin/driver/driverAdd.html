@@ -7,8 +7,6 @@
     <title>Add New Driver</title>
 </head>
 <body>
-
-
 <section class="content-header" layout:fragment="header">
     <h1>
         Driver
@@ -30,38 +28,42 @@
                     <a th:href="@{/admin/drivers}" class="btn btn-primary"><i
                             class="fa fa-arrow-left"></i> Back</a>
                 </div>
-                <form role="form" th:action="@{/admin/drivers/add}" method="post"
+                <form role="form" th:action="@{/admin/driver/add}" method="post"
                       th:object="${driver}">
 
                     <div class="box-body">
 
                         <div class="form-group">
 
-                            <label for="driverCode">driver Code</label>
-                            <input type="text" class="form-control" id="driverCode" placeholder="Enter driver Code"
-                                   th:field="*{code}"/>
+                            <label for="driverCode">driver Code</label> <input type="text"
+                                                                               class="form-control" id="driverCode"
+                                                                               placeholder="Enter driver Code"
+                                                                               th:field="*{code}"/>
+                            <label th:errors="*{code}" class="text-danger"></label>
                         </div>
 
                         <div class="form-group">
-                            <label for="driverName">Name</label>
-                            <input type="text" class="form-control" id="driverName" placeholder="Enter Name"
-                                   th:field="*{name}"/>
+                            <label for="driverName">Name</label> <input
+                                type="text" class="form-control" id="driverName"
+                                placeholder="Enter Name" th:field="*{name}"/>
+                            <label th:errors="*{name}" class="text-danger"></label>
                         </div>
 
 
                         <div class="form-group">
-                            <label for="driverEmail">Email address</label>
-                            <input type="email"
-                                   class="form-control" id="driverEmail"
-                                   placeholder="Enter  your email"
-                                   th:field="*{email}"/>
+                            <label for="driverEmail">Email address</label> <input type="email"
+                                                                                  class="form-control" id="driverEmail"
+                                                                                  placeholder="Enter  your email"
+                                                                                  th:field="*{email}"/>
+                            <label th:errors="*{email}" class="text-danger"></label>
                         </div>
 
                         <div class="form-group">
-                            <label for="phoneNumber">Phone</label>
-                            <input type="text" class="form-control" id="phoneNumber"
-                                   placeholder="Enter phone number"
-                                   th:field="*{phone}"/>
+                            <label for="phoneNumber">Phone</label> <input type="text"
+                                                                          class="form-control" id="phoneNumber"
+                                                                          placeholder="Enter phone number"
+                                                                          th:field="*{phone}"/>
+                            <label th:errors="*{phone}" class="text-danger"></label>
                         </div>
 
 
@@ -81,6 +83,7 @@
                             <input type="radio" id="driverStatus" value="false"
                                    th:checked="*{status}==false"/>No
                         </div>
+
 
                     </div>
                     <!-- /.box-body -->

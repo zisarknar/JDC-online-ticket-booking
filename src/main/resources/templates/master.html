@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Admin | Dashboard</title>
-    <meta
-            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-            name="viewport"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet"
-          th:href="@{/components/bootstrap/dist/css/bootstrap.min.css}"
-          media="screen"/>
+    <link rel="stylesheet" th:href="@{/components/bootstrap/dist/css/bootstrap.min.css}" media="screen"/>
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-          th:href="@{/components/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/components/font-awesome/css/font-awesome.min.css}"/>
     <!--PACE-->
-    <link rel="stylesheet"
-          th:href="@{/components/PACE/themes/red/pace-theme-minimal.css}"/>
+    <link rel="stylesheet" th:href="@{/components/PACE/themes/red/pace-theme-minimal.css}"/>
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
+    <!--Bootstrap Datepicker-->
+    <link rel="stylesheet" th:href="@{/components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css}"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" th:href="@{/components/Ionicons/css/ionicons.min.css}"/>
     <!-- DataTables -->
     <link rel="stylesheet"
           th:href="@{/components/datatables.net-bs/css/dataTables.bootstrap.min.css}"/>
+    <!--Animate CSS-->
+    <link rel="stylesheet" th:href="@{/component/animate/animate.css}"/>
     <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}"/>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-          
-          
-          
+    <!--  Custom CSS -->
+    <link rel="stylesheet" th:href="@{/dist/css/myStyle.css}"/>
+    <!-- iCheck CSS-->
+    <link rel="stylesheet" th:href="@{/components/iCheck/square/blue.css}"/>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -59,9 +60,7 @@
                             <li><a href="#">Action</a></li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <form th:action="@{/logout}" method="POST">
-                                    <input type="submit" value="Sign out" class="btn btn-primary"/>
-                                </form>
+                                <a class="dropdown" th:href="@{/admin/login?logout}">Logout</a>
                             </li>
                         </ul>
                     </li>
@@ -86,18 +85,21 @@
             </ol>
         </section>
 
-        <section class="content" layout:fragment="content"></section>
+        <section class="content" layout:fragment="content">
+        </section>
     </div>
-
     <!--Footer-->
     <footer class="main-footer" th:replace="fragments/footer :: footer"/>
-
 </div>
 <!--End of wrapper-->
 <!-- jQuery 3 -->
 <script th:src="@{/components/jquery/dist/jquery.min.js}"></script>
+<!--Sweet alert 2-->
+<script th:src="@{https://unpkg.com/sweetalert2@7.0.9/dist/sweetalert2.all.js}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script th:src="@{/components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!--Bootstrap Datepicker-->
+<script th:src="@{/components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js}"></script>
 <!--PACE-->
 <script th:src="@{/components/PACE/pace.min.js}"></script>
 <!-- AdminLTE App -->
@@ -107,10 +109,12 @@
 <!-- AdminLTE for demo purposes -->
 <script th:src="@{/dist/js/demo.js}"></script>
 <!-- DataTables -->
-<script
-        th:src="@{/components/datatables.net/js/jquery.dataTables.min.js}"></script>
-<script
-        th:src="@{/components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<script th:src="@{/components/datatables.net/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<!-- iCheck script -->
+<script th:src="@{/components/iCheck/icheck.min.js}"></script>
+<!-- ChartJS -->
+<script th:src="@{/components/Chart.js/Chart.js}"></script>
 <script>
     $(document).ready(
         function () {
@@ -118,12 +122,9 @@
             var pathname = window.location.pathname;
             $('.sidebar-menu > li > a[href="' + pathname + '"]')
                 .parent().addClass('active');
-        })
+        });
 </script>
-
 <!--Custom Script-->
-<script layout:fragment="myScript">
-
-</script>
+<script layout:fragment="myScript"/>
 </body>
 </html>

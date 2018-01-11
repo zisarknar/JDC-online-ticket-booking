@@ -1,5 +1,6 @@
 package com.solt.jdc.boot.domains;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +22,24 @@ import javax.validation.constraints.Min;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotBlank;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Table(name = "bus")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Bus {
+
 	@Id
 	
 	private Integer id;
@@ -114,94 +125,32 @@ public class Bus {
 		this.busCompany = busCompany;
 	}
 
-	public String getBusCode() {
-		return busCode;
-	}
 
-	public void setBusCode(String busCode) {
-		this.busCode = busCode;
-	}
-	
-	
+    @NotBlank(message = "Bus Number cannot be blank")
+    private String busNumber;
 
-	public Station getStation() {
-		return station;
-	}
+    @Min(value = 20, message = "Maximum seats must be atleast 20 seats")
+    private int maxSeats;
 
-	public void setStation(Station station) {
-		this.station = station;
-	}
+    private int takenSeats = 0;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((busCode == null) ? 0 : busCode.hashCode());
-		result = prime * result + ((busCompany == null) ? 0 : busCompany.hashCode());
-		result = prime * result + ((busNumber == null) ? 0 : busNumber.hashCode());
-		result = prime * result + ((busType == null) ? 0 : busType.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + maxSeats;
-		result = prime * result + ((servicesList == null) ? 0 : servicesList.hashCode());
-		result = prime * result + takenSeats;
-		return result;
-	}
+    @NotBlank(message = "Please enter name of the bus company")
+    private String busCompany;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Bus other = (Bus) obj;
-		if (busCode == null) {
-			if (other.busCode != null)
-				return false;
-		} else if (!busCode.equals(other.busCode))
-			return false;
-		if (busCompany == null) {
-			if (other.busCompany != null)
-				return false;
-		} else if (!busCompany.equals(other.busCompany))
-			return false;
-		if (busNumber == null) {
-			if (other.busNumber != null)
-				return false;
-		} else if (!busNumber.equals(other.busNumber))
-			return false;
-		if (busType == null) {
-			if (other.busType != null)
-				return false;
-		} else if (!busType.equals(other.busType))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (maxSeats != other.maxSeats)
-			return false;
-		if (servicesList == null) {
-			if (other.servicesList != null)
-				return false;
-		} else if (!servicesList.equals(other.servicesList))
-			return false;
-		if (takenSeats != other.takenSeats)
-			return false;
-		return true;
-	}
+    @NotBlank(message = "Please enter bus code")
+    private String busCode;
 
-	@Override
-	public String toString() {
-		return "Bus [id=" + id + ", busNumber=" + busNumber + ", maxSeats=" + maxSeats + ", takenSeats=" + takenSeats
-				+ ", busCompany=" + busCompany + ", busCode=" + busCode + ", busType=" + busType + ", servicesList="
-				+ servicesList + "]";
-	}
+    @ManyToOne
+    @JoinColumn(name = "bus_type_id")
+    private BusType busType;
 
-	
+    @OneToMany(mappedBy = "bus")
+    @JsonIgnore
+    private List<Services> servicesList = new ArrayList<>();
 
-	
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "bus_station_id")
+    private Station station;
+
 
 }

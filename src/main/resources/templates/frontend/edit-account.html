@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+		layout:decorator="front-master">
+<head>
+<meta charset="UTF-8"/>
+<title></title>
+</head>
+<body>
+	<section class=" text-white bg-primary"  layout:fragment="content">
+		<div class="container">
+			<a class="navbar-link" style="color: #333 !important;font-weight:strong;"  th:href="@{/}"><i class="fa fa-home" >&nbsp;&nbsp;</i>Home</a><small> / my account</small>
+		</div>
+	</section>
+	<section class="myaccount"   layout:fragment="contact" >
+	<div class="card card-primary col-auto">
+	<div class="card-header">
+			<label class="h2">Account Information</label>
+	</div>
+	<div class="card-block">
+	<form th:object="${customer}" th:action="@{/customerdetails/account/edit}" method="post">
+		<div class="container">
+		<div class="row justify-content-around">
+			<div class="card card-default col-lg-4 align-self-start 	col-md-12 col-sm-12 ">
+				<div class="card-header text-center ">
+					<img class="rounded-circle  img-responsive " th:src="@{/dist/img/user_image.jpg}" width="80" height="100" />
+					<!-- Bind customer name -->
+					<h2 ><span class="h2" th:text="${customer.firstName}"></span>&nbsp;<span class="h2" th:text=" ${customer.lastName}"></span></h2>
+				</div>
+				<div class="card-block">
+					<h3 class="card-title border border-top-0 border-left-0 border-right-0">Contact Info</h3>
+					<div class="card-text form-group">
+					<label for="email">Email :</label>
+					<div class="inner-addon left-addon ">
+					<i class="glyphicon fa fa-envelope"></i>
+					<input  type="text" id="email" placeholder="email address" class="form-control" th:field="*{email}" readonly="readonly" required="required"/>
+					<label th:errors="*{email}" class="text-danger"></label>
+					</div>
+					</div>
+					<div class="card-text form-group">
+					<label  for="phone">Contact Number :</label>
+					<div class="inner-addon left-addon ">
+					<i class="glyphicon fa fa-phone"></i>
+					<input type="text" id="phone" class="form-control" placeholder="phone" autofocus="autofocus" th:field="*{phone}" required="required"/>
+					<label th:errors="*{phone}" class="text-danger"></label>
+					</div>	
+					</div>
+				</div>
+			</div>
+			<div class="card card-default col-lg-7 align-self-start col-md-12 col-sm-12 ">
+				<div class="card-header">
+						<h3>Personal Details</h3>
+				</div>
+				<div class="card-block">
+				<div class="card-text form-group">
+					<label for="username">UserName : </label>
+					<div class="inner-addon left-addon ">
+					<i class="glyphicon fa fa-user-circle-o "></i>
+					<input type="text" class="form-control" id="username"  th:field="*{username}" required="required"/>
+					<label th:errors="*{username}" class="text-danger"></label>
+					</div>
+				</div>
+				<div class="card-text form-group">
+					<label for="fristname">FristName : </label>
+					<div class="inner-addon left-addon">
+					<i class="glyphicon fa fa-user-o "></i>
+					<input  class="form-control" type="text" id="firstname" placeholder="first name" th:field="*{firstName}" required="required"/>
+					<label th:errors="*{firstName}" class="text-danger"></label>
+					</div>
+				</div>
+				<div class="card-text form-group">
+					<label for="lastname">LastName : </label>
+					<div class="inner-addon left-addon ">
+					<i class="glyphicon fa fa-user-o "></i>
+					<input class="form-control" type="text" id="lastname" placeholder="last name" th:field="*{lastName}" required="required"/>
+					<label th:errors="*{lastName}" class="text-danger"></label>
+					</div>
+				</div>
+				<div class="card-text form-group">
+					<label for="nrcno">NRC-No : </label>
+					<div class="inner-addon left-addon ">
+					<i class="glyphicon fa fa-address-card "></i>
+					<input class="form-control" type="text" id="nrcno" placeholder="nrc number" th:field="*{nrcNumber}" required="required"/>
+					<label th:errors="*{nrcNumber}" class="text-danger"></label>
+					</div>
+				</div>
+				<div class="card-text form-group">
+					<label for="address">Address : </label>
+					<div class="inner-addon left-addon ">
+					<i class="glyphicon fa fa-address-book "></i>
+					<input class="form-control" type="text" id="address" placeholder="address" th:field="*{address}" required="required"/>
+					<label th:errors="*{address}" class="text-danger"></label>
+					</div>
+				</div>
+				<div class=" form-group">
+					<input type="text" hidden="true" th:field="*{password}"/>
+					<div class="card-text"><a  th:href="@{/customerdetails/account/changepassword}">Change Password</a></div>
+				</div>
+					<div class="card-text form-group">
+					<div class=" row justify-content-between">
+						<a  class="text-primary col-6 text-left" th:href="@{/customerdetails/account}">&DoubleLongLeftArrow;Back</a>
+						<input class="btn btn-info text-center col-3" type="submit" value="save"/>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		</form>
+		</div>
+		</div>
+	</section>
+</body>
+</html>

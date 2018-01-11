@@ -1,24 +1,21 @@
 package com.solt.jdc.boot.domains;
 
-import javax.persistence.*;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
+import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import java.time.LocalDate;
+import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author User
  */
 @Entity(name = "trip")
+@Data
 public class Trip {
 
     @Id
@@ -28,7 +25,7 @@ public class Trip {
     @NotBlank(message = "Please Enter Trip Code")
     private String tripCode;
 
-    @DateTimeFormat(iso = ISO.TIME)    
+    @DateTimeFormat(iso = ISO.TIME)
     private LocalTime depTime;
 
     @Temporal(TemporalType.DATE)
@@ -48,12 +45,15 @@ public class Trip {
 
     private boolean status;
 
+
     @OneToMany(mappedBy="trip")
     private List<Booking> booking=new ArrayList<>();
+
 
     private String source;
 
     private String destination;
+
 
     public Trip() {
     }
@@ -237,6 +237,7 @@ public class Trip {
                 + ", status=" + status + ", booking=" + booking + ", source=" + source + ", destination=" + destination
                 + "]";
     }
+
 
 
 }

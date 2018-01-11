@@ -1,6 +1,7 @@
 package com.solt.jdc.boot.services;
 
 import com.solt.jdc.boot.domains.Customer;
+import com.solt.jdc.boot.domains.UserRole;
 
 import java.util.List;
 
@@ -15,6 +16,14 @@ public interface CustomerService {
     void deleteCustomer(int id);
 
     Customer updateCustomer(Customer customer);
-    
-    Customer findByusername(String username);
+
+    Customer findByEmail(String email);
+
+    UserRole getCustomerRole();
+
+    Customer currentCustomer();
+
+    Customer findByUsername(String username);
+
+    long getCustomerCount();
 }

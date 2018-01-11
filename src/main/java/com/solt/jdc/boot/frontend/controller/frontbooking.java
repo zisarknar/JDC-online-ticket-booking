@@ -93,7 +93,7 @@ public class frontbooking {
         Authentication authentication = iAuthenticationFacade.getAuthentiation();
         String currentLoggedinUser= authentication.getName();
         
-        model.addAttribute("customer",customerService.findByusername(currentLoggedinUser));
+        model.addAttribute("customer",customerService.findByEmail(currentLoggedinUser));
         return "frontend/booking";
     }
 	

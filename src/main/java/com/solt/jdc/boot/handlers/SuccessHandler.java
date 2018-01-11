@@ -19,77 +19,30 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
     private IAuthenticationFacade iAuthenticationFacade;
     private static final SimpleGrantedAuthority CUSTOMER_AUTHORITY = new SimpleGrantedAuthority("ROLE_CUSTOMER");
-    
+
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    // private static Logger logger = LoggerFactory.getLogger(SuccessHandler.class);
-    
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication arg2)
             throws IOException, ServletException {
         Authentication auth = iAuthenticationFacade.getAuthentiation();
-        
-		if (auth != null) {
 
-			Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
-			if (authorities.contains(CUSTOMER_AUTHORITY)) {
-				//redirectStrategy.sendRedirect(request, response, "/customerdetails");
-				redirectStrategy.sendRedirect(request,response,"/");
-			} else {
+        if (auth != null) {
 
-				redirectStrategy.sendRedirect(request, response, "/admin");
-			}
+            Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+            if (authorities.contains(CUSTOMER_AUTHORITY)) {
+                redirectStrategy.sendRedirect(request, response, "/");
+            } else {
 
-		}
-		else {
-			System.out.println("auth is null");
-		}
-        
+                redirectStrategy.sendRedirect(request, response, "/admin");
+            }
+
+        } else {
+            System.out.println("auth is null");
+        }
+
     }//end of method
 }//end of class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-/*UserDetails authUser=(UserDetails)auth.getPrincipal();
-System.out.println(authUser.getUsername());
-System.out.println(authUser.getPassword());*/
-
 
 
 

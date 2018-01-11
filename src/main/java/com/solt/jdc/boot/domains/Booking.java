@@ -1,30 +1,35 @@
 package com.solt.jdc.boot.domains;
 
-import javax.persistence.*;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
+import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+
 import java.util.ArrayList;
+
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
+
+
 @Entity(name = "book")
+@Data
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    @NotBlank(message="Registration Code cannot be empty")
+
+    @NotBlank(message = "Registration Code cannot be empty")
     private String regCode;
-    
+
     @Temporal(TemporalType.DATE)
+
     @DateTimeFormat(iso=ISO.DATE)
     @NotNull
     private Date bookDate;
@@ -34,11 +39,13 @@ public class Booking {
     
     private String seatNo;
     
+
     @NotNull
-    @Min(value=1)
+    @Min(value = 1)
     private double totalAmount;
-    
+
     private boolean status;
+
 
 //    Booking is the Owner of the relationship
     @ManyToOne(cascade=CascadeType.ALL)
@@ -171,15 +178,6 @@ public class Booking {
         return result;
      }
 
-     @Override
-     public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", regCode='" + regCode + '\'' +
-                ", bookDate=" + bookDate +
-                ", noOfSeats=" + noOfSeats +
-                ", totalAmount=" + totalAmount +
-                ", status=" + status +
-                '}';
-    }
+    
+
 }

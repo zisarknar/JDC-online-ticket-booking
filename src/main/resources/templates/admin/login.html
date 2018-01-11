@@ -11,7 +11,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/components/font-awesome/css/font-awesome.min.css"/>
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css"/>
+    <link rel="stylesheet" href="/dist/css/AdminLTE.min.css"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,13 +27,13 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a th:href="@{/}"><b>Online</b>TicketBooking</a>
+        <a th:href="@{/}"><b>Admin</b>|OnlineTicketBooking</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form th:action="@{/login}" method="POST">
+        <form th:action="@{/admin/login}" method="POST">
             <div th:if="${param.error}">
                 <div class="alert alert-danger">
                     Invalid username and password.
@@ -55,12 +55,15 @@
             </div>
             <div class="row">
                 <!-- /.col -->
-                <div class="col-xs-12">
+                <div class="col-xs-6">
                     <input type="submit" class="btn btn-primary btn-block btn-flat" value="Sign in"/>
                 </div>
-                <!-- /.col -->
+                <div class="col-xs-6">
+                    <a th:href="@{/}" class="btn btn-danger btn-block btn-flat">Back</a>
+                </div>
             </div>
         </form>
+
 
         <div class="social-auth-links text-center">
             <p>- OR -</p>
@@ -78,6 +81,7 @@
         <a href="#">I forgot my password</a><br/>
         <a th:href="@{/customer/register}" class="text-center">Register a new membership</a><br/>
         <a th:href="@{/}" class="text-center">&DoubleLongLeftArrow; Back</a>
+
 
     </div>
     <!-- /.login-box-body -->

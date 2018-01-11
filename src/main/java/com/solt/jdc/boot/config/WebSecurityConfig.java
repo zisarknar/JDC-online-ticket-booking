@@ -1,27 +1,34 @@
 package com.solt.jdc.boot.config;
 
-import com.solt.jdc.boot.handlers.AccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
+
+import org.springframework.security.web.access.AccessDeniedHandler;
+
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
-
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -60,12 +67,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 
+    @Autowired
+    @Qualifier("customer_details_service")
+    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/admin").authenticated()
+                .antMatchers("/admin/error/**").authenticated()
                 .antMatchers("/admin/roots/**").hasRole("ROOT")
                 .antMatchers("/customers/**").hasRole("ROOT")
-                .antMatchers("/customerdetails/**").hasAnyRole("ROOT", "CUSTOMER")
+                .antMatchers("/customerdetails/**").authenticated()
                 .antMatchers("/admin/bookings/**").hasAnyRole("ROOT", "MANAGER", "STAFF")
                 .antMatchers("/admin/buses/**").hasAnyRole("ROOT", "MANAGER")
                 .antMatchers("/admin/addresses/**").hasAnyRole("ROOT", "MANAGER")
@@ -78,12 +91,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/users/**").hasAnyRole("ROOT", "MANAGER")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/admin/login")
                 .defaultSuccessUrl("/admin/")
                 .successHandler(authenticationSuccessHandler)
                 .permitAll()
                 .and()
                 .logout()
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
@@ -100,9 +115,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("manager").password("password").roles("MANAGER")
                 .and()
-                .withUser("customer").password("password").roles("CUSTOMER")
-                .and()
                 .withUser("sargon").password("sargon").roles("ROOT");
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -129,7 +143,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		return oAuth2Filter;
 	}
-
-
 
 }

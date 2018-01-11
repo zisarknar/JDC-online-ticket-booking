@@ -1,10 +1,17 @@
 package com.solt.jdc.boot.controllers;
 
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+
+import com.solt.jdc.boot.domains.Bus;
+import com.solt.jdc.boot.domains.Trip;
+import com.solt.jdc.boot.services.*;
+import com.solt.jdc.boot.utils.TripFinder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,11 +22,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.solt.jdc.boot.domains.Booking;
 import com.solt.jdc.boot.domains.Bus;
@@ -34,23 +41,52 @@ import com.solt.jdc.boot.services.TripService;
 import com.solt.jdc.boot.utils.FacebookProfile;
 import com.solt.jdc.boot.utils.TripFinder;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+
 @Controller
 public class MainController {
 
-	@Autowired
-	private TripService tripService;
+    @Autowired
+    private TripService tripService;
+    @Autowired
+    private CustomerService customerService;
 
-	@Autowired
-	private CitiesService citiesService;
+    @Autowired
+    private UserService userService;
+
+
+	
 	
 	@Autowired
 	private Facebook facebook;
 
-	
+    @Autowired
+    private BookingService bookingService;
+
+    @Autowired
+    private CitiesService citiesService;
+    @Autowired
+    private StationService stationService;
+
+    @Autowired
+    private BusService busService;
+    @Autowired
+    private CustomerService CustomerService;
+
+
     @RequestMapping("/admin")
-    public String getMain() {
+    public String getMain(Model model) {
+        model.addAttribute("userCount", userService.getCount());
+        model.addAttribute("bookingCount", bookingService.getBookingCount());
+        model.addAttribute("customerCount", customerService.getCustomerCount());
         return "admin/index";
     }
+
     
     @RequestMapping("/facebookuser")
     @ResponseBody
@@ -147,6 +183,21 @@ public class MainController {
 			throw new RuntimeException("Unable to bind disallowed fields");
 		}
 	}
+
+
+
+   
+
+
+   
+
+
+   
+
+
+    
+
+
 
 }
 

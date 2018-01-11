@@ -1,99 +1,97 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="master"
-	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="master"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 <head>
-<meta charset=" UTF-8"></meta>
-<title>User</title>
+    <meta charset=" UTF-8"></meta>
+    <title>User</title>
 </head>
 <body>
 
-	<section class="content-header" layout:fragment="header">
-		<h1>
-			User <small>Management panel</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Dashboard</li>
-		</ol>
-	</section>
+<section class="content-header" layout:fragment="header">
+    <h1>
+        User
+        <small>Management panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
 
-	<section class="content" layout:fragment="content">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="box">
-					<div class="box-header">
-						<h3 class="box-title">User List</h3>
-						<a th:href="@{/admin/users/add}" class="btn btn-primary pull-right"><i
-							class="fa fa-plus"></i>Add New User</a>
-					</div>
-					<div class="box-body">
-						<table id="user" class="table table-bordered table-hover"
-							dt:table="true">
-							<thead>
-								<tr>
-									<th>Id</th>
-									<th>UserName</th>
-									<th>Password</th>
-									<th>FirstName</th>
-									<th>LastName</th>
-									<th>Email</th>
-									<th>Phone</th>
-									<th>Role</th>
-									<th>Status</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="user,iterState: ${users}">
-									<td th:text="${user.id}"></td>
-									<td th:text="${user.userName}"></td>
-									<td th:text="${user.password}"></td>
-									<td th:text="${user.firstName}"></td>
-									<td th:text="${user.lastName}"></td>
-									<td th:text="${user.email}"></td>
-									<td th:text="${user.phone}"></td>
-									<td th:text="${user.role}"></td>
-									
-									<td>
-										<div th:if="${user.status}">
-											<a href="#"><i class="fa fa-circle text-success"></i>							
-											</a>
-										</div>
-										
-										<div th:unless="${user.status}">
-											false	
-									
-										</div>
-									</td>
+<section class="content" layout:fragment="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">User List</h3>
+                    <a th:href="@{/admin/users/add}" class="btn btn-primary pull-right"><i
+                            class="fa fa-plus"></i>Add New User</a>
+                </div>
+                <div class="box-body">
+                    <table id="user" class="table table-bordered table-hover"
+                           dt:table="true">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>UserName</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user,iterState: ${users}">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.userName}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.phone}"></td>
+                            <td th:text="${user.role}"></td>
+
+                            <td>
+                                <div th:if="${user.status}">
+                                    <a href="#"><i class="fa fa-circle text-success"></i>
+                                    </a>
+                                </div>
+
+                                <div th:unless="${user.status}">
+                                    false
+
+                                </div>
+                            </td>
 
 
-									<td><a th:href="@{/admin/user/delete/}+${user.id}"
-										class="btn btn-danger"><i class="fa fa-trash" onclick="return confirm('Are you sure to delete ?')"></i>Delete</a> 
-										<a th:href="@{/admin/user/update/}+${user.id}" class="btn btn-info" ><i class="fa fa-trash"></i>
-											Edit</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+                            <td><a th:href="@{/admin/user/delete/}+${user.id}"
+                                   class="btn btn-danger"><i class="fa fa-trash"
+                                                             onclick="return confirm('Are you sure to delete ?')"></i>Delete</a>
+                                <a th:href="@{/admin/user/update/}+${user.id}" class="btn btn-info"><i
+                                        class="fa fa-trash"></i>
+                                    Detail</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-	<script layout:fragment="myScript">
-		$(function() {
-			$('#user').DataTable({
-				'paging' : true,
-				'lengthChange' : true,
-				'searching' : true,
-				'ordering' : true,
-				'info' : true,
-				'autoWidth' : false
-			})
-		})
-	</script>
+<script layout:fragment="myScript">
+
+    $(function () {
+        $('table').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+    })
+</script>
 
 </body>
 </html>

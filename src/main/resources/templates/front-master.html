@@ -8,24 +8,24 @@
 
     <!-- Bootstrap core CSS -->
     <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-					<link th:href="@{/vendor/bootstrap/css/font-awesome.min}" rel="stylesheet"/>
+    <!--Bootstrap Datepicker-->
+    <script th:src="@{/components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js}"></script>
     <!-- Custom fonts for this template -->
     <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
           rel='stylesheet' type='text/css'/>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
           rel='stylesheet' type='text/css'/>
-
     <!-- Plugin CSS -->
     <link th:href="@{/vendor/magnific-popup/magnific-popup.css}" rel="stylesheet"/>
-
     <!-- Custom styles for this template -->
     <link th:href="@{/css/creative.css}" rel="stylesheet"/>
-	
-	<link rel="stylesheet" th:href="@{/vendor/iCheck/square/blue.css}"/>
-		
-	
-		
+
+    <link rel="stylesheet" th:href="@{/vendor/iCheck/square/blue.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/account.css}"/>
+
+    <!--  Custom CSS -->
+    <link rel="stylesheet" th:href="@{/dist/css/myStyle.css}"/>
 
 </head>
 <body id="page-top">
@@ -50,40 +50,39 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/findStation">Stations</a>
                 </li>
-            
-                <li class="nav-item dropdown">	
-                    									
-                    <a th:if="${#httpServletRequest.remoteUser}" 
-                    				href="#"                     				
-                    				class="nav-link  dropdown-toggle"
-                        			data-toggle="dropdown" 
-                        			role="button" 
-                        			id="navbarDropdownMenuLink"
-                        			aria-haspopup="true"
-                           aria-expanded="false">
-                            <span th:text="${#httpServletRequest.remoteUser}"/> 
-                          <!--  <span class="caret"></span> -->   
-                     </a>      
-                         <div class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
-                           <ul >
+
+                <li class="nav-item dropdown ">
+
+                    <a th:if="${#httpServletRequest.remoteUser}"
+                       href="#"
+                       class="nav-link  dropdown-toggle"
+                       data-toggle="dropdown"
+                       role="button"
+                       id="navbarDropdownMenuLink"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        <span th:text="${#httpServletRequest.remoteUser}"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <ul>
                             <li><a href="#">Action</a></li>
-                            <li role="separator" class="divider"></li>
+                            <li role="separator" class="divider"><a th:href="@{/customerdetails/account}">My Account</a>
+                            </li>
                             <li>
                                 <form th:action="@{/logout}" method="POST">
                                     <input type="submit" value="Sign out" class="btn btn-primary"/>
                                 </form>
                             </li>
                         </ul>
-                       </div>    
-                    
-                    
-                    
-                    <a th:unless="${#httpServletRequest.remoteUser}" 
-                    		class="btn btn-primary js-scroll-trigger" th:href="@{/login}">
-                    		Login
+                    </div>
+
+
+                    <a th:unless="${#httpServletRequest.remoteUser}"
+                       class="btn btn-primary js-scroll-trigger" th:href="@{/login}">
+                        Login
                     </a>
-              
-               </li> 
+
+                </li>
             </ul>
         </div>
     </div>
@@ -93,52 +92,28 @@
 <!--Header Area-->
 <div layout:fragment="content"/>
 
-
 <!--Contect Section-->
-<section id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="section-heading">Let's Get In Touch!</h2>
-                <hr class="my-4"/>
-                <p class="mb-5"> Give us a call or send us an
-                    email and we will get back to you as soon as possible!</p>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-lg-4 ml-auto text-center">
-                <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
-                <p>123-456-6789</p>
-            </div>
-            <div class="col-lg-4 mr-auto text-center">
-                <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
-                <p>
-                    <a href="mailto:zisarknar.me@gmail.com">info@jdconlineticketbooking.com</a>
-                </p>
-            </div>
-        </div>
-        
-    </div>
-</section>
+<section layout:fragment="contact"/>
+
+<!--Header Area and Content Area-->
+<div layout:fragment="content"/>
+
+<!--Footer-->
+<footer class="main-footer" th:replace="fragments/frontfooter :: footer"/>
 
 <!-- Bootstrap core JavaScript -->
 <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
 <!-- Plugin JavaScript -->
 <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/vendor/jquery/jquery.validate.js}"></script>
 <script th:src="@{/vendor/scrollreveal/scrollreveal.min.js}"></script>
 <script th:src="@{/vendor/magnific-popup/jquery.magnific-popup.min.js}"></script>
-
 <!-- Custom scripts for this template -->
 <script th:src="@{/js/creative.min.js}"></script>
 <!-- icheck -->
 <script th:src="@{/vendor/iCheck/icheck.min.js}"></script>
-
-<script layout:fragment="myScript">
-
-</script>
+<!--Custom Script-->
+<script layout:fragment="myScript"/>
 </body>
-
 </html>
