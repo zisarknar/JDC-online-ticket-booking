@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Facebook Feed Data</title>
+</head>
+<body>
+	<div align="center">
+		<h1>JDC Ticket</h1>
+		<div>
+			==============================================================================
+		</div>
+		<div style="width: 300px; text-align: left; display: inline-block">
+			<strong>From: </strong> <i th:text="${source}"></i>
+		</div>
+		<div style="width: 200px; text-align: left; display: inline-block">
+			<strong>From: </strong> <i th:text="${destination}"></i>
+		</div>
+		<br /> <br />
+		<div style="width: 300px; text-align: left; display: inline-block">
+			<strong>Passenger: </strong> <i th:text="${passengerName}"></i>
+		</div>
+		<div style="width: 200px; text-align: left; display: inline-block">
+			<strong>NRC No.</strong> <i th:text="${passengerNRC}"></i>
+		</div>
+		<br /> <br />
+		<div style="width: 300px; text-align: left; display: inline-block">
+			<strong>Phone Number: </strong> <i th:text="${passengerPhone}"></i>
+		</div>
+		<div style="width: 200px; text-align: left; display: inline-block">
+
+		</div>
+		<br /> <br />
+		<div style="width: 300px; text-align: left; display: inline-block">
+			<strong>Seat No.: </strong> <i>D16,F65</i>
+		</div>
+		<div style="width: 200px; text-align: left; display: inline-block">
+			<strong>Number of Seats: </strong> <i th:text="${noOfSeats}"></i>
+		</div>
+		<br /> <br />
+		<div style="width: 300px; text-align: left; display: inline-block">
+			<strong>Bus Type: </strong> <i th:text="${busType}"></i>
+		</div>
+		<div style="width: 200px; text-align: left; display: inline-block">
+			<strong>Bus Number: </strong> <i th:text="${busNumber}"></i>
+		</div>
+		<br /> <br />
+		<div style="width: 300px; text-align: left; display: inline-block">
+			<strong>Booking Reference: </strong> <i th:text="${regNo}"></i>
+		</div>
+		<div style="width: 200px; text-align: left; display: inline-block">
+			<strong>Status: </strong> <i>CONFIRMED</i>
+		</div>
+		<br /> <br />
+		<div style="width: 300px; text-align: left; display: inline-block">
+			<strong>Departure Date: </strong> <i th:text="${departureDate}"></i>
+		</div>
+		<div style="width: 200px; text-align: left; display: inline-block">
+			<strong>Departure Time: </strong> <i th:text="${departureTime}"></i>
+		</div>
+		<br /> <br />
+		<div style="width: 300px; text-align: left; display: inline-block">
+			<strong>Station: </strong> <i th:text="${stationName}"></i>
+		</div>
+		<div style="width: 200px; text-align: left; display: inline-block">
+
+		</div>
+		<br /> <br />
+		<div style="width: 300px; text-align: left; display: inline-block">
+			<strong>Date Printed: </strong> <i th:text="${datePrinted}"></i>
+		</div>
+		<div style="width: 200px; text-align: left; display: inline-block">
+
+		</div>
+		<br /> <br />
+		<div>
+			----------------------------------------------------------------------------------------------------------------------------
+		</div>
+		<br />
+
+		<div style="width: 300px; text-align: left; display: inline-block">
+			<strong>Passengers: </strong> <i th:text="${noOfSeats}"></i>
+		</div>
+		<div style="width: 200px; text-align: left; display: inline-block">
+			<strong>Total Price: </strong> <i th:text="${totalPrice}+'MMK'"></i>
+		</div>
+		<br /> <br />
+		<div>
+			---------------------------------------------------------------------------------------------------------------------------
+		</div>
+	</div>
+</body>
+</html>
