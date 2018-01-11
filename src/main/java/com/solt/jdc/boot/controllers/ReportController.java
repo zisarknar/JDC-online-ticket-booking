@@ -36,9 +36,6 @@ public class ReportController {
     public String processGetBookingReport(@ModelAttribute("bookFinder") @Valid BookFinder bookFinder, Model model) {
         Date fromDate = bookFinder.getFromDate();
         Date toDate = bookFinder.getToDate();
-        List<Booking>  bookingList = bookingService.getBookingReport(fromDate,toDate);
-        model.addAttribute("bookingsByDate", bookingList);
-        model.addAttribute("bookingsByDateCount", bookingList.size());
         return "redirect:/admin/report/booking";
     }
 }

@@ -44,25 +44,15 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.saveAndFlush(booking);
     }
 
-<<<<<<< HEAD
-	@Override
-	public Booking findByNameAndPhone(String userName,String phone) {
-		
-		
-		return bookingRepository.findByNameAndPhone(userName,phone);
-		
-	}
-=======
     @Override
-    public List<Booking> getBookingReport(Date fromDate, Date toDate) {
-        return bookingRepository.getBookingByDateRange(fromDate, toDate);
+    public Booking findByNameAndPhone(String userName, String phone) {
+        return bookingRepository.findByNameAndPhone(userName, phone);
     }
 
     @Override
     public long getBookingCount() {
         return bookingRepository.count();
     }
->>>>>>> feature/third-week-features
 
 
 }

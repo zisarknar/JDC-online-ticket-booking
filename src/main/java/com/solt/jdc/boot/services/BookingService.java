@@ -17,12 +17,8 @@ public interface BookingService {
 
     Booking updateBooking(Booking booking);
 
-<<<<<<< HEAD
-    Booking findByNameAndPhone(String name,String phone); 
-=======
-    List<Booking> getBookingReport(Date fromDate, Date toDate);
+    Booking findByNameAndPhone(String name, String phone);
 
     long getBookingCount();
 
->>>>>>> feature/third-week-features
 }

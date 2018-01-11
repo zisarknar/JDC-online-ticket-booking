@@ -16,14 +16,14 @@ public interface CustomerService {
     void deleteCustomer(int id);
 
     Customer updateCustomer(Customer customer);
-<<<<<<< HEAD
-    
+
     Customer findByEmail(String email);
-     UserRole getCustomerRole();
-     Customer currentCustomer();
-     Customer findByUsername(String username);
-=======
+
+    UserRole getCustomerRole();
+
+    Customer currentCustomer();
+
+    Customer findByUsername(String username);
 
     long getCustomerCount();
->>>>>>> feature/third-week-features
 }

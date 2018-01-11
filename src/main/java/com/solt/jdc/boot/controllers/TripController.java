@@ -51,15 +51,7 @@ public class TripController {
         model.addAttribute("newTrip", trip);
         model.addAttribute("allBus", busService.getAllBus());
         model.addAttribute("allStation", stationService.getAllStations());
-<<<<<<< HEAD
-
-        model.addAttribute("allcities", citiesService.getAllCities()
-        								.stream()
-        								.map(e -> e.getName())
-        								.collect(Collectors.toList()));
-=======
         model.addAttribute("allcities", citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
->>>>>>> feature/third-week-features
         return "admin/trip/addNew";
     }
 
@@ -68,7 +60,7 @@ public class TripController {
         if (result.hasErrors()) {
             return "admin/trip/addNew";
         }
-       // mainController.disallowedFieldException(result);
+        // mainController.disallowedFieldException(result);
         tripService.saveTrip(newTrip);
         return "redirect:/admin/trips";
     }
@@ -79,20 +71,15 @@ public class TripController {
         model.addAttribute("allStation", stationService.getAllStations());
         model.addAttribute("trip", tripService.getTrip(tripId));
         model.addAttribute("allcities", citiesService.getAllCities()
-        								.stream()
-        								.map(e -> e.getName())
-        								.collect(Collectors.toList()));
+                .stream()
+                .map(e -> e.getName())
+                .collect(Collectors.toList()));
         return "admin/trip/update";
     }
 
     @RequestMapping(value = "/trip/update/{id}", method = RequestMethod.POST)
-<<<<<<< HEAD
-
-    public String processUpdateTrip(@ModelAttribute("trip") @Valid Trip updatedTrip, 
-    								@PathVariable("id") int tripId, BindingResult result) {
-=======
-    public String processUpdateTrip(@ModelAttribute("trip") @Valid Trip updatedTrip, @PathVariable("id") int tripId, BindingResult result) {
->>>>>>> feature/third-week-features
+    public String processUpdateTrip(@ModelAttribute("trip") @Valid Trip updatedTrip,
+                                    @PathVariable("id") int tripId, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/bus/update";
         }

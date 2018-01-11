@@ -8,12 +8,8 @@
 
     <!-- Bootstrap core CSS -->
     <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-<<<<<<< HEAD
-					<link th:href="@{/vendor/bootstrap/css/font-awesome.min}" rel="stylesheet"/>
-=======
     <!--Bootstrap Datepicker-->
     <script th:src="@{/components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js}"></script>
->>>>>>> feature/third-week-features
     <!-- Custom fonts for this template -->
     <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
@@ -24,18 +20,17 @@
     <link th:href="@{/vendor/magnific-popup/magnific-popup.css}" rel="stylesheet"/>
     <!-- Custom styles for this template -->
     <link th:href="@{/css/creative.css}" rel="stylesheet"/>
-	
-	<link rel="stylesheet" th:href="@{/vendor/iCheck/square/blue.css}"/>
-	<link rel="stylesheet" th:href="@{/dist/css/account.css}"/>
-	
-	<!--  Custom CSS -->
+
+    <link rel="stylesheet" th:href="@{/vendor/iCheck/square/blue.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/account.css}"/>
+
+    <!--  Custom CSS -->
     <link rel="stylesheet" th:href="@{/dist/css/myStyle.css}"/>
 
 </head>
 <body id="page-top">
 
 <!-- Navigation -->
-<<<<<<< HEAD
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top"><b>Online</b>TicketBooking</a>
@@ -55,39 +50,39 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/findStation">Stations</a>
                 </li>
-            	
-                <li class="nav-item dropdown ">	
-                    									
-                    <a  th:if="${#httpServletRequest.remoteUser}" 
-                    				href="#"                     				
-                    				class="nav-link  dropdown-toggle"
-                        			data-toggle="dropdown" 
-                        			role="button" 
-                        			id="navbarDropdownMenuLink"
-                        			aria-haspopup="true"
-                           aria-expanded="false">
-                            <span th:text="${#httpServletRequest.remoteUser}"></span> 
-                     </a>      
-                         <div class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
-                           <ul >
+
+                <li class="nav-item dropdown ">
+
+                    <a th:if="${#httpServletRequest.remoteUser}"
+                       href="#"
+                       class="nav-link  dropdown-toggle"
+                       data-toggle="dropdown"
+                       role="button"
+                       id="navbarDropdownMenuLink"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        <span th:text="${#httpServletRequest.remoteUser}"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <ul>
                             <li><a href="#">Action</a></li>
-                            <li role="separator" class="divider"><a th:href="@{/customerdetails/account}">My Account</a></li>
+                            <li role="separator" class="divider"><a th:href="@{/customerdetails/account}">My Account</a>
+                            </li>
                             <li>
                                 <form th:action="@{/logout}" method="POST">
                                     <input type="submit" value="Sign out" class="btn btn-primary"/>
                                 </form>
                             </li>
                         </ul>
-                       </div>    
-                    
-                    
-                    
-                    <a th:unless="${#httpServletRequest.remoteUser}" 
-                    		class="btn btn-primary js-scroll-trigger" th:href="@{/login}">
-                    		Login
+                    </div>
+
+
+                    <a th:unless="${#httpServletRequest.remoteUser}"
+                       class="btn btn-primary js-scroll-trigger" th:href="@{/login}">
+                        Login
                     </a>
-              
-               </li> 
+
+                </li>
             </ul>
         </div>
     </div>
@@ -95,23 +90,16 @@
 
 
 <!--Header Area-->
-<div layout:fragment="content">
-</div>
-
+<div layout:fragment="content"/>
 
 <!--Contect Section-->
-<section layout:fragment="contact">
-    
-</section>
-=======
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" th:replace="fragments/navbar :: navbar"/>
+<section layout:fragment="contact"/>
 
 <!--Header Area and Content Area-->
 <div layout:fragment="content"/>
 
 <!--Footer-->
 <footer class="main-footer" th:replace="fragments/frontfooter :: footer"/>
->>>>>>> feature/third-week-features
 
 <!-- Bootstrap core JavaScript -->
 <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
@@ -123,15 +111,9 @@
 <script th:src="@{/vendor/magnific-popup/jquery.magnific-popup.min.js}"></script>
 <!-- Custom scripts for this template -->
 <script th:src="@{/js/creative.min.js}"></script>
-<<<<<<< HEAD
 <!-- icheck -->
 <script th:src="@{/vendor/iCheck/icheck.min.js}"></script>
-
-<script layout:fragment="myScript">
-
-</script>
-=======
+<!--Custom Script-->
 <script layout:fragment="myScript"/>
->>>>>>> feature/third-week-features
 </body>
 </html>

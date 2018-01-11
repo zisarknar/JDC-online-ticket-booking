@@ -25,7 +25,7 @@ public class Trip {
     @NotBlank(message = "Please Enter Trip Code")
     private String tripCode;
 
-    @DateTimeFormat(iso = ISO.TIME)    
+    @DateTimeFormat(iso = ISO.TIME)
     private LocalTime depTime;
 
     @Temporal(TemporalType.DATE)

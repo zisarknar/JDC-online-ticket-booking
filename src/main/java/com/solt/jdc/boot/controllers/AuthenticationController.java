@@ -29,14 +29,11 @@ public class AuthenticationController {
     public String getLoginPage() {
         return "admin/login";
     }
-<<<<<<< HEAD
- 
+
     @RequestMapping("/registration")
-    	public String getRegistrationPage() {
-    		return "admin/register";
-    	}
-    
-=======
+    public String getRegistrationPage() {
+        return "admin/register";
+    }
 
     @RequestMapping("/login")
     public String getUserLoginPage() {
@@ -49,5 +46,4 @@ public class AuthenticationController {
     }
 
 
->>>>>>> feature/third-week-features
 }

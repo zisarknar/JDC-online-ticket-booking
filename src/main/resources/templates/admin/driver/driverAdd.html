@@ -7,11 +7,6 @@
     <title>Add New Driver</title>
 </head>
 <body>
-<<<<<<< HEAD
-
-
-=======
->>>>>>> feature/third-week-features
 <section class="content-header" layout:fragment="header">
     <h1>
         Driver
@@ -73,7 +68,6 @@
 
 
                         <div class="form-group">
-<<<<<<< HEAD
                             <label>Role</label>
                             <select id="role" class="form-control" th:field="*{driverRole}">
                                 <option
@@ -88,23 +82,6 @@
                             <input type="radio" id="driverStatus" value="true" th:checked="*{status}"/>Yes
                             <input type="radio" id="driverStatus" value="false"
                                    th:checked="*{status}==false"/>No
-=======
-                            <label>Role</label> <select id="role" class="form-control"
-                                                        th:field="*{driverRole}">
-                            <option
-                                    th:each="driverRole:${T(com.solt.jdc.boot.domains.DriverRole).values()}"
-                                    th:value="${driverRole}" th:text="${driverRole.getRoleName()}"></option>
-                        </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="driverStatus">Status</label> <input type="radio"
-                                                                            id="driverStatus" value="true"
-                                                                            th:checked="*{status}"/>Yes <input
-                                type="radio" id="driverStatus" value="false"
-                                th:checked="*{status}==false"/>No
-
->>>>>>> feature/third-week-features
                         </div>
 
 

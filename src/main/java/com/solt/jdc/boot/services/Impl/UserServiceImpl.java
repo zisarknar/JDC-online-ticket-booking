@@ -14,49 +14,10 @@ import com.solt.jdc.boot.services.UserService;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-<<<<<<< HEAD
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-
-	@Override
-	public Iterable<User> findAll() {
-		return userRepository.findAll();
-	}
-
-	@Override
-	public User find(int id) {
-		return userRepository.findOne(id);
-	}
-
-	@Override
-	public void save(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-	
-		userRepository.save(user);
-		
-	}
-
-	@Override
-	public void delete(User user) {
-		userRepository.delete(user);
-		
-	}
-
-	@Override
-	public void update(User user) {
-		userRepository.save(user);
-		
-	}
-	
-	
-=======
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Iterable<User> findAll() {
@@ -70,19 +31,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setStatus(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
     @Override
     public void delete(User user) {
         userRepository.delete(user);
+
     }
 
     @Override
     public void update(User user) {
         userRepository.save(user);
+
     }
 
     @Override
@@ -96,5 +58,4 @@ public class UserServiceImpl implements UserService {
     }
 
 
->>>>>>> feature/third-week-features
 }

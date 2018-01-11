@@ -1,6 +1,5 @@
 package com.solt.jdc.boot.config;
 
-import com.solt.jdc.boot.handlers.DeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
@@ -19,27 +19,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
-    @Autowired
-<<<<<<< HEAD
-    private AccessDeniedHandler accessDeniedHandler;
-    @Autowired@Qualifier("customer_details_service")
-    private UserDetailsService userDetailsService;
-=======
-    private DeniedHandler accessDeniedHandler;
 
->>>>>>> feature/third-week-features
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
+
+    @Autowired
+    @Qualifier("customer_details_service")
+    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/admin").authenticated()
                 .antMatchers("/admin/error/**").authenticated()
                 .antMatchers("/admin/roots/**").hasRole("ROOT")
-<<<<<<< HEAD
                 .antMatchers("/customers/**").hasRole("ROOT")
                 .antMatchers("/customerdetails/**").authenticated()
-=======
-                .antMatchers("/admin/customers/**").hasRole("ROOT")
->>>>>>> feature/third-week-features
                 .antMatchers("/admin/bookings/**").hasAnyRole("ROOT", "MANAGER", "STAFF")
                 .antMatchers("/admin/buses/**").hasAnyRole("ROOT", "MANAGER")
                 .antMatchers("/admin/addresses/**").hasAnyRole("ROOT", "MANAGER")

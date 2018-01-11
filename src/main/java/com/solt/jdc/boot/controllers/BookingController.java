@@ -32,12 +32,12 @@ public class BookingController {
     @RequestMapping("/bookings")
     public String getAllBooking(Model model) {
         model.addAttribute("bookings", bookingService.getAllBooking());
-       
+
         Booking book = bookingService.findByNameAndPhone("Thaw Thaw", "0900077");
-    
+
         System.out.println(book);
-        
-        
+
+
         return "admin/booking/index";
     }
 
@@ -56,21 +56,12 @@ public class BookingController {
         return "admin/booking/addNew";
     }
 
-<<<<<<< HEAD
-    @RequestMapping(value = "/bookings/add",  method = RequestMethod.POST)
-    public String processAddBooking(@ModelAttribute ("newBooking") @Valid Booking newBooking,BindingResult result){
-    	if(result.hasErrors()) {
-    		return "admin/booking/addNew";
-    	}
-    	mainController.disallowedFieldException(result);
-=======
     @RequestMapping(value = "/bookings/add", method = RequestMethod.POST)
     public String processAddBooking(@ModelAttribute("newBooking") @Valid Booking newBooking, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/booking/addNew";
         }
         mainController.disallowedFieldException(result);
->>>>>>> feature/third-week-features
         bookingService.saveBooking(newBooking);
         return "redirect:/admin/bookings";
     }
