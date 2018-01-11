@@ -85,8 +85,8 @@ public class BookingController {
         currentBooking.setRegCode(updatedBooking.getRegCode());
         currentBooking.setTotalAmount(updatedBooking.getTotalAmount());
         currentBooking.setStatus(updatedBooking.isStatus());
-        currentBooking.setCustomerList(updatedBooking.getCustomerList());
-        currentBooking.setTripList(updatedBooking.getTripList());
+        currentBooking.setCustomer(updatedBooking.getCustomer());
+        currentBooking.setTrip(updatedBooking.getTrip());
         bookingService.updateBooking(updatedBooking);
         return "redirect:/admin/bookings";
     }

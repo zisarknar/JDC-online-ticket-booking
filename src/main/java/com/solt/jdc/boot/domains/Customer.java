@@ -63,7 +63,7 @@ public class Customer {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customerList")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
     private Booking booking;
 
     private String tempPassword;

@@ -49,11 +49,5 @@ public class Services {
 	}
 
 
-    @NotBlank(message = "Please Enter Services Name")
-    private String services;
-
-    @ManyToOne
-    private Bus bus;
-
 
 }

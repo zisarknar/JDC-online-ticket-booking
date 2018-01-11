@@ -126,31 +126,6 @@ public class Bus {
 	}
 
 
-    @NotBlank(message = "Bus Number cannot be blank")
-    private String busNumber;
-
-    @Min(value = 20, message = "Maximum seats must be atleast 20 seats")
-    private int maxSeats;
-
-    private int takenSeats = 0;
-
-    @NotBlank(message = "Please enter name of the bus company")
-    private String busCompany;
-
-    @NotBlank(message = "Please enter bus code")
-    private String busCode;
-
-    @ManyToOne
-    @JoinColumn(name = "bus_type_id")
-    private BusType busType;
-
-    @OneToMany(mappedBy = "bus")
-    @JsonIgnore
-    private List<Services> servicesList = new ArrayList<>();
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "bus_station_id")
-    private Station station;
-
+   
 
 }

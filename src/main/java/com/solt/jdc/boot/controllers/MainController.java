@@ -117,11 +117,7 @@ public class MainController {
 		return "frontend/searchResult";
 	}
 
-	@Autowired
-	private StationService stationService;
-
-	@Autowired
-	private BusService busService;
+	
 	
 	@Autowired
 	private TripService tripServcie;

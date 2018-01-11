@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
-    @Query("select b from book b where b.customerList.username=?1 and b.customerList.phone=?2")
+    @Query("select b from book b where b.customer.username=?1 and b.customer.phone=?2")
     Booking findByNameAndPhone(String userName, String phone);
 
 //    @Query("select b from book b where b.bookDate between :fromDate and :toDate")
