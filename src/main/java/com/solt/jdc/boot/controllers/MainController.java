@@ -108,11 +108,6 @@ public class MainController {
     }
 
 
-    @RequestMapping("/admin")
-    public String getMain() {
-        return "admin/index";
-    }
-
     @GetMapping("/")
     public String getIndex(Model model) {
         TripFinder tripFinder = new TripFinder();

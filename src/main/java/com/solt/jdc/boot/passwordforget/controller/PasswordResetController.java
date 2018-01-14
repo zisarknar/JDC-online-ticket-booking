@@ -5,6 +5,7 @@ import com.memorynotfound.spring.security.model.User;
 import com.memorynotfound.spring.security.repository.PasswordResetTokenRepository;
 import com.memorynotfound.spring.security.service.UserService;
 import com.memorynotfound.spring.security.web.dto.PasswordResetDto;*/
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -26,9 +27,12 @@ import javax.validation.Valid;
 @RequestMapping("/reset-password")
 public class PasswordResetController {
 
-    @Autowired private CustomerService customerService;
-    @Autowired private PasswordResetTokenRepository tokenRepository;
-    @Autowired private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private PasswordResetTokenRepository tokenRepository;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @ModelAttribute("passwordResetForm")
     public PasswordResetDto passwordReset() {
@@ -40,9 +44,9 @@ public class PasswordResetController {
                                            Model model) {
 
         PasswordResetToken resetToken = tokenRepository.findByToken(token);
-        if (resetToken == null){
+        if (resetToken == null) {
             model.addAttribute("error", "Could not find password reset token.");
-        } else if (resetToken.isExpired()){
+        } else if (resetToken.isExpired()) {
             model.addAttribute("error", "Token has expired, please request a new password reset.");
         } else {
             model.addAttribute("token", resetToken.getToken());
@@ -56,20 +60,16 @@ public class PasswordResetController {
     public String handlePasswordReset(@ModelAttribute("passwordResetForm") @Valid PasswordResetDto form,
                                       BindingResult result,
                                       RedirectAttributes redirectAttributes) {
-
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute(BindingResult.class.getName() + ".passwordResetForm", result);
             redirectAttributes.addFlashAttribute("passwordResetForm", form);
             return "redirect:/reset-password?token=" + form.getToken();
         }
-
         PasswordResetToken token = tokenRepository.findByToken(form.getToken());
         Customer customer = token.getCustomer();
         String updatedPassword = passwordEncoder.encode(form.getPassword());
         customerService.updatePassword(updatedPassword, customer.getId());
-       
         tokenRepository.delete(token);
-
         return "redirect:/login?resetSuccess";
     }
 
