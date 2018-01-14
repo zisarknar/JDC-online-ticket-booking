@@ -35,12 +35,8 @@
 					<br /> <br />
 					<button type="submit" class="btn btn-primary js-scroll-trigger">Search</button>
 				</form>
-				
-				<br/>
-				<br/>
-				
-				
-				<div class="row bg-danger">				
+				<br /> <br />
+				<div class="row bg-danger">
 					<div class="col-md-3">
 						<label class="lead font-weight-bold">Station Name</label>
 					</div>
@@ -102,28 +98,10 @@
 										</select>
 									</div>
 								</div>
-								 
-								 
-								   <div class="box-header with-border">
-									<a 	 th:if="${#httpServletRequest.remoteUser}">
-										<input type="submit" value="Book Now" class="btn btn-primary float-right"/>
-										<!-- <br /> <label class="text-danger float-right">Seats are
-									no longer Available</label> -->
-										
-									 </a>
-					 			
-									<a 	th:unless="${#httpServletRequest.remoteUser}"
-										class="btn btn-primary float-left"
-										th:href="@{/registration}"> 
-									<i class="fa fa-arrow-left"></i>
-											Please Register
-									 </a>		
-								</div>
-								 
-								<!-- <input type="submit" value="Book Now" class="btn btn-primary float-right"/> -->
-								
-								<br />
-								
+								<input class="btn btn-primary float-right" type="submit"
+									value="Book Now" /> <br /> <br /> <label
+									class="text-danger float-right">Seats are no longer
+									Available</label>
 							</form>
 						</div>
 						<div class="col-md-3">

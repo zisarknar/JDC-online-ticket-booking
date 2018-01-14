@@ -19,11 +19,28 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.solt.jdc.boot.domains.Customer;
+import com.solt.jdc.boot.domains.Role;
+import com.solt.jdc.boot.domains.UserRole;
+import com.solt.jdc.boot.repositories.CustomerRepository;
+import com.solt.jdc.boot.services.CustomerService;
+import com.solt.jdc.boot.services.UserRoleService;
+
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     private CustomerRepository customerRepository;
-
+    @Autowired
+    private UserRoleService userRoleService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -44,9 +61,25 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void saveCustomer(Customer customer) {
+
         customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
-        customer.isEnabled();
+        customer.setEnabled(true);
+        customer.setRole_user(getCustomerRole());
         customerRepository.saveAndFlush(customer);
+    }
+
+    //moe
+    @Override
+    public UserRole getCustomerRole() {
+        UserRole role = userRoleService.findByRole("ROLE_CUSTOMER");
+        if (role != null) {
+            return role;
+        } else {
+            role = new UserRole();
+            role.setRole("ROLE_CUSTOMER");
+            userRoleService.saveRoleUser(role);
+            return role;
+        }
     }
 
     @Override
@@ -117,4 +150,9 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 	
 	//==========================	
+}
+    @Override
+    public long getCustomerCount() {
+        return customerRepository.count();
+    }
 }

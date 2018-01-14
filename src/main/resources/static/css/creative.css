@@ -134,7 +134,7 @@ body {
 @media (min-width: 992px) {
     #mainNav {
         border-color: transparent;
-        background-color: transparent;
+        background-color: #ffffff;
     }
 
     #mainNav .navbar-brand {
@@ -142,7 +142,7 @@ body {
     }
 
     #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-        color: #fff;
+        color: #000000;
     }
 
     #mainNav .navbar-nav > li.nav-item > a.nav-link {
@@ -156,7 +156,7 @@ body {
 
     #mainNav .navbar-nav > li.nav-item > a.nav-link:hover,
     #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
-        color: #fff;
+        color: #F05F40;
     }
 
     #mainNav.navbar-shrink {
@@ -192,6 +192,7 @@ header.masthead {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
 }
 
 header.masthead hr {
@@ -321,13 +322,14 @@ header.masthead p {
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
     color: #fff;
-    background-color: #eed70c !important;
+    background-color: #ee5000 !important;
 }
 
 .btn-primary:active, .btn-primary:focus {
     box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
 }
 
+<<<<<<< HEAD
 .main-container.sidebar.block {
     padding-bottom: 30px;
     line-height: 14px;
@@ -382,4 +384,12 @@ table {
 	color: #ffffff;
 }
 
+
+
+.footer-copy {
+    background-color: #181818;
+    color: #8a8a8a;
+    text-align: center;
+    padding: 20px;
+}
 

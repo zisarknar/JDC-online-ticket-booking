@@ -28,7 +28,6 @@ public class Passenger {
 	public Passenger() {
 		
 	}
-//==============================================
 	
 
 	public Passenger(String name, String phone, String specialDesc) {

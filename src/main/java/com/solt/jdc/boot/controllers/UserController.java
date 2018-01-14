@@ -6,6 +6,7 @@ import com.solt.jdc.boot.services.UserService;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -25,7 +27,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private MainController mainController;
 
@@ -45,6 +48,8 @@ public class UserController {
     public String save(@ModelAttribute("user") @Valid User user, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/user/userAdd";
+        } else {
+
         }
         mainController.disallowedFieldException(result);
         userService.save(user);
@@ -53,19 +58,16 @@ public class UserController {
 
     @RequestMapping(value = "/user/update/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("users", userService.findAll());
         model.addAttribute("user", userService.find(id));
-        return "admin/user/userEdit";
+        return "admin/user/userDetails";
     }
 
     @RequestMapping(value = "/user/update/{id}", method = RequestMethod.POST)
-    public String edit(@PathVariable("id") int id,@ModelAttribute("user") @Valid User user, BindingResult result) {
+    public String edit(@ModelAttribute("user") @Valid User user,@PathVariable("id") int userId, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/user/userEdit";
         }
-        //User currentUser=userService.find(id);
-        
-        User currentUser = userService.find(user.getId());
+        User currentUser = userService.find(userId);
         currentUser.setUserName(user.getUserName());
         currentUser.setFirstName(user.getFirstName());
         currentUser.setLastName(user.getLastName());
@@ -75,9 +77,11 @@ public class UserController {
         currentUser.setStatus(user.isStatus());
         if (currentUser.getPassword().isEmpty()) {
             currentUser.setPassword(user.getPassword());
+        }else {
+        	currentUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
         userService.update(currentUser);
-        return "redirect:/admin/users";
+        return "redirect:/admin/user/update/"+userId;
     }
 
     @RequestMapping(value = "/user/delete/{id}")
@@ -85,6 +89,7 @@ public class UserController {
         userService.delete(userService.find(id));
         return "redirect:/admin/users";
     }
+
 
     @InitBinder
     public void initializeBinder(WebDataBinder binder) {

@@ -2,6 +2,7 @@ package com.solt.jdc.boot.services;
 
 import com.solt.jdc.boot.domains.Booking;
 
+import java.util.Date;
 import java.util.List;
 
 public interface BookingService {
@@ -16,5 +17,8 @@ public interface BookingService {
 
     Booking updateBooking(Booking booking);
 
-    Booking findByNameAndPhone(String name,String phone); 
+    Booking findByNameAndPhone(String name, String phone);
+
+    long getBookingCount();
+
 }

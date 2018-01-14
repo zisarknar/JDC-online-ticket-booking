@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.solt.jdc.boot.domains.Bus;
@@ -40,7 +41,7 @@ public class FrontTripSearchController {
 		model.addAttribute("allcities",
 				citiesService.getAllCities()
 											.stream()//change into  an sequence of cities  ->stream 
-													.map(e -> e.getName())  //List တစ်ခုထဲသို့  မြို့နာမည်တွေထည့်တာပါ 
+													.map(e -> e.getName())  
 															   .collect(Collectors.toList()));
 		model.addAttribute("tripFinder", tripFinder);
 		return "/frontend/findTrips";
@@ -49,22 +50,17 @@ public class FrontTripSearchController {
 	
 	
 	@RequestMapping(value = "/busBinding/{id}", method = RequestMethod.POST)
-	public String bindBus(@ModelAttribute("bus") Bus bus, @PathVariable("id") int tripId,
-															Model model,HttpServletRequest request,
-																		RedirectAttributes redirect) {
+	public String bindBus(@ModelAttribute("bus") Bus bus, @PathVariable("id") int tripId,RedirectAttributes redirect) {
 		Trip trip = tripService.getTrip(tripId);
 		Bus currentBus=busService.findById(trip.getBusId());
 		
+		//Selecting chosen Seat
+		redirect.addFlashAttribute("chosenSeat", bus.getTakenSeats());
 		
-		redirect.addAttribute("chosenSeat",bus.getTakenSeats());
 		currentBus.setTakenSeats(currentBus.getTakenSeats()+bus.getTakenSeats());
 		
 		busService.updateBus(currentBus);
-		
-		
 		int id=trip.getId();
-		
 		return "redirect:/frontendBooking/trip/"+String.valueOf(id);
-		
 	}
 }

@@ -3,7 +3,11 @@ package com.solt.jdc.boot.services;
 
 
 import com.solt.jdc.boot.domains.Customer;
+
 import com.solt.jdc.boot.passwordforget.CustomerRegistrationDto;
+
+import com.solt.jdc.boot.domains.UserRole;
+
 
 import java.util.List;
 
@@ -24,7 +28,6 @@ public interface CustomerService extends UserDetailsService {
     
     Customer findByusername(String username);
     
-    
     //===========================
     
     Customer findByEmail(String email);
@@ -35,5 +38,5 @@ public interface CustomerService extends UserDetailsService {
     
     public UserDetails loadCustomerByUsername(String email);
     //=============================
-    
+    long getCustomerCount();
 }

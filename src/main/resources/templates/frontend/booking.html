@@ -12,8 +12,8 @@
 <style type="text/css">
 /*  */
 .search-content {
-    padding: 19px;
-    border: 1px solid #eeeeee;
+	padding: 19px;
+	border: 1px solid #eeeeee;
 }
 
  .border-using {
@@ -29,25 +29,26 @@
 
 </style>
 
-<body class=" w-100 h-25 m-5 p-5 opaque-overlay">
+<body class=" w-100 h-25 m-5 p-5 opaque-overlay" onload="populateName">
 	<div layout:fragment="content">
 
 		<div class="container">
-			
+
 			<div th:inline="text">
-			<!-- Welcome to _________User  : '[[${#httpServletRequest.remoteUser}]]' -->				
+				<!-- Welcome to _________User  : '[[${#httpServletRequest.remoteUser}]]' -->
 			</div>
 			<div class="row">
-				<div class="col-sm-12 content ">
-				
-					<div class="row " ><!-- style="border: thin; border-bottom-style: outset;" -->
-						<div class="col-sm-6 border-1 rounded" >
-							<div class="search-content active border-using">&nbsp;</div>
-							<form >
+				<div class="col-sm-12 content">
+					<div class="row" style="border: thin; border-bottom-style: outset;">
+						<div class="col-sm-6" style="border: blue;">
+							<div class="search-content active">&nbsp;</div>
+							<form method="post" th:object="${passenger}"
+								th:action="@{/frontendBooking/success(selectedSeat=${selectedSeat},totalPrice=${totalPrice},tripId=${tripId})}">
 								<!--<form class="" method="post" action="https://formspree.io/"> -->
-								<div class="title" style="border: thin; border-bottom-style: outset;">
-									<h2 style="font:oblique;">
-										<i><span >Passenger Information</span></i>										
+								<div class="title"
+									style="border: thin; border-bottom-style: outset;">
+									<h2 style="font: oblique;">
+										<i><span>Passenger Information</span></i>
 									</h2>
 								</div>
 
@@ -55,30 +56,30 @@
 
 								<div class="form-group row">
 									<label>Passenger Name<br />
-									</label> <input type="text"
-										name="passengerName" class="form-control"
-										placeholder="Enter passenger name"									
-										th:value="${customer.username}"/>										 
+									</label>
+									 <input id="populateName" type="hidden" th:value="${customer.username}"/>
+									 <input id="populateNrcNumber" type="hidden" th:value="${customer.nrcNumber}"/>
+									 <input id="populatePhone" type="hidden" th:value="${customer.phone}"/>
+									<input type="text" id="customerName" name="passengerName"
+										class="form-control" placeholder="Enter passenger name"
+										th:field="*{name}"/>
 								</div>
 
 								<div class="form-group row">
 									<label>Register No<br /></label> <input type="text"
-										name="regNo" class="form-control"
-										placeholder="Enter your registration number"										 
-										th:value="${customer.nrcNumber}"
-										/>
+										id="customerNrcNumber" name="regNo" class="form-control"
+										placeholder="Enter your registration number"
+										th:field="*{regNo}" />
 								</div>
 
 								<div class="form-group row">
-									<label>Phone</label> <input type="text" name="passengerPhone"
-										class="form-control" placeholder="Enter phone Number"
-										 
-										th:value="${customer.phone}"
-										/>
+									<label>Phone</label> <input id="customerPhone" type="text"
+										name="passengerPhone" class="form-control"
+										placeholder="Enter phone Number" th:field="*{phone}" />
 								</div>
-								
+
 								<div class="clear-fix">&nbsp;</div>
-									
+
 
 								<div class="">
 									<div class="form-group row">
@@ -94,7 +95,7 @@
 											<label>&nbsp;</label>
 											<div class="optional"></div>
 										</div>
-										
+
 										<div class="col-lg-9 col-md-9 col-xs-9 lists">
 											<div>
 												<p>
@@ -166,33 +167,30 @@
 								<hr />
 								<div class="form-group row">
 									<div class="col-sm-offset-3 col-sm-9">
-										
-										
+
+
 										<div class="row">
-										
-										<div class="col-xs-8">
-										<div class="checkbox icheck">
-											
-											<label for="agree" class="form-check-label">		
-											<input id="agree" type="checkbox"
-												name="agree"  required="required"/>
-										
-												<b>I accept the Terms and
-													Conditions. ( အထက္ပါ စည္းမ်ဥ္းမ်ားကုိ သေဘာတူ လက္ခံပါသည္။ )</b>
-											</label>
+
+											<div class="col-xs-8">
+												<div class="checkbox icheck">
+
+													<label for="agree" class="form-check-label"> <input
+														id="agree" type="checkbox" name="agree"
+														required="required" /> <b>I accept the Terms and
+															Conditions. ( အထက္ပါ စည္းမ်ဥ္းမ်ားကုိ သေဘာတူ လက္ခံပါသည္။
+															)</b>
+													</label>
+												</div>
+											</div>
 										</div>
-										</div>
-										</div>
-										
+
 									</div>
 								</div>
-														
-							<div class="form-group row">
+
+								<div class="form-group row">
 									<div class="col-sm-offset-3 col-sm-9">
-										<button type="submit"
-												name="confirmOrder"												
-												class="btn sample"												
-												id="confirmOrder">Submit Order</button>
+										<button type="submit" name="confirmOrder" class="btn sample"
+											id="confirmOrder">Submit Order</button>
 									</div>
 								</div>
 							</form>
@@ -222,7 +220,7 @@
 										<td colspan="2">Normal</td>
 									</tr>
 									<tr>
-										<td colspan="2"><b th:text="${selectedSeat}"></b></td>
+										<td colspan="2"><b th:text="${stationName}"></b></td>
 									</tr>
 									<tr>
 										<td colspan="2">Seat Qty : <b th:text="*{unitPrice}"></b></td>
@@ -230,8 +228,8 @@
 
 									<tr class="total">
 										<td>Total</td>
-										<td class="text-right"><span id="totalPrice" th:text="${totalPrice}"> </span>
-											MMK</td>
+										<td class="text-right"><span id="totalAmount"><label
+												th:text="${total}"></label></span> MMK</td>
 									</tr>
 
 									<tr>
@@ -247,7 +245,7 @@
 			</div>
 		</div>
 	</div>
-<script layout:fragment="myScript">
+	<script layout:fragment="myScript">
 var checktermNcondition =function(){
 	if ($('#agree').prop("checked") == true) {
 		$('#comfirmorder').prop('disabled',false);
@@ -270,8 +268,13 @@ $(function () {
       increaseArea: '20%' // optional
     });
   });
-
-</script> 
+  
+  $(function(){
+	  $("#customerName").val($("#populateName").val());
+	  $("#customerNrcNumber").val($("#populateNrcNumber").val());
+	  $("#customerPhone").val($("#populatePhone").val());
+  })
+  </script>
 </body>
 </html>
 

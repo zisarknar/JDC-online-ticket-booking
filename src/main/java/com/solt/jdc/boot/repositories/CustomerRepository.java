@@ -11,16 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Integer>{
-	
-	/*@Query("SELECt c FROM customer WHRER c.username=?1")*/
-	 @Transactional(readOnly = true)
-	   Customer findByusername(/*@Param("username")*/String username);
-/*
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+    /*@Query("SELECt c FROM customer WHRER c.username=?1")*/
+    @Transactional(readOnly = true)
+    Customer findByEmail(/*@Param("username")*/String email);
+
+    @Transactional(readOnly = true)
+    Customer findByUsername(String username);
+/*		
 	 @Query("SELECT t FROM Thing t WHERE t.fooIn = ?1 AND t.bar = ?2")
 	    ThingEntity findByFooInAndBar(String fooIn, String bar);
 */
-	 
+
 	    Customer findByEmail(String email);
 	    @Transactional
 	    @Modifying

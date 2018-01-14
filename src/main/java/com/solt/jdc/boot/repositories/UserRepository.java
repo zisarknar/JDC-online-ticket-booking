@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import com.solt.jdc.boot.domains.User;
 
 public interface UserRepository extends  CrudRepository<User,Integer> {
-
+    User findByUserName(String name);
 }

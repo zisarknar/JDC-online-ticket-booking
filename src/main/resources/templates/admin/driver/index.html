@@ -30,7 +30,7 @@
                             class="fa fa-plus"></i>Add New Driver</a>
                 </div>
                 <div class="box-body">
-                    <table id="driver" class="table table-bordered table-hover"
+                    <table id="driver" class="table table-striped table-bordered table-hover"
                            dt:table="true">
                         <thead>
                         <tr>
@@ -52,9 +52,15 @@
                             <td th:text="${driver.email}"></td>
                             <td th:text="${driver.phone}"></td>
                             <td th:text="${driver.driverRole}"></td>
-                            <td th:text="${driver.status}"></td>
-
-
+                            <td>
+									<span th:if="${driver.status}">
+											<a href="#"><i class="fa fa-circle text-success"></i>							
+											</a>
+									</span>
+                                <span th:unless="${driver.status}">
+											false	
+									</span>
+                            </td>
                             <td><a th:href="@{/admin/driver/delete/}+${driver.id}"
                                    class="btn btn-danger"><i class="fa fa-trash"
                                                              onclick="return confirm('Are you sure to delete ?')"></i>Delete</a>
@@ -72,7 +78,7 @@
 
 <script layout:fragment="myScript">
     $(function () {
-        $('#driver').DataTable({
+        $('table').DataTable({
             'paging': true,
             'lengthChange': true,
             'searching': true,
