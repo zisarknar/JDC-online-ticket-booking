@@ -1,12 +1,17 @@
 package com.solt.jdc.boot.domains;
 
+import java.util.Collection;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+
+
 @Entity(name = "customer")
+@Table(uniqueConstraints=@UniqueConstraint(columnNames="email"))
 public class Customer {
 
     @Id
@@ -43,8 +48,23 @@ public class Customer {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
     private Booking booking;
 
+    
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
+    
+    
+    
     public Customer() {
     }
+    
+    
 
     public int getId() {
         return id;
@@ -141,7 +161,46 @@ public class Customer {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
+
+
+
+	public Customer(String firstName, String lastName, String password, String email) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.email = email;
+	}
+
+
+
+	public Customer(String firstName, String lastName, String password, String email, Collection<Role> roles) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.email = email;
+		this.roles = roles;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Customer [firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", email="
+				+ email + ", roles=" + roles + "]";
+	}
     
+	
+	
     
     
 }

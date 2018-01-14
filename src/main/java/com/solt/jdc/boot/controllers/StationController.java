@@ -73,6 +73,8 @@ public class StationController {
         model.addAttribute("allcities", citiesService.getAllCities());
         return "admin/station/index";
     }
+    
+    
 
     @RequestMapping(value = "/station/update", method = RequestMethod.POST)
     public String updateStationPOST(@ModelAttribute("station") @Valid Station newStation, BindingResult result) {
@@ -95,8 +97,11 @@ public class StationController {
 
     @ResponseBody
     @RequestMapping(value = "/station/loadEntity/{id}")
-    public Station loadEntity(@PathVariable("id") int id) {
-        return stationService.findById(id);
+    public Station loadEntity(Model model,@PathVariable("id") int id) {
+    	
+        Station station= stationService.findById(id);
+        	model.addAttribute("station",station);
+        return station;
     }
 
     @InitBinder

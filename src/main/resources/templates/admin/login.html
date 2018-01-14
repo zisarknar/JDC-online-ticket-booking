@@ -24,7 +24,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
 </head>
-<body class="hold-transition login-page">
+<body onload="document.f.username.focus();"  class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
         <a th:href="@{/}"><b>Online</b>TicketBooking</a>
@@ -44,13 +44,21 @@
                     You have been logged out.
                 </div>
             </div>
+            
+            <div th:if="${param.resetSuccess}">
+                <div class="alert alert-info">
+                                    You successfully reset your password.
+                                </div>                
+             </div>
+            
+            
             <div class="form-group">
-                <input type="text" class="form-control" name="username" placeholder="User Name" autofocus="true"
-                       required="true"/>
+                <input type="text" class="form-control" name="username" placeholder="User Name" autofocus="autofocus"
+                       required="required"/>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" name="password" placeholder="Password" required="true"/>
+                <input type="password" class="form-control" name="password" placeholder="Password" required="required"/>
                 <span class="glyphicon glyphicon-eye-open form-control-feedback"></span>
             </div>
             <div class="row">
@@ -61,13 +69,16 @@
                 <!-- /.col -->
             </div>
         </form>
+        
+        
+        
 
         <div class="social-auth-links text-center">
             <p>- OR -</p>
             <form th:action="@{/connect/facebook}" method="post">
                 <button type="submit" class="btn btn-block btn-social btn-facebook btn-flat"><i
-                        class="fa fa-facebook"></i> Sign in using
-                    Facebook
+                        class="fa fa-facebook"></i> Sign in using Facebook
+                    
                 </button>
             </form>
             <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in
@@ -75,10 +86,9 @@
                 Google+</a>
         </div>
         <!-- /.connect-auth-links -->
-        <a href="#">I forgot my password</a><br/>
-        <a th:href="@{/customer/register}" class="text-center">Register a new membership</a><br/>
+        <a th:href="@{/forgot-password}">I forgot my password</a><br/>
+        <a th:href="@{/customer/register}" class="text-center" onclick="goback()">Register a new membership</a><br/>
         <a th:href="@{/}" class="text-center">&DoubleLongLeftArrow; Back</a>
-
     </div>
     <!-- /.login-box-body -->
 </div>

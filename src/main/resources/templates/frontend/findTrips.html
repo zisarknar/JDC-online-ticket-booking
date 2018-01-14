@@ -35,9 +35,12 @@
 					<br /> <br />
 					<button type="submit" class="btn btn-primary js-scroll-trigger">Search</button>
 				</form>
+				
 				<br/>
 				<br/>
-				<div class="row bg-danger">
+				
+				
+				<div class="row bg-danger">				
 					<div class="col-md-3">
 						<label class="lead font-weight-bold">Station Name</label>
 					</div>
@@ -52,10 +55,9 @@
 					</div>
 				</div>
 				<div id="loopDiv">
-					<div class="row" th:each="trip,iter:${tripList}"
-						style="margin-top: 20px">
+					<div class="row" th:each="trip,iter:${tripList}" style="margin-top: 20px">
 						<input id="maxSeats" type="hidden"
-							th:value="${maxSeatList[iter.index]}" />
+											 th:value="${maxSeatList[iter.index]}" />
 						<div class="col-md-3 col-xs-12">
 							<div class="row">
 								<div class="col-md-3">
@@ -78,29 +80,50 @@
 								</div>
 							</div>
 						</div>
+						
 						<div class="col-md-3 col-xs-12">
-							<form id="busSeatForm" th:object="${bus}"
-								th:action="${'/busBinding/'+trip.id}" method="post">
+							<form id="busSeatForm" th:object="${bus}" th:action="${'/busBinding/'+trip.id}" method="post">
+								
 								<input id="maxSeats" type="hidden" class="text-success"
-									th:value="${busList[iter.index].maxSeats}" /> <input
-									id="takenSeats" type="hidden" class="text-info"
+									th:value="${busList[iter.index].maxSeats}" /> 
+								<input id="takenSeats" type="hidden" class="text-info"
 									th:value="${busList[iter.index].takenSeats}" />
 								<div class="row">
 									<div class="col-md-3">
 										<i class="fa fa-wheelchair fa-4x" style="color: red"></i>
 									</div>
 									<div class="col-md-9">
-										<select class="form-control" id="select"
-											th:field="*{takenSeats}">
+										<select class="form-control" id="select" th:field="*{takenSeats}">
+											
 											<option value="-1">Select Seats</option>
 											<option th:each="seatNo:${grandList[iter.index]}"
-												th:value="${seatNo}" th:text="${seatNo}"></option>
+												    th:value="${seatNo}" th:text="${seatNo}"></option>
+												
 										</select>
 									</div>
 								</div>
-								<a class="btn btn-primary float-right" href="">Book Now</a> <br />
-								<br /> <label class="text-danger float-right">Seats are
-									no longer Available</label>
+								 
+								 
+								   <div class="box-header with-border">
+									<a 	 th:if="${#httpServletRequest.remoteUser}">
+										<input type="submit" value="Book Now" class="btn btn-primary float-right"/>
+										<!-- <br /> <label class="text-danger float-right">Seats are
+									no longer Available</label> -->
+										
+									 </a>
+					 			
+									<a 	th:unless="${#httpServletRequest.remoteUser}"
+										class="btn btn-primary float-left"
+										th:href="@{/registration}"> 
+									<i class="fa fa-arrow-left"></i>
+											Please Register
+									 </a>		
+								</div>
+								 
+								<!-- <input type="submit" value="Book Now" class="btn btn-primary float-right"/> -->
+								
+								<br />
+								
 							</form>
 						</div>
 						<div class="col-md-3">

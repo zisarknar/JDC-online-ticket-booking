@@ -11,14 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.solt.jdc.boot.domains.Bus;
 import com.solt.jdc.boot.domains.Trip;
-import com.solt.jdc.boot.repositories.TripRepository;
 import com.solt.jdc.boot.services.BusService;
 import com.solt.jdc.boot.services.CitiesService;
 import com.solt.jdc.boot.services.StationService;
@@ -28,70 +26,6 @@ import com.solt.jdc.boot.utils.TripFinder;
 @Controller
 public class MainController {
 
-	@Autowired
-	private TripService tripService;
-
-	@Autowired
-	private CitiesService citiesService;
-
-	
-    @RequestMapping("/admin")
-    public String getMain() {
-        return "admin/index";
-    }
-    
-    
-    
-	
-	@RequestMapping("/booking")
-	public String booking(Model model) {
-		
-		return "frontend/booking";
-	}
-
-	
-	@RequestMapping("/searchResult")
-	public String search(Model model) {
-		
-		return "frontend/searchResult";
-	}
-	
-	
-  
-    @GetMapping("/")
-    public String getIndex(Model model) {
-    	TripFinder tripFinder=new TripFinder();
-    	model.addAttribute("allcities",
-    						citiesService.getAllCities()
-    						.stream()
-    						.map(e->e.getName())
-    						.collect(Collectors.toList()));
-    	
-    	model.addAttribute("tripFinder", tripFinder);
-    	
-        return "frontend/index";
-    }
-    
-    @RequestMapping(value="/trip/search",method=RequestMethod.POST)
-    public String getTrip(@ModelAttribute("tripFinder")TripFinder tripFinder) {
-    	
-    	String source=tripFinder.getSource();
-    	String destination=tripFinder.getDestination();
-    	Date depDate=tripFinder.getDepDate();
-    	List<Trip> tripList=tripService.findTripByFilter(source, destination,depDate);
-    	
-    	tripList.stream().forEach(System.out::println);
-    	
-    	return "redirect:/";
-    }
-    
-    protected void disallowedFieldException(BindingResult result) {
-        String[] suppressedFields = result.getSuppressedFields();
-        if (suppressedFields.length > 0) {
-            throw new RuntimeException("Unable to bind disallowed fields");
-        }
-    }
-}
 
 
 	@Autowired
@@ -100,6 +34,13 @@ public class MainController {
 	@Autowired
 	private BusService busService;
 
+	@Autowired
+	private CitiesService citiesService;
+	
+	@Autowired
+	private TripService tripService;
+	
+	
 	@RequestMapping("/admin")
 	public String getMain() {
 		return "admin/index";

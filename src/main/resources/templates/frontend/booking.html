@@ -15,6 +15,18 @@
     padding: 19px;
     border: 1px solid #eeeeee;
 }
+
+ .border-using {
+            background-color: #f7f7f7;
+            border: 1px  ridge #f1f3f0;
+            border-radius: 9px;
+            box-shadow: 0 1px #f1f3f0;
+            cursor: pointer;
+            /* height: 390px; */
+            /* margin-bottom: 50px; */
+            padding: 0;
+        }
+
 </style>
 
 <body class=" w-100 h-25 m-5 p-5 opaque-overlay">
@@ -26,10 +38,11 @@
 			<!-- Welcome to _________User  : '[[${#httpServletRequest.remoteUser}]]' -->				
 			</div>
 			<div class="row">
-				<div class="col-sm-12 content">
-					<div class="row" style="border: thin; border-bottom-style: outset;">
-						<div class="col-sm-6"  style="border: blue;">
-							<div class="search-content active">&nbsp;</div>
+				<div class="col-sm-12 content ">
+				
+					<div class="row " ><!-- style="border: thin; border-bottom-style: outset;" -->
+						<div class="col-sm-6 border-1 rounded" >
+							<div class="search-content active border-using">&nbsp;</div>
 							<form >
 								<!--<form class="" method="post" action="https://formspree.io/"> -->
 								<div class="title" style="border: thin; border-bottom-style: outset;">
@@ -41,23 +54,17 @@
 								<div class="clear-fix">&nbsp;</div>
 
 								<div class="form-group row">
-
 									<label>Passenger Name<br />
 									</label> <input type="text"
 										name="passengerName" class="form-control"
-										placeholder="Enter passenger name"
-										
-										th:value="${customer.username}"
-										
-										style=""
-										 />
+										placeholder="Enter passenger name"									
+										th:value="${customer.username}"/>										 
 								</div>
 
 								<div class="form-group row">
 									<label>Register No<br /></label> <input type="text"
 										name="regNo" class="form-control"
-										placeholder="Enter your registration number"
-										 
+										placeholder="Enter your registration number"										 
 										th:value="${customer.nrcNumber}"
 										/>
 								</div>
@@ -200,7 +207,7 @@
 									</tr>
 
 									<tr>
-										<td colspan="2" class="h4"><b th:text="*{stationId}"></b></td>
+										<td colspan="2" class="h4"><b th:text="${stationName}"></b></td>
 									</tr>
 									<tr>
 										<td colspan="2"><b th:text="*{source}"></b> To <b
@@ -215,7 +222,7 @@
 										<td colspan="2">Normal</td>
 									</tr>
 									<tr>
-										<td colspan="2"><b th:text="*{stationId}"></b></td>
+										<td colspan="2"><b th:text="${selectedSeat}"></b></td>
 									</tr>
 									<tr>
 										<td colspan="2">Seat Qty : <b th:text="*{unitPrice}"></b></td>
@@ -223,7 +230,7 @@
 
 									<tr class="total">
 										<td>Total</td>
-										<td class="text-right"><span id="totalAmount">5,500</span>
+										<td class="text-right"><span id="totalPrice" th:text="${totalPrice}"> </span>
 											MMK</td>
 									</tr>
 
@@ -235,6 +242,7 @@
 							</table>
 						</div>
 					</div>
+				
 				</div>
 			</div>
 		</div>

@@ -1,10 +1,16 @@
 package com.solt.jdc.boot.services;
 
+
+
 import com.solt.jdc.boot.domains.Customer;
+import com.solt.jdc.boot.passwordforget.CustomerRegistrationDto;
 
 import java.util.List;
 
-public interface CustomerService {
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+public interface CustomerService extends UserDetailsService {
 
     List<Customer> getAllCustomers();
 
@@ -17,4 +23,17 @@ public interface CustomerService {
     Customer updateCustomer(Customer customer);
     
     Customer findByusername(String username);
+    
+    
+    //===========================
+    
+    Customer findByEmail(String email);
+
+    Customer save(CustomerRegistrationDto registration);
+
+    void updatePassword(String password, Integer userId);
+    
+    public UserDetails loadCustomerByUsername(String email);
+    //=============================
+    
 }
