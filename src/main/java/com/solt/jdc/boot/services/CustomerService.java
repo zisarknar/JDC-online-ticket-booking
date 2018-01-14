@@ -1,7 +1,6 @@
 package com.solt.jdc.boot.services;
 
 
-
 import com.solt.jdc.boot.domains.Customer;
 
 import com.solt.jdc.boot.passwordforget.CustomerRegistrationDto;
@@ -25,18 +24,21 @@ public interface CustomerService extends UserDetailsService {
     void deleteCustomer(int id);
 
     Customer updateCustomer(Customer customer);
-    
+
     Customer findByusername(String username);
-    
+
     //===========================
-    
+
     Customer findByEmail(String email);
 
     Customer save(CustomerRegistrationDto registration);
 
     void updatePassword(String password, Integer userId);
-    
+
     public UserDetails loadCustomerByUsername(String email);
+
     //=============================
     long getCustomerCount();
+
+    UserRole getCustomerRole();
 }

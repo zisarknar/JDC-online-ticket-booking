@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
-    /*@Query("SELECt c FROM customer WHRER c.username=?1")*/
-    @Transactional(readOnly = true)
-    Customer findByEmail(/*@Param("username")*/String email);
+//    /*@Query("SELECt c FROM customer WHRER c.username=?1")*/
+//    @Transactional(readOnly = true)
+//    Customer findByEmail(/*@Param("username")*/String email);
 
     @Transactional(readOnly = true)
     Customer findByUsername(String username);
@@ -27,5 +27,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	    @Transactional
 	    @Modifying
 	    @Query("update customer c set c.password = :password where c.id = :id")
-	    void updatePassword(@Param("password") String password, @Param("id") Integer id); 
+	    void updatePassword(@Param("password") String password, @Param("id") Integer id);
 }

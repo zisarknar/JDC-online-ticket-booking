@@ -1,7 +1,8 @@
 package com.solt.jdc.boot.config;
 
-import com.solt.jdc.boot.handlers.AccessDeniedHandler;
+import com.solt.jdc.boot.handlers.DeniedHandler;
 import com.solt.jdc.boot.services.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,7 +21,6 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 
-import org.springframework.security.web.access.AccessDeniedHandler;
 
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -31,40 +31,39 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private DeniedHandler deniedHandler;
 
     @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
-    
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+
     private OAuth2ClientContext oauth2ClientContext;
-	private AuthorizationCodeResourceDetails authorizationCodeResourceDetails;
-	private ResourceServerProperties resourceServerProperties;
+    private AuthorizationCodeResourceDetails authorizationCodeResourceDetails;
+    private ResourceServerProperties resourceServerProperties;
 
-	@Autowired
-	public void setOauth2ClientContext(OAuth2ClientContext oauth2ClientContext) {
-		this.oauth2ClientContext = oauth2ClientContext;
-	}
+    @Autowired
+    public void setOauth2ClientContext(OAuth2ClientContext oauth2ClientContext) {
+        this.oauth2ClientContext = oauth2ClientContext;
+    }
 
-	@Autowired
-	public void setAuthorizationCodeResourceDetails(AuthorizationCodeResourceDetails authorizationCodeResourceDetails) {
-		this.authorizationCodeResourceDetails = authorizationCodeResourceDetails;
-	}
+    @Autowired
+    public void setAuthorizationCodeResourceDetails(AuthorizationCodeResourceDetails authorizationCodeResourceDetails) {
+        this.authorizationCodeResourceDetails = authorizationCodeResourceDetails;
+    }
 
-	@Autowired
-	public void setResourceServerProperties(ResourceServerProperties resourceServerProperties) {
-		this.resourceServerProperties = resourceServerProperties;
-	}
+    @Autowired
+    public void setResourceServerProperties(ResourceServerProperties resourceServerProperties) {
+        this.resourceServerProperties = resourceServerProperties;
+    }
 
-	/*
-	 * This method is for overriding the default AuthenticationManagerBuilder. We
-	 * can specify how the user details are kept in the application. It may be in a
-	 * database, LDAP or in memory.
-	 */
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		super.configure(auth);
-	}
-
+    /*
+     * This method is for overriding the default AuthenticationManagerBuilder. We
+     * can specify how the user details are kept in the application. It may be in a
+     * database, LDAP or in memory.
+     */
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        super.configure(auth);
+    }
 
     @Autowired
     @Qualifier("customer_details_service")
@@ -72,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomerService customerService;
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -92,7 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/trips/**").hasAnyRole("ROOT", "MANAGER")
                 .antMatchers("/admin/users/**").hasAnyRole("ROOT", "MANAGER")
                 .antMatchers("/forgot-password/**",
-                			"/reset-password/**").permitAll()
+                        "/reset-password/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/admin/login")
@@ -105,11 +104,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .exceptionHandling().accessDeniedHandler(deniedHandler)
                 .and()
-                .addFilterAt(filter(),BasicAuthenticationFilter.class)
+                .addFilterAt(filter(), BasicAuthenticationFilter.class)
                 .csrf()
-				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
     @Autowired
@@ -128,43 +127,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
-    
-    private OAuth2ClientAuthenticationProcessingFilter filter() {
-		// Creating the filter for "/google/login" url
-		OAuth2ClientAuthenticationProcessingFilter oAuth2Filter = new OAuth2ClientAuthenticationProcessingFilter(
-				"/google/login");
 
-		// Creating the rest template for getting connected with OAuth service.
-		// The configuration parameters will inject while creating the bean.
-		OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(authorizationCodeResourceDetails,
-				oauth2ClientContext);
-		oAuth2Filter.setRestTemplate(oAuth2RestTemplate);
+    private OAuth2ClientAuthenticationProcessingFilter filter() {
+        // Creating the filter for "/google/login" url
+        OAuth2ClientAuthenticationProcessingFilter oAuth2Filter = new OAuth2ClientAuthenticationProcessingFilter(
+                "/google/login");
+
+        // Creating the rest template for getting connected with OAuth service.
+        // The configuration parameters will inject while creating the bean.
+        OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(authorizationCodeResourceDetails,
+                oauth2ClientContext);
+        oAuth2Filter.setRestTemplate(oAuth2RestTemplate);
+        // Setting the token service. It will help for getting the token and
+        // user details from the OAuth Service.
+        oAuth2Filter.setTokenServices(new UserInfoTokenServices(resourceServerProperties.getUserInfoUri(),
+                resourceServerProperties.getClientId()));
+
+
+        return oAuth2Filter;
+    }
 
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-    	DaoAuthenticationProvider auth=new  DaoAuthenticationProvider();
-    	
-    	auth.setUserDetailsService((UserDetailsService) customerService);
-    	auth.setPasswordEncoder(passwordEncoder());
-    	
-    	return auth;
-    	
-    	
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService((UserDetailsService) customerService);
+        auth.setPasswordEncoder(passwordEncoder());
+        return auth;
+
     }
 
-	/*@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider());
-	}*/
-
-		// Setting the token service. It will help for getting the token and
-		// user details from the OAuth Service.
-		oAuth2Filter.setTokenServices(new UserInfoTokenServices(resourceServerProperties.getUserInfoUri(),
-				resourceServerProperties.getClientId()));
-
-
-		return oAuth2Filter;
-	}
 
 }
