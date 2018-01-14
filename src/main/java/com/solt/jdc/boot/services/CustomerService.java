@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
 
 public interface CustomerService extends UserDetailsService {
 
@@ -39,6 +40,8 @@ public interface CustomerService extends UserDetailsService {
 
     //=============================
     long getCustomerCount();
+
+    Customer currentCustomer();
 
     UserRole getCustomerRole();
 }

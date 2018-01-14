@@ -1,11 +1,11 @@
 package com.solt.jdc.boot.config;
 
-import com.solt.jdc.boot.handlers.DeniedHandler;
 import com.solt.jdc.boot.services.CustomerService;
+import com.solt.jdc.boot.services.Impl.CustomerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,13 +15,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
-
-
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -31,10 +29,10 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private DeniedHandler deniedHandler;
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private AccessDeniedHandler deniedHandler;
 
     private OAuth2ClientContext oauth2ClientContext;
     private AuthorizationCodeResourceDetails authorizationCodeResourceDetails;
@@ -66,8 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    @Qualifier("customer_details_service")
-    private UserDetailsService userDetailsService;
+    private CustomerDetailsService customerDetailsService;
 
     @Autowired
     private CustomerService customerService;
@@ -119,7 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("manager").password("password").roles("MANAGER")
                 .and()
                 .withUser("sargon").password("sargon").roles("ROOT");
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(customerDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -135,18 +132,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Creating the rest template for getting connected with OAuth service.
         // The configuration parameters will inject while creating the bean.
-        OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(authorizationCodeResourceDetails,
-                oauth2ClientContext);
+        OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(authorizationCodeResourceDetails, oauth2ClientContext);
         oAuth2Filter.setRestTemplate(oAuth2RestTemplate);
+
         // Setting the token service. It will help for getting the token and
         // user details from the OAuth Service.
         oAuth2Filter.setTokenServices(new UserInfoTokenServices(resourceServerProperties.getUserInfoUri(),
                 resourceServerProperties.getClientId()));
-
-
         return oAuth2Filter;
     }
-
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

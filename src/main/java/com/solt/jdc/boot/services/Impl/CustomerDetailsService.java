@@ -15,7 +15,8 @@ import org.springframework.stereotype.Service;
 
 import com.solt.jdc.boot.domains.Customer;
 import com.solt.jdc.boot.repositories.CustomerRepository;
-@Service("customer_details_service")
+
+@Service
 public class CustomerDetailsService implements UserDetailsService {
 	@Autowired
 	private CustomerRepository customerRepository;
