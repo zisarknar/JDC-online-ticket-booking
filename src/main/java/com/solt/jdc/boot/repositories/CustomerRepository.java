@@ -1,7 +1,9 @@
 package com.solt.jdc.boot.repositories;
 
+
 import com.solt.jdc.boot.domains.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -21,4 +23,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	    ThingEntity findByFooInAndBar(String fooIn, String bar);
 */
 
+	    Customer findByEmail(String email);
+	    @Transactional
+	    @Modifying
+	    @Query("update customer c set c.password = :password where c.id = :id")
+	    void updatePassword(@Param("password") String password, @Param("id") Integer id); 
 }

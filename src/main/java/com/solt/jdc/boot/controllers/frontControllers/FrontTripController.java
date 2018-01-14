@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +31,9 @@ public class FrontTripController {
 	@Autowired
 	private StationService stationService;
 
+	//UserDetails userDteail;
+	
+	
 	@RequestMapping("/findTrips")
 	public String findTripGet(Model model) {
 		TripFinder tripFinder = new TripFinder();
@@ -39,7 +43,9 @@ public class FrontTripController {
 		}
 		model.addAttribute("tripFinder", tripFinder);
 		model.addAttribute("allCities",
-				citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
+				citiesService.getAllCities().stream()
+											.map(e -> e.getName())
+											.collect(Collectors.toList()));
 		return "frontend/trip";
 	}
 	

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,7 +21,10 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.solt.jdc.boot.validator.CharacterConstraint;
 import com.solt.jdc.boot.validator.ContactNumberConstraint;
 
+
+
 @Entity(name = "customer")
+@Table(uniqueConstraints=@UniqueConstraint(columnNames="email"))
 @Data
 public class Customer {
 

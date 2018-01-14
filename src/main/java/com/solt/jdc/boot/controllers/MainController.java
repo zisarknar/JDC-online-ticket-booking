@@ -32,6 +32,7 @@ import com.solt.jdc.boot.domains.Booking;
 import com.solt.jdc.boot.domains.Bus;
 import com.solt.jdc.boot.domains.Passenger;
 import com.solt.jdc.boot.domains.Trip;
+
 import com.solt.jdc.boot.domains.User;
 import com.solt.jdc.boot.repositories.TripRepository;
 import com.solt.jdc.boot.services.BusService;
@@ -51,6 +52,9 @@ import java.util.stream.Collectors;
 @Controller
 public class MainController {
 
+
+	@Autowired
+	private StationService stationService;
     @Autowired
     private TripService tripService;
     @Autowired
@@ -118,11 +122,21 @@ public class MainController {
 	}
 
 	
-	
+
 	@Autowired
 	private TripService tripServcie;
 
+	@Autowired
+	private CitiesService citiesService;
 	
+	@Autowired
+	private TripService tripService;
+	
+	
+	@RequestMapping("/admin")
+	public String getMain() {
+		return "admin/index";
+	}
 
 	@GetMapping("/")
 	public String getIndex(Model model) {

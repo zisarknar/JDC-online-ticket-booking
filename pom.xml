@@ -85,7 +85,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.5.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>1.5.9.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>org.xhtmlrenderer</groupId>
 			<artifactId>flying-saucer-core</artifactId>
@@ -110,8 +119,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -120,9 +127,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-       
-
-
-
 </project>

@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+import com.solt.jdc.boot.domains.Bus;
+import com.solt.jdc.boot.domains.Customer;
+import com.solt.jdc.boot.domains.Trip;
+
 import com.solt.jdc.boot.domains.Booking;
 import com.solt.jdc.boot.domains.Bus;
 import com.solt.jdc.boot.domains.Customer;
@@ -66,6 +71,7 @@ public class frontbooking {
 		model.addAttribute("passenger", passenger);
 				
 		//Getting current Date
+
 		DateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
 		Date date=new Date();
 		System.out.println(dateFormat.format(date));
@@ -73,28 +79,19 @@ public class frontbooking {
 		
 		
 		
+
 		//sending the booking object to the page
 		Integer selectedSeat=chosenSeat;
 		model.addAttribute("selectedSeat", selectedSeat);
 		Double totalPrice=total;
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("tripId",tripFilterId);
-		
-		
-		
-		
-		
-		
 		model.addAttribute("stationName",(stationService.findById(trip.getStationId())).getName());
-        model.addAttribute("trip", trip);
-        
-        
-        
-        Authentication authentication = iAuthenticationFacade.getAuthentiation();
-        String currentLoggedinUser= authentication.getName();
-        
-        model.addAttribute("customer",customerService.findByEmail(currentLoggedinUser));
-        return "frontend/booking";
+    model.addAttribute("trip", trip);
+    Authentication authentication = iAuthenticationFacade.getAuthentiation();        
+    String currentLoggedinUser= authentication.getName();
+    model.addAttribute("customer",customerService.findByEmail(currentLoggedinUser));
+    return "frontend/booking";
     }
 	
 	@RequestMapping(value="/success",method=RequestMethod.POST)
@@ -104,10 +101,9 @@ public class frontbooking {
 		currentBooking.setBookDate(new Date());
 		currentBooking.setNoOfSeats(chosenSeat);
 		currentBooking.setTotalAmount(total);
-		
+    
 		//Finding trip from request parameter tripId
 		Trip trip=tripService.getTrip(tripId);
-		
 		currentBooking.setTrip(trip);
 		currentBooking.setPassenger(passenger);
 		bookingService.saveBooking(currentBooking);
@@ -117,7 +113,6 @@ public class frontbooking {
 		Booking booking=bookingList.get(bookingList.size()-1);
 		int bookingId=booking.getId();
 		System.out.println(bookingId);
-		
 		return "redirect:/booking/result/"+bookingId;
 	}
 	

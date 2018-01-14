@@ -15,6 +15,18 @@
 	padding: 19px;
 	border: 1px solid #eeeeee;
 }
+
+ .border-using {
+            background-color: #f7f7f7;
+            border: 1px  ridge #f1f3f0;
+            border-radius: 9px;
+            box-shadow: 0 1px #f1f3f0;
+            cursor: pointer;
+            /* height: 390px; */
+            /* margin-bottom: 50px; */
+            padding: 0;
+        }
+
 </style>
 
 <body class=" w-100 h-25 m-5 p-5 opaque-overlay" onload="populateName">
@@ -43,7 +55,6 @@
 								<div class="clear-fix">&nbsp;</div>
 
 								<div class="form-group row">
-
 									<label>Passenger Name<br />
 									</label>
 									 <input id="populateName" type="hidden" th:value="${customer.username}"/>
@@ -229,6 +240,7 @@
 							</table>
 						</div>
 					</div>
+				
 				</div>
 			</div>
 		</div>

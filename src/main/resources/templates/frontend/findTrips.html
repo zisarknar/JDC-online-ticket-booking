@@ -51,10 +51,9 @@
 					</div>
 				</div>
 				<div id="loopDiv">
-					<div class="row" th:each="trip,iter:${tripList}"
-						style="margin-top: 20px">
+					<div class="row" th:each="trip,iter:${tripList}" style="margin-top: 20px">
 						<input id="maxSeats" type="hidden"
-							th:value="${maxSeatList[iter.index]}" />
+											 th:value="${maxSeatList[iter.index]}" />
 						<div class="col-md-3 col-xs-12">
 							<div class="row">
 								<div class="col-md-3">
@@ -77,23 +76,25 @@
 								</div>
 							</div>
 						</div>
+						
 						<div class="col-md-3 col-xs-12">
-							<form id="busSeatForm" th:object="${bus}"
-								th:action="${'/busBinding/'+trip.id}" method="post">
+							<form id="busSeatForm" th:object="${bus}" th:action="${'/busBinding/'+trip.id}" method="post">
+								
 								<input id="maxSeats" type="hidden" class="text-success"
-									th:value="${busList[iter.index].maxSeats}" /> <input
-									id="takenSeats" type="hidden" class="text-info"
+									th:value="${busList[iter.index].maxSeats}" /> 
+								<input id="takenSeats" type="hidden" class="text-info"
 									th:value="${busList[iter.index].takenSeats}" />
 								<div class="row">
 									<div class="col-md-3">
 										<i class="fa fa-wheelchair fa-4x" style="color: red"></i>
 									</div>
 									<div class="col-md-9">
-										<select class="form-control" id="select"
-											th:field="*{takenSeats}">
+										<select class="form-control" id="select" th:field="*{takenSeats}">
+											
 											<option value="-1">Select Seats</option>
 											<option th:each="seatNo:${grandList[iter.index]}"
-												th:value="${seatNo}" th:text="${seatNo}"></option>
+												    th:value="${seatNo}" th:text="${seatNo}"></option>
+												
 										</select>
 									</div>
 								</div>

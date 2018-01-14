@@ -1,14 +1,13 @@
 package com.solt.jdc.boot.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.solt.jdc.boot.handlers.AccessDeniedHandler;
+import com.solt.jdc.boot.services.CustomerService;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
-
 import org.springframework.beans.factory.annotation.Qualifier;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -71,6 +70,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("customer_details_service")
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private CustomerService customerService;
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -89,6 +91,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/stations/**").hasAnyRole("ROOT", "MANAGER")
                 .antMatchers("/admin/trips/**").hasAnyRole("ROOT", "MANAGER")
                 .antMatchers("/admin/users/**").hasAnyRole("ROOT", "MANAGER")
+                .antMatchers("/forgot-password/**",
+                			"/reset-password/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/admin/login")
@@ -136,10 +140,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				oauth2ClientContext);
 		oAuth2Filter.setRestTemplate(oAuth2RestTemplate);
 
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+    	DaoAuthenticationProvider auth=new  DaoAuthenticationProvider();
+    	
+    	auth.setUserDetailsService((UserDetailsService) customerService);
+    	auth.setPasswordEncoder(passwordEncoder());
+    	
+    	return auth;
+    	
+    	
+    }
+
+	/*@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(authenticationProvider());
+	}*/
+
 		// Setting the token service. It will help for getting the token and
 		// user details from the OAuth Service.
 		oAuth2Filter.setTokenServices(new UserInfoTokenServices(resourceServerProperties.getUserInfoUri(),
 				resourceServerProperties.getClientId()));
+
 
 		return oAuth2Filter;
 	}
