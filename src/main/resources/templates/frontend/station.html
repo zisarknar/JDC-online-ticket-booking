@@ -1,88 +1,89 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="front-master"
-	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="front-master"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 <head>
-<meta charset=" UTF-8"></meta>
-<title></title>
+    <meta charset=" UTF-8"></meta>
+    <title></title>
 </head>
 <body>
-	<div layout:fragment="content">
-		<div class="py-5 text-white bg-primary text-center">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<h1>Stations can be searched using City Name and Bus Code</h1>
-						<p class="lead mb-4">Please choose the filters</p>
-						<form th:object="${stationFinder}" th:action="@{/station/search}"
-							class="form-inline justify-content-center" method="post">
-							<div class="input-group my-1 w-50">
-								<select th:field="*{city}" class="form-control mr-3 my-1"
-									id="inlineFormInputGroup">
-									<option value="-1">Please Select City</option>
-									<option th:each="city:${allCities}" th:value="${city}"
-										th:text="${city}"></option>
-								</select> <select th:field="*{stationName}"
-									class="form-control mr-3 my-1" id="inlineFormInputGroup">
-									<option value="-1">Please Select Station Name</option>
-									<option th:each="station:${allStations}" th:value="${station}"
-										th:text="${station}"></option>
-								</select>
-							</div>
-							<button type="submit" class="btn btn-primary">Search</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<br />
-		<div class="col-md-12">
-			<div class="text-center bg-light">
-				<label class="lead font-weight-bold">The Stations found
-					according to the filter conditions</label>
-			</div>
-		</div>
-		<div class="py-5">
-			<div class="container">
-				<div class="row" th:each="station,iter:${stationList}">
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header bg-primary"
-								style="font-size: 24px; color: white">
-								<label th:text="${station.name}"></label>
-							</div>
+<div layout:fragment="content">
+    <section class="bg-primary text-white text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-faded">Stations can be searched using City Name and Bus Code</h2>
+                    <p class="text-faded mb-4">Please choose the filters</p>
+                    <form th:object="${stationFinder}" th:action="@{/station/search}"
+                          class="form-inline justify-content-center" method="post">
+                        <div class="input-group my-1 w-50">
+                            <select th:field="*{city}" class="form-control mr-3 my-1"
+                                    id="inlineFormInputGroup">
+                                <option value="-1">Please Select City</option>
+                                <option th:each="city:${allCities}" th:value="${city}"
+                                        th:text="${city}"></option>
+                            </select> <select th:field="*{stationName}"
+                                              class="form-control mr-3 my-1" id="inlineFormInputGroup">
+                            <option value="-1">Please Select Station Name</option>
+                            <option th:each="station:${allStations}" th:value="${station}"
+                                    th:text="${station}"></option>
+                        </select>
+                        </div>
+                        <button type="submit" class="btn btn-dark">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br/>
+    <div class="col-md-12">
+        <div class="text-center">
+            <h4>The Stations found according to the filter conditions</h4>
+            <hr/>
+        </div>
+    </div>
+    <div class="py-5">
+        <div class="container">
+            <div class="row" th:each="station,iter:${stationList}">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-primary"
+                             style="font-size: 24px; color: white">
+                            <label th:text="${station.name}"></label>
+                        </div>
 
-							<div class="card-body">
-								<div class="col-md-12 ">
-									<label class="lead font-weight-bold text-inline">Station Address: </label> <label
-										class="lead font-italic text-inline" th:text="${' '+station.address.addressName}"></label>
-								</div>
-								<div class="col-md-12 ">
-									<label class="lead font-weight-bold text-inline">Phone Number: </label> <label
-										class="lead font-italic text-inline" th:text="${' '+station.phoneNumber}"></label>
-								</div>
-							</div>
-						</div>
-						<br />
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-			integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-			integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-			crossorigin="anonymous"></script>
+                        <div class="card-body">
+                            <div class="col-md-12 ">
+                                <label class="lead font-weight-bold text-inline">Station Address: </label> <label
+                                    class="lead font-italic text-inline"
+                                    th:text="${' '+station.address.addressName}"></label>
+                            </div>
+                            <div class="col-md-12 ">
+                                <label class="lead font-weight-bold text-inline">Phone Number: </label> <label
+                                    class="lead font-italic text-inline" th:text="${' '+station.phoneNumber}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+            integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+            crossorigin="anonymous"></script>
 
 
-	</div>
+</div>
 </body>
 </html>
 

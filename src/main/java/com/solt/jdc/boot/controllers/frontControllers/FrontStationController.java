@@ -21,48 +21,45 @@ import com.solt.jdc.boot.services.StationService;
 import com.solt.jdc.boot.utils.StationFinder;
 
 @Controller
-@RequestMapping("/")
 public class FrontStationController {
-	@Autowired
-	private StationService stationService;
+    @Autowired
+    private StationService stationService;
 
-	@Autowired
-	private CitiesService citiesService;
+    @Autowired
+    private CitiesService citiesService;
 
-	@Autowired
-	private BusService busService;
-	
-	@RequestMapping("/findStation")
-	public String findStationByCityGET(Model model) {
-		StationFinder stationFinder = new StationFinder();
-		List<Station> stationList=new ArrayList<>();
-		if(model.containsAttribute("stationList")==false) {
-			model.addAttribute("stationList", stationList);
-		}
-		model.addAttribute("allCities",
-				citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
-		model.addAttribute("allStations", stationService.getAllStations().stream().map(e->e.getName()).collect(Collectors.toList()));
-		model.addAttribute("stationFinder", stationFinder);
-		return "frontend/station";
-	}
+    @Autowired
+    private BusService busService;
 
-	@RequestMapping(value = "/station/search", method = RequestMethod.POST)
-	public String findStationByCityPOST(Model model, @ModelAttribute("stationFinder") StationFinder stationFinder,RedirectAttributes redirect) {
-		String city = stationFinder.getCity();
-		String stationName=stationFinder.getStationName();
-		if(city.equals("-1")) {
-			List<Station> stationList=stationService.findStationByName(stationName);
-			stationList.stream().forEach(System.out::println);
-			redirect.addFlashAttribute("stationList", stationList);
-		}
-		else if(stationName.equals("-1")) {
-			List<Station> stationList=stationService.findStationByCity(city);
-			redirect.addFlashAttribute("stationList", stationList);
-		}
-		else {
-			List<Station> stationList=stationService.findStationByFilter(stationName, city);
-			redirect.addFlashAttribute("stationList", stationList);
-		}
-		return "redirect:/findStation";
-	}
+    @RequestMapping("/findStation")
+    public String findStationByCityGET(Model model) {
+        StationFinder stationFinder = new StationFinder();
+        List<Station> stationList = new ArrayList<>();
+        if (model.containsAttribute("stationList") == false) {
+            model.addAttribute("stationList", stationList);
+        }
+        model.addAttribute("allCities",
+                citiesService.getAllCities().stream().map(e -> e.getName()).collect(Collectors.toList()));
+        model.addAttribute("allStations", stationService.getAllStations().stream().map(e -> e.getName()).collect(Collectors.toList()));
+        model.addAttribute("stationFinder", stationFinder);
+        return "frontend/station";
+    }
+
+    @RequestMapping(value = "/station/search", method = RequestMethod.POST)
+    public String findStationByCityPOST(Model model, @ModelAttribute("stationFinder") StationFinder stationFinder, RedirectAttributes redirect) {
+        String city = stationFinder.getCity();
+        String stationName = stationFinder.getStationName();
+        if (city.equals("-1")) {
+            List<Station> stationList = stationService.findStationByName(stationName);
+            stationList.stream().forEach(System.out::println);
+            redirect.addFlashAttribute("stationList", stationList);
+        } else if (stationName.equals("-1")) {
+            List<Station> stationList = stationService.findStationByCity(city);
+            redirect.addFlashAttribute("stationList", stationList);
+        } else {
+            List<Station> stationList = stationService.findStationByFilter(stationName, city);
+            redirect.addFlashAttribute("stationList", stationList);
+        }
+        return "redirect:/findStation";
+    }
 }

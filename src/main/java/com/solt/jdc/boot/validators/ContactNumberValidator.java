@@ -1,9 +1,9 @@
-package com.solt.jdc.boot.validator.impl;
+package com.solt.jdc.boot.validators;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.solt.jdc.boot.validator.ContactNumberConstraint;
+import com.solt.jdc.boot.validators.customAnnotations.ContactNumberConstraint;
 
 public class ContactNumberValidator implements ConstraintValidator<ContactNumberConstraint, String>{
 

@@ -17,9 +17,6 @@ public class AuthenticationController {
     @Autowired
     private IAuthenticationFacade authenticationFacade;
 
-    @Autowired
-    private CustomerService customerService;
-
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
     public String currentUserName(Authentication authentication) {
         return authenticationFacade.getAuthentiation().getName();
@@ -47,3 +44,5 @@ public class AuthenticationController {
 
 
 }
+
+

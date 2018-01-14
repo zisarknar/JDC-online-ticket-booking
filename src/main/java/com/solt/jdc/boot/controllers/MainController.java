@@ -59,8 +59,6 @@ public class MainController {
     @Autowired
     private UserService userService;
 
-
-	
 	
 	@Autowired
 	private Facebook facebook;

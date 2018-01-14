@@ -7,6 +7,7 @@ body,
 html {
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
 body {
@@ -320,6 +321,16 @@ header.masthead p {
     border-color: #F05F40;
 }
 
+.btn-blue {
+    background-color: #2aabd2;
+    border-color: #0d6aad;
+}
+
+.btn-blue:hover, .btn-blue:focus, .btn-blue:active {
+    color: #fff;
+    background-color: #0d6aad;
+}
+
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
     color: #fff;
     background-color: #ee5000 !important;
@@ -329,7 +340,6 @@ header.masthead p {
     box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
 }
 
-<<<<<<< HEAD
 .main-container.sidebar.block {
     padding-bottom: 30px;
     line-height: 14px;
@@ -383,8 +393,6 @@ table {
 	background-color: #ff0000;
 	color: #ffffff;
 }
-
-
 
 .footer-copy {
     background-color: #181818;

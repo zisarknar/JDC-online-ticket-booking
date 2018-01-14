@@ -1,171 +1,158 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="front-master"
-	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="front-master"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 <head>
-<meta charset=" UTF-8"></meta>
-<title></title>
-
+    <meta charset=" UTF-8"></meta>
+    <title></title>
 </head>
 <body>
-	<div layout:fragment="content">
-		<div class="py-5">
-			<div class="container">
-				<form th:object="${tripFinder}" th:action="@{/trip/search}"
-					method="post" class="form-inline">
-					<div class="form-group mb-2 mr-sm-2 mb-sm-0">
+<div layout:fragment="content">
 
-						<select class="form-control" th:field="*{source}">
-							<option value="-1">Select Source</option>
-							<option th:each="city:${allcities}" th:value="${city}"
-								th:text="${city}" />
-						</select>
-					</div>
-					<div class="form-group mb-2 mr-sm-2 mb-sm-0">
-						<select class="form-control" th:field="*{destination}">
-							<option value="-1">Select Destination</option>
-							<option th:each="city:${allcities}" th:value="${city}"
-								th:text="${city}" />
-						</select>
-					</div>
-					<div class="form-group mb-2 mr-sm-2 mb-sm-0">
-						<input type="date" th:field="*{depDate}" class="form-control" />
-					</div>
-					<br /> <br />
-					<button type="submit" class="btn btn-primary js-scroll-trigger">Search</button>
-				</form>
-				<br /> <br />
-				<div class="row bg-danger">
-					<div class="col-md-3">
-						<label class="lead font-weight-bold">Station Name</label>
-					</div>
-					<div class="col-md-3">
-						<label class="lead font-weight-bold">Departure Time</label>
-					</div>
-					<div class="col-md-3">
-						<label class="lead font-weight-bold ">Seats</label>
-					</div>
-					<div class="col-md-3">
-						<label class="lead font-weight-bold">Price</label>
-					</div>
-				</div>
-				<div id="loopDiv">
-					<div class="row" th:each="trip,iter:${tripList}"
-						style="margin-top: 20px">
-						<input id="maxSeats" type="hidden"
-							th:value="${maxSeatList[iter.index]}" />
-						<div class="col-md-3 col-xs-12">
-							<div class="row">
-								<div class="col-md-3">
-									<i class="fa fa-building fa-4x" style="color: red"></i>
-								</div>
-								<div class="col-md-9">
-									<label class="h3 font-weight-bold"
-										th:text="${stationNameList[iter.index]}"></label>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3 col-xs-12">
-							<div class="row">
-								<div class="col-md-3">
-									<i class="fa fa-clock-o fa-4x" style="color: red"></i>
-								</div>
-								<div class="col-md-9">
-									<label class="h3 font-weight-bold" th:text="${trip.depDate}"></label>
-									<label class="h3 font-weight-bold" th:text="${trip.depTime}"></label>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3 col-xs-12">
-							<form id="busSeatForm" th:object="${bus}"
-								th:action="${'/busBinding/'+trip.id}" method="post">
-								<input id="maxSeats" type="hidden" class="text-success"
-									th:value="${busList[iter.index].maxSeats}" /> <input
-									id="takenSeats" type="hidden" class="text-info"
-									th:value="${busList[iter.index].takenSeats}" />
-								<div class="row">
-									<div class="col-md-3">
-										<i class="fa fa-wheelchair fa-4x" style="color: red"></i>
-									</div>
-									<div class="col-md-9">
-										<select class="form-control" id="select"
-											th:field="*{takenSeats}">
-											<option value="-1">Select Seats</option>
-											<option th:each="seatNo:${grandList[iter.index]}"
-												th:value="${seatNo}" th:text="${seatNo}"></option>
-										</select>
-									</div>
-								</div>
-								<input class="btn btn-primary float-right" type="submit"
-									value="Book Now" /> <br /> <br /> <label
-									class="text-danger float-right">Seats are no longer
-									Available</label>
-							</form>
-						</div>
-						<div class="col-md-3">
-							<div class="row">
-								<div class="col-md-3">
-									<i class="fa fa-dollar fa-4x float-right" style="color: red"></i>
-								</div>
-								<div class="col-md-9">
-									<label class="h1 float-right" th:text="${trip.unitPrice}"></label>
-									<div>
-										<label class="float-right">MMK Per person</label>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<a class="btn btn-danger float-right" href="">View Seats</a>
-								</div>
-								<br /> <br />
-							</div>
-						</div>
-						<div class="container" style="margin-top: 15px">
-							<div
-								style="width: 100%; background-color: red; height: 2px; align: center"
-								class=""></div>
-						</div>
-						<br />
-					</div>
-				</div>
-			</div>
-		</div>
-		<br /> <br />
-		<script>
-        ​
-      </script>
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-			integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-			integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-			crossorigin="anonymous"></script>
-		<script th:inline="javascript">
-        $(function(){
-        					$("#loopDiv div").each(function(){
-        			    		$(this).find(".text-danger").hide();
-        			    		var maxSeat=parseInt($(this).find(".text-success").val());
-        			    		var takenSeat=parseInt($(this).find(".text-info").val());
-        			    		
-        			    		 if(maxSeat==takenSeat){
-        			    			$(this).find(".text-danger").show();
-        			    			$(this).find(".btn-primary").hide();
-        			    		}
-        			    		 else if(!maxSeat==takenSeat){
-        			    			 $(this).find(".text-danger").hide();
-        			    			 
-        			    		 }
-        			    	})	
-        				})
-      </script>
-	</div>
+    <section class="bg-primary text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <form th:object="${tripFinder}" th:action="@{/trip/search}"
+                      method="post" class="form-inline">
+                    <div class="form-group mb-2 mr-sm-2 mb-sm-0">
+                        <select class="form-control" th:field="*{source}">
+                            <option value="-1">Select Source</option>
+                            <option th:each="city:${allcities}" th:value="${city}"
+                                    th:text="${city}"/>
+                        </select>
+                    </div>
+                    <div class="form-group mb-2 mr-sm-2 mb-sm-0">
+                        <select class="form-control" th:field="*{destination}">
+                            <option value="-1">Select Destination</option>
+                            <option th:each="city:${allcities}" th:value="${city}"
+                                    th:text="${city}"/>
+                        </select>
+                    </div>
+                    <div class="form-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="date" th:field="*{depDate}" class="form-control"/>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Search</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <br/><br/>
+        <div class="col-md-12">
+            <div class="text-center">
+                <h2>Bookings results</h2>
+                <hr/>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row bg-secondary">
+                <div class="col-md-3">
+                    <label class="lead">Station Name</label>
+                </div>
+                <div class="col-md-3">
+                    <label class="lead">Departure Time</label>
+                </div>
+                <div class="col-md-3">
+                    <label class="lead ">Seats</label>
+                </div>
+                <div class="col-md-3">
+                    <label class="lead">Price</label>
+                </div>
+            </div>
+            <div id="loopDiv">
+                <div class="row" th:each="trip,iter:${tripList}"
+                     style="margin-top: 20px">
+                    <input id="maxSeats" type="hidden"
+                           th:value="${maxSeatList[iter.index]}"/>
+                    <div class="col-md-3 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <i class="fa fa-building fa-4x" style="color: red"></i>
+                            </div>
+                            <div class="col-md-9">
+                                <label class="h3 font-weight-bold"
+                                       th:text="${stationNameList[iter.index]}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <i class="fa fa-clock-o fa-4x" style="color: red"></i>
+                            </div>
+                            <div class="col-md-9">
+                                <label class="h3 font-weight-bold" th:text="${trip.depDate}"></label>
+                                <label class="h3 font-weight-bold" th:text="${trip.depTime}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12">
+                        <form id="busSeatForm" th:object="${bus}"
+                              th:action="${'/busBinding/'+trip.id}" method="post">
+                            <input id="maxSeats" type="hidden" class="text-success"
+                                   th:value="${busList[iter.index].maxSeats}"/> <input
+                                id="takenSeats" type="hidden" class="text-info"
+                                th:value="${busList[iter.index].takenSeats}"/>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <i class="fa fa-wheelchair fa-4x" style="color: red"></i>
+                                </div>
+                                <div class="col-md-9">
+                                    <select class="form-control" id="select"
+                                            th:field="*{takenSeats}">
+                                        <option value="-1">Select Seats</option>
+                                        <option th:each="seatNo:${grandList[iter.index]}"
+                                                th:value="${seatNo}" th:text="${seatNo}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <input class="btn btn-primary float-right" type="submit"
+                                   value="Book Now"/> <br/> <br/> <label
+                                class="text-danger float-right">Seats are no longer
+                            Available</label>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <i class="fa fa-dollar fa-4x float-right" style="color: red"></i>
+                            </div>
+                            <div class="col-md-9">
+                                <label class="h1 float-right" th:text="${trip.unitPrice}"></label>
+                                <div>
+                                    <label class="float-right">MMK Per person</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a class="btn btn-danger float-right" href="">View Seats</a>
+                            </div>
+                            <br/> <br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<script layout:fragment="myScript">
+    $(function () {
+        $("#loopDiv div").each(function () {
+            $(this).find(".text-danger").hide();
+            var maxSeat = parseInt($(this).find(".text-success").val());
+            var takenSeat = parseInt($(this).find(".text-info").val());
+
+            if (maxSeat == takenSeat) {
+                $(this).find(".text-danger").show();
+                $(this).find(".btn-primary").hide();
+            }
+            else if (!maxSeat == takenSeat) {
+                $(this).find(".text-danger").hide();
+
+            }
+        })
+    })
+</script>
 </body>
 </html>
 
