@@ -1,10 +1,10 @@
-package com.solt.jdc.boot.passwordforget;
+package com.solt.jdc.boot.controllers.passwordforget;
 
 
-import org.hibernate.validator.constraints.Email;
+import com.solt.jdc.boot.validators.customAnnotations.ValidEmail;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.solt.jdc.boot.passwordforget.validator.FieldMatch;
+import com.solt.jdc.boot.validators.customAnnotations.FieldMatch;
 
 import javax.validation.constraints.AssertTrue;
 
@@ -26,11 +26,11 @@ public class CustomerRegistrationDto {
     @NotEmpty
     private String confirmPassword;
 
-    @Email
+    @ValidEmail
     @NotEmpty
     private String email;
 
-    @Email
+    @ValidEmail
     @NotEmpty
     private String confirmEmail;
 

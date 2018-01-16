@@ -1,10 +1,10 @@
-package com.solt.jdc.boot.passwordforget.controller;
+package com.solt.jdc.boot.controllers.passwordforget.controller;
 
 
 import com.solt.jdc.boot.domains.Customer;
 import com.solt.jdc.boot.domains.Mail;
 import com.solt.jdc.boot.domains.PasswordResetToken;
-import com.solt.jdc.boot.passwordforget.PasswordForgotDto;
+import com.solt.jdc.boot.controllers.passwordforget.PasswordForgotDto;
 import com.solt.jdc.boot.repositories.PasswordResetTokenRepository;
 /*import com.memorynotfound.spring.security.service.EmailService;
 import com.memorynotfound.spring.security.service.UserService;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -31,9 +30,12 @@ import java.util.UUID;
 @RequestMapping("/forgot-password")
 public class PasswordForgotController {
 
-    @Autowired private CustomerService customerService;
-    @Autowired private PasswordResetTokenRepository tokenRepository;
-    @Autowired private EmailService emailService;
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private PasswordResetTokenRepository tokenRepository;
+    @Autowired
+    private EmailService emailService;
 
     @ModelAttribute("forgotPasswordForm")
     public PasswordForgotDto forgotPasswordDto() {
@@ -42,7 +44,6 @@ public class PasswordForgotController {
 
     @GetMapping
     public String displayForgotPasswordPage() {
-    	
         return "frontend/forgot-password";
     }
 
@@ -51,12 +52,12 @@ public class PasswordForgotController {
                                             BindingResult result,
                                             HttpServletRequest request) {
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "frontend/forgot-password";
         }
 
         Customer customer = customerService.findByEmail(form.getEmail());
-        if (customer == null){
+        if (customer == null) {
             result.rejectValue("email", null, "We could not find an account for that e-mail address.");
             return "frontend/forgot-password";
         }
@@ -68,12 +69,9 @@ public class PasswordForgotController {
         tokenRepository.save(token);
 
         Mail mail = new Mail();
-        
-        mail.setFrom("chawpo999123@gmail.com");
-        
+        mail.setFrom("admin@jdconlineticketbooking.com");
         mail.setTo(customer.getEmail());
         mail.setSubject("Password reset request");
-
         Map<String, Object> model = new HashMap<>();
         model.put("token", token);
         model.put("customer", customer);
@@ -81,9 +79,7 @@ public class PasswordForgotController {
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
         mail.setModel(model);
-        
         emailService.sendEmail(mail);
-
         return "redirect:/forgot-password?success";
 
     }

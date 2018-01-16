@@ -10,8 +10,8 @@ import org.hibernate.validator.constraints.Email;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.solt.jdc.boot.validator.CharacterConstraint;
-import com.solt.jdc.boot.validator.ContactNumberConstraint;
+import com.solt.jdc.boot.validators.customAnnotations.CharacterConstraint;
+import com.solt.jdc.boot.validators.customAnnotations.ContactNumberConstraint;
 
 
 
@@ -63,6 +63,7 @@ public class Customer {
     private Booking booking;
 
     private String tempPassword;
+    
 
 }
 

@@ -1,4 +1,4 @@
-package com.solt.jdc.boot.validator;
+package com.solt.jdc.boot.validators.customAnnotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,15 +9,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.solt.jdc.boot.validator.impl.ContactNumberValidator;
-
+import com.solt.jdc.boot.validators.CharacterValidator;
 
 @Documented
-@Constraint(validatedBy=ContactNumberValidator.class)
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Constraint(validatedBy=CharacterValidator.class)
+@Target({ElementType.METHOD,ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ContactNumberConstraint {
-	String message() default "Invalid phone number";
+public @interface CharacterConstraint {
+	String message() default "This field should be character";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

@@ -1,8 +1,8 @@
-package com.solt.jdc.boot.passwordforget;
+package com.solt.jdc.boot.controllers.passwordforget;
 
 
 import org.hibernate.validator.constraints.NotEmpty;
-import com.solt.jdc.boot.passwordforget.validator.FieldMatch;
+import com.solt.jdc.boot.validators.customAnnotations.FieldMatch;
 
 @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
 public class PasswordResetDto {

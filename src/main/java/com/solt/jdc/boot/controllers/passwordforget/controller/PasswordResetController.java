@@ -1,10 +1,5 @@
-package com.solt.jdc.boot.passwordforget.controller;
+package com.solt.jdc.boot.controllers.passwordforget.controller;
 
-/*import com.memorynotfound.spring.security.model.PasswordResetToken;
-import com.memorynotfound.spring.security.model.User;
-import com.memorynotfound.spring.security.repository.PasswordResetTokenRepository;
-import com.memorynotfound.spring.security.service.UserService;
-import com.memorynotfound.spring.security.web.dto.PasswordResetDto;*/
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.solt.jdc.boot.domains.Customer;
 import com.solt.jdc.boot.domains.PasswordResetToken;
-import com.solt.jdc.boot.passwordforget.PasswordResetDto;
+import com.solt.jdc.boot.controllers.passwordforget.PasswordResetDto;
 import com.solt.jdc.boot.repositories.PasswordResetTokenRepository;
 import com.solt.jdc.boot.services.CustomerService;
 

@@ -33,7 +33,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top"><b>Online</b>TicketBooking</a>
+        <a class="navbar-brand js-scroll-trigger" th:href="@{/}"><b>Online</b>TicketBooking</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -50,9 +50,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/findStation">Stations</a>
                 </li>
-
                 <li class="nav-item dropdown ">
-
                     <a th:if="${#httpServletRequest.remoteUser}"
                        href="#"
                        class="nav-link  dropdown-toggle"
@@ -93,7 +91,7 @@
 <div layout:fragment="content"/>
 
 <!--Footer-->
-<footer class="main-footer" th:replace="fragments/frontfooter :: footer"/>
+<!--<footer class="main-footer" th:replace="fragments/frontfooter :: footer"/>-->
 
 <!-- Bootstrap core JavaScript -->
 <script th:src="@{/vendor/jquery/jquery.min.js}"></script>

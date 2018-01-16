@@ -1,11 +1,11 @@
-package com.solt.jdc.boot.passwordforget;
+package com.solt.jdc.boot.controllers.passwordforget;
 
-import org.hibernate.validator.constraints.Email;
+import com.solt.jdc.boot.validators.customAnnotations.ValidEmail;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class PasswordForgotDto {
 
-    @Email
+    @ValidEmail
     @NotEmpty
     private String email;
 

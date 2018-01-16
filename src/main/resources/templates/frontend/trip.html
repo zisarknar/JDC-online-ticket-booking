@@ -7,12 +7,12 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="py-5 text-white bg-primary text-center">
+    <section class="text-white bg-primary text-center busRouteBg">
 		<div class="container">
-			<div class="row">
+			<div class="row justify-content-center">
 				<div class="col-md-12">
-					<h1>Trips can be searched using Source and Destination</h1>
-					<p class="lead mb-4">Please choose the filters</p>
+					<h3 class="bg-dark">Trips can be searched using Source and Destination</h3>
+					<p>Please choose the filters</p>
 					<form th:object="${tripFinder}" th:action="@{/search/trip/withoutdate}" class="form-inline justify-content-center" method="post">
 						<div class="input-group my-1 w-50">
 							<select th:field="*{source}" class="form-control mr-3 my-1" id="inlineFormInputGroup">
@@ -26,17 +26,18 @@
 									th:text="${city}"></option>
 							</select>
 						</div>
-						<button type="submit" class="btn btn-primary">Search</button>
+						<button type="submit" class="btn btn-dark">Search</button>
 					</form>
 				</div>
 			</div>
 		</div>
-	</div>
+	</section>
 	<br/>
 	<div class="col-md-12">
-		<div class="text-center bg-light">
-			<label class="lead font-weight-bold">The Trips found
-				according to the filter conditions</label>
+		<div class="text-center">
+			<h4>The Trips found
+				according to the filter conditions</h4>
+			<hr/>
 		</div>
 	</div>
 	<div class="py-5">
@@ -80,19 +81,6 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-		integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-		crossorigin="anonymous"></script>
-		
-	
 </div>
 </body>
 </html>

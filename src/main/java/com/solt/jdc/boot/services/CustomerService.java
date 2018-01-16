@@ -3,7 +3,7 @@ package com.solt.jdc.boot.services;
 
 import com.solt.jdc.boot.domains.Customer;
 
-import com.solt.jdc.boot.passwordforget.CustomerRegistrationDto;
+import com.solt.jdc.boot.controllers.passwordforget.CustomerRegistrationDto;
 
 import com.solt.jdc.boot.domains.UserRole;
 
@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Component;
 
 public interface CustomerService extends UserDetailsService {
 

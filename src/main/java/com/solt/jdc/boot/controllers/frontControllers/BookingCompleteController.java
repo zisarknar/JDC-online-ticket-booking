@@ -1,4 +1,4 @@
-package com.solt.jdc.boot.frontend.controller;
+package com.solt.jdc.boot.controllers.frontControllers;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -40,13 +40,10 @@ public class BookingCompleteController {
 	
 	@RequestMapping(value="/booking/result/{bookingId}")
 	public String bookingResult(Model model,@PathVariable("bookingId")int bookingId) {
-		
 		Booking booking=bookingService.getBooking(bookingId);
 		Trip trip=booking.getTrip();
-		
 		model.addAttribute("booking", booking);
 		model.addAttribute("trip", trip);
-		
 		return "/frontend/result";
 	}
 	
@@ -87,10 +84,6 @@ public class BookingCompleteController {
 		data.put("stationName", station.getName());
 		data.put("datePrinted", new Date().toString());
 		data.put("totalPrice", String.valueOf(booking.getTotalAmount()));
-		
-		
-		
-		
 		
 		//Generating pdf
 		

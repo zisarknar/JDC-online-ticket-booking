@@ -1,5 +1,6 @@
-package com.solt.jdc.boot.passwordforget.validator;
+package com.solt.jdc.boot.validators;
 
+import com.solt.jdc.boot.validators.customAnnotations.FieldMatch;
 import org.apache.commons.beanutils.BeanUtils;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

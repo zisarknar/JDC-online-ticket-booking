@@ -1,4 +1,4 @@
-package com.solt.jdc.boot.validator;
+package com.solt.jdc.boot.validators.customAnnotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.solt.jdc.boot.validator.impl.PasswordMatchValidator;
+import com.solt.jdc.boot.validators.PasswordMatchValidator;
 
 @Target({ElementType.TYPE,ElementType.ANNOTATION_TYPE}) 
 @Retention(RetentionPolicy.RUNTIME)

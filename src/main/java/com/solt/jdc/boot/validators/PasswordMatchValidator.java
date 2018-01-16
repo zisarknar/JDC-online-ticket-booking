@@ -1,10 +1,10 @@
-package com.solt.jdc.boot.validator.impl;
+package com.solt.jdc.boot.validators;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import com.solt.jdc.boot.domains.Customer;
-import com.solt.jdc.boot.validator.PasswordMatches;
+import com.solt.jdc.boot.validators.customAnnotations.PasswordMatches;
 
 
 public class PasswordMatchValidator implements ConstraintValidator<PasswordMatches, Object>{

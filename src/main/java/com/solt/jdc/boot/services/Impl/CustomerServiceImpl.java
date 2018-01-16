@@ -4,7 +4,7 @@ package com.solt.jdc.boot.services.Impl;
 import com.solt.jdc.boot.domains.Customer;
 import com.solt.jdc.boot.domains.Role;
 import com.solt.jdc.boot.domains.UserRole;
-import com.solt.jdc.boot.passwordforget.CustomerRegistrationDto;
+import com.solt.jdc.boot.controllers.passwordforget.CustomerRegistrationDto;
 import com.solt.jdc.boot.repositories.CustomerRepository;
 import com.solt.jdc.boot.services.CustomerService;
 import com.solt.jdc.boot.services.UserRoleService;

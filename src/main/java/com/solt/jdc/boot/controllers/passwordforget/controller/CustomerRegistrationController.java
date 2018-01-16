@@ -1,4 +1,4 @@
-package com.solt.jdc.boot.passwordforget.controller;
+package com.solt.jdc.boot.controllers.passwordforget.controller;
 
 
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.solt.jdc.boot.domains.Customer;
-import com.solt.jdc.boot.passwordforget.CustomerRegistrationDto;
+import com.solt.jdc.boot.controllers.passwordforget.CustomerRegistrationDto;
 import com.solt.jdc.boot.services.CustomerService;
 
 import javax.servlet.http.HttpServletRequest;

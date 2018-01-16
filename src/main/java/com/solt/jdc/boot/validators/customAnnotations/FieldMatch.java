@@ -1,4 +1,6 @@
-package com.solt.jdc.boot.passwordforget.validator;
+package com.solt.jdc.boot.validators.customAnnotations;
+
+import com.solt.jdc.boot.validators.FieldMatchValidator;
 
 import javax.validation.Payload;
 import javax.validation.Constraint;

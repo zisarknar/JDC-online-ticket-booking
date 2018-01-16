@@ -89,6 +89,39 @@ body {
     -webkit-tap-highlight-color: #212529;
 }
 
+.busStationBg {
+    padding-top: 10rem;
+    padding-bottom: calc(10rem - 56px);
+    background-image: url("../img/bus_stations.jpeg");
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.busRouteBg {
+    padding-top: 10rem;
+    padding-bottom: calc(10rem - 56px);
+    background-image: url("../img/map_route.jpg");
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.busTicketBg {
+    padding-top: 10rem;
+    padding-bottom: calc(10rem - 56px);
+    background-image: url("../img/ticket_bg.jpg");
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 #mainNav {
     border-bottom: 1px solid rgba(33, 37, 41, 0.1);
     background-color: #fff;
@@ -329,12 +362,10 @@ header.masthead p {
     box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
 }
 
-<<<<<<< HEAD
 .main-container.sidebar.block {
     padding-bottom: 30px;
     line-height: 14px;
 }
-
 
 .clear-fix {
     clear: both;
@@ -360,7 +391,6 @@ div{
     letter-spacing: 0.075em;
 }
 
-
 table {
     display: table;
     border-collapse: separate;
@@ -368,23 +398,20 @@ table {
     border-color: grey;
 }
 
-
-.sample{
+.sample {
     border: #0b2e13 1px solid;
     background-color: transparent;
     border-radius: 2px;
     color: orange;
     text-align: center;
     padding: 5px 10px 5px 10px;
- 	    
+
 }
 
-.sample:hover{
-	background-color: #ff0000;
-	color: #ffffff;
+.sample:hover {
+    background-color: #ff0000;
+    color: #ffffff;
 }
-
-
 
 .footer-copy {
     background-color: #181818;
