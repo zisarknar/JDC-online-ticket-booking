@@ -9,15 +9,43 @@
 <div layout:fragment="content">
     <section id="services">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Register Now</h2>
                     <hr class="my-4"/>
                 </div>
-                <div class="col-lg-12 text-center">
+                <div class="col-lg-4 col-md-4 col-xs-4">
                     <form action="#">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="username"/>
+                            <label for="username">Username :</label>
+                            <input id="username" type="text" class="form-control" placeholder="username" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName">First Name :</label>
+                            <input id="firstName" type="text" class="form-control" placeholder="firstname"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name :</label>
+                            <input id="lastName" type="text" class="form-control" placeholder="lastname"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email :</label>
+                            <input id="email" type="email" class="form-control" placeholder="email"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password :</label>
+                            <input id="password" type="password" class="form-control" placeholder="password"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Comfirm password :</label>
+                            <input id="confirmPassword" type="password" class="form-control" placeholder="comfirm password"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox"/>&nbsp;<small>I'v read and accept the terms and condidtions.</small>
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="btn btn-primary" value="Submit"/>
+                            <a class="btn btn-secondary" th:href="@{/login}">Back</a>
                         </div>
                     </form>
                 </div>

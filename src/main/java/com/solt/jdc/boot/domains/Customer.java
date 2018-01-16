@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.solt.jdc.boot.validators.customAnnotations.ValidEmail;
 import org.hibernate.validator.constraints.Email;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
@@ -51,7 +52,7 @@ public class Customer {
     @NotBlank(message = "Please enter  your address ")
     private String address;
 
-    @Email(message = "This is not email type")
+    @ValidEmail(message = "This is not email type")
     private String email;
 
     private String nrcNumber;
