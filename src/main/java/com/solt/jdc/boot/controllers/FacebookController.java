@@ -1,6 +1,10 @@
 package com.solt.jdc.boot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.web.ConnectController;
@@ -13,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/connect")
-public class FacebookController extends ConnectController {
 
+public class FacebookController extends ConnectController  {
+	
+	
 	public FacebookController(ConnectionFactoryLocator connectionFactoryLocator,
 			ConnectionRepository connectionRepository) {
 		super(connectionFactoryLocator, connectionRepository);
@@ -28,15 +34,6 @@ public class FacebookController extends ConnectController {
 	@Autowired
 	private Facebook facebook;
 
-	@RequestMapping(value = "/facebook", method = RequestMethod.GET)
-	public String helloFacebook(Model model) {
-		if (!facebook.isAuthorized()) {
-			return "redirect:/loign";
-		}
-		String[] fields = { "id", "name", "birthday", "email", "location", "hometown", "gender", "first_name",
-				"last_name" };
-		model.addAttribute("facebookProfile", facebook.fetchObject("me", User.class, fields));
-		return "/admin/index";
-	}
+	
 
 }

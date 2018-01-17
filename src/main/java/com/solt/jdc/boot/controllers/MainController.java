@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.solt.jdc.boot.domains.Bus;
 import com.solt.jdc.boot.domains.Trip;
@@ -14,9 +16,14 @@ import com.solt.jdc.boot.services.*;
 import com.solt.jdc.boot.utils.TripFinder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.SpringVersion;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.security.FacebookAuthenticationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,28 +62,21 @@ public class MainController {
     private TripService tripService;
     @Autowired
     private CustomerService customerService;
-
     @Autowired
     private UserService userService;
-
-
-	
-	
 	@Autowired
 	private Facebook facebook;
-
     @Autowired
     private BookingService bookingService;
-
     @Autowired
     private CitiesService citiesService;
     @Autowired
     private StationService stationService;
-
     @Autowired
     private BusService busService;
     @Autowired
     private CustomerService CustomerService;
+    
 
 
     @RequestMapping("/admin")
@@ -90,15 +90,16 @@ public class MainController {
     
     @RequestMapping("/facebookuser")
     @ResponseBody
-    public Principal getUser(Principal principal) {
+    public Principal getUser(Principal principal,HttpServletRequest request) {
     	/*OAuth2Authentication oAuth2Authentication=(OAuth2Authentication)principal;
     	Authentication authentication=oAuth2Authentication.getUserAuthentication();
     	System.out.println(authentication.getDetails());*/
     	
+    	System.out.println(SpringVersion.getVersion());
+   
     	
     	
-    	String [] fields = { "id","name","birthday","email","location","hometown","gender","first_name","last_name"};
-    	System.out.println(facebook.fetchObject("me", FacebookProfile.class,fields));
+        System.out.println(facebook.fetchObject("me", org.springframework.social.facebook.api.User.class).getName());
     	
     	return principal;
     }

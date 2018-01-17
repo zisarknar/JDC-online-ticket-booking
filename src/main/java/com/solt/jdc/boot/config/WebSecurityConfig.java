@@ -9,10 +9,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -26,9 +30,21 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInController;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.web.client.RestOperations;
+
+import com.solt.jdc.boot.repositories.CustomerRepository;
+import com.solt.jdc.boot.services.Impl.CustomerDetailsService;
+import com.solt.jdc.boot.utils.FacebookConnectionSignup;
+import com.solt.jdc.boot.utils.FacebookSignInAdapter;
 
 @Configuration
 @EnableWebSecurity
+@EnableJpaRepositories(basePackageClasses=CustomerRepository.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -36,6 +52,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
+    
+    @Autowired
+    private Facebook facebook;
+    
+    @Autowired
+    private ConnectionFactoryLocator connectionFactoryLocator;
+ 
+    @Autowired
+    private UsersConnectionRepository usersConnectionRepository;
+ 
+    @Autowired
+    private FacebookConnectionSignup facebookConnectionSignup;
+ 
+    
+    
     
     private OAuth2ClientContext oauth2ClientContext;
 	private AuthorizationCodeResourceDetails authorizationCodeResourceDetails;
@@ -56,25 +87,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		this.resourceServerProperties = resourceServerProperties;
 	}
 
-	/*
-	 * This method is for overriding the default AuthenticationManagerBuilder. We
-	 * can specify how the user details are kept in the application. It may be in a
-	 * database, LDAP or in memory.
-	 */
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		super.configure(auth);
-	}
-
-
     @Autowired
     @Qualifier("customer_details_service")
     private UserDetailsService userDetailsService;
+    
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/admin").authenticated()
+            http.authorizeRequests()
+                .antMatchers("/admin").hasAnyRole("ROOT","ADMIN","STAFF")
                 .antMatchers("/admin/error/**").authenticated()
                 .antMatchers("/admin/roots/**").hasRole("ROOT")
                 .antMatchers("/customers/**").hasRole("ROOT")
@@ -96,7 +117,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authenticationSuccessHandler)
                 .permitAll()
                 .and()
+                .formLogin()
+                .loginPage("/frontend/login")
+                
+                .permitAll()
+                .and()
                 .logout()
+                .clearAuthentication(true)
+                .logoutSuccessUrl("/login")
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .permitAll()
@@ -105,21 +133,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterAt(filter(),BasicAuthenticationFilter.class)
                 .csrf()
-				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-    }
+				//.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                .disable();
+    }	
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("staff").password("password").roles("STAFF")
-                .and()
-                .withUser("manager").password("password").roles("MANAGER")
-                .and()
-                .withUser("sargon").password("sargon").roles("ROOT");
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
+    	auth.inMemoryAuthentication()
+        .withUser("staff").password("password").roles("STAFF")
+        .and()
+        .withUser("manager").password("password").roles("MANAGER")
+        .and()
+        .withUser("sargon").password("sargon").roles("ROOT");
 
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
+    }
+    
     @Bean
+    public ProviderSignInController providerSignInController() {
+        ((InMemoryUsersConnectionRepository) usersConnectionRepository)
+          .setConnectionSignUp(facebookConnectionSignup);
+         
+        return new ProviderSignInController(
+          connectionFactoryLocator, 
+          usersConnectionRepository, 
+          new FacebookSignInAdapter());
+    }
+    
+    
+    
+    
+
+    
+
+
+	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
@@ -129,19 +178,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Creating the filter for "/google/login" url
 		OAuth2ClientAuthenticationProcessingFilter oAuth2Filter = new OAuth2ClientAuthenticationProcessingFilter(
 				"/google/login");
+		
+		OAuth2ClientAuthenticationProcessingFilter facebookFilter=new OAuth2ClientAuthenticationProcessingFilter("/connect/facebook");
 
 		// Creating the rest template for getting connected with OAuth service.
 		// The configuration parameters will inject while creating the bean.
 		OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(authorizationCodeResourceDetails,
 				oauth2ClientContext);
+		
+		
+		
 		oAuth2Filter.setRestTemplate(oAuth2RestTemplate);
+		
+		
 
 		// Setting the token service. It will help for getting the token and
 		// user details from the OAuth Service.
 		oAuth2Filter.setTokenServices(new UserInfoTokenServices(resourceServerProperties.getUserInfoUri(),
 				resourceServerProperties.getClientId()));
+		
+		
 
 		return oAuth2Filter;
 	}
+    
+   
+    
+   
 
 }
