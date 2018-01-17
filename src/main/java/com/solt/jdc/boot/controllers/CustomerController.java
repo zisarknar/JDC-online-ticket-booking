@@ -65,7 +65,7 @@ public class CustomerController {
         }
         mainController.disallowedFieldException(result);
         customerService.saveCustomer(customer);
-        return "redirect:/customers";
+        return "redirect:/admin/customers";
     }
 
     @RequestMapping(value = "/customers/update/{id}", method = RequestMethod.GET)

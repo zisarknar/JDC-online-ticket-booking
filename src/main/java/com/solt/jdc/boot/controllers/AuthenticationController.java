@@ -40,7 +40,7 @@ public class AuthenticationController {
         return "admin/register";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping(value="/login")
     public String getUserLoginPage() {
         return "frontend/login";
     }
