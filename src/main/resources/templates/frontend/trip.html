@@ -1,87 +1,99 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="front-master" xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="front-master"
+	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
 <head>
-    <meta charset=" UTF-8"></meta>
-    <title></title>
+<meta charset=" UTF-8"></meta>
+<title></title>
 </head>
 <body>
-<div layout:fragment="content">
-    <section class="text-white bg-primary text-center busRouteBg">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-12">
-					<h3 class="bg-dark">Trips can be searched using Source and Destination</h3>
-					<p>Please choose the filters</p>
-					<form th:object="${tripFinder}" th:action="@{/search/trip/withoutdate}" class="form-inline justify-content-center" method="post">
-						<div class="input-group my-1 w-50">
-							<select th:field="*{source}" class="form-control mr-3 my-1" id="inlineFormInputGroup">
-								<option value="-1">Please Select Source</option>
-								<option th:each="city:${allCities}" th:value="${city}"
-									th:text="${city}"></option>
-							</select> 
-							<select th:field="*{destination}" class="form-control mr-3 my-1" id="inlineFormInputGroup">
-								<option value="-1">Please Select Destination</option>
-								<option th:each="city:${allCities}" th:value="${city}"
-									th:text="${city}"></option>
-							</select>
-						</div>
-						<button type="submit" class="btn btn-dark">Search</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</section>
-	<br/>
-	<div class="col-md-12">
-		<div class="text-center">
-			<h4>The Trips found
-				according to the filter conditions</h4>
-			<hr/>
-		</div>
-	</div>
-	<div class="py-5">
-		<div class="container">
-			<div class="row" th:each="trip,iter:${tripList}" >
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header bg-primary" style="font-size: 24px; color: white">
-							<label th:text="${trip.source+' to '+trip.destination+' bus'}"></label>
-						</div>
-						
-						<div class="card-body">
-							<div class="col-md-6 ">
-								<label class="lead font-weight-bold">Departure Date : </label> <label
-									class="lead font-italic" th:text="${trip.depDate}"></label>
+	<div layout:fragment="content">
+		<section class="text-white bg-primary text-center busRouteBg">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-12">
+						<h3 class="bg-dark">Trips can be searched using Source and
+							Destination</h3>
+						<p>Please choose the filters</p>
+						<form th:object="${tripFinder}"
+							th:action="@{/search/trip/withoutdate}"
+							class="form-inline justify-content-center" method="post">
+							<div class="input-group my-1 w-50">
+								<select th:field="*{source}" class="form-control mr-3 my-1"
+									id="inlineFormInputGroup">
+									<option value="-1">Please Select Source</option>
+									<option th:each="city:${allCities}" th:value="${city}"
+										th:text="${city}"></option>
+								</select> <select th:field="*{destination}"
+									class="form-control mr-3 my-1" id="inlineFormInputGroup">
+									<option value="-1">Please Select Destination</option>
+									<option th:each="city:${allCities}" th:value="${city}"
+										th:text="${city}"></option>
+								</select>
 							</div>
-							<div class="col-md-6 ">
-								<label class="lead font-weight-bold">Departure Time : </label> <label
-									class="lead font-italic" th:text="${trip.depTime}"></label>
-							</div>
-							<div class="col-md-6 ">
-								<label class="lead font-weight-bold">Estimated Duration : </label> <label
-									class="lead font-italic" th:text="${trip.estTime+' hours'}"> </label>
-							</div>
-							<div class="col-md-6 ">
-								<label class="lead text-inline font-weight-bold">Price Per Seat : </label> 
-								<label	class="lead text-inline font-italic" th:text="${trip.unitPrice+'MMK'}"></label>
-							</div>
-							<div class="col-md-6">
-								<label class="lead text-inline font-weight-bold">Station : </label>
-								<label class="lead text-inline font-italic" th:text="${stationNameList[iter.index]}"></label> 
-							</div>
-							<br/>
-							<div class="col-md-6">
-								<a class="btn btn-primary" style="color:white;width: 200px;height: 50px;font-size: 24px" >Book Now</a>			
-							</div>
-						</div>
+							<button type="submit" class="btn btn-dark">Search</button>
+						</form>
 					</div>
-					<br/>
+				</div>
+			</div>
+		</section>
+		<br />
+		<div class="col-md-12">
+			<div class="text-center">
+				<h4>The Trips found according to the filter conditions</h4>
+				<hr />
+			</div>
+		</div>
+		<div class="py-5">
+			<div class="container">
+				<div class="row" th:each="trip,iter:${tripList}">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header bg-primary"
+								style="font-size: 24px; color: white">
+								<label th:text="${trip.source+' to '+trip.destination+' bus'}"></label>
+							</div>
+							<form th:action="${'/busBinding/'+trip.id}">
+								<div class="card-body">
+									<div class="col-md-6 ">
+										<label class="lead font-weight-bold">Departure Date :
+										</label> <label class="lead font-italic" th:text="${trip.depDate}"></label>
+									</div>
+									<div class="col-md-6 ">
+										<label class="lead font-weight-bold">Departure Time :
+										</label> <label class="lead font-italic" th:text="${trip.depTime}"></label>
+									</div>
+									<div class="col-md-6 ">
+										<label class="lead font-weight-bold">Estimated
+											Duration : </label> <label class="lead font-italic"
+											th:text="${trip.estTime+' hours'}"> </label>
+									</div>
+									<div class="col-md-6 ">
+										<label class="lead text-inline font-weight-bold">Price
+											Per Seat : </label> <label class="lead text-inline font-italic"
+											th:text="${trip.unitPrice+'MMK'}"></label>
+									</div>
+									<div class="col-md-6">
+										<label class="lead text-inline font-weight-bold">Station
+											: </label> <label class="lead text-inline font-italic"
+											th:text="${stationNameList[iter.index]}"></label>
+									</div>
+									<br />
+									<div class="col-md-6">
+										<button type="submit" class="btn btn-primary"
+											style="color: white; width: 200px; height: 50px; font-size: 24px">Book
+											Now</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<br />
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </body>
 </html>
 

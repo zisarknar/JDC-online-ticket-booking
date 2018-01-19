@@ -16,17 +16,16 @@
 	border: 1px solid #eeeeee;
 }
 
- .border-using {
-            background-color: #f7f7f7;
-            border: 1px  ridge #f1f3f0;
-            border-radius: 9px;
-            box-shadow: 0 1px #f1f3f0;
-            cursor: pointer;
-            /* height: 390px; */
-            /* margin-bottom: 50px; */
-            padding: 0;
-        }
-
+.border-using {
+	background-color: #f7f7f7;
+	border: 1px ridge #f1f3f0;
+	border-radius: 9px;
+	box-shadow: 0 1px #f1f3f0;
+	cursor: pointer;
+	/* height: 390px; */
+	/* margin-bottom: 50px; */
+	padding: 0;
+}
 </style>
 
 <body class=" w-100 h-25 m-5 p-5 opaque-overlay" onload="populateName">
@@ -42,7 +41,9 @@
 					<div class="row" style="border: thin; border-bottom-style: outset;">
 						<div class="col-sm-6" style="border: blue;">
 							<div class="search-content active">&nbsp;</div>
-							<form method="post" th:object="${passenger}"
+							
+							<form id="bookingSelectForm" method="post"
+								th:object="${passenger}" role="form"
 								th:action="@{/frontendBooking/success(selectedSeat=${selectedSeat},totalPrice=${totalPrice},tripId=${tripId})}">
 								<!--<form class="" method="post" action="https://formspree.io/"> -->
 								<div class="title"
@@ -56,13 +57,14 @@
 
 								<div class="form-group row">
 									<label>Passenger Name<br />
-									</label>
-									 <input id="populateName" type="hidden" th:value="${customer.username}"/>
-									 <input id="populateNrcNumber" type="hidden" th:value="${customer.nrcNumber}"/>
-									 <input id="populatePhone" type="hidden" th:value="${customer.phone}"/>
-									<input type="text" id="customerName" name="passengerName"
+									</label> <input id="populateName" type="hidden"
+										th:value="${customer.username}" /> <input
+										id="populateNrcNumber" type="hidden"
+										th:value="${customer.nrcNumber}" /> <input id="populatePhone"
+										type="hidden" th:value="${customer.phone}" /> <input
+										type="text" id="customerName" name="passengerName"
 										class="form-control" placeholder="Enter passenger name"
-										th:field="*{name}"/>
+										th:field="*{name}" />
 								</div>
 
 								<div class="form-group row">
@@ -240,41 +242,75 @@
 							</table>
 						</div>
 					</div>
-				
+
 				</div>
 			</div>
 		</div>
 	</div>
 	<script layout:fragment="myScript">
-var checktermNcondition =function(){
-	if ($('#agree').prop("checked") == true) {
-		$('#comfirmorder').prop('disabled',false);
-    }else{
-		$('#comfirmorder').prop('disabled', true);
-    }
-}
+		var checktermNcondition = function() {
+			if ($('#agree').prop("checked") == true) {
+				$('#comfirmorder').prop('disabled', false);
+			} else {
+				$('#comfirmorder').prop('disabled', true);
+			}
+		}
 
-$("#agree").click(function() {
-	checktermNcondition();
-});
+		$("#agree").click(function() {
+			checktermNcondition();
+		});
 
-checktermNcondition();
+		checktermNcondition();
 
+		$(function() {
+			$('input').iCheck({
+				checkboxClass : 'icheckbox_square-blue',
+				radioClass : 'iradio_square-blue',
+				increaseArea : '20%' // optional
+			});
+		});
 
-$(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
-    });
-  });
-  
-  $(function(){
-	  $("#customerName").val($("#populateName").val());
-	  $("#customerNrcNumber").val($("#populateNrcNumber").val());
-	  $("#customerPhone").val($("#populatePhone").val());
-  })
-  </script>
+		$(function() {
+			$("#customerName").val($("#populateName").val());
+			$("#customerNrcNumber").val($("#populateNrcNumber").val());
+			$("#customerPhone").val($("#populatePhone").val());
+		});
+
+		$(function() {
+			
+			$("#message").hide();
+			
+			
+			$("#bookingSelectForm").submit(
+					function() {
+
+						var customerNrcNumber = $("#customerNrcNumber").val();
+						var customerNrcName = $("#customerName").val();
+						var customerNrcPhone = $("#customerPhone").val();
+
+						if (($.trim(customerNrcNumber)).length == 0
+								|| ($.trim(customerName)).length == 0
+								|| ($.trim(customerPhone)).length == 0) {
+							
+							
+								swal({
+									text: "Please Fill in the complete form",
+									type: "warning",
+									showConfirmButton: false
+								});							
+							
+							
+							
+							return false;
+						} else {
+							return true;
+						}
+
+					});
+
+		});
+	</script>
+	
 </body>
 </html>
 

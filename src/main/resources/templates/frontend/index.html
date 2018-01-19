@@ -19,25 +19,25 @@
                     <hr/>
                 </div>
                 <div class="col-lg-8 mx-auto">
-                    <form th:object="${tripFinder}" th:action="@{/trip/search}"
+                    <form id="tripSearchForm" th:object="${tripFinder}" th:action="@{/trip/search}"
                           method="post" class="form-inline">
                         <div class="form-group mb-2 mr-sm-2 mb-sm-0">
 
-                            <select class="form-control" th:field="*{source}">
+                            <select id="source" class="form-control" th:field="*{source}">
                                 <option value="-1">Select Source</option>
                                 <option th:each="city:${allcities}" th:value="${city}"
                                         th:text="${city}"/>
                             </select>
                         </div>
                         <div class="form-group mb-2 mr-sm-2 mb-sm-0">
-                            <select class="form-control" th:field="*{destination}">
+                            <select id="destination" class="form-control" th:field="*{destination}">
                                 <option value="-1">Select Destination</option>
                                 <option th:each="city:${allcities}" th:value="${city}"
                                         th:text="${city}"/>
                             </select>
                         </div>
                         <div class="form-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="date" th:field="*{depDate}" class="form-control"/>
+                            <input id="departureDate" type="date" th:field="*{depDate}" class="form-control"/>
                         </div>
                         <br/>
                         <br/>
@@ -237,7 +237,32 @@
 <script layout:fragment="myScript">
     $(function () {
         $('#depDate').datepicker();
-    })
+    });
+    
+    $(function(){
+    	$("#tripSearchForm").submit(function(){
+    		
+    		var source=$("#source").find(":selected").val();
+    		var destination=$("#destination").find(":selected").val();
+    		var departureDate=$.trim($("#departureDate").val());
+    		
+    		alert(departureDate);
+    		
+    		if(source==-1 || destination==-1 || departureDate==""){
+    			swal({
+        			text: "Please Fill in all the data",
+        			type: "warning",
+        			showConfirmButton: false
+        		})
+        		return false;	
+    		}
+    		else {
+    			return true;
+    		}
+    		
+    		
+    	});
+    });
 </script>
 
 </body>

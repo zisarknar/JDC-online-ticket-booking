@@ -85,9 +85,27 @@ public class frontbooking {
         model.addAttribute("tripId", tripFilterId);
         model.addAttribute("stationName", (stationService.findById(trip.getStationId())).getName());
         model.addAttribute("trip", trip);
+        
         Authentication authentication = iAuthenticationFacade.getAuthentiation();
         String currentLoggedinUser = authentication.getName();
-        model.addAttribute("customer", customerService.findByEmail(currentLoggedinUser));
+        
+        //Finding customer from database
+        Customer databaseCustomer= customerService.findByusername(currentLoggedinUser);
+        
+        //Customer object for users with facebook or google log in
+        Customer socialCustomer=new Customer();
+        
+        //Checking conditions and populating the customer model
+        if(databaseCustomer!=null) {
+        	model.addAttribute("customer",databaseCustomer);
+        }
+        else {
+        	socialCustomer.setUsername(currentLoggedinUser);
+        	socialCustomer.setPhone("");
+        	socialCustomer.setNrcNumber("");
+        	model.addAttribute("customer", socialCustomer);
+        }
+        
         return "frontend/booking";
     }
 

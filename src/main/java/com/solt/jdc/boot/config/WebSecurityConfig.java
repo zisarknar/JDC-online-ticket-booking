@@ -8,12 +8,12 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceS
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-<<<<<<< HEAD
+
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-=======
+
 import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
->>>>>>> feature/Facebook_and_google_login
+
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -51,44 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
-<<<<<<< HEAD
-    private AccessDeniedHandler deniedHandler;
 
-    private OAuth2ClientContext oauth2ClientContext;
-    private AuthorizationCodeResourceDetails authorizationCodeResourceDetails;
-    private ResourceServerProperties resourceServerProperties;
-
-    @Autowired
-    public void setOauth2ClientContext(OAuth2ClientContext oauth2ClientContext) {
-        this.oauth2ClientContext = oauth2ClientContext;
-    }
-
-    @Autowired
-    public void setAuthorizationCodeResourceDetails(AuthorizationCodeResourceDetails authorizationCodeResourceDetails) {
-        this.authorizationCodeResourceDetails = authorizationCodeResourceDetails;
-    }
-
-    @Autowired
-    public void setResourceServerProperties(ResourceServerProperties resourceServerProperties) {
-        this.resourceServerProperties = resourceServerProperties;
-    }
-
-    /*
-     * This method is for overriding the default AuthenticationManagerBuilder. We
-     * can specify how the user details are kept in the application. It may be in a
-     * database, LDAP or in memory.
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
-    }
-
-    @Autowired
-    private CustomerDetailsService customerDetailsService;
-
-    @Autowired
-    private CustomerService customerService;
-=======
     private AccessDeniedHandler accessDeniedHandler;
     
     @Autowired
@@ -102,6 +65,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  
     @Autowired
     private FacebookConnectionSignup facebookConnectionSignup;
+    
+    @Autowired
+    private CustomerService customerService;
  
     
     
@@ -129,7 +95,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("customer_details_service")
     private UserDetailsService userDetailsService;
     
->>>>>>> feature/Facebook_and_google_login
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -170,25 +136,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedHandler(deniedHandler)
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .addFilterAt(filter(), BasicAuthenticationFilter.class)
                 .csrf()
-<<<<<<< HEAD
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-    }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("staff").password("password").roles("STAFF")
-                .and()
-                .withUser("manager").password("password").roles("MANAGER")
-                .and()
-                .withUser("sargon").password("sargon").roles("ROOT");
-        auth.userDetailsService(customerDetailsService).passwordEncoder(passwordEncoder());
-    }
-=======
 				//.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
                 .disable();
     }	
@@ -201,7 +153,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .withUser("manager").password("password").roles("MANAGER")
         .and()
         .withUser("sargon").password("sargon").roles("ROOT");
->>>>>>> feature/Facebook_and_google_login
 
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 
@@ -232,7 +183,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private OAuth2ClientAuthenticationProcessingFilter filter() {
-<<<<<<< HEAD
+
         // Creating the filter for "/google/login" url
         OAuth2ClientAuthenticationProcessingFilter oAuth2Filter = new OAuth2ClientAuthenticationProcessingFilter(
                 "/google/login");
@@ -258,37 +209,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-=======
-		// Creating the filter for "/google/login" url
-		OAuth2ClientAuthenticationProcessingFilter oAuth2Filter = new OAuth2ClientAuthenticationProcessingFilter(
-				"/google/login");
-		
-		OAuth2ClientAuthenticationProcessingFilter facebookFilter=new OAuth2ClientAuthenticationProcessingFilter("/connect/facebook");
 
-		// Creating the rest template for getting connected with OAuth service.
-		// The configuration parameters will inject while creating the bean.
-		OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(authorizationCodeResourceDetails,
-				oauth2ClientContext);
-		
-		
-		
-		oAuth2Filter.setRestTemplate(oAuth2RestTemplate);
-		
-		
-
-		// Setting the token service. It will help for getting the token and
-		// user details from the OAuth Service.
-		oAuth2Filter.setTokenServices(new UserInfoTokenServices(resourceServerProperties.getUserInfoUri(),
-				resourceServerProperties.getClientId()));
-		
-		
-
-		return oAuth2Filter;
-	}
-    
-   
-    
-   
->>>>>>> feature/Facebook_and_google_login
 
 }

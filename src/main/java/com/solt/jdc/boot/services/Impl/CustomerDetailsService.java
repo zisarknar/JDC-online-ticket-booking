@@ -18,11 +18,8 @@ import org.springframework.stereotype.Service;
 import com.solt.jdc.boot.domains.Customer;
 import com.solt.jdc.boot.repositories.CustomerRepository;
 
-<<<<<<< HEAD
-@Service
-=======
+
 @Service("customer_details_service")
->>>>>>> feature/Facebook_and_google_login
 public class CustomerDetailsService implements UserDetailsService {
 	@Autowired
 	private CustomerRepository customerRepository;

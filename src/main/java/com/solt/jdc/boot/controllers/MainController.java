@@ -59,32 +59,21 @@ import java.util.stream.Collectors;
 public class MainController {
 
 
-    @Autowired
-    private StationService stationService;
+   
     @Autowired
     private TripService tripService;
     @Autowired
     private CustomerService customerService;
     @Autowired
     private UserService userService;
-<<<<<<< HEAD
 
-    @Autowired
-    private Facebook facebook;
-
-=======
 	@Autowired
 	private Facebook facebook;
->>>>>>> feature/Facebook_and_google_login
     @Autowired
     private BookingService bookingService;
     @Autowired
     private CitiesService citiesService;
-<<<<<<< HEAD
 
-    @Autowired
-    private BusService busService;
-=======
     @Autowired
     private StationService stationService;
     @Autowired
@@ -92,7 +81,6 @@ public class MainController {
     @Autowired
     private CustomerService CustomerService;
     
->>>>>>> feature/Facebook_and_google_login
 
 
     @RequestMapping("/admin")
@@ -106,11 +94,7 @@ public class MainController {
 
     @RequestMapping("/facebookuser")
     @ResponseBody
-<<<<<<< HEAD
-    public Principal getUser(Principal principal) {
-        String[] fields = {"id", "name", "birthday", "email", "location", "hometown", "gender", "first_name", "last_name"};
-        System.out.println(facebook.fetchObject("me", FacebookProfile.class, fields));
-=======
+
     public Principal getUser(Principal principal,HttpServletRequest request) {
     	/*OAuth2Authentication oAuth2Authentication=(OAuth2Authentication)principal;
     	Authentication authentication=oAuth2Authentication.getUserAuthentication();
@@ -131,17 +115,11 @@ public class MainController {
 		
 		return "frontend/booking";
 	}
->>>>>>> feature/Facebook_and_google_login
-
-        return principal;
-    }
 
 
-    @RequestMapping("/booking")
-    public String booking(Model model) {
+    
 
-        return "frontend/booking";
-    }
+   
 
 
     @RequestMapping("/searchResult")
