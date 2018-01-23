@@ -79,6 +79,7 @@ public class PasswordForgotController {
         model.put("customer", customer);
         model.put("signature", "https://mail.google.com");//https://mail.google.com/mail/u/0/#inbox
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        System.out.println("URL  :"+url);
         model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
         mail.setModel(model);
         

@@ -124,8 +124,9 @@ public class MainController {
         Date depDate = tripFinder.getDepDate();
         List<Trip> tripList = tripService.findTripByFilter(source, destination, depDate);
 
-        List<Bus> busList = tripList.stream().map(e -> e.getBusId()).map(e -> busService.findById(e))
-                .collect(Collectors.toList());
+        List<Bus> busList = tripList.stream().map(e -> e.getBusId())
+        										.map(e -> busService.findById(e))
+        											.collect(Collectors.toList());
 
         List<Integer> maxSeatList = tripList.stream().map(e -> e.getBusId()).map(e -> busService.findById(e))
                 .map(e -> e.getMaxSeats() - e.getTakenSeats()).collect(Collectors.toList());

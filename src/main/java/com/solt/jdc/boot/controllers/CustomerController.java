@@ -65,7 +65,7 @@ public class CustomerController {
         }
         mainController.disallowedFieldException(result);
         customerService.saveCustomer(customer);
-        return "redirect:/customers";
+        return "redirect:/admin/customers";
     }
 
     @RequestMapping(value = "/customers/update/{id}", method = RequestMethod.GET)
@@ -77,7 +77,7 @@ public class CustomerController {
     @RequestMapping(value = "/customers/update/{id}", method = RequestMethod.POST)
     public String processUpdateCustomer(@ModelAttribute("updatedCustomer") @Valid Customer updatedCustomer, @PathVariable("id") int customerId, BindingResult result) {
         if (result.hasErrors()) {
-            return "admin/customer/index";
+            return "/admin/customer/index";
         }
         mainController.disallowedFieldException(result);
         Customer currentCustomer = customerService.getCustomer(customerId);
@@ -99,12 +99,12 @@ public class CustomerController {
     @RequestMapping("/customers/delete/{id}")
     public String deleteCustomer(@PathVariable("id") int customerId) {
         customerService.deleteCustomer(customerId);
-        return "redirect:/customers";
+        return "redirect:/admin/customers";
     }
 
     @InitBinder
     public void initializeBinder(WebDataBinder binder) {
-        binder.setAllowedFields("id", "username", "firstName", "lastName", "password", "phone", "matchPassword", "tempPassword", "email", "nrcNumber", "isEnabled", "booking", "address");
+        binder.setAllowedFields("id", "username", "firstName", "lastName", "password", "phone", "matchPassword", "tempPassword", "email", "nrcNumber", "enabled", "booking", "address","role");
 
     }
 

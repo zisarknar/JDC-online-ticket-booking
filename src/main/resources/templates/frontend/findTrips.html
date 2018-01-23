@@ -18,8 +18,9 @@
 
 						<select class="form-control" th:field="*{source}">
 							<option value="-1">Select Source</option>
-							<option th:each="city:${allcities}" th:value="${city}"
-								th:text="${city}" />
+							<option th:each="city:${allcities}" 
+									th:value="${city}"
+									th:text="${city}" />
 						</select>
 					</div>
 					<div class="form-group mb-2 mr-sm-2 mb-sm-0">
@@ -35,6 +36,7 @@
 					<br /> <br />
 					<button type="submit" class="btn btn-primary js-scroll-trigger">Search</button>
 				</form>
+				
 				<br /> <br />
 				<div class="row bg-danger">
 					<div class="col-md-3">
@@ -93,8 +95,7 @@
 											
 											<option value="-1">Select Seats</option>
 											<option th:each="seatNo:${grandList[iter.index]}"
-												    th:value="${seatNo}" th:text="${seatNo}"></option>
-												
+												    th:value="${seatNo}" th:text="${seatNo}"></option>										
 										</select>
 									</div>
 								</div>

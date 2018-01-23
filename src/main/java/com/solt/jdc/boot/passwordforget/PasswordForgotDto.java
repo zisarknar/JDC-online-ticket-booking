@@ -3,17 +3,20 @@ package com.solt.jdc.boot.passwordforget;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import lombok.Data;
+
+@Data
 public class PasswordForgotDto {
 
     @Email
     @NotEmpty
     private String email;
 
-    public String getEmail() {
+    /*public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
+    }*/
 }

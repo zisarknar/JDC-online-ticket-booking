@@ -29,7 +29,7 @@ public class CustomerDetailsService implements UserDetailsService {
 	}
 	private static Collection<? extends GrantedAuthority> getAuthorities(Customer customer)
 	{
-	Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(customer.getRole_user().getRole());
+	Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(customer.getRole().getName());
 	return authorities;
 	}
 }

@@ -45,6 +45,7 @@ public class TripController {
         return "admin/trip/index";
     }
 
+ 
     @RequestMapping(value = "/trips/add", method = RequestMethod.GET)
     public String addTrip(Model model) {
         Trip trip = new Trip();
