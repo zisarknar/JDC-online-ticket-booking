@@ -21,11 +21,10 @@ public class FacebookController extends ConnectController  {
 
 	@Override
 	protected String connectedView(String providerId) {
-		return "redirect:/";
+		return "redirect:/signin/facebook";
 	}
 
-	@Autowired
-	private Facebook facebook;
+	
 
 	
 

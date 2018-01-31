@@ -73,7 +73,7 @@ public class CustomerController {
         mainController.disallowedFieldException(result);
         Customer currentCustomer = customerService.getCustomer(customerId);
         currentCustomer.setUsername(updatedCustomer.getUsername());
-        currentCustomer.setBooking(updatedCustomer.getBooking());
+        currentCustomer.setBookingList(updatedCustomer.getBookingList());
         currentCustomer.setFirstName(updatedCustomer.getFirstName());
         currentCustomer.setLastName(updatedCustomer.getLastName());
         currentCustomer.setEmail(updatedCustomer.getEmail());
@@ -131,7 +131,7 @@ public class CustomerController {
         }
         Customer currentCustomer = customerService.getCustomer(customerService.currentCustomer().getId());
         currentCustomer.setUsername(updatedCustomer.getUsername());
-        currentCustomer.setBooking(updatedCustomer.getBooking());
+        currentCustomer.setBookingList(updatedCustomer.getBookingList());
         currentCustomer.setFirstName(updatedCustomer.getFirstName());
         currentCustomer.setLastName(updatedCustomer.getLastName());
         currentCustomer.setEmail(updatedCustomer.getEmail());

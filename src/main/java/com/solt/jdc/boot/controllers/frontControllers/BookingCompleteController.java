@@ -73,7 +73,7 @@ public class BookingCompleteController {
 		data.put("source", trip.getSource());
 		data.put("destination", trip.getDestination());
 		data.put("passengerName", booking.getPassenger().getName());
-		data.put("passengerNRC", booking.getPassenger().getRegNo());
+		data.put("passengerNRC", booking.getPassenger().getNrcNumber());
 		data.put("passengerPhone", booking.getPassenger().getPhone());
 		data.put("noOfSeats", String.valueOf(booking.getNoOfSeats()));
 		data.put("busType", bus.getBusType().getType());

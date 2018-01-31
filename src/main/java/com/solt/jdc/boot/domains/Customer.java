@@ -1,6 +1,9 @@
 package com.solt.jdc.boot.domains;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
@@ -59,8 +62,8 @@ public class Customer {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
-    private Booking booking;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private List<Booking> bookingList=new ArrayList<>();
 
     private String tempPassword;
     

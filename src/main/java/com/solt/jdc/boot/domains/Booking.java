@@ -44,12 +44,12 @@ public class Booking {
 
     private boolean status;
 
-    //    Booking is the Owner of the relationship
+    //Booking is the Owner of the relationship
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer")
     private Customer customer;
 

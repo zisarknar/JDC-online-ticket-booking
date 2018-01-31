@@ -65,13 +65,21 @@ public class MainController {
     	Authentication authentication=oAuth2Authentication.getUserAuthentication();
     	System.out.println(authentication.getDetails());*/
 
-        System.out.println(SpringVersion.getVersion());
-
-
-        System.out.println(facebook.fetchObject("me", org.springframework.social.facebook.api.User.class).getName());
-
-        return principal;
+    	
+    	
+   
+    	
+    	
+        //System.out.println(facebook.fetchObject("me", org.springframework.social.facebook.api.User.class).getName());
+    	
+    	return principal;
     }
+    
+	
+	@RequestMapping("/booking")
+	public String booking(Model model) {
+		return "frontend/booking";
+	}
 
 
     @RequestMapping("/booking")
@@ -99,7 +107,8 @@ public class MainController {
 
     @RequestMapping(value = "/trip/search", method = RequestMethod.POST)
     public String getTrip(@ModelAttribute("tripFinder") TripFinder tripFinder, RedirectAttributes redirect) {
-        String source = tripFinder.getSource();
+        
+    	String source = tripFinder.getSource();
         String destination = tripFinder.getDestination();
         Date depDate = tripFinder.getDepDate();
         List<Trip> tripList = tripService.findTripByFilter(source, destination, depDate);
