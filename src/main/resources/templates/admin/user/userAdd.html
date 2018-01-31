@@ -26,10 +26,8 @@
                     <a th:href="@{/admin/users}" class="btn btn-primary"><i
                             class="fa fa-arrow-left"></i> Back</a>
                 </div>
-                <form role="form" th:action="@{/admin/users/add}" method="post"
-                      th:object="${user}">
-
-                    <div class="box-body">
+                <form role="form" th:action="@{/admin/users/add}" method="post" th:object="${user}">
+                   <div class="box-body">
                         <div class="form-group">
 
                             <label for="userName1">User Name</label>
@@ -78,17 +76,23 @@
                             <label th:errors="*{phone}" class="text-danger"></label>
                         </div>
 
-                        <div>
+                        <div class="form-group">
 
 
-                            <label>Role</label>
-                            <select id="role"
-                                    class="form-control"
-                                    th:field="*{role}">
-                                <option
-                                        th:each="role:${T(com.solt.jdc.boot.domains.Role).values()}"
-                                        th:value="${role}" th:text="${role.getRoleName()}"></option>
+                            <label for="role">Role</label>
+                            
+                            <select id="role" class="form-control" th:field="*{role}"> 
+                          				
+									<option value="No Role">Select Role</option>
+									<option th:each="role : ${allRoles}"
+										th:value="${role.name}" th:text="${role.name}">
+                                </option>                               
                             </select>
+                           
+                           
+                          
+							
+                            
                         </div>
 
                         <div class="form-group">
@@ -98,11 +102,7 @@
                                    value="true"
                                    th:field="*{status}"/>Yes
 
-                            <input type="radio"
-                                   id="userStatus"
-                                   value="false"
-                                   th:field="*{status}"/>No
-
+                            <input type="radio" id="userStatus" value="false" th:field="*{status}"/>No
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -110,9 +110,7 @@
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
-
-
-                </form>
+              </form>
             </div>
         </div>
     </div>
@@ -126,6 +124,27 @@
         });
     });
 </script>
-
 </body>
 </html>
+
+
+
+
+ <!-- <div th:if="${allRoles!=null}"><select id="role" class="form-control" th:field="*{role}"> -->
+                            
+                                    
+                                    
+                                
+                            <!-- </select> -->
+                            <!-- </div> -->
+                       
+                       
+                       <!-- <select id="role" class="form-control" th:field="*{role}"> --> 
+                                <!-- <option value="ADMIN" > -->
+                                <!-- ADMIN --> 
+                                <!-- </option> -->
+                                	                                
+                            <!-- </select> -->
+                           
+                       
+                            

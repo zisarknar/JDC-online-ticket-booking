@@ -199,16 +199,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 resourceServerProperties.getClientId()));
         return oAuth2Filter;
     }
-
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService((UserDetailsService) customerService);
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
-
     }
+<<<<<<< HEAD
 
 
 
 }
+=======
+ }
+>>>>>>> feature/14-Jan-2018(htein)

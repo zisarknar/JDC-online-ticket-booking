@@ -44,10 +44,17 @@ public class CustomerDetailsService implements UserDetailsService {
 		
 		return user;
 	}
+<<<<<<< HEAD
 
 	private static Collection<? extends GrantedAuthority> getAuthorities(
 			Customer customer) {
 		Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(customer.getRole_user().getRole());
 		return authorities;
+=======
+	private static Collection<? extends GrantedAuthority> getAuthorities(Customer customer)
+	{
+	Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(customer.getRole().getName());
+	return authorities;
+>>>>>>> feature/14-Jan-2018(htein)
 	}
 }

@@ -3,11 +3,16 @@ package com.solt.jdc.boot.services.Impl;
 
 import com.solt.jdc.boot.domains.Customer;
 import com.solt.jdc.boot.domains.Role;
+<<<<<<< HEAD
 import com.solt.jdc.boot.domains.UserRole;
 import com.solt.jdc.boot.controllers.passwordforget.CustomerRegistrationDto;
+=======
+
+import com.solt.jdc.boot.passwordforget.CustomerRegistrationDto;
+>>>>>>> feature/14-Jan-2018(htein)
 import com.solt.jdc.boot.repositories.CustomerRepository;
 import com.solt.jdc.boot.services.CustomerService;
-import com.solt.jdc.boot.services.UserRoleService;
+import com.solt.jdc.boot.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private CustomerRepository customerRepository;
     @Autowired
-    private UserRoleService userRoleService;
+    private RoleService roleService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -54,20 +59,20 @@ public class CustomerServiceImpl implements CustomerService {
 
         customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
         customer.setEnabled(true);
-        customer.setRole_user(getCustomerRole());
+        customer.setRole(getCustomerRole());
         customerRepository.saveAndFlush(customer);
     }
 
-    //moe
+    
     @Override
-    public UserRole getCustomerRole() {
-        UserRole role = userRoleService.findByRole("ROLE_CUSTOMER");
+    public Role getCustomerRole() {
+        Role role = roleService.findByRole("ROLE_CUSTOMER");
         if (role != null) {
             return role;
         } else {
-            role = new UserRole();
-            role.setRole("ROLE_CUSTOMER");
-            userRoleService.saveRoleUser(role);
+            role = new Role();
+            role.setName("ROLE_CUSTOMER");
+            roleService.saveRole(role);
             return role;
         }
     }
@@ -118,7 +123,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return new org.springframework.security.core.userdetails.User(customer.getEmail(),
                 customer.getPassword(),
-                mapRolesToAuthorities((Collection<Role>) customer.getRole_user()));
+                mapRolesToAuthorities((Collection<Role>) customer.getRole()));
     }
 
     //=======================================
