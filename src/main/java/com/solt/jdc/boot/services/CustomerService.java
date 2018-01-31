@@ -1,17 +1,13 @@
 package com.solt.jdc.boot.services;
 
 
-import com.solt.jdc.boot.domains.Customer;
-
 import com.solt.jdc.boot.controllers.passwordforget.CustomerRegistrationDto;
-
-import com.solt.jdc.boot.domains.UserRole;
-
-
-import java.util.List;
-
+import com.solt.jdc.boot.domains.Customer;
+import com.solt.jdc.boot.domains.Role;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.List;
 
 public interface CustomerService extends UserDetailsService {
 
@@ -42,5 +38,5 @@ public interface CustomerService extends UserDetailsService {
 
     Customer currentCustomer();
 
-    UserRole getCustomerRole();
+    Role getCustomerRole();
 }

@@ -1,8 +1,13 @@
 package com.solt.jdc.boot.controllers;
 
+import com.solt.jdc.boot.domains.Role;
 import com.solt.jdc.boot.domains.User;
+import com.solt.jdc.boot.services.RoleService;
 import com.solt.jdc.boot.services.UserService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +37,10 @@ public class UserController {
     @Autowired
     private MainController mainController;
 
+    
+    @Autowired
+	private RoleService roleService;
+    
     @RequestMapping(method = RequestMethod.GET, value = "/users")
     public String findAllUser(Model model) {
         model.addAttribute("users", userService.findAll());
@@ -39,18 +48,25 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/add", method = RequestMethod.GET)
-    public String add(ModelMap map) {
-        map.put("user", new User());
+    public String add(Model model) {
+    		
+    	
+    	List<Role> allRoles=roleService.getAllRoles();	
+    	model.addAttribute("allRoles",allRoles			
+							.stream()//change into  an sequence of cities  ->stream 
+							.map(e -> e.getName())  
+							.collect(Collectors.toList()));
+    	    	
+    	model.addAttribute("user", new User());
         return "admin/user/userAdd";
+    
     }
 
     @RequestMapping(value = "/users/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") @Valid User user, BindingResult result) {
         if (result.hasErrors()) {
             return "admin/user/userAdd";
-        } else {
-
-        }
+        } 
         mainController.disallowedFieldException(result);
         userService.save(user);
         return "redirect:/admin/users";
@@ -64,9 +80,9 @@ public class UserController {
 
     @RequestMapping(value = "/user/update/{id}", method = RequestMethod.POST)
     public String edit(@ModelAttribute("user") @Valid User user,@PathVariable("id") int userId, BindingResult result) {
-        if (result.hasErrors()) {
+        /*if (result.hasErrors()) {
             return "admin/user/userEdit";
-        }
+        }*/
         User currentUser = userService.find(userId);
         currentUser.setUserName(user.getUserName());
         currentUser.setFirstName(user.getFirstName());
@@ -95,4 +111,12 @@ public class UserController {
     public void initializeBinder(WebDataBinder binder) {
         binder.setAllowedFields("userName", "firstName", "lastName", "phone", "email", "role", "status", "password");
     }
+    
+    
+    //==============================================
+   
+    
+    //===============================================
+    
+    
 }

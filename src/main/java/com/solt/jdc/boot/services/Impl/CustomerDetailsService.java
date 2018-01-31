@@ -21,33 +21,23 @@ import com.solt.jdc.boot.repositories.CustomerRepository;
 
 @Service("customer_details_service")
 public class CustomerDetailsService implements UserDetailsService {
-	@Autowired
-	private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
-	@Autowired
-	private Facebook facebook;
+    @Autowired
+    private Facebook facebook;
 
-	
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		 System.out.println(email);
-		Customer customer=customerRepository.findByEmail(email);
-		
-		/*org.springframework.social.facebook.api.User facebookUser = facebook.fetchObject("me",
-				org.springframework.social.facebook.api.User.class);
-		System.out.println(facebookUser.getName());
-		User user=new User(facebookUser.getName(), "facebookuser", true, true, true, true, getAuthorities(facebookUser));
-		System.out.println(user);
-		System.out.println(user.getUsername() + user.getPassword() + user.getAuthorities());*/
-		
-		User user=new User(customer.getUsername(), customer.getPassword(), getAuthorities(customer));
-		
-		return user;
-	}
 
-	private static Collection<? extends GrantedAuthority> getAuthorities(
-			Customer customer) {
-		Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(customer.getRole_user().getRole());
-		return authorities;
-	}
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println(email);
+        Customer customer = customerRepository.findByEmail(email);
+        User user = new User(customer.getUsername(), customer.getPassword(), getAuthorities(customer));
+        return user;
+    }
+
+    private static Collection<? extends GrantedAuthority> getAuthorities(Customer customer) {
+        Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(customer.getRole().getName());
+        return authorities;
+    }
 }

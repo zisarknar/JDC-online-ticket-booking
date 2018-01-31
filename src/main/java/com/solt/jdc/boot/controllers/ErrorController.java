@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ErrorController {
 
     @GetMapping("/error/403")
-    public String getError403(){
+    public String getError403() {
         return "errors/403";
     }
 }

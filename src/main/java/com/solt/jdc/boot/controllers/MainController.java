@@ -1,54 +1,21 @@
 package com.solt.jdc.boot.controllers;
 
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.solt.jdc.boot.domains.Bus;
 import com.solt.jdc.boot.domains.Trip;
 import com.solt.jdc.boot.services.*;
 import com.solt.jdc.boot.utils.TripFinder;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.SpringVersion;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.security.FacebookAuthenticationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-import com.solt.jdc.boot.domains.Booking;
-import com.solt.jdc.boot.domains.Bus;
-import com.solt.jdc.boot.domains.Passenger;
-import com.solt.jdc.boot.domains.Trip;
-
-import com.solt.jdc.boot.domains.User;
-import com.solt.jdc.boot.repositories.TripRepository;
-import com.solt.jdc.boot.services.BusService;
-import com.solt.jdc.boot.services.CitiesService;
-import com.solt.jdc.boot.services.StationService;
-import com.solt.jdc.boot.services.TripService;
-import com.solt.jdc.boot.utils.FacebookProfile;
-import com.solt.jdc.boot.utils.TripFinder;
-
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +26,6 @@ import java.util.stream.Collectors;
 public class MainController {
 
 
-   
     @Autowired
     private TripService tripService;
     @Autowired
@@ -67,8 +33,8 @@ public class MainController {
     @Autowired
     private UserService userService;
 
-	@Autowired
-	private Facebook facebook;
+    @Autowired
+    private Facebook facebook;
     @Autowired
     private BookingService bookingService;
     @Autowired
@@ -80,7 +46,6 @@ public class MainController {
     private BusService busService;
     @Autowired
     private CustomerService CustomerService;
-    
 
 
     @RequestMapping("/admin")
@@ -95,10 +60,11 @@ public class MainController {
     @RequestMapping("/facebookuser")
     @ResponseBody
 
-    public Principal getUser(Principal principal,HttpServletRequest request) {
+    public Principal getUser(Principal principal, HttpServletRequest request) {
     	/*OAuth2Authentication oAuth2Authentication=(OAuth2Authentication)principal;
     	Authentication authentication=oAuth2Authentication.getUserAuthentication();
     	System.out.println(authentication.getDetails());*/
+
     	
     	
    
@@ -116,9 +82,11 @@ public class MainController {
 	}
 
 
-    
+    @RequestMapping("/booking")
+    public String booking(Model model) {
 
-   
+        return "frontend/booking";
+    }
 
 
     @RequestMapping("/searchResult")
@@ -145,7 +113,8 @@ public class MainController {
         Date depDate = tripFinder.getDepDate();
         List<Trip> tripList = tripService.findTripByFilter(source, destination, depDate);
 
-        List<Bus> busList = tripList.stream().map(e -> e.getBusId()).map(e -> busService.findById(e))
+        List<Bus> busList = tripList.stream().map(e -> e.getBusId())
+                .map(e -> busService.findById(e))
                 .collect(Collectors.toList());
 
         List<Integer> maxSeatList = tripList.stream().map(e -> e.getBusId()).map(e -> busService.findById(e))

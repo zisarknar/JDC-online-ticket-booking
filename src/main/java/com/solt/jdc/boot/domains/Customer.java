@@ -48,7 +48,7 @@ public class Customer {
     private String phone;
 
     @ManyToOne
-    private UserRole role_user;
+    private Role role;
 
     @NotNull
     @NotBlank(message = "Please enter  your address ")
@@ -68,5 +68,12 @@ public class Customer {
     private String tempPassword;
     
 
+    
+    //=================================
+
+	
+    
+    //================================
+    
 }
 

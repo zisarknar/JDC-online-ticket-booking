@@ -38,6 +38,7 @@ public class FrontTripController {
 	public String findTripGet(Model model) {
 		TripFinder tripFinder = new TripFinder();
 		List<Trip> tripList=new ArrayList<>();
+		
 		if(model.containsAttribute("tripList")==false) {
 			model.addAttribute("tripList", tripList);
 		}

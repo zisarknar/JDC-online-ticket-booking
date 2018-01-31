@@ -8,8 +8,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-@Entity
 @Data
+@Entity
+
 public class User {
 
 	@Id
@@ -43,18 +44,22 @@ public class User {
 	@NotBlank(message="Please enter phone")
 	@Size(min=3,max=100)
 	private String phone;
+	
+	
+	@NotNull
+	private String role;
 
 	//@Transient
 	private boolean status=true;
 
-	@NotNull
-	private String role; 
+	 
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="user_station_id")
 	private Station station;
-	@ManyToOne//moe
-    private UserRole role_user;
-	public User() {
-		
-	}
+	
+	/*@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    private Role role;
+*/	
+	
+	
 }

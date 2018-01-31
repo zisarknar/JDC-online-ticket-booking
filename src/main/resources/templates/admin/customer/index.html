@@ -54,9 +54,9 @@
                             <td th:text="${customer.email}"></td>
                             <td th:text="${customer.nrcNumber}"></td>
                             <td>
-                                <a th:href="@{/customer/delete/}+${customer.id}" class="btn btn-default"><i
+                                <a th:href="@{/admin/customer/delete/}+${customer.id}" class="btn btn-default"><i
                                         class="fa fa-trash"></i> Delete</a>
-                                <a th:href="@{/customer/update/}+${customer.id}" class="btn btn-default"><i
+                                <a th:href="@{/admin/customer/update/}+${customer.id}" class="btn btn-default"><i
                                         class="fa fa-gear"></i> Edit</a>
                             </td>
                         </tr>
