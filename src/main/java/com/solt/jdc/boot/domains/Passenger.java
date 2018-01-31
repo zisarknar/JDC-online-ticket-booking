@@ -17,7 +17,7 @@ public class Passenger {
 	
 	private String name;
 	
-	private String regNo;
+	private String nrcNumber;
 	
 	@Size(min=5,max=20)
 	private String phone;
@@ -73,11 +73,15 @@ public class Passenger {
 	}
 
 
-	public String getRegNo() {
-		return regNo;
+	public String getNrcNumber() {
+		return nrcNumber;
 	}
 
-	public void setRegNo(String regNo) {
-		this.regNo = regNo;
-	}	
+
+	public void setNrcNumber(String nrcNumber) {
+		this.nrcNumber = nrcNumber;
+	}
+
+
+	
 }
