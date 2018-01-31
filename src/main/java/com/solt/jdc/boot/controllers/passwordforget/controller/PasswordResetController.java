@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.solt.jdc.boot.domains.Customer;
 import com.solt.jdc.boot.domains.PasswordResetToken;
-import com.solt.jdc.boot.controllers.passwordforget.PasswordResetDto;
+import com.solt.jdc.boot.controllers.passwordforget.DTOs.PasswordResetDto;
 import com.solt.jdc.boot.repositories.PasswordResetTokenRepository;
 import com.solt.jdc.boot.services.CustomerService;
 

@@ -11,8 +11,6 @@ public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch
 
 	@Override
 	public void initialize(PasswordMatches arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

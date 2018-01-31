@@ -2,11 +2,8 @@ package com.solt.jdc.boot.services;
 
 
 import com.solt.jdc.boot.domains.Customer;
-
-import com.solt.jdc.boot.controllers.passwordforget.CustomerRegistrationDto;
-
+import com.solt.jdc.boot.controllers.passwordforget.DTOs.CustomerRegistrationDto;
 import com.solt.jdc.boot.domains.UserRole;
-
 
 import java.util.List;
 
@@ -40,7 +37,7 @@ public interface CustomerService extends UserDetailsService {
     //=============================
     long getCustomerCount();
 
-    Customer currentCustomer();
+    Customer currentCustomer(String currentUser);
 
     UserRole getCustomerRole();
 }

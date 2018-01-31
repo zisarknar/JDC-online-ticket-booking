@@ -4,13 +4,10 @@ package com.solt.jdc.boot.controllers.passwordforget.controller;
 import com.solt.jdc.boot.domains.Customer;
 import com.solt.jdc.boot.domains.Mail;
 import com.solt.jdc.boot.domains.PasswordResetToken;
-import com.solt.jdc.boot.controllers.passwordforget.PasswordForgotDto;
+import com.solt.jdc.boot.controllers.passwordforget.DTOs.PasswordForgotDto;
 import com.solt.jdc.boot.repositories.PasswordResetTokenRepository;
-/*import com.memorynotfound.spring.security.service.EmailService;
-import com.memorynotfound.spring.security.service.UserService;
-import com.memorynotfound.spring.security.web.dto.PasswordForgotDto;*/
 import com.solt.jdc.boot.services.CustomerService;
-import com.solt.jdc.boot.services.EmailService;
+import com.solt.jdc.boot.services.Impl.EmailServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +32,7 @@ public class PasswordForgotController {
     @Autowired
     private PasswordResetTokenRepository tokenRepository;
     @Autowired
-    private EmailService emailService;
+    private EmailServiceImpl emailService;
 
     @ModelAttribute("forgotPasswordForm")
     public PasswordForgotDto forgotPasswordDto() {
@@ -51,7 +48,6 @@ public class PasswordForgotController {
     public String processForgotPasswordForm(@ModelAttribute("forgotPasswordForm") @Valid PasswordForgotDto form,
                                             BindingResult result,
                                             HttpServletRequest request) {
-
         if (result.hasErrors()) {
             return "frontend/forgot-password";
         }

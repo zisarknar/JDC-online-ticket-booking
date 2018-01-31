@@ -1,5 +1,5 @@
 package com.solt.jdc.boot.domains;
-/*
+
 public enum Role {
 
     ROLE_MANAGER("Manager"),
@@ -19,7 +19,7 @@ public enum Role {
     }
 
 }
-*/
+/*
 
 import lombok.Data;
 
@@ -37,3 +37,4 @@ public class Role {
     private Long id;
     private String name;
 }
+*/

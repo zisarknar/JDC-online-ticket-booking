@@ -4,7 +4,10 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import com.solt.jdc.boot.utils.IAuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +33,8 @@ public class CustomerController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private IAuthenticationFacade authenticationFacade;
 
     @RequestMapping("/customerdetails")
     public String userDetails(Model model) {
@@ -65,7 +70,7 @@ public class CustomerController {
         }
         mainController.disallowedFieldException(result);
         customerService.saveCustomer(customer);
-        return "redirect:/customers";
+        return "redirect:/admin/customers";
     }
 
     @RequestMapping(value = "/customers/update/{id}", method = RequestMethod.GET)
@@ -91,7 +96,6 @@ public class CustomerController {
         currentCustomer.setMatchPassword(updatedCustomer.getMatchPassword());
         currentCustomer.setNrcNumber(updatedCustomer.getNrcNumber());
         currentCustomer.setAddress(updatedCustomer.getAddress());
-
         customerService.updateCustomer(currentCustomer);
         return "redirect:/customers/update/" + customerId;
     }
@@ -99,13 +103,12 @@ public class CustomerController {
     @RequestMapping("/customers/delete/{id}")
     public String deleteCustomer(@PathVariable("id") int customerId) {
         customerService.deleteCustomer(customerId);
-        return "redirect:/customers";
+        return "redirect:/admin/customers";
     }
 
     @InitBinder
     public void initializeBinder(WebDataBinder binder) {
         binder.setAllowedFields("id", "username", "firstName", "lastName", "password", "phone", "matchPassword", "tempPassword", "email", "nrcNumber", "isEnabled", "booking", "address");
-
     }
 
     @RequestMapping(value = "/customer/register", method = RequestMethod.GET)
@@ -123,13 +126,13 @@ public class CustomerController {
 
     @RequestMapping(value = "/customerdetails/account", method = RequestMethod.GET)
     public String viewProfile(ModelMap model) {
-        model.addAttribute("customer", customerService.currentCustomer());
+        model.addAttribute("customer", customerService.currentCustomer(authenticationFacade.getAuthenticatedUserName()));
         return "frontend/account";
     }
 
     @RequestMapping(value = "/customerdetails/account/edit", method = RequestMethod.GET)
     public String editCustomerProfile(Model model) {
-        model.addAttribute("customer", customerService.currentCustomer());
+        model.addAttribute("customer", customerService.currentCustomer(authenticationFacade.getAuthenticatedUserName()));
         return "/frontend/edit-account";
     }
 
@@ -138,7 +141,7 @@ public class CustomerController {
         if (result.hasErrors()) {
             return "/frontend/edit-account";
         }
-        Customer currentCustomer = customerService.getCustomer(customerService.currentCustomer().getId());
+        Customer currentCustomer = customerService.getCustomer(customerService.currentCustomer(authenticationFacade.getAuthenticatedUserName()).getId());
         currentCustomer.setUsername(updatedCustomer.getUsername());
         currentCustomer.setBooking(updatedCustomer.getBooking());
         currentCustomer.setFirstName(updatedCustomer.getFirstName());
@@ -155,7 +158,7 @@ public class CustomerController {
 
     @RequestMapping(value = "/customerdetails/account/changepassword", method = RequestMethod.GET)
     public String changePassword(Model model) {
-        Customer customer = customerService.currentCustomer();
+        Customer customer = customerService.currentCustomer(authenticationFacade.getAuthenticatedUserName());
         model.addAttribute("customer", customer);
         model.addAttribute("password", customer.getPassword());
         return "/frontend/change-password";
@@ -163,12 +166,12 @@ public class CustomerController {
 
     @RequestMapping(value = "/customerdetails/account/changepassword", method = RequestMethod.POST)
     public String processChangePassword(@ModelAttribute("customer") Customer updatedPassword, Model model, BindingResult result) {
-        String currentPassword = customerService.currentCustomer().getPassword();
+        String currentPassword = customerService.currentCustomer(authenticationFacade.getAuthenticatedUserName()).getPassword();
         if (!bCryptPasswordEncoder.matches(updatedPassword.getPassword(), currentPassword)) {
             model.addAttribute("passwordMsg", "Your current password is not valid!");
             return "/frontend/change-password";
         }
-        Customer currentCustomer = customerService.getCustomer(customerService.currentCustomer().getId());
+        Customer currentCustomer = customerService.getCustomer(customerService.currentCustomer(authenticationFacade.getAuthenticatedUserName()).getId());
         System.out.println(updatedPassword.getMatchPassword());
         currentCustomer.setPassword(bCryptPasswordEncoder.encode(updatedPassword.getTempPassword()));
         customerService.updateCustomer(currentCustomer);

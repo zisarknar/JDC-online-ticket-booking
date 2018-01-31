@@ -34,7 +34,6 @@
                         <tr>
                             <th>Id</th>
                             <th>Username</th>
-                            <th>Password</th>
                             <th>First name</th>
                             <th>Last name</th>
                             <th>Phone</th>
@@ -47,17 +46,16 @@
                         <tr th:each="customer : ${customers}">
                             <td th:text="${customer.id}"></td>
                             <td th:text="${customer.username}"></td>
-                            <td th:text="${customer.password}"></td>
                             <td th:text="${customer.firstName}"></td>
                             <td th:text="${customer.lastName}"></td>
                             <td th:text="${customer.phone}"></td>
                             <td th:text="${customer.email}"></td>
                             <td th:text="${customer.nrcNumber}"></td>
                             <td>
-                                <a th:href="@{/customer/delete/}+${customer.id}" class="btn btn-default"><i
+                                <a th:href="@{/admin/customers/delete/}+${customer.id}" class="btn btn-default"><i
                                         class="fa fa-trash"></i> Delete</a>
-                                <a th:href="@{/customer/update/}+${customer.id}" class="btn btn-default"><i
-                                        class="fa fa-gear"></i> Edit</a>
+                                <a th:href="@{/admin/customers/update/}+${customer.id}" class="btn btn-default"><i
+                                        class="fa fa-info"></i> Detail</a>
                             </td>
                         </tr>
                         </tbody>

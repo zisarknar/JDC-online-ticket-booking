@@ -1,23 +1,21 @@
 package com.solt.jdc.boot.domains;
 
 
-import javax.persistence.*;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
+import com.solt.jdc.boot.validators.customAnnotations.CharacterConstraint;
+import com.solt.jdc.boot.validators.customAnnotations.ContactNumberConstraint;
 import com.solt.jdc.boot.validators.customAnnotations.ValidEmail;
-import org.hibernate.validator.constraints.Email;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.solt.jdc.boot.validators.customAnnotations.CharacterConstraint;
-import com.solt.jdc.boot.validators.customAnnotations.ContactNumberConstraint;
-
-
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "customer")
-@Table(uniqueConstraints=@UniqueConstraint(columnNames="email"))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 @Data
 public class Customer {
 
@@ -60,11 +58,10 @@ public class Customer {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
-    private Booking booking;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private List<Booking> booking = new ArrayList<>();
 
     private String tempPassword;
-    
 
 }
 

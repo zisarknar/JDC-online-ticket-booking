@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -30,7 +31,9 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void saveBooking(Booking booking) {
+    public void saveBooking(Booking booking)
+    {
+        booking.setRegCode(UUID.randomUUID().toString());
         bookingRepository.saveAndFlush(booking);
     }
 

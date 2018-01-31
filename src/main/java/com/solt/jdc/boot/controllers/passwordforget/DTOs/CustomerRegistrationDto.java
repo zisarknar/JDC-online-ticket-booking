@@ -1,4 +1,4 @@
-package com.solt.jdc.boot.controllers.passwordforget;
+package com.solt.jdc.boot.controllers.passwordforget.DTOs;
 
 
 import com.solt.jdc.boot.validators.customAnnotations.ValidEmail;

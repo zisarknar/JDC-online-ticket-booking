@@ -37,7 +37,7 @@ import com.solt.jdc.boot.utils.IAuthenticationFacade;
 
 @Controller
 @RequestMapping("frontendBooking")
-public class frontbooking {
+public class Frontbooking {
 
     @Autowired
     private TripService tripService;

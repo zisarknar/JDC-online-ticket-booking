@@ -48,10 +48,12 @@ public class User {
 	private boolean status=true;
 
 	@NotNull
-	private String role; 
+	private String role;
+
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="user_station_id")
 	private Station station;
+
 	@ManyToOne//moe
     private UserRole role_user;
 	public User() {

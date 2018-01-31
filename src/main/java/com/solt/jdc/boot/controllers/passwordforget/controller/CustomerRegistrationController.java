@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.solt.jdc.boot.domains.Customer;
-import com.solt.jdc.boot.controllers.passwordforget.CustomerRegistrationDto;
+import com.solt.jdc.boot.controllers.passwordforget.DTOs.CustomerRegistrationDto;
 import com.solt.jdc.boot.services.CustomerService;
 
 import javax.servlet.http.HttpServletRequest;

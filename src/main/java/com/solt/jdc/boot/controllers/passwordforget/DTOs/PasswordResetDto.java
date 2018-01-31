@@ -1,4 +1,4 @@
-package com.solt.jdc.boot.controllers.passwordforget;
+package com.solt.jdc.boot.controllers.passwordforget.DTOs;
 
 
 import org.hibernate.validator.constraints.NotEmpty;

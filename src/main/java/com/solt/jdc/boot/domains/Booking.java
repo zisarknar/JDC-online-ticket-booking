@@ -5,15 +5,10 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-
-import java.util.ArrayList;
-
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 
 
 @Entity(name = "book")
@@ -28,7 +23,6 @@ public class Booking {
     private String regCode;
 
     @Temporal(TemporalType.DATE)
-
     @DateTimeFormat(iso = ISO.DATE)
     @NotNull
     private Date bookDate;
@@ -49,12 +43,11 @@ public class Booking {
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer")
     private Customer customer;
 
     @Embedded
     private Passenger passenger;
-
 
 }
