@@ -1,9 +1,7 @@
 package com.solt.jdc.boot.controllers;
 
-import java.util.Map;
-
-import javax.validation.Valid;
-
+import com.solt.jdc.boot.domains.Customer;
+import com.solt.jdc.boot.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,15 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import com.solt.jdc.boot.domains.Customer;
-import com.solt.jdc.boot.services.CustomerService;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,7 +21,6 @@ public class CustomerController {
     private MainController mainController;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
 
     @RequestMapping("/customerdetails")
     public String userDetails(Model model) {

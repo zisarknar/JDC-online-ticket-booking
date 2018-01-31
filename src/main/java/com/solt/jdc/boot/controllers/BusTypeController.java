@@ -39,8 +39,6 @@ public class BusTypeController {
         return "redirect:/admin/buses";
     }
 
-  
-
     @RequestMapping(value = "/bustype/update", method = RequestMethod.POST)
     public String update(@ModelAttribute("busType") @Valid BusType newBusType) {
         BusType currentBusType = busTypeService.findById(newBusType.getId());

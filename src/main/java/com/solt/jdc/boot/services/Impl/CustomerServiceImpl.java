@@ -1,15 +1,9 @@
 package com.solt.jdc.boot.services.Impl;
 
 
+import com.solt.jdc.boot.controllers.passwordforget.CustomerRegistrationDto;
 import com.solt.jdc.boot.domains.Customer;
 import com.solt.jdc.boot.domains.Role;
-<<<<<<< HEAD
-import com.solt.jdc.boot.domains.UserRole;
-import com.solt.jdc.boot.controllers.passwordforget.CustomerRegistrationDto;
-=======
-
-import com.solt.jdc.boot.passwordforget.CustomerRegistrationDto;
->>>>>>> feature/14-Jan-2018(htein)
 import com.solt.jdc.boot.repositories.CustomerRepository;
 import com.solt.jdc.boot.services.CustomerService;
 import com.solt.jdc.boot.services.RoleService;
@@ -63,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.saveAndFlush(customer);
     }
 
-    
+
     @Override
     public Role getCustomerRole() {
         Role role = roleService.findByRole("ROLE_CUSTOMER");
