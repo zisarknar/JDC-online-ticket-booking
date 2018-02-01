@@ -3,13 +3,25 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="front-master"
 	xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
-<meta charset=" UTF-8" />
 <head>
+<meta charset=" UTF-8" />
 <title>Online Bus Ticketing System | User Login</title>
 </head>
 <body>
+
 	<div layout:fragment="content">
 		<section id="services">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">
+							<span style="background: #0b0b0b; color: #ffffff;">Login</span>
+							Now or <a th:href="@{/register}">Register</a>
+						</h2>
+						<hr class="my-4" />
+					</div>
+				</div>
+			</div>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6">
@@ -40,28 +52,15 @@
 								<button type="submit" class="btn btn-primary">Login</button>
 								<span style="align-items: center;">&nbsp;--OR--</span><br />
 							</div>
-							<div layout:fragment="content">
-								<section id="services">
-									<div class="container">
-										<div class="row">
-											<div class="col-lg-12 text-center">
-												<h2 class="section-heading">
-													<span style="background: #0b0b0b; color: #ffffff;">Login</span>
-													Now or <a th:href="@{/register}">Register</a>
-												</h2>
-												<hr class="my-4" />
-											</div>
-										</div>
-									</div>
-								</section>
-							</div>
+
 							<div class="form-group">
+
 								<a href="/google/login" class="btn btn-outline-success"><i
 									class="fa fa-google-plus"></i> Sign in using Google+</a>
 							</div>
 						</form>
-						<form th:action="@{/signin/facebook}" class="btn btn-outline-info"
-							method="post">
+						<form th:action="@{/signin/facebook}"
+							class="btn btn-outline-info" method="post">
 							<button type="submit" class="btn btn-info">
 								Facebook <span class="fa fa-facebook"></span>
 							</button>
@@ -71,5 +70,6 @@
 			</div>
 		</section>
 	</div>
+
 </body>
 </html>
