@@ -76,10 +76,7 @@ public class MainController {
     }
     
 	
-	@RequestMapping("/booking")
-	public String booking(Model model) {
-		return "frontend/booking";
-	}
+	
 
 
     @RequestMapping("/booking")

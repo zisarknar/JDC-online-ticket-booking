@@ -67,13 +67,5 @@ public class Customer {
 
     private String tempPassword;
     
-
-    
-    //=================================
-
-	
-    
-    //================================
-    
 }
 
